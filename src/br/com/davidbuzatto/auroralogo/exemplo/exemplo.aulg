@@ -1,0 +1,169 @@
+/*
+ * Exemplo de código fonte da linguagem AuroraLogo.
+ *
+ * Desenvolvido por: Prof. Dr. David Buzatto
+ */
+
+ler a .
+
+i = 1 .
+enquanto i < 10 repita {
+    vá para direita em 10 .
+    i = i + 1 .
+}
+
+/*
+// limpa a tela, reposiciona a tartagura
+// e apaga todas as variáveis armazenadas
+limpar .
+
+// variável abc
+abc = 5 .
+
+// levanta o pincel de pintura
+levantar pincel .
+
+// abaixa o pincel de pintura
+abaixar pincel .
+
+escrever "olá mundo!" .
+
+// movimenta 40 pixels vá para direita em
+vá para direita em 40 .
+
+// altera a cor do pincel de pintura
+// para vermelho
+trocar cor para 0xFF0000 .
+
+// engrossa a linha em 1 pixel
+engrossar .
+
+// movimenta 100 pixels vá para cima em
+vá para cima em 100 .
+
+// altera a cor do pincel de pintura
+// para verde
+trocar cor para 0x00FF00 .
+
+// engrossa a linha em 2 pixels
+engrossar em 2 .
+
+// movimenta 20 pixels vá para esquerda em
+vá para esquerda em 20 .
+
+// altera a cor do pincel de pintura
+// para azul
+trocar cor para 0x0000FF .
+
+// desengrossa a linha em 3 pixels
+desengrossar em 3 .
+
+// movimenta 90 pixels vá para baixo em
+vá para baixo em 120 .
+
+// gira 45 graus no sentido horário
+girar 45 .
+trocar cor para 0x000000 .
+vá para baixo em 100 .
+
+// gira 45 graus no sentido anti-horário
+girar -45 .
+
+// instrução de repetição
+repita (abc*3) vezes {
+    trocar cor para 0xf59e42 .
+    engrossar em 3 .
+    vá para direita em 20 .
+    desengrossar em 3 .
+    trocar cor para 0x429cf5 .
+    engrossar .
+    vá para baixo em 20 .
+    desengrossar .
+}
+
+levantar pincel .
+vá para cima em 480 .
+vá para direita em 200 .
+abaixar pincel .
+
+i = 1 .
+repita 36 vezes {
+    girar 10 .
+    trocar cor para 0xeb34c0 .
+    vá para direita em 1 * i .
+    trocar cor para 0x34e5eb .
+    vá para baixo em 2 * i .
+    i = i + 1 .
+    engrossar .
+    trocar cor para 0x000000 .
+    escrever "              espiral: " + (i-1) .
+}
+
+girar 180 .
+desengrossar em 20 .
+vá para cima em 400 .
+girar 45 .
+desengrossar em 5 .
+vá para cima em 100 .
+girar 45 .
+desengrossar em 5 .
+vá para cima em 100 .
+girar 45 .
+desengrossar em 5 .
+vá para cima em 100 .
+girar 45 .
+desengrossar .
+vá para cima em 100 .
+
+levantar pincel .
+vá para esquerda em 1200 .
+
+i = 0 .
+j = 0 .
+largura = 400 .
+altura = 40 .
+engrossar em 2 .
+
+repita 10 vezes {
+	trocar cor para 0x83eb34 .
+	abaixar pincel .
+    vá para direita em largura .
+    levantar pincel .
+    vá para esquerda em largura .
+    j = 0 .
+    repita (10) vezes {
+    	trocar cor para 0x9c34eb .
+    	abaixar pincel .
+    	vá para baixo em altura .
+    	levantar pincel .
+    	vá para cima em 4 .
+    	vá para direita em 4 .
+    	abaixar pincel .
+    	escrever i + "x" + j .
+    	levantar pincel .
+    	vá para esquerda em 4 .
+    	vá para cima em altura - 4 .
+    	vá para direita em altura .
+    	j = j + 1 .
+    }
+    vá para esquerda em largura .
+    vá para baixo em altura .
+    i = i + 1 .
+}
+
+trocar cor para 0x83eb34 .
+abaixar pincel .
+vá para direita em largura .
+levantar pincel .
+vá para esquerda em largura .
+
+vá para cima em largura - 10.
+vá para direita em largura .
+
+trocar cor para 0x9c34eb .
+abaixar pincel .
+vá para baixo em largura - 10.
+levantar pincel .
+vá para cima em largura - 10.
+vá para direita em 50 .
+*/

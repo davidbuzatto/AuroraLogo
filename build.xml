@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- You may freely edit this file. See commented blocks below for -->
+<!-- some examples of how to customize the build. -->
+<!-- (If you delete it and reopen the project it will be recreated.) -->
+<!-- By default, only the Clean and Build commands use this build script. -->
+<!-- Commands such as Run, Debug, and Test only use this build script if -->
+<!-- the Compile on Save feature is turned off for the project. -->
+<!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
+<!-- in the project's Project Properties dialog box.-->
+<project name="AuroraLogo" default="default" basedir=".">
+    <description>Builds, tests, and runs the project AuroraLogo.</description>
+    <import file="nbproject/build-impl.xml"/>
+    <!--
+
+    There exist several targets which are by default empty and which can be 
+    used for execution of your tasks. These targets are usually executed 
+    before and after some main targets. They are: 
+
+      -pre-init:                 called before initialization of project properties
+      -post-init:                called after initialization of project properties
+      -pre-compile:              called before javac compilation
+      -post-compile:             called after javac compilation
+      -pre-compile-single:       called before javac compilation of single file
+      -post-compile-single:      called after javac compilation of single file
+      -pre-compile-test:         called before javac compilation of JUnit tests
+      -post-compile-test:        called after javac compilation of JUnit tests
+      -pre-compile-test-single:  called before javac compilation of single JUnit test
+      -post-compile-test-single: called after javac compilation of single JUunit test
+      -pre-jar:                  called before JAR building
+      -post-jar:                 called after JAR building
+      -post-clean:               called after cleaning build products
+
+    (Targets beginning with '-' are not intended to be called on their own.)
+
+    Example of inserting an obfuscator after compilation could look like this:
+
+        <target name="-post-compile">
+            <obfuscate>
+                <fileset dir="${build.classes.dir}"/>
+            </obfuscate>
+        </target>
+
+    For list of available properties check the imported 
+    nbproject/build-impl.xml file. 
+
+
+    Another way to customize the build is by overriding existing main targets.
+    The targets of interest are: 
+
+      -init-macrodef-javac:     defines macro for javac compilation
+      -init-macrodef-junit:     defines macro for junit execution
+      -init-macrodef-debug:     defines macro for class debugging
+      -init-macrodef-java:      defines macro for class execution
+      -do-jar:                  JAR building
+      run:                      execution of project 
+      -javadoc-build:           Javadoc generation
+      test-report:              JUnit report generation
+
+    An example of overriding the target for project execution could look like this:
+
+        <target name="run" depends="AuroraLogo-impl.jar">
+            <exec dir="bin" executable="launcher.exe">
+                <arg file="${dist.jar}"/>
+            </exec>
+        </target>
+
+    Notice that the overridden target depends on the jar target and not only on 
+    the compile target as the regular run target does. Again, for a list of available 
+    properties which you can use, check the target you are overriding in the
+    nbproject/build-impl.xml file. 
+
+    -->
+    
+    <property name="gramatica" value="AuroraLogo"/>
+    <property name="pacote" value="br.com.davidbuzatto.auroralogo.parser"/>
+    <property name="saida" value="br/com/davidbuzatto/auroralogo/parser"/>
+    <property name="saidaSH" value="br/com/davidbuzatto/auroralogo/gui/sh"/>
+        
+    <target name="-pre-compile">
+        
+        <property name="caminhoCompleto" value="${src.gramatica.dir}/${gramatica}.g4"/>
+        
+        <echo level="info">********** ANTLR: Gerando analisadores... **********</echo>
+        
+        <java classpath="${libraries.dir}/ANTLR-4.10.1-complete/antlr-4.10.1-complete.jar"
+              fork="true"
+              classname="org.antlr.v4.Tool"
+              maxmemory="500M">
+            <arg value="${caminhoCompleto}"/>
+            <arg value="-package"/>
+            <arg value="${pacote}"/>
+            <arg value="-o"/>
+            <arg value="${src.dir}/${saida}"/>
+            <arg value="-Xexact-output-dir"/>
+            <arg value="-visitor"/>
+        </java>
+        
+        <echo level="info">********** ANTLR: Analisadores gerados!   **********</echo>
+        
+        
+        <echo level="info">********** Gerando Gramática JFlex... **********</echo>
+        
+        <javac srcdir="${src.dir}/${saidaSH}/"
+               destdir="${build.dir}/classes/"
+               includes="Separador.java"/>
+        
+        <java classname="br.com.davidbuzatto.auroralogo.gui.sh.Separador"
+              dir="${build.dir}/classes/"
+              maxmemory="500M">
+            <arg value="false"/>
+            <arg value="../../${src.dir}/${saida}/AuroraLogoLexer.tokens"/>
+            <arg value="../../${src.dir}/${saidaSH}/AuroraLogoSyntaxHighlighter.flext"/>
+            <arg value="../../${src.dir}/${saidaSH}/AuroraLogoSyntaxHighlighter.flex"/>
+        </java>
+        
+        <echo level="info">********** Gramática JFlex Gerada!    **********</echo>
+        
+        
+        <echo level="info">********** JFlex: Gerando Syntax Highlighter... **********</echo>
+        
+        <java classpath="${libraries.dir}/JFlex-1.4.1/jflex-1.4.1.jar"
+              fork="true"
+              classname="JFlex.Main"
+              maxmemory="500M">
+            <arg value="${src.dir}/${saidaSH}/AuroraLogoSyntaxHighlighter.flex"/>
+            <arg value="-d"/>
+            <arg value="${src.dir}/${saidaSH}"/>
+            <arg value="--skel"/>
+            <arg value="${src.dir}/${saidaSH}/skeleton.default"/>
+        </java>
+        
+        <echo level="info">********** JFlex: Syntax Highlighter gerado!    **********</echo>
+        
+    </target>
+    
+    <target name="-post-compile">
+        <delete file="${build.classes.dir}/${gramatica}.g4"/>
+    </target>
+        
+</project>
