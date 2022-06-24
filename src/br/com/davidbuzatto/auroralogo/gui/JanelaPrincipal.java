@@ -266,9 +266,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD_2, new Style( Color.decode( "#9e6d03" ) ) );
         syntaxScheme.setStyle( SyntaxScheme.OPERATOR, new Style( Color.decode( "#9e6d03" ) ) );
         syntaxScheme.setStyle( SyntaxScheme.IDENTIFIER, new Style( Color.GREEN.darker() ) );
-        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_DECIMAL_INT, new Style( Color.MAGENTA.darker() ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_DECIMAL_INT, new Style( Color.MAGENTA.darker().darker() ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_FLOAT, new Style( Color.MAGENTA.darker().darker() ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_HEXADECIMAL, new Style( Color.MAGENTA.darker().darker() ) );
         syntaxScheme.setStyle( SyntaxScheme.COMMENT_EOL, new Style( Color.GRAY ) );
         syntaxScheme.setStyle( SyntaxScheme.COMMENT_MULTILINE, new Style( Color.GRAY.darker() ) );
+        syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( Color.BLUE.darker().darker() ) );
         textArea.setSyntaxScheme( syntaxScheme );
         
         scrollPane = new RTextScrollPane( textArea, true );

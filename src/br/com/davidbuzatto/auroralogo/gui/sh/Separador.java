@@ -22,51 +22,73 @@ public class Separador {
     
     public static void main( String[] args ) {
         
-        if ( args.length == 4 ) {
-            new Separador().executar( Boolean.valueOf( args[0] ), args[1], args[2], args[3] );
+        if ( args.length == 10 ) {
+            new Separador().executar( 
+                    Boolean.valueOf( args[0] ), 
+                    args[1], 
+                    args[2], 
+                    args[3],
+                    Integer.valueOf( args[4] ),
+                    Integer.valueOf( args[5] ),
+                    Integer.valueOf( args[6] ),
+                    Integer.valueOf( args[7] ),
+                    Integer.valueOf( args[8] ),
+                    Integer.valueOf( args[9] ) );
         } else {
-            new Separador().executar( true, null, null, null );
+            new Separador().executar( 
+                    true, 
+                    null, 
+                    null, 
+                    null,
+                    96,
+                    132,
+                    133,
+                    133,
+                    134,
+                    169
+            );
         }
-        
         
     }
     
-    public void executar( boolean print, String caminhoTokens, String flexT, String flex ) {
+    public void executar( 
+            boolean print, 
+            String caminhoTokens, 
+            String flexT, 
+            String flex,
+            int linhaIniPC,
+            int linhaFimPC,
+            int linhaIniFC,
+            int linhaFimFC,
+            int linhaIniOP,
+            int linhaFimOP ) {
         
-        int linhaIniPC = 96;
-        int linhaFimPC = 132;
         int linhaAtPC = 0;
-        
-        int linhaIniFC = 133;
-        int linhaFimFC = 133;
         int linhaAtFC = 0;
-        
-        int linhaIniOP = 134;
-        int linhaFimOP = 169;
         int linhaAtOP = 0;
-        
+
         List<String> palavrasChave = new ArrayList<>();
         List<String> funcoes = new ArrayList<>();
         List<String> operadores = new ArrayList<>();
-        
-        String replacePC = "*** <<PC>> ***";
-        String replaceFC = "*** <<FC>> ***";
-        String replaceOP = "*** <<OP>> ***";
-        
+
+        String replacePC = "\"PALAVRAS_CHAVE_REPLACE\"";
+        String replaceFC = "\"FUNCOES_REPLACE\"";
+        String replaceOP = "\"OPERADORES_REPLACE\"";
+
         if ( linhaIniPC != -1 ) {
             linhaAtPC = linhaIniPC;
         }
-        
+
         if ( linhaIniFC != -1 ) {
             linhaAtFC = linhaIniFC;
         }
-        
+
         if ( linhaIniOP != -1 ) {
             linhaAtOP = linhaIniOP;
         }
-        
+
         Scanner s = new Scanner( System.in );
-        
+
         if ( caminhoTokens == null ) {
             s = new Scanner( getClass().getResourceAsStream( 
                     "/br/com/davidbuzatto/auroralogo/parser/AuroraLogoLexer.tokens" ), 
@@ -79,40 +101,40 @@ public class Separador {
                 Logger.getLogger( Separador.class.getName() ).log( Level.SEVERE, null, ex );
             }
         }
-        
+
         int linhaAt = 1;
-        
+
         while ( s.hasNextLine() ) {
-            
+
             String linha = s.nextLine();
-            
+
             if ( linhaAt == linhaAtPC && linhaAtPC <= linhaFimPC ) {
                 palavrasChave.add( extrairConteudo( linha ) );
                 linhaAtPC++;
             }
-            
+
             if ( linhaAt == linhaAtFC && linhaAtFC <= linhaFimFC ) {
                 funcoes.add( extrairConteudo( linha ) );
                 linhaAtFC++;
             }
-            
+
             if ( linhaAt == linhaAtOP && linhaAtOP <= linhaFimOP ) {
                 operadores.add( extrairConteudo( linha ) );
                 linhaAtOP++;
             }
-            
+
             linhaAt++;
-            
+
         }
-        
+
         if ( print ) {
             System.out.println( palavrasChave );
             System.out.println( funcoes );
             System.out.println( operadores );
         }
-        
+
         s.close();
-        
+
         if ( flexT == null ) {
             s = new Scanner( getClass().getResourceAsStream( 
                     "/br/com/davidbuzatto/auroralogo/gui/sh/AuroraLogoSyntaxHighlighter.flext" ), 
@@ -125,40 +147,40 @@ public class Separador {
                 Logger.getLogger( Separador.class.getName() ).log( Level.SEVERE, null, ex );
             }
         }
-        
-        
+
+
         StringBuilder sb = new StringBuilder();
-        
+
         while ( s.hasNextLine() ) {
             sb.append( s.nextLine() ).append( "\n" );
         }
-        
+
         s.close();
-        
+
         String dados = sb.toString();
-        
+
         if ( print ) {
-            
+
             System.out.println( "\nPalavras chave: " );
             System.out.println( processaLista( palavrasChave ) );
-            
+
             System.out.println( "\nFunções: " );
             System.out.println( processaLista( funcoes ) );
-            
+
             System.out.println( "\nOperadores: " );
             System.out.println( processaLista( operadores ) );
-            
+
         }
-        
+
         dados = dados.replace( replacePC, processaLista( palavrasChave ) );
         dados = dados.replace( replaceFC, processaLista( funcoes ) );
         dados = dados.replace( replaceOP, processaLista( operadores ) );
-        
+
         if ( print ) {
             System.out.println( "\n" );
             System.out.println( dados );
         }
-        
+
         if ( flex == null ) {
             try ( FileWriter fw = new FileWriter( new File( "./src/br/com/davidbuzatto/auroralogo/gui/sh/AuroraLogoSyntaxHighlighter.flex" ) ) ) {
                 fw.write( dados );

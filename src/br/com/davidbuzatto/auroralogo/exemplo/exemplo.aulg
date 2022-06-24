@@ -1,18 +1,9 @@
-/*
+/**
  * Exemplo de código fonte da linguagem AuroraLogo.
  *
  * Desenvolvido por: Prof. Dr. David Buzatto
  */
 
-ler a .
-
-i = 1 .
-enquanto i < 10 repita {
-    vá para direita em 10 .
-    i = i + 1 .
-}
-
-/*
 // limpa a tela, reposiciona a tartagura
 // e apaga todas as variáveis armazenadas
 limpar .
@@ -62,12 +53,12 @@ desengrossar em 3 .
 vá para baixo em 120 .
 
 // gira 45 graus no sentido horário
-girar 45 .
+girar em 45 .
 trocar cor para 0x000000 .
 vá para baixo em 100 .
 
 // gira 45 graus no sentido anti-horário
-girar -45 .
+girar em -45 .
 
 // instrução de repetição
 repita (abc*3) vezes {
@@ -88,7 +79,7 @@ abaixar pincel .
 
 i = 1 .
 repita 36 vezes {
-    girar 10 .
+    girar em 10 .
     trocar cor para 0xeb34c0 .
     vá para direita em 1 * i .
     trocar cor para 0x34e5eb .
@@ -99,19 +90,19 @@ repita 36 vezes {
     escrever "              espiral: " + (i-1) .
 }
 
-girar 180 .
+girar em 180 .
 desengrossar em 20 .
 vá para cima em 400 .
-girar 45 .
+girar em 45 .
 desengrossar em 5 .
 vá para cima em 100 .
-girar 45 .
+girar em 45 .
 desengrossar em 5 .
 vá para cima em 100 .
-girar 45 .
+girar em 45 .
 desengrossar em 5 .
 vá para cima em 100 .
-girar 45 .
+girar em 45 .
 desengrossar .
 vá para cima em 100 .
 
@@ -166,4 +157,3 @@ vá para baixo em largura - 10.
 levantar pincel .
 vá para cima em largura - 10.
 vá para direita em 50 .
-*/

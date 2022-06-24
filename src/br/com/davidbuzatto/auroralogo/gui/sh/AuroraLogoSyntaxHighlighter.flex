@@ -1,5 +1,5 @@
 /*
- * Generated on 6/23/22, 5:53 PM
+ * Generated on 6/23/22, 9:30 PM
  */
 package br.com.davidbuzatto.auroralogo.gui.sh;
 
@@ -118,7 +118,11 @@ import org.fife.ui.rsyntaxtextarea.*;
 				start = text.offset;
 				break;
 
-			/* No documentation comments */
+						case Token.COMMENT_DOCUMENTATION:
+				state = DOCCOMMENT;
+				start = text.offset;
+				break;
+
 			default:
 				state = Token.NULL;
 		}
@@ -206,13 +210,15 @@ ErrorStringLiteral			= ({UnclosedStringLiteral}[\"])
 MLCBegin					= "/*"
 MLCEnd					= "*/"
 
-/* No documentation comments */
+DocCommentBegin	= "/**"
+DocCommentEnd		= "*/"
+
 LineCommentBegin			= "//"
 
 IntegerLiteral			= ({Digit}+)
 HexLiteral			= (0x{HexDigit}+)
-/* No float literals */
-ErrorNumberFormat			= (({IntegerLiteral}|{HexLiteral}){NonSeparator}+)
+FloatLiteral			= (({Digit}+)("."{Digit}+)?(e[+-]?{Digit}+)? | ({Digit}+)?("."{Digit}+)(e[+-]?{Digit}+)?)
+ErrorNumberFormat			= (({IntegerLiteral}|{HexLiteral}|{FloatLiteral}){NonSeparator}+)
 
 
 Separator					= ([\(\)\{\}\[\]])
@@ -232,7 +238,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 /* No string state */
 /* No char state */
 %state MLC
-/* No documentation comment state */
+%state DOCCOMMENT
 %state EOL_COMMENT
 
 %%
@@ -240,29 +246,31 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 <YYINITIAL> {
 
 	/* Keywords */
-	"v\u00E1 para direita em" | 
-"v\u00E1 para esquerda em" | 
-"v\u00E1 para cima em" | 
-"v\u00E1 para baixo em" | 
-"v\u00E1 para" | 
-"trocar cor para" | 
+	"v\u00E1" | 
+"para" | 
+"em" | 
+"direita" | 
+"esquerda" | 
+"cima" | 
+"baixo" | 
+"trocar" | 
+"cor" | 
 "girar" | 
 "engrossar" | 
-"engrossar em" | 
 "desengrossar" | 
-"desengrossar em" | 
-"trocar grossura para" | 
+"grossura" | 
 "escrever" | 
 "ler" | 
-"abaixar pincel" | 
-"levantar pincel" | 
+"abaixar" | 
+"levantar" | 
+"pincel" | 
 "limpar" | 
 "se" | 
 "ent\u00E3o" | 
-"sen\u00E3o se" | 
 "sen\u00E3o" | 
 "enquanto" | 
 "repita" | 
+"vez" | 
 "vezes" | 
 "preto" | 
 "azul" | 
@@ -305,7 +313,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 
 	/* Comment literals. */
 	{MLCBegin}	{ start = zzMarkedPos-2; yybegin(MLC); }
-	/* No documentation comments */
+	{DocCommentBegin}	{ start = zzMarkedPos-3; yybegin(DOCCOMMENT); }
 	{LineCommentBegin}			{ start = zzMarkedPos-2; yybegin(EOL_COMMENT); }
 
 	/* Separators. */
@@ -313,7 +321,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	{Separator2}					{ addToken(Token.IDENTIFIER); }
 
 	/* Operators. */
-	"=" | 
+"=" | 
 "<-" | 
 "+" | 
 "mais" | 
@@ -321,7 +329,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "menos" | 
 "*" | 
 "/" | 
-"dividido por" | 
+"dividido" | 
+"por" | 
 "%" | 
 "resto" | 
 "==" | 
@@ -353,7 +362,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	/* Numbers */
 	{IntegerLiteral}				{ addToken(Token.LITERAL_NUMBER_DECIMAL_INT); }
 	{HexLiteral}					{ addToken(Token.LITERAL_NUMBER_HEXADECIMAL); }
-	/* No float literals */
+	{FloatLiteral}					{ addToken(Token.LITERAL_NUMBER_FLOAT); }
 	{ErrorNumberFormat}			{ addToken(Token.ERROR_NUMBER_FORMAT); }
 
 	/* Ended with a line not in a string or comment. */
@@ -383,7 +392,19 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 }
 
 
-/* No documentation comment state */
+<DOCCOMMENT> {
+
+	[^hwf\n*]+				{}
+	{URL}					{ int temp=zzStartRead; addToken(start,zzStartRead-1, Token.COMMENT_DOCUMENTATION); addHyperlinkToken(temp,zzMarkedPos-1, Token.COMMENT_DOCUMENTATION); start = zzMarkedPos; }
+	[hwf]					{}
+
+	\n						{ addToken(start,zzStartRead-1, Token.COMMENT_DOCUMENTATION); return firstToken; }
+	{DocCommentEnd}			{ yybegin(YYINITIAL); addToken(start,zzStartRead+2-1, Token.COMMENT_DOCUMENTATION); }
+	"*"						{}
+	<<EOF>>					{ yybegin(YYINITIAL); addToken(start,zzEndRead, Token.COMMENT_DOCUMENTATION); return firstToken; }
+
+}
+
 
 <EOL_COMMENT> {
 	[^hwf\n]+				{}

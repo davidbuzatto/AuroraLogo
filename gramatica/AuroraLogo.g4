@@ -45,9 +45,9 @@ exprSimp : opNeg=( ADI | ADIA
                                          | SUB | SUBA ) termo )*
          ;
 
-termo    : fator ( ( MUL | VEZ
-                   | DIV | DIVA
-                   | MOD | MODA ) fator )*
+termo    : fator ( ( MUL | VEZS
+                   | DIV | DIVA POR
+                   | MOD | MODA      ) fator )*
          ;
 
 fator    : ( NAO | NAOT ) fator      # fatorNao
@@ -70,14 +70,14 @@ seSe         : SE  exprBool ENT '{' inst+ '}'
 seSenaoSe    : seSenaoSeP*
              ;
 
-seSenaoSeP   : SSE exprBool ENT '{' inst+ '}'
+seSenaoSeP   : SEN SE exprBool ENT '{' inst+ '}'
              ;
 
 seSenao      : ( SEN              '{' inst+ '}' )?
              ;
 
 // repita vezes
-repita       : REP expr VEZ '{' inst+ '}'
+repita       : REP expr ( VEZ | VEZS ) '{' inst+ '}'
              ;
 
 // enquanto repita
@@ -85,34 +85,34 @@ enquanto     : ( ENQ exprBool )? REP '{' inst+ '}'
              ;
 
 // regras para instruções de ação
-movimentar   : ( DIR | ESQ | CIM | BAI ) expr   # movimentarDirecao
-             | VAP '[' expr ',' expr ']'        # movimentarPonto
+movimentar   : VA PARA ( DIR | ESQ | CIM | BAI ) ( EM expr )?   # movimentarDirecao
+             | VA PARA '(' expr ',' expr ')'                    # movimentarPonto
              ;
 
-trocarCor    : COR ( HEX | cor=( PRETO
-                               | AZUL
-                               | CIANO
-                               | CINZA
-                               | VERDE
-                               | MAGENTA
-                               | LARANJA
-                               | ROSA 
-                               | VERMELHO
-                               | BRANCO
-                               | AMARELO ) ) ( CLARO | ESCURO )?
+trocarCor    : TROC COR PARA ( HEX | cor=( PRETO
+                                         | AZUL
+                                         | CIANO
+                                         | CINZA
+                                         | VERDE
+                                         | MAGENTA
+                                         | LARANJA
+                                         | ROSA 
+                                         | VERMELHO
+                                         | BRANCO
+                                         | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
              ;
 
-girar        : GIR ( SUB | SUBA )? expr
+girar        : GIR ( EM ( SUB | SUBA )? expr )?
              ;
 
-engrossar    : ENG | ENGE expr
+engrossar    : ENG ( EM expr )?
              ;
 
-desengrossar : DES | DESE expr
+desengrossar : DES ( EM expr )?
              ;
 
-trocarGrossura  : TROG expr
-             ;
+trocarGrossura  : TROC GROS PARA expr
+                ;
 
 escrever     : ESC ( STRING | expr ) concat*
              ;
@@ -126,10 +126,10 @@ concat       : ( ADI | ADIA ) ( STRING | expr )
 atribuir     : ID ( ATR | ATRA ) expr
              ;
 
-abaixar      : ABA
+abaixar      : ABA PINC
              ;
 
-levantar     : LEV
+levantar     : LEV PINC
              ;
 
 limpar       : LIM
@@ -152,30 +152,32 @@ UNICODE : 'u' DHX DHX DHX DHX ;
 
 // palavras chave
 // á = \u00E1
-DIR  : 'v\u00E1 para direita em'  ;
-ESQ  : 'v\u00E1 para esquerda em' ;
-CIM  : 'v\u00E1 para cima em'     ;
-BAI  : 'v\u00E1 para baixo em'    ;
-VAP  : 'v\u00E1 para'             ;
-COR  : 'trocar cor para'          ;
+VA   : 'v\u00E1'                  ;
+PARA : 'para'                     ;
+EM   : 'em'                       ;
+DIR  : 'direita'                  ;
+ESQ  : 'esquerda'                 ;
+CIM  : 'cima'                     ;
+BAI  : 'baixo'                    ;
+TROC : 'trocar'                   ;
+COR  : 'cor'                      ;
 GIR  : 'girar'                    ;
 ENG  : 'engrossar'                ;
-ENGE : 'engrossar em'             ;
 DES  : 'desengrossar'             ;
-DESE : 'desengrossar em'          ;
-TROG : 'trocar grossura para'     ;
+GROS : 'grossura'                 ;
 ESC  : 'escrever'                 ;
 LER  : 'ler'                      ;
-ABA  : 'abaixar pincel'           ;
-LEV  : 'levantar pincel'          ;
+ABA  : 'abaixar'                  ;
+LEV  : 'levantar'                 ;
+PINC : 'pincel'                   ;
 LIM  : 'limpar'                   ;
 SE   : 'se'                       ;
 ENT  : 'ent\u00E3o'               ;
-SSE  : 'sen\u00E3o se'            ;
 SEN  : 'sen\u00E3o'               ;
 ENQ  : 'enquanto'                 ;
 REP  : 'repita'                   ;
-VEZ  : 'vezes'                    ;
+VEZ  : 'vez'                      ;
+VEZS : 'vezes'                    ;
 
 
 // constantes para cores
@@ -214,7 +216,8 @@ MUL  : '*'               ;
 //MULA : 'vezes'         ;
 
 DIV  : '/'               ;
-DIVA : 'dividido por'    ;
+DIVA : 'dividido'    ;
+POR  : 'por'             ;
 
 MOD  : '%'               ;
 MODA : 'resto'           ;

@@ -33,7 +33,11 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
     @Override
     public Integer visitMovimentarDirecao( AuroraLogoParser.MovimentarDirecaoContext ctx ) {
         
-        int valor = visit( ctx.expr() );
+        int valor = 1;
+        
+        if ( ctx.expr() != null ) {
+            valor = visit( ctx.expr() );
+        }
         
         if ( ctx.DIR() != null ) {
             tartaruga.moverParaDireita( valor );
@@ -108,10 +112,21 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
             
         }
         
-        if ( ctx.CLARO() != null ) {
-            cor = cor.brighter();
-        } else if ( ctx.ESCURO() != null ) {
-            cor = cor.darker();
+        int vezes = 1;
+        
+        if ( ctx.expr() != null ) {
+            vezes = visit( ctx.expr() );
+            if ( vezes <= 0 ) {
+                vezes = 1;
+            }
+        }
+        
+        for ( int i = 0; i < vezes; i++ ) {
+            if ( ctx.CLARO() != null ) {
+                cor = cor.brighter();
+            } else if ( ctx.ESCURO() != null ) {
+                cor = cor.darker();
+            }
         }
         
         tartaruga.trocarCor( cor );
@@ -122,7 +137,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
     
     @Override
     public Integer visitGirar( AuroraLogoParser.GirarContext ctx ) {
-        int valor = visit( ctx.expr() );
+        int valor = 1;
+        if ( ctx.expr() != null ) {
+            valor = visit( ctx.expr() );
+        }
         if ( ctx.SUB() != null || ctx.SUBA() != null ) {
             valor = -valor;
         }
@@ -133,7 +151,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
     @Override
     public Integer visitEngrossar( AuroraLogoParser.EngrossarContext ctx ) {
         int valor = 1;
-        if ( ctx.ENGE() != null ) {
+        if ( ctx.expr() != null ) {
             valor = visit( ctx.expr() );
         }
         tartaruga.engrossar( valor );
@@ -143,7 +161,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
     @Override
     public Integer visitDesengrossar( AuroraLogoParser.DesengrossarContext ctx ) {
         int valor = 1;
-        if ( ctx.DESE() != null ) {
+        if ( ctx.expr() != null ) {
             valor = visit( ctx.expr() );
         }
         tartaruga.desengrossar( valor );
