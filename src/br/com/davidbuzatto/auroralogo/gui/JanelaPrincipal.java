@@ -7,18 +7,30 @@ package br.com.davidbuzatto.auroralogo.gui;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.DesenhistaAuroraLogoVisitor;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Scanner;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
 import javax.swing.UIManager;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
@@ -41,6 +53,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private RSyntaxTextArea textArea;
     private RTextScrollPane scrollPane;
     private Tartaruga tartaruga;
+    private File arquivoAtual;
 
     /**
      * Creates new form JanelaPrincipal
@@ -91,6 +104,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aurora Logo");
+        addComponentListener(new java.awt.event.ComponentAdapter() {
+            public void componentResized(java.awt.event.ComponentEvent evt) {
+                formComponentResized(evt);
+            }
+        });
 
         painelCodigo.setLayout(new java.awt.BorderLayout());
 
@@ -201,19 +219,84 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-        // TODO add your handling code here:
+        
+        salvarArquivo( arquivoAtual );
+        arquivoAtual = null;
+        carregarTemplate( "novoArquivo", false );
+        
+        tartaruga.limpar();
+        painelDesenho.repaint();
+        
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnAbrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAbrirActionPerformed
-        // TODO add your handling code here:
+        
+        salvarArquivo( arquivoAtual );
+        
+        File diretorioAtual = new File( Utils.getPref( "CAMINHO_ABRIR_SALVAR" ) );
+        JFileChooser jfc = new JFileChooser( diretorioAtual );
+        jfc.setDialogTitle( "Abrir..." );
+        jfc.setMultiSelectionEnabled( false );
+        jfc.removeChoosableFileFilter( jfc.getFileFilter() );
+        jfc.setFileFilter( new FileNameExtensionFilter( "Arquivo AuroraLogo" , "aulg" ) );
+
+        if ( jfc.showOpenDialog( this ) == JFileChooser.APPROVE_OPTION ) {
+
+            File arquivo = jfc.getSelectedFile();
+            arquivoAtual = arquivo;
+            carregarArquivo( arquivo, true );
+
+        }
+        
     }//GEN-LAST:event_btnAbrirActionPerformed
 
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
-        // TODO add your handling code here:
+        
+        if ( arquivoAtual == null ) {
+            
+            File diretorioAtual = new File( Utils.getPref( "CAMINHO_ABRIR_SALVAR" ) );
+            JFileChooser jfc = new JFileChooser( diretorioAtual );
+            jfc.setDialogTitle( "Salvar..." );
+            jfc.setMultiSelectionEnabled( false );
+            jfc.removeChoosableFileFilter( jfc.getFileFilter() );
+            jfc.setFileFilter( new FileNameExtensionFilter( "Arquivo AuroraLogo" , "aulg" ) );
+            
+            if ( jfc.showSaveDialog( this ) == JFileChooser.APPROVE_OPTION ) {
+                
+                File arquivo = jfc.getSelectedFile();
+                boolean salvar = true;
+
+                if ( arquivo.exists() ) {
+                    if ( JOptionPane.showConfirmDialog( null, 
+                            "O arquivo já existe, deseja sobrescrevê-lo?", 
+                            "Confirmação", 
+                            JOptionPane.YES_NO_OPTION ) == JOptionPane.NO_OPTION ) {
+                        salvar = false;
+                    }
+                } else {
+                    if ( !arquivo.getName().endsWith( ".aulg" ) ) {
+                        arquivo = new File( arquivo.getAbsolutePath() + ".aulg" );
+                    }
+                }
+
+                if ( salvar ) {
+                    
+                    Utils.setPref( "CAMINHO_ABRIR_SALVAR", arquivo.getParentFile().getAbsolutePath() );
+                    arquivoAtual = arquivo;
+                    
+                }
+                
+            }
+            
+        }
+        
+        salvarArquivo( arquivoAtual );
+        
     }//GEN-LAST:event_btnSalvarActionPerformed
 
     private void btnExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecutarActionPerformed
         
+        salvarArquivo( arquivoAtual );
         tartaruga.setEstadoAtual( 0 );
         tartaruga.setPassoAPasso( false );
         executarCodigo();
@@ -223,6 +306,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void btnExecutarPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecutarPassoActionPerformed
         
+        salvarArquivo( arquivoAtual );
         tartaruga.setEstadoAtual( 0 );
         tartaruga.setPassoAPasso( true );
         executarCodigo();
@@ -253,19 +337,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnSobreActionPerformed
 
+    private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
+        
+        tartaruga.atualizarPosicaoEstadoInicial( painelDesenho.getWidth() / 2, painelDesenho.getHeight() / 2 );
+        
+        if ( !tartaruga.estadoInicial() ) {
+            executarCodigo();
+        }
+        
+        painelCodigo.repaint();
+        
+    }//GEN-LAST:event_formComponentResized
+
     private void prepararTextArea() {
 
         textArea = criarTextArea();
         
-        AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory)TokenMakerFactory.getDefaultInstance();
+        AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
         atmf.putMapping( "text/AuroraLogo", "br.com.davidbuzatto.auroralogo.gui.sh.AuroraLogoSyntaxHighlighter");
         textArea.setSyntaxEditingStyle( "text/AuroraLogo" );
 
         SyntaxScheme syntaxScheme = new SyntaxScheme( true );
-        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD, new Style( Color.BLUE ) );
-        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD_2, new Style( Color.decode( "#9e6d03" ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.OPERATOR, new Style( Color.decode( "#9e6d03" ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD, new Style( new Color( Utils.getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD_2, new Style( new Color( Utils.getIntPref( "RESERVED_WORD_2" ) ) ) );
         syntaxScheme.setStyle( SyntaxScheme.IDENTIFIER, new Style( Color.GREEN.darker() ) );
+        syntaxScheme.setStyle( SyntaxScheme.OPERATOR, new Style( Color.decode( "#9e6d03" ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.FUNCTION, new Style( new Color( Utils.getIntPref( "FUNCTION" ) ) ) );
         syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_DECIMAL_INT, new Style( Color.MAGENTA.darker().darker() ) );
         syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_FLOAT, new Style( Color.MAGENTA.darker().darker() ) );
         syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_HEXADECIMAL, new Style( Color.MAGENTA.darker().darker() ) );
@@ -280,14 +377,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         painelCodigo.add( scrollPane, BorderLayout.CENTER );
         painelCodigo.add( errorStrip, BorderLayout.LINE_END );
         
-        Scanner s = new Scanner( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/exemplo/exemplo.aulg" ), StandardCharsets.UTF_8 );
-        StringBuilder sb = new StringBuilder();
-        sb.append( s.nextLine() );
-        while ( s.hasNextLine() ) {
-            sb.append( "\n" ).append( s.nextLine() );
-        }
-        textArea.setText( sb.toString() );
-        textArea.setCaretPosition( 0 );
+        carregarTemplate( "exemplo", true );
 
     }
 
@@ -348,6 +438,59 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
     }
     
+    private void salvarArquivo( File arquivo ) {
+        
+        if ( arquivo != null ) {
+            try ( PrintStream ps = new PrintStream( new FileOutputStream( arquivo ) ) ) {
+                ps.print( textArea.getText() );
+            } catch ( FileNotFoundException exc ) {
+                exc.printStackTrace();
+            }
+        }
+        
+    }
+    
+    private void carregarTemplate( String template, boolean inicio ) {
+        
+        try ( Scanner s = new Scanner( 
+                getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/templates/" 
+                        + template + ".aulg" ), StandardCharsets.UTF_8 )) {
+            carregar( s, inicio );
+        }
+        
+    }
+    
+    private void carregarArquivo( File arquivo, boolean inicio ) {
+        
+        try ( Scanner s = new Scanner( arquivo, StandardCharsets.UTF_8 ) ) {
+            carregar( s, inicio );
+        } catch ( IOException exc ) {
+            exc.printStackTrace();
+        }
+        
+    }
+    
+    private void carregar( Scanner s, boolean inicio ) {
+        
+        StringBuilder sb = sb = new StringBuilder();
+        sb.append( s.nextLine() );
+        while ( s.hasNextLine() ) {
+            sb.append( "\n" ).append( s.nextLine() );
+        }
+        
+        String codigo = sb.toString();
+        String data = new SimpleDateFormat( 
+                "dd/MM/yyyy", Locale.forLanguageTag( "pt-BR" ) ).format( 
+                        new Date() );
+        
+        codigo = codigo.replace( "<USUARIO>", System.getProperty( "user.name" ) );
+        codigo = codigo.replace( "<DATA>", data );
+        
+        textArea.setText( codigo );
+        textArea.setCaretPosition( inicio ? 0 : textArea.getText().length() );
+        
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -357,6 +500,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             UIManager.setLookAndFeel( new FlatIntelliJLaf() );
         } catch ( Exception exc ) {
         }
+        
+        Utils.preparePreferences();
         
         EventQueue.invokeLater( new Runnable() {
             public void run() {

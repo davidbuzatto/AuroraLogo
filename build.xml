@@ -75,7 +75,7 @@
     <property name="pacote" value="br.com.davidbuzatto.auroralogo.parser"/>
     <property name="saida" value="br/com/davidbuzatto/auroralogo/parser"/>
     <property name="saidaSH" value="br/com/davidbuzatto/auroralogo/gui/sh"/>
-        
+    
     <target name="-pre-compile">
         
         <property name="caminhoCompleto" value="${src.gramatica.dir}/${gramatica}.g4"/>
@@ -133,6 +133,7 @@
             <arg value="${src.dir}/${saidaSH}"/>
             <arg value="--skel"/>
             <arg value="${src.dir}/${saidaSH}/skeleton.default"/>
+            <arg value="--nobak"/>
         </java>
         
         <echo level="info">********** JFlex: Syntax Highlighter gerado!    **********</echo>

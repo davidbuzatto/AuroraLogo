@@ -9,6 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -35,17 +36,18 @@ public class Separador {
                     Integer.valueOf( args[8] ),
                     Integer.valueOf( args[9] ) );
         } else {
+            System.out.println( "a" );
             new Separador().executar( 
                     true, 
                     null, 
                     null, 
                     null,
-                    96,
-                    132,
-                    133,
+                    93,
                     133,
                     134,
-                    169
+                    134,
+                    135,
+                    171
             );
         }
         
@@ -196,12 +198,23 @@ public class Separador {
     }
     
     private static String extrairConteudo( String base ) {
-        return "\"" + base.substring( 1, base.lastIndexOf( "'=" ) ) + "\"";
+        
+        base = base.substring( 1, base.lastIndexOf( "'=" ) );
+        
+        if ( base.equals( "." ) ) {
+            base = " " + base;
+        } else {
+            base += " ";
+        }
+        
+        return "\"" + base + "\"";
+        
     }
     
     private static String processaLista( List<String> lista ) {
         
         StringBuilder sb = new StringBuilder();
+        Collections.sort( lista );
         
         boolean primeiro = true;
         for ( String item : lista ) {

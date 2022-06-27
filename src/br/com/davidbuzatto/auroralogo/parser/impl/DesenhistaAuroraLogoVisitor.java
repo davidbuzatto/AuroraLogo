@@ -12,6 +12,7 @@ import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
@@ -549,6 +550,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
         
         return 0;
         
+    }
+
+    @Override
+    public Integer visitErrorNode( ErrorNode node ) {
+        System.out.println( node );
+        return 0;
     }
     
 }

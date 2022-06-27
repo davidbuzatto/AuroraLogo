@@ -246,45 +246,45 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 <YYINITIAL> {
 
 	/* Keywords */
-	"v\u00E1" | 
-"para" | 
-"em" | 
-"direita" | 
-"esquerda" | 
-"cima" | 
-"baixo" | 
-"trocar" | 
-"cor" | 
-"girar" | 
-"engrossar" | 
-"desengrossar" | 
-"grossura" | 
-"escrever" | 
-"ler" | 
-"abaixar" | 
-"levantar" | 
-"pincel" | 
-"limpar" | 
-"se" | 
-"ent\u00E3o" | 
-"sen\u00E3o" | 
-"enquanto" | 
-"repita" | 
-"vez" | 
-"vezes" | 
-"preto" | 
-"azul" | 
-"ciano" | 
-"cinza" | 
-"verde" | 
-"magenta" | 
-"laranja" | 
-"rosa" | 
-"vermelho" | 
-"branco" | 
-"amarelo" | 
-"escuro" | 
-"claro"		{ addToken(Token.RESERVED_WORD); }
+	"abaixar " | 
+"amarelo " | 
+"azul " | 
+"baixo " | 
+"branco " | 
+"ciano " | 
+"cima " | 
+"cinza " | 
+"claro " | 
+"cor " | 
+"desengrossar " | 
+"direita " | 
+"em " | 
+"engrossar " | 
+"enquanto " | 
+"ent\u00E3o " | 
+"escrever " | 
+"escuro " | 
+"esquerda " | 
+"girar " | 
+"grossura " | 
+"laranja " | 
+"ler " | 
+"levantar " | 
+"limpar " | 
+"magenta " | 
+"para " | 
+"pincel " | 
+"preto " | 
+"repita " | 
+"rosa " | 
+"se " | 
+"sen\u00E3o " | 
+"trocar " | 
+"v\u00E1 " | 
+"verde " | 
+"vermelho " | 
+"vez " | 
+"vezes "		{ addToken(Token.RESERVED_WORD); }
 
 	/* Keywords 2 (just an optional set of keywords colored differently) */
 	/* No keywords 2 */
@@ -293,7 +293,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	/* No data types */
 
 	/* Functions */
-	"raiz"		{ addToken(Token.FUNCTION); }
+	"raiz "		{ addToken(Token.FUNCTION); }
 
 	
 
@@ -321,43 +321,43 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	{Separator2}					{ addToken(Token.IDENTIFIER); }
 
 	/* Operators. */
-"=" | 
-"<-" | 
-"+" | 
-"mais" | 
-"-" | 
-"menos" | 
-"*" | 
-"/" | 
-"dividido" | 
-"por" | 
-"%" | 
-"resto" | 
-"==" | 
-"\u00E9 igual a" | 
-"n\u00E3o \u00E9 diferente de" | 
-"!=" | 
-"\u00E9 diferente de" | 
-"n\u00E3o \u00E9 igual a" | 
-"<" | 
-"\u00E9 menor que" | 
-"n\u00E3o \u00E9 maior ou igual a" | 
-"<=" | 
-"\u00E9 menor ou igual a" | 
-"n\u00E3o \u00E9 maior que" | 
-">" | 
-"\u00E9 maior que" | 
-"n\u00E3o \u00E9 menor ou igual a" | 
-">=" | 
-"\u00E9 maior ou igual a" | 
-"n\u00E3o \u00E9 menor que" | 
-"&&" | 
-"E" | 
-"||" | 
-"OU" | 
-"!" | 
-"N\u00C3O" | 
-"."		{ addToken(Token.OPERATOR); }
+" ." | 
+"! " | 
+"!= " | 
+"% " | 
+"&& " | 
+"* " | 
+"+ " | 
+"- " | 
+"/ " | 
+"< " | 
+"<- " | 
+"<= " | 
+"= " | 
+"== " | 
+"> " | 
+">= " | 
+"E " | 
+"N\u00C3O " | 
+"OU " | 
+"\u00E9 diferente de " | 
+"\u00E9 igual a " | 
+"\u00E9 maior ou igual a " | 
+"\u00E9 maior que " | 
+"\u00E9 menor ou igual a " | 
+"\u00E9 menor que " | 
+"dividido " | 
+"mais " | 
+"menos " | 
+"n\u00E3o \u00E9 diferente de " | 
+"n\u00E3o \u00E9 igual a " | 
+"n\u00E3o \u00E9 maior ou igual a " | 
+"n\u00E3o \u00E9 maior que " | 
+"n\u00E3o \u00E9 menor ou igual a " | 
+"n\u00E3o \u00E9 menor que " | 
+"por " | 
+"resto " | 
+"|| "		{ addToken(Token.OPERATOR); }
 
 	/* Numbers */
 	{IntegerLiteral}				{ addToken(Token.LITERAL_NUMBER_DECIMAL_INT); }
