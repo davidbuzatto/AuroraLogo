@@ -16,6 +16,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Novo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemNovoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemAbrir">
               <Properties>
@@ -24,6 +27,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemAbrirActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSalvar">
               <Properties>
@@ -32,6 +38,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemSalvarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSalvarComo">
               <Properties>
@@ -40,6 +49,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Salvar Como"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemSalvarComoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuArquivo1">
             </MenuItem>
@@ -50,6 +62,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuSairActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -65,6 +80,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Defazer"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDesfazerActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemRefazer">
               <Properties>
@@ -73,6 +91,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Refazer"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRefazerActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuEditar1">
             </MenuItem>
@@ -83,6 +104,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Recortar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRecortarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemCopiar">
               <Properties>
@@ -91,6 +115,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Copiar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemCopiarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemColar">
               <Properties>
@@ -99,6 +126,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Colar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemColarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuEditar2">
             </MenuItem>
@@ -109,24 +139,33 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Copiar Texto Formatado"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemCopiarTextoFormatadoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuEditar3">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemAumentarZoom">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemAumentarFonte">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/zoom_in.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Aumentar Zoom"/>
+                <Property name="text" type="java.lang.String" value="Aumentar Fonte"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemAumentarFonteActionPerformed"/>
+              </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemDiminuitZoom">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemDiminuitFonte">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/zoom_out.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Diminuir Zoom"/>
+                <Property name="text" type="java.lang.String" value="Diminuir Fonte"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDiminuitFonteActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -142,6 +181,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Executar"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExecutarActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPassoAutomatico">
               <Properties>
@@ -150,6 +192,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Executar Passo a Passo (Autom&#xe1;tico)"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExecutarPassoAPassoAutomaticoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPasso">
               <Properties>
@@ -158,6 +203,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Executar Passo a Passo"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExecutarPassoAPassoActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuExecutar1">
             </MenuItem>
@@ -168,6 +216,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Depurador"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDepuradorActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -188,6 +239,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Temas"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemTemasActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemPaletasColoracaoSintaxe">
               <Properties>
@@ -196,6 +250,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Paletas para Colora&#xe7;&#xe3;o da Sintaxe"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemPaletasColoracaoSintaxeActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuFerramentas">
             </MenuItem>
@@ -206,6 +263,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Configura&#xe7;&#xf5;es"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemConfiguracoesActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -221,6 +281,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Sobre..."/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemConfiguracoes1ActionPerformed"/>
+              </Events>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -228,7 +291,7 @@
     </Menu>
   </NonVisualComponents>
   <Properties>
-    <Property name="defaultCloseOperation" type="int" value="3"/>
+    <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" value="Aurora Logo"/>
   </Properties>
   <SyntheticProperties>
@@ -238,6 +301,7 @@
   </SyntheticProperties>
   <Events>
     <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="formComponentResized"/>
+    <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
   </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -354,6 +418,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSalvarComoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separador1">
         </Component>
@@ -367,6 +434,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDesfazerActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnRefazer">
           <Properties>
@@ -378,35 +448,38 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRefazerActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separador2">
         </Component>
-        <Component class="javax.swing.JButton" name="btnAumentarZoom">
+        <Component class="javax.swing.JButton" name="btnAumentarFonte">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/zoom_in.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Aumentar Zoom"/>
+            <Property name="toolTipText" type="java.lang.String" value="Aumentar Fonte"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAumentarZoomActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAumentarFonteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnDiminuirZoom">
+        <Component class="javax.swing.JButton" name="btnDiminuirFonte">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/zoom_out.png"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Diminuir Zoom"/>
+            <Property name="toolTipText" type="java.lang.String" value="Diminuir Fonte"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDiminuirZoomActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDiminuirFonteActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separador3">
@@ -427,7 +500,7 @@
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separador4">
         </Component>
-        <Component class="javax.swing.JButton" name="btnExecutarPassoAutomatico">
+        <Component class="javax.swing.JButton" name="btnExecutarPassoAPassoAutomatico">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"/>
@@ -438,7 +511,7 @@
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecutarPassoAutomaticoActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecutarPassoAPassoAutomaticoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnPararExecutarPassoAutomatico">
@@ -451,6 +524,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPararExecutarPassoAutomaticoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JSlider" name="sliderQuadrosPorSegundo">
           <Properties>
@@ -483,6 +559,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInicioPassoAPassoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnAnteriorPassoAPasso">
           <Properties>
@@ -494,6 +573,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnteriorPassoAPassoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnProximoPassoAPasso">
           <Properties>
@@ -505,6 +587,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProximoPassoAPassoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnUltimoPassoAPasso">
           <Properties>
@@ -516,6 +601,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltimoPassoAPassoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnExecutarPassoAPasso">
           <Properties>
@@ -527,6 +615,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecutarPassoAPassoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="btnPararPassoAPasso">
           <Properties>
@@ -538,6 +629,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPararPassoAPassoActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separador6">
         </Component>
@@ -551,6 +645,9 @@
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDepuradorActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
