@@ -5,7 +5,7 @@
  * Data: <DATA>
  */
 
-// limpa a tela, reposiciona a tartagura
+// limpa a tela, reposiciona a tartaruga
 // e apaga todas as variáveis armazenadas
 limpar .
 

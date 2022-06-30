@@ -63,6 +63,8 @@ public class Tartaruga {
     private boolean passoAPasso;
     private int estadoAtual;
     
+    private boolean depuradorAtivo;
+    
     public Tartaruga( int x, int y, int angulo, int grossura, Color cor, boolean desenhando, PainelDesenho painelDesenho ) {
         
         estados = new ArrayList<>();
@@ -283,6 +285,10 @@ public class Tartaruga {
             
         }
         
+        if ( depuradorAtivo ) {
+            g2d.drawRect( 0, 0, 100, 100 );
+        }
+        
         g2d.dispose();
         
     }
@@ -340,6 +346,14 @@ public class Tartaruga {
         if ( estadoAtual < estados.size() - 1 ) {
             estadoAtual++;
         }
+    }
+    
+    public void setDepuradorAtivo( boolean depuradorAtivo ) {
+        this.depuradorAtivo = depuradorAtivo;
+    }
+
+    public boolean isDepuradorAtivo() {
+        return depuradorAtivo;
     }
     
 }

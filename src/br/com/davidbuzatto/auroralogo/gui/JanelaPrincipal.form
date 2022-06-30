@@ -2,6 +2,8 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
+    <Component class="javax.swing.ButtonGroup" name="btnGroupTemas">
+    </Component>
     <Menu class="javax.swing.JMenuBar" name="barraMenu">
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuArquivo">
@@ -148,7 +150,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemAumentarFonte">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/zoom_in.png"/>
+                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/font_add.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Aumentar Fonte"/>
               </Properties>
@@ -156,15 +158,15 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemAumentarFonteActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemDiminuitFonte">
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemDiminuirFonte">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/zoom_out.png"/>
+                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/font_delete.png"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="Diminuir Fonte"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDiminuitFonteActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDiminuirFonteActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -185,6 +187,17 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExecutarActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPasso">
+              <Properties>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/script_lightning.png"/>
+                </Property>
+                <Property name="text" type="java.lang.String" value="Executar Passo a Passo"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExecutarPassoAPassoActionPerformed"/>
+              </Events>
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPassoAutomatico">
               <Properties>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -196,28 +209,17 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExecutarPassoAPassoAutomaticoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPasso">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_play_blue.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Executar Passo a Passo"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExecutarPassoAPassoActionPerformed"/>
-              </Events>
-            </MenuItem>
             <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuExecutar1">
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemDepurador">
+            <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menuItemCBDepurador">
               <Properties>
+                <Property name="text" type="java.lang.String" value="Ativar Depurador"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Depurador"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDepuradorActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemCBDepuradorActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -227,44 +229,32 @@
             <Property name="text" type="java.lang.String" value="Exemplos"/>
           </Properties>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="menuFerramentas">
+        <Menu class="javax.swing.JMenu" name="submenuTemas">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Ferramentas"/>
+            <Property name="text" type="java.lang.String" value="Temas"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemTemas">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="menuItemRTemaClaro">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/paintcan.png"/>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btnGroupTemas"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Temas"/>
+                <Property name="selected" type="boolean" value="true"/>
+                <Property name="text" type="java.lang.String" value="Claro"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemTemasActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRTemaClaroActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemPaletasColoracaoSintaxe">
+            <MenuItem class="javax.swing.JRadioButtonMenuItem" name="menuItemRTemaEscuro">
               <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/palette.png"/>
+                <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
+                  <ComponentRef name="btnGroupTemas"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Paletas para Colora&#xe7;&#xe3;o da Sintaxe"/>
+                <Property name="text" type="java.lang.String" value="Escuro"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemPaletasColoracaoSintaxeActionPerformed"/>
-              </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuFerramentas">
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="menuItemConfiguracoes">
-              <Properties>
-                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/wrench_orange.png"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="Configura&#xe7;&#xf5;es"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemConfiguracoesActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemRTemaEscuroActionPerformed"/>
               </Events>
             </MenuItem>
           </SubComponents>
@@ -292,7 +282,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
-    <Property name="title" type="java.lang.String" value="Aurora Logo"/>
+    <Property name="title" type="java.lang.String" value="AuroraLogo"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="menuBar" type="java.lang.String" value="barraMenu"/>
@@ -457,7 +447,7 @@
         <Component class="javax.swing.JButton" name="btnAumentarFonte">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/zoom_in.png"/>
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/font_add.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Aumentar Fonte"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -471,7 +461,7 @@
         <Component class="javax.swing.JButton" name="btnDiminuirFonte">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/zoom_out.png"/>
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/font_delete.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Diminuir Fonte"/>
             <Property name="focusable" type="boolean" value="false"/>
@@ -500,6 +490,97 @@
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separador4">
         </Component>
+        <Component class="javax.swing.JButton" name="btnExecutarPassoAPasso">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/script_lightning.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Executar Passo a Passo"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecutarPassoAPassoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnPararPassoAPasso">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_stop_blue.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Parar Execu&#xe7;&#xe3;o Passo a Passo"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPararPassoAPassoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnInicioPassoAPasso">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_start_blue.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="In&#xed;cio"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInicioPassoAPassoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnAnteriorPassoAPasso">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_rewind_blue.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Anterior"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnteriorPassoAPassoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnProximoPassoAPasso">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_fastforward_blue.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Pr&#xf3;ximo"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProximoPassoAPassoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnUltimoPassoAPasso">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_end_blue.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="&#xda;ltimo"/>
+            <Property name="enabled" type="boolean" value="false"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltimoPassoAPassoActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="separador5">
+        </Component>
         <Component class="javax.swing.JButton" name="btnExecutarPassoAPassoAutomatico">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -520,6 +601,7 @@
               <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_stop_blue.png"/>
             </Property>
             <Property name="toolTipText" type="java.lang.String" value="Parar Execu&#xe7;&#xe3;o Passo a Passo Autom&#xe1;tico"/>
+            <Property name="enabled" type="boolean" value="false"/>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -530,112 +612,52 @@
         </Component>
         <Component class="javax.swing.JSlider" name="sliderQuadrosPorSegundo">
           <Properties>
-            <Property name="majorTickSpacing" type="int" value="10"/>
-            <Property name="minimum" type="int" value="10"/>
-            <Property name="minorTickSpacing" type="int" value="10"/>
+            <Property name="majorTickSpacing" type="int" value="5"/>
+            <Property name="maximum" type="int" value="300"/>
+            <Property name="minimum" type="int" value="5"/>
+            <Property name="minorTickSpacing" type="int" value="5"/>
             <Property name="snapToTicks" type="boolean" value="true"/>
             <Property name="toolTipText" type="java.lang.String" value="Velocidade Passo a Passo"/>
             <Property name="value" type="int" value="100"/>
             <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[100, 20]"/>
+              <Dimension value="[150, 20]"/>
             </Property>
             <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[100, 20]"/>
+              <Dimension value="[150, 20]"/>
             </Property>
             <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-              <Dimension value="[100, 20]"/>
+              <Dimension value="[150, 20]"/>
             </Property>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JToolBar$Separator" name="separador5">
-        </Component>
-        <Component class="javax.swing.JButton" name="btnInicioPassoAPasso">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_start_blue.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="In&#xed;cio"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnInicioPassoAPassoActionPerformed"/>
+            <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sliderQuadrosPorSegundoStateChanged"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnAnteriorPassoAPasso">
+        <Component class="javax.swing.JLabel" name="lblQuadrosPorSegundo">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_rewind_blue.png"/>
+            <Property name="text" type="java.lang.String" value="quadros por segundo"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[150, 16]"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Anterior"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[150, 16]"/>
+            </Property>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[150, 16]"/>
+            </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAnteriorPassoAPassoActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnProximoPassoAPasso">
+        <Component class="javax.swing.Box$Filler" name="preenchimento">
           <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_fastforward_blue.png"/>
+            <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[32767, 0]"/>
             </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Pr&#xf3;ximo"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProximoPassoAPassoActionPerformed"/>
-          </Events>
+          <AuxValues>
+            <AuxValue name="classDetails" type="java.lang.String" value="Box.Filler.HorizontalGlue"/>
+          </AuxValues>
         </Component>
-        <Component class="javax.swing.JButton" name="btnUltimoPassoAPasso">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_end_blue.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="&#xda;ltimo"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUltimoPassoAPassoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnExecutarPassoAPasso">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_play_blue.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Executar Passo a Passo"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecutarPassoAPassoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnPararPassoAPasso">
-          <Properties>
-            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/control_stop_blue.png"/>
-            </Property>
-            <Property name="toolTipText" type="java.lang.String" value="Parar Execu&#xe7;&#xe3;o Passo a Passo"/>
-            <Property name="focusable" type="boolean" value="false"/>
-            <Property name="horizontalTextPosition" type="int" value="0"/>
-            <Property name="verticalTextPosition" type="int" value="3"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPararPassoAPassoActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JToolBar$Separator" name="separador6">
-        </Component>
-        <Component class="javax.swing.JButton" name="btnDepurador">
+        <Component class="javax.swing.JToggleButton" name="btnDepurador">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"/>

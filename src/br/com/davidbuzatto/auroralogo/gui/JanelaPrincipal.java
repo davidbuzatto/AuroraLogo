@@ -8,10 +8,12 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.DesenhistaAuroraLogoVisitor;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
+import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
@@ -25,12 +27,15 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Scanner;
+import javax.swing.AbstractAction;
 import javax.swing.ActionMap;
 import javax.swing.InputMap;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.KeyStroke;
-import javax.swing.UIManager;
+import javax.swing.SwingUtilities;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -42,6 +47,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit;
 import org.fife.ui.rsyntaxtextarea.Style;
 import org.fife.ui.rsyntaxtextarea.SyntaxScheme;
+import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import org.fife.ui.rtextarea.RTextScrollPane;
 
@@ -56,18 +62,26 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     
     private RSyntaxTextArea textAreaCodigo;
     private RTextScrollPane scrollPaneCodigo;
+    private Font fontePadrao;
+    
     private Tartaruga tartaruga;
+    
     private File arquivoAtual;
     private FileNameExtensionFilter filtroExtensao;
 
+    private boolean pararPassoAPassoAutomatico;
+    
     /**
      * Creates new form JanelaPrincipal
      */
     public JanelaPrincipal() {
 
         initComponents();
-        setTitle( getTitle() + " - " + VERSAO );
         prepararTextArea();
+        montarTitulo( true );
+        atualizarBotoesDesfazerRefazer( textAreaCodigo );
+        atualizarQuadrosPorSegundo();
+        fontePadrao = textAreaCodigo.getDefaultFont();
         
         filtroExtensao = new FileNameExtensionFilter( 
                 "Arquivo AuroraLogo" , "aulg" );
@@ -100,6 +114,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        btnGroupTemas = new javax.swing.ButtonGroup();
         painelCodigo = new javax.swing.JPanel();
         painelDesenho = new br.com.davidbuzatto.auroralogo.gui.PainelDesenho();
         barraFerramentas = new javax.swing.JToolBar();
@@ -116,18 +131,19 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         separador3 = new javax.swing.JToolBar.Separator();
         btnExecutar = new javax.swing.JButton();
         separador4 = new javax.swing.JToolBar.Separator();
-        btnExecutarPassoAPassoAutomatico = new javax.swing.JButton();
-        btnPararExecutarPassoAutomatico = new javax.swing.JButton();
-        sliderQuadrosPorSegundo = new javax.swing.JSlider();
-        separador5 = new javax.swing.JToolBar.Separator();
+        btnExecutarPassoAPasso = new javax.swing.JButton();
+        btnPararPassoAPasso = new javax.swing.JButton();
         btnInicioPassoAPasso = new javax.swing.JButton();
         btnAnteriorPassoAPasso = new javax.swing.JButton();
         btnProximoPassoAPasso = new javax.swing.JButton();
         btnUltimoPassoAPasso = new javax.swing.JButton();
-        btnExecutarPassoAPasso = new javax.swing.JButton();
-        btnPararPassoAPasso = new javax.swing.JButton();
-        separador6 = new javax.swing.JToolBar.Separator();
-        btnDepurador = new javax.swing.JButton();
+        separador5 = new javax.swing.JToolBar.Separator();
+        btnExecutarPassoAPassoAutomatico = new javax.swing.JButton();
+        btnPararExecutarPassoAutomatico = new javax.swing.JButton();
+        sliderQuadrosPorSegundo = new javax.swing.JSlider();
+        lblQuadrosPorSegundo = new javax.swing.JLabel();
+        preenchimento = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        btnDepurador = new javax.swing.JToggleButton();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         menuItemNovo = new javax.swing.JMenuItem();
@@ -147,24 +163,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         menuItemCopiarTextoFormatado = new javax.swing.JMenuItem();
         separadorMenuEditar3 = new javax.swing.JPopupMenu.Separator();
         menuItemAumentarFonte = new javax.swing.JMenuItem();
-        menuItemDiminuitFonte = new javax.swing.JMenuItem();
+        menuItemDiminuirFonte = new javax.swing.JMenuItem();
         menuExecutar = new javax.swing.JMenu();
         menuItemExecutar = new javax.swing.JMenuItem();
-        menuItemExecutarPassoAPassoAutomatico = new javax.swing.JMenuItem();
         menuItemExecutarPassoAPasso = new javax.swing.JMenuItem();
+        menuItemExecutarPassoAPassoAutomatico = new javax.swing.JMenuItem();
         separadorMenuExecutar1 = new javax.swing.JPopupMenu.Separator();
-        menuItemDepurador = new javax.swing.JMenuItem();
+        menuItemCBDepurador = new javax.swing.JCheckBoxMenuItem();
         menuExemplos = new javax.swing.JMenu();
-        menuFerramentas = new javax.swing.JMenu();
-        menuItemTemas = new javax.swing.JMenuItem();
-        menuItemPaletasColoracaoSintaxe = new javax.swing.JMenuItem();
-        separadorMenuFerramentas = new javax.swing.JPopupMenu.Separator();
-        menuItemConfiguracoes = new javax.swing.JMenuItem();
+        submenuTemas = new javax.swing.JMenu();
+        menuItemRTemaClaro = new javax.swing.JRadioButtonMenuItem();
+        menuItemRTemaEscuro = new javax.swing.JRadioButtonMenuItem();
         menuAjuda = new javax.swing.JMenu();
         menuItemConfiguracoes1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("Aurora Logo");
+        setTitle("AuroraLogo");
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -263,7 +277,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         barraFerramentas.add(btnRefazer);
         barraFerramentas.add(separador2);
 
-        btnAumentarFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/zoom_in.png"))); // NOI18N
+        btnAumentarFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/font_add.png"))); // NOI18N
         btnAumentarFonte.setToolTipText("Aumentar Fonte");
         btnAumentarFonte.setFocusable(false);
         btnAumentarFonte.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -275,7 +289,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnAumentarFonte);
 
-        btnDiminuirFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/zoom_out.png"))); // NOI18N
+        btnDiminuirFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/font_delete.png"))); // NOI18N
         btnDiminuirFonte.setToolTipText("Diminuir Fonte");
         btnDiminuirFonte.setFocusable(false);
         btnDiminuirFonte.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -301,6 +315,84 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         barraFerramentas.add(btnExecutar);
         barraFerramentas.add(separador4);
 
+        btnExecutarPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/script_lightning.png"))); // NOI18N
+        btnExecutarPassoAPasso.setToolTipText("Executar Passo a Passo");
+        btnExecutarPassoAPasso.setFocusable(false);
+        btnExecutarPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnExecutarPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnExecutarPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExecutarPassoAPassoActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnExecutarPassoAPasso);
+
+        btnPararPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_stop_blue.png"))); // NOI18N
+        btnPararPassoAPasso.setToolTipText("Parar Execução Passo a Passo");
+        btnPararPassoAPasso.setEnabled(false);
+        btnPararPassoAPasso.setFocusable(false);
+        btnPararPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPararPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPararPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPararPassoAPassoActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnPararPassoAPasso);
+
+        btnInicioPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_start_blue.png"))); // NOI18N
+        btnInicioPassoAPasso.setToolTipText("Início");
+        btnInicioPassoAPasso.setEnabled(false);
+        btnInicioPassoAPasso.setFocusable(false);
+        btnInicioPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnInicioPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnInicioPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnInicioPassoAPassoActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnInicioPassoAPasso);
+
+        btnAnteriorPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_rewind_blue.png"))); // NOI18N
+        btnAnteriorPassoAPasso.setToolTipText("Anterior");
+        btnAnteriorPassoAPasso.setEnabled(false);
+        btnAnteriorPassoAPasso.setFocusable(false);
+        btnAnteriorPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAnteriorPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAnteriorPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAnteriorPassoAPassoActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnAnteriorPassoAPasso);
+
+        btnProximoPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_fastforward_blue.png"))); // NOI18N
+        btnProximoPassoAPasso.setToolTipText("Próximo");
+        btnProximoPassoAPasso.setEnabled(false);
+        btnProximoPassoAPasso.setFocusable(false);
+        btnProximoPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnProximoPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnProximoPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProximoPassoAPassoActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnProximoPassoAPasso);
+
+        btnUltimoPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_end_blue.png"))); // NOI18N
+        btnUltimoPassoAPasso.setToolTipText("Último");
+        btnUltimoPassoAPasso.setEnabled(false);
+        btnUltimoPassoAPasso.setFocusable(false);
+        btnUltimoPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnUltimoPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnUltimoPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoPassoAPassoActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnUltimoPassoAPasso);
+        barraFerramentas.add(separador5);
+
         btnExecutarPassoAPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"))); // NOI18N
         btnExecutarPassoAPassoAutomatico.setToolTipText("Executar Passo a Passo Automático");
         btnExecutarPassoAPassoAutomatico.setFocusable(false);
@@ -315,6 +407,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         btnPararExecutarPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_stop_blue.png"))); // NOI18N
         btnPararExecutarPassoAutomatico.setToolTipText("Parar Execução Passo a Passo Automático");
+        btnPararExecutarPassoAutomatico.setEnabled(false);
         btnPararExecutarPassoAutomatico.setFocusable(false);
         btnPararExecutarPassoAutomatico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btnPararExecutarPassoAutomatico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -325,90 +418,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnPararExecutarPassoAutomatico);
 
-        sliderQuadrosPorSegundo.setMajorTickSpacing(10);
-        sliderQuadrosPorSegundo.setMinimum(10);
-        sliderQuadrosPorSegundo.setMinorTickSpacing(10);
+        sliderQuadrosPorSegundo.setMajorTickSpacing(5);
+        sliderQuadrosPorSegundo.setMaximum(300);
+        sliderQuadrosPorSegundo.setMinimum(5);
+        sliderQuadrosPorSegundo.setMinorTickSpacing(5);
         sliderQuadrosPorSegundo.setSnapToTicks(true);
         sliderQuadrosPorSegundo.setToolTipText("Velocidade Passo a Passo");
         sliderQuadrosPorSegundo.setValue(100);
-        sliderQuadrosPorSegundo.setMaximumSize(new java.awt.Dimension(100, 20));
-        sliderQuadrosPorSegundo.setMinimumSize(new java.awt.Dimension(100, 20));
-        sliderQuadrosPorSegundo.setPreferredSize(new java.awt.Dimension(100, 20));
+        sliderQuadrosPorSegundo.setMaximumSize(new java.awt.Dimension(150, 20));
+        sliderQuadrosPorSegundo.setMinimumSize(new java.awt.Dimension(150, 20));
+        sliderQuadrosPorSegundo.setPreferredSize(new java.awt.Dimension(150, 20));
+        sliderQuadrosPorSegundo.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderQuadrosPorSegundoStateChanged(evt);
+            }
+        });
         barraFerramentas.add(sliderQuadrosPorSegundo);
-        barraFerramentas.add(separador5);
 
-        btnInicioPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_start_blue.png"))); // NOI18N
-        btnInicioPassoAPasso.setToolTipText("Início");
-        btnInicioPassoAPasso.setFocusable(false);
-        btnInicioPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnInicioPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnInicioPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnInicioPassoAPassoActionPerformed(evt);
-            }
-        });
-        barraFerramentas.add(btnInicioPassoAPasso);
-
-        btnAnteriorPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_rewind_blue.png"))); // NOI18N
-        btnAnteriorPassoAPasso.setToolTipText("Anterior");
-        btnAnteriorPassoAPasso.setFocusable(false);
-        btnAnteriorPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnAnteriorPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnAnteriorPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAnteriorPassoAPassoActionPerformed(evt);
-            }
-        });
-        barraFerramentas.add(btnAnteriorPassoAPasso);
-
-        btnProximoPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_fastforward_blue.png"))); // NOI18N
-        btnProximoPassoAPasso.setToolTipText("Próximo");
-        btnProximoPassoAPasso.setFocusable(false);
-        btnProximoPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnProximoPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnProximoPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProximoPassoAPassoActionPerformed(evt);
-            }
-        });
-        barraFerramentas.add(btnProximoPassoAPasso);
-
-        btnUltimoPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_end_blue.png"))); // NOI18N
-        btnUltimoPassoAPasso.setToolTipText("Último");
-        btnUltimoPassoAPasso.setFocusable(false);
-        btnUltimoPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUltimoPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnUltimoPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUltimoPassoAPassoActionPerformed(evt);
-            }
-        });
-        barraFerramentas.add(btnUltimoPassoAPasso);
-
-        btnExecutarPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_play_blue.png"))); // NOI18N
-        btnExecutarPassoAPasso.setToolTipText("Executar Passo a Passo");
-        btnExecutarPassoAPasso.setFocusable(false);
-        btnExecutarPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnExecutarPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnExecutarPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExecutarPassoAPassoActionPerformed(evt);
-            }
-        });
-        barraFerramentas.add(btnExecutarPassoAPasso);
-
-        btnPararPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_stop_blue.png"))); // NOI18N
-        btnPararPassoAPasso.setToolTipText("Parar Execução Passo a Passo");
-        btnPararPassoAPasso.setFocusable(false);
-        btnPararPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPararPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPararPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPararPassoAPassoActionPerformed(evt);
-            }
-        });
-        barraFerramentas.add(btnPararPassoAPasso);
-        barraFerramentas.add(separador6);
+        lblQuadrosPorSegundo.setText("quadros por segundo");
+        lblQuadrosPorSegundo.setMaximumSize(new java.awt.Dimension(150, 16));
+        lblQuadrosPorSegundo.setMinimumSize(new java.awt.Dimension(150, 16));
+        lblQuadrosPorSegundo.setPreferredSize(new java.awt.Dimension(150, 16));
+        barraFerramentas.add(lblQuadrosPorSegundo);
+        barraFerramentas.add(preenchimento);
 
         btnDepurador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"))); // NOI18N
         btnDepurador.setToolTipText("Depurador");
@@ -531,7 +563,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         menuEditar.add(menuItemCopiarTextoFormatado);
         menuEditar.add(separadorMenuEditar3);
 
-        menuItemAumentarFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/zoom_in.png"))); // NOI18N
+        menuItemAumentarFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/font_add.png"))); // NOI18N
         menuItemAumentarFonte.setText("Aumentar Fonte");
         menuItemAumentarFonte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -540,14 +572,14 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         menuEditar.add(menuItemAumentarFonte);
 
-        menuItemDiminuitFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/zoom_out.png"))); // NOI18N
-        menuItemDiminuitFonte.setText("Diminuir Fonte");
-        menuItemDiminuitFonte.addActionListener(new java.awt.event.ActionListener() {
+        menuItemDiminuirFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/font_delete.png"))); // NOI18N
+        menuItemDiminuirFonte.setText("Diminuir Fonte");
+        menuItemDiminuirFonte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemDiminuitFonteActionPerformed(evt);
+                menuItemDiminuirFonteActionPerformed(evt);
             }
         });
-        menuEditar.add(menuItemDiminuitFonte);
+        menuEditar.add(menuItemDiminuirFonte);
 
         barraMenu.add(menuEditar);
 
@@ -562,6 +594,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         menuExecutar.add(menuItemExecutar);
 
+        menuItemExecutarPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/script_lightning.png"))); // NOI18N
+        menuItemExecutarPassoAPasso.setText("Executar Passo a Passo");
+        menuItemExecutarPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemExecutarPassoAPassoActionPerformed(evt);
+            }
+        });
+        menuExecutar.add(menuItemExecutarPassoAPasso);
+
         menuItemExecutarPassoAPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"))); // NOI18N
         menuItemExecutarPassoAPassoAutomatico.setText("Executar Passo a Passo (Automático)");
         menuItemExecutarPassoAPassoAutomatico.addActionListener(new java.awt.event.ActionListener() {
@@ -570,62 +611,44 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         menuExecutar.add(menuItemExecutarPassoAPassoAutomatico);
-
-        menuItemExecutarPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_play_blue.png"))); // NOI18N
-        menuItemExecutarPassoAPasso.setText("Executar Passo a Passo");
-        menuItemExecutarPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemExecutarPassoAPassoActionPerformed(evt);
-            }
-        });
-        menuExecutar.add(menuItemExecutarPassoAPasso);
         menuExecutar.add(separadorMenuExecutar1);
 
-        menuItemDepurador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"))); // NOI18N
-        menuItemDepurador.setText("Depurador");
-        menuItemDepurador.addActionListener(new java.awt.event.ActionListener() {
+        menuItemCBDepurador.setText("Ativar Depurador");
+        menuItemCBDepurador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"))); // NOI18N
+        menuItemCBDepurador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemDepuradorActionPerformed(evt);
+                menuItemCBDepuradorActionPerformed(evt);
             }
         });
-        menuExecutar.add(menuItemDepurador);
+        menuExecutar.add(menuItemCBDepurador);
 
         barraMenu.add(menuExecutar);
 
         menuExemplos.setText("Exemplos");
         barraMenu.add(menuExemplos);
 
-        menuFerramentas.setText("Ferramentas");
+        submenuTemas.setText("Temas");
 
-        menuItemTemas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/paintcan.png"))); // NOI18N
-        menuItemTemas.setText("Temas");
-        menuItemTemas.addActionListener(new java.awt.event.ActionListener() {
+        btnGroupTemas.add(menuItemRTemaClaro);
+        menuItemRTemaClaro.setSelected(true);
+        menuItemRTemaClaro.setText("Claro");
+        menuItemRTemaClaro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemTemasActionPerformed(evt);
+                menuItemRTemaClaroActionPerformed(evt);
             }
         });
-        menuFerramentas.add(menuItemTemas);
+        submenuTemas.add(menuItemRTemaClaro);
 
-        menuItemPaletasColoracaoSintaxe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/palette.png"))); // NOI18N
-        menuItemPaletasColoracaoSintaxe.setText("Paletas para Coloração da Sintaxe");
-        menuItemPaletasColoracaoSintaxe.addActionListener(new java.awt.event.ActionListener() {
+        btnGroupTemas.add(menuItemRTemaEscuro);
+        menuItemRTemaEscuro.setText("Escuro");
+        menuItemRTemaEscuro.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemPaletasColoracaoSintaxeActionPerformed(evt);
+                menuItemRTemaEscuroActionPerformed(evt);
             }
         });
-        menuFerramentas.add(menuItemPaletasColoracaoSintaxe);
-        menuFerramentas.add(separadorMenuFerramentas);
+        submenuTemas.add(menuItemRTemaEscuro);
 
-        menuItemConfiguracoes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/wrench_orange.png"))); // NOI18N
-        menuItemConfiguracoes.setText("Configurações");
-        menuItemConfiguracoes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemConfiguracoesActionPerformed(evt);
-            }
-        });
-        menuFerramentas.add(menuItemConfiguracoes);
-
-        barraMenu.add(menuFerramentas);
+        barraMenu.add(submenuTemas);
 
         menuAjuda.setText("Ajuda");
 
@@ -730,23 +753,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_formWindowClosing
 
     private void btnDesfazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesfazerActionPerformed
-        // TODO add your handling code here:
+        desfazer();
     }//GEN-LAST:event_btnDesfazerActionPerformed
 
     private void btnRefazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRefazerActionPerformed
-        // TODO add your handling code here:
+        refazer();
     }//GEN-LAST:event_btnRefazerActionPerformed
 
-    private void btnAumentarFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAumentarFonteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAumentarFonteActionPerformed
-
-    private void btnDiminuirFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiminuirFonteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDiminuirFonteActionPerformed
-
     private void btnPararExecutarPassoAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararExecutarPassoAutomaticoActionPerformed
-        // TODO add your handling code here:
+        pararPassoAPassoAutomatico = true;
     }//GEN-LAST:event_btnPararExecutarPassoAutomaticoActionPerformed
 
     private void btnInicioPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioPassoAPassoActionPerformed
@@ -773,44 +788,40 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnPararPassoAPassoActionPerformed
 
-    private void btnDepuradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepuradorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDepuradorActionPerformed
-
     private void menuItemDesfazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDesfazerActionPerformed
-        // TODO add your handling code here:
+        desfazer();
     }//GEN-LAST:event_menuItemDesfazerActionPerformed
 
     private void menuItemRefazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRefazerActionPerformed
-        // TODO add your handling code here:
+        refazer();
     }//GEN-LAST:event_menuItemRefazerActionPerformed
 
     private void menuItemRecortarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRecortarActionPerformed
-        // TODO add your handling code here:
+        textAreaCodigo.cut();
     }//GEN-LAST:event_menuItemRecortarActionPerformed
 
     private void menuItemCopiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCopiarActionPerformed
-        // TODO add your handling code here:
+        textAreaCodigo.copy();
     }//GEN-LAST:event_menuItemCopiarActionPerformed
 
     private void menuItemColarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemColarActionPerformed
-        // TODO add your handling code here:
+        textAreaCodigo.paste();
     }//GEN-LAST:event_menuItemColarActionPerformed
 
     private void menuItemCopiarTextoFormatadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCopiarTextoFormatadoActionPerformed
-        // TODO add your handling code here:
+        textAreaCodigo.copyAsStyledText();
     }//GEN-LAST:event_menuItemCopiarTextoFormatadoActionPerformed
 
     private void menuItemAumentarFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAumentarFonteActionPerformed
-        // TODO add your handling code here:
+        aumentarFonte( evt );
     }//GEN-LAST:event_menuItemAumentarFonteActionPerformed
 
-    private void menuItemDiminuitFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDiminuitFonteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemDiminuitFonteActionPerformed
+    private void menuItemDiminuirFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDiminuirFonteActionPerformed
+        diminuirFonte();
+    }//GEN-LAST:event_menuItemDiminuirFonteActionPerformed
 
     private void menuItemExecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExecutarActionPerformed
-        // TODO add your handling code here:
+        executar();
     }//GEN-LAST:event_menuItemExecutarActionPerformed
 
     private void menuItemExecutarPassoAPassoAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExecutarPassoAPassoAutomaticoActionPerformed
@@ -821,26 +832,70 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemExecutarPassoAPassoActionPerformed
 
-    private void menuItemDepuradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDepuradorActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemDepuradorActionPerformed
-
-    private void menuItemTemasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTemasActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemTemasActionPerformed
-
-    private void menuItemPaletasColoracaoSintaxeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemPaletasColoracaoSintaxeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemPaletasColoracaoSintaxeActionPerformed
-
-    private void menuItemConfiguracoesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConfiguracoesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemConfiguracoesActionPerformed
-
     private void menuItemConfiguracoes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConfiguracoes1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_menuItemConfiguracoes1ActionPerformed
 
+    private void btnDiminuirFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiminuirFonteActionPerformed
+        diminuirFonte();
+    }//GEN-LAST:event_btnDiminuirFonteActionPerformed
+
+    private void btnAumentarFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAumentarFonteActionPerformed
+        aumentarFonte( evt );
+    }//GEN-LAST:event_btnAumentarFonteActionPerformed
+
+    private void btnDepuradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepuradorActionPerformed
+        tartaruga.setDepuradorAtivo( !tartaruga.isDepuradorAtivo() );
+        menuItemCBDepurador.setSelected( tartaruga.isDepuradorAtivo() );
+        menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Desativar Depurador" : "Ativar Depurador" );
+        painelDesenho.repaint();
+    }//GEN-LAST:event_btnDepuradorActionPerformed
+
+    private void menuItemCBDepuradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCBDepuradorActionPerformed
+        tartaruga.setDepuradorAtivo( !tartaruga.isDepuradorAtivo() );
+        btnDepurador.setSelected( tartaruga.isDepuradorAtivo() );
+        menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Desativar Depurador" : "Ativar Depurador" );
+        painelDesenho.repaint();
+    }//GEN-LAST:event_menuItemCBDepuradorActionPerformed
+
+    private void sliderQuadrosPorSegundoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderQuadrosPorSegundoStateChanged
+        atualizarQuadrosPorSegundo();
+    }//GEN-LAST:event_sliderQuadrosPorSegundoStateChanged
+
+    private void menuItemRTemaClaroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaClaroActionPerformed
+        FlatIntelliJLaf.setup();
+        SwingUtilities.updateComponentTreeUI( this );
+        configurarTemaTextAreaCodigoClaro();
+    }//GEN-LAST:event_menuItemRTemaClaroActionPerformed
+
+    private void menuItemRTemaEscuroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaEscuroActionPerformed
+        FlatDarculaLaf.setup();
+        SwingUtilities.updateComponentTreeUI( this );
+        configurarTemaTextAreaCodigoEscuro();
+    }//GEN-LAST:event_menuItemRTemaEscuroActionPerformed
+
+    private void atualizarQuadrosPorSegundo() {
+        lblQuadrosPorSegundo.setText( 
+                String.format( " %d quadros por segundo", 
+                sliderQuadrosPorSegundo.getValue() ) );
+    }
+    
+    private void montarTitulo( boolean inserirAsterisco ) {
+        
+        setTitle( "AuroraLogo - " + VERSAO );
+        
+        if ( arquivoAtual != null ) {
+            setTitle( getTitle() + " - " + arquivoAtual.getName() );
+        } else {
+            setTitle( getTitle() + " - " + "Sem título" );
+        }
+        
+        if ( inserirAsterisco ) {
+            setTitle( getTitle() + "*" );
+        }
+        
+    }
+    
     private void prepararTextArea() {
 
         textAreaCodigo = criarTextAreaCodigo();
@@ -849,7 +904,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         atmf.putMapping( "text/AuroraLogo", "br.com.davidbuzatto.auroralogo.gui.sh.AuroraLogoSyntaxHighlighter");
         textAreaCodigo.setSyntaxEditingStyle( "text/AuroraLogo" );
 
-        SyntaxScheme syntaxScheme = new SyntaxScheme( true );
+        /*SyntaxScheme syntaxScheme = new SyntaxScheme( true );
         syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD, new Style( new Color( Utils.getIntPref( "RESERVED_WORD" ) ) ) );
         syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD_2, new Style( new Color( Utils.getIntPref( "RESERVED_WORD_2" ) ) ) );
         syntaxScheme.setStyle( SyntaxScheme.IDENTIFIER, new Style( Color.GREEN.darker() ) );
@@ -861,7 +916,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         syntaxScheme.setStyle( SyntaxScheme.COMMENT_EOL, new Style( Color.GRAY ) );
         syntaxScheme.setStyle( SyntaxScheme.COMMENT_MULTILINE, new Style( Color.GRAY.darker() ) );
         syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( Color.BLUE.darker().darker() ) );
-        textAreaCodigo.setSyntaxScheme( syntaxScheme );
+        textAreaCodigo.setSyntaxScheme( syntaxScheme );*/
+        
+        configurarTemaTextAreaCodigoClaro();
         
         scrollPaneCodigo = new RTextScrollPane( textAreaCodigo, true );
         ErrorStrip errorStrip = new ErrorStrip( textAreaCodigo );
@@ -875,30 +932,108 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private RSyntaxTextArea criarTextAreaCodigo() {
 
-        RSyntaxTextArea textArea = new RSyntaxTextArea();
-        textArea.setTabSize( 4 );
-        textArea.setCaretPosition( 0 );
-        textArea.requestFocusInWindow();
-        textArea.setMarkOccurrences( true );
-        textArea.setCodeFoldingEnabled( true );
-        textArea.setClearWhitespaceLinesEnabled( false );
-        textArea.setMarginLineEnabled( true );
+        RSyntaxTextArea textAreaCodigo = new RSyntaxTextArea();
+        textAreaCodigo.setTabSize( 4 );
+        textAreaCodigo.setCaretPosition( 0 );
+        textAreaCodigo.requestFocusInWindow();
+        textAreaCodigo.setMarkOccurrences( true );
+        textAreaCodigo.setCodeFoldingEnabled( true );
+        textAreaCodigo.setClearWhitespaceLinesEnabled( false );
+        textAreaCodigo.setMarginLineEnabled( true );
 
-        InputMap im = textArea.getInputMap();
-        ActionMap am = textArea.getActionMap();
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_F6, 0 ), "decreaseFontSize" );
+        InputMap im = textAreaCodigo.getInputMap();
+        ActionMap am = textAreaCodigo.getActionMap();
+        
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK ), "decreaseFontSize" );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK ), "decreaseFontSize" );
         am.put( "decreaseFontSize", new RSyntaxTextAreaEditorKit.DecreaseFontSizeAction() );
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_F7, 0 ), "increaseFontSize" );
+        
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
         am.put( "increaseFontSize", new RSyntaxTextAreaEditorKit.IncreaseFontSizeAction() );
+        
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_0, KeyEvent.CTRL_DOWN_MASK ), "fontSizeToDefault" );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_NUMPAD0, KeyEvent.CTRL_DOWN_MASK ), "fontSizeToDefault" );
+        am.put( "fontSizeToDefault", new AbstractAction() {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                textAreaCodigo.setFont( fontePadrao );
+            }
+        });
 
         int ctrlShift = InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK;
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_C, ctrlShift ), "copyAsStyledText" );
         am.put( "copyAsStyledText", new RSyntaxTextAreaEditorKit.CopyCutAsStyledTextAction( false ) );
+        
+        textAreaCodigo.getDocument().addDocumentListener( new DocumentListener() {
+            
+            @Override
+            public void insertUpdate( DocumentEvent e ) {
+                montarTitulo( true );
+                atualizarBotoesDesfazerRefazer( textAreaCodigo );
+            }
 
-        return textArea;
+            @Override
+            public void removeUpdate( DocumentEvent e ) {
+                montarTitulo( true );
+                atualizarBotoesDesfazerRefazer( textAreaCodigo );
+            }
+
+            @Override
+            public void changedUpdate( DocumentEvent e ) {
+                montarTitulo( true );
+                atualizarBotoesDesfazerRefazer( textAreaCodigo );
+            }
+            
+        });
+
+        return textAreaCodigo;
 
     }
 
+    private void desfazer() {
+        textAreaCodigo.undoLastAction();
+        atualizarBotoesDesfazerRefazer( textAreaCodigo );
+    }
+    
+    private void refazer() {
+        textAreaCodigo.redoLastAction();
+        atualizarBotoesDesfazerRefazer( textAreaCodigo );
+    }
+    
+    private void aumentarFonte( ActionEvent evt ) {
+        Font f = textAreaCodigo.getFont();
+        Font nf = new Font( f.getName(), f.getStyle(), f.getSize() == 40 ? 40 : f.getSize() + 1 );
+        textAreaCodigo.setFont( nf );
+    }
+    
+    private void diminuirFonte() {
+        Font f = textAreaCodigo.getFont();
+        Font nf = new Font( f.getName(), f.getStyle(), f.getSize() == 2 ? 2 : f.getSize() - 1 );
+        textAreaCodigo.setFont( nf );
+    }
+    
+    private void atualizarBotoesDesfazerRefazer(  RSyntaxTextArea textAreaCodigo ) {
+        
+        if ( textAreaCodigo.canUndo() ) {
+            btnDesfazer.setEnabled( true );
+            menuItemDesfazer.setEnabled( true );
+        } else {
+            btnDesfazer.setEnabled( false );
+            menuItemDesfazer.setEnabled( false );
+        }
+
+        if ( textAreaCodigo.canRedo() ) {
+            btnRefazer.setEnabled( true );
+            menuItemRefazer.setEnabled( true );
+        } else {
+            btnRefazer.setEnabled( false );
+            menuItemRefazer.setEnabled( false );
+        }
+                
+    }
+    
     private void executarCodigo() {
         
         try {
@@ -940,6 +1075,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         tartaruga.limpar();
         painelDesenho.repaint();
         
+        montarTitulo( false );
+        
     }
     
     private void abrirArquivo() {
@@ -960,6 +1097,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             carregarArquivo( arquivo, true );
 
         }
+        
+        montarTitulo( false );
         
     }
     
@@ -991,6 +1130,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 exc.printStackTrace();
             }
         }
+        
+        montarTitulo( false );
         
     }
     
@@ -1052,7 +1193,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         new Thread( new Runnable() {
             @Override
             public void run() {
-                while ( !tartaruga.estadoFinal() ) {
+                
+                pararPassoAPassoAutomatico = false;
+                
+                while ( !tartaruga.estadoFinal() && !pararPassoAPassoAutomatico ) {
                     EventQueue.invokeLater( new Runnable() {
                         public void run() {
                             tartaruga.proximoEstado();
@@ -1060,10 +1204,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         }
                     });
                     try {
-                        Thread.sleep( 10 );
+                        Thread.sleep( 1000 / sliderQuadrosPorSegundo.getValue() );
                     } catch ( InterruptedException exc ) {
                     }
                 }
+                
             }
         }).start();
         
@@ -1132,17 +1277,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
     }
     
+    private void configurarTemaTextAreaCodigoClaro() {
+        try {
+            Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/claro.xml" ) );
+            t.apply( textAreaCodigo );
+        } catch ( IOException exc ) {
+            exc.printStackTrace();
+        }
+    }
+    
+    private void configurarTemaTextAreaCodigoEscuro() {
+        try {
+            Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/escuro.xml" ) );
+            t.apply( textAreaCodigo );
+        } catch ( IOException exc ) {
+            exc.printStackTrace();
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main( String args[] ) {
 
-        try {
-            UIManager.setLookAndFeel( new FlatIntelliJLaf() );
-        } catch ( Exception exc ) {
-        }
-        
         Utils.preparePreferences();
+        
+        FlatIntelliJLaf.setup();
         
         EventQueue.invokeLater( new Runnable() {
             public void run() {
@@ -1158,12 +1318,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnAnteriorPassoAPasso;
     private javax.swing.JButton btnAumentarFonte;
-    private javax.swing.JButton btnDepurador;
+    private javax.swing.JToggleButton btnDepurador;
     private javax.swing.JButton btnDesfazer;
     private javax.swing.JButton btnDiminuirFonte;
     private javax.swing.JButton btnExecutar;
     private javax.swing.JButton btnExecutarPassoAPasso;
     private javax.swing.JButton btnExecutarPassoAPassoAutomatico;
+    private javax.swing.ButtonGroup btnGroupTemas;
     private javax.swing.JButton btnInicioPassoAPasso;
     private javax.swing.JButton btnNovo;
     private javax.swing.JButton btnPararExecutarPassoAutomatico;
@@ -1173,47 +1334,46 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarComo;
     private javax.swing.JButton btnUltimoPassoAPasso;
+    private javax.swing.JLabel lblQuadrosPorSegundo;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuEditar;
     private javax.swing.JMenu menuExecutar;
     private javax.swing.JMenu menuExemplos;
-    private javax.swing.JMenu menuFerramentas;
     private javax.swing.JMenuItem menuItemAbrir;
     private javax.swing.JMenuItem menuItemAumentarFonte;
+    private javax.swing.JCheckBoxMenuItem menuItemCBDepurador;
     private javax.swing.JMenuItem menuItemColar;
-    private javax.swing.JMenuItem menuItemConfiguracoes;
     private javax.swing.JMenuItem menuItemConfiguracoes1;
     private javax.swing.JMenuItem menuItemCopiar;
     private javax.swing.JMenuItem menuItemCopiarTextoFormatado;
-    private javax.swing.JMenuItem menuItemDepurador;
     private javax.swing.JMenuItem menuItemDesfazer;
-    private javax.swing.JMenuItem menuItemDiminuitFonte;
+    private javax.swing.JMenuItem menuItemDiminuirFonte;
     private javax.swing.JMenuItem menuItemExecutar;
     private javax.swing.JMenuItem menuItemExecutarPassoAPasso;
     private javax.swing.JMenuItem menuItemExecutarPassoAPassoAutomatico;
     private javax.swing.JMenuItem menuItemNovo;
-    private javax.swing.JMenuItem menuItemPaletasColoracaoSintaxe;
+    private javax.swing.JRadioButtonMenuItem menuItemRTemaClaro;
+    private javax.swing.JRadioButtonMenuItem menuItemRTemaEscuro;
     private javax.swing.JMenuItem menuItemRecortar;
     private javax.swing.JMenuItem menuItemRefazer;
     private javax.swing.JMenuItem menuItemSalvar;
     private javax.swing.JMenuItem menuItemSalvarComo;
-    private javax.swing.JMenuItem menuItemTemas;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JPanel painelCodigo;
     private br.com.davidbuzatto.auroralogo.gui.PainelDesenho painelDesenho;
+    private javax.swing.Box.Filler preenchimento;
     private javax.swing.JToolBar.Separator separador1;
     private javax.swing.JToolBar.Separator separador2;
     private javax.swing.JToolBar.Separator separador3;
     private javax.swing.JToolBar.Separator separador4;
     private javax.swing.JToolBar.Separator separador5;
-    private javax.swing.JToolBar.Separator separador6;
     private javax.swing.JPopupMenu.Separator separadorMenuArquivo1;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar1;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar2;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar3;
     private javax.swing.JPopupMenu.Separator separadorMenuExecutar1;
-    private javax.swing.JPopupMenu.Separator separadorMenuFerramentas;
     private javax.swing.JSlider sliderQuadrosPorSegundo;
+    private javax.swing.JMenu submenuTemas;
     // End of variables declaration//GEN-END:variables
 }
