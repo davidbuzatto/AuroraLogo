@@ -28,6 +28,7 @@ public class Utils {
     public static final String PREF_CAMINHO_ABRIR_SALVAR = "CAMINHO_ABRIR_SALVAR";
     public static final String PREF_TEMA = "TEMA";
     public static final String PREF_DEPURADOR_ATIVO = "DEPURADOR_ATIVO";
+    public static final String PREF_GRADE_ATIVA = "GRADE_ATIVA";
     public static final String PREF_VALOR_SLIDER_PASSO_AUTOMATICO = "VALOR_SLIDER_PASSO_AUTOMATICO";
     
     public static void mostrarDados( 
@@ -139,6 +140,7 @@ public class Utils {
         PREFS.get( PREF_CAMINHO_ABRIR_SALVAR, new File( "" ).getAbsolutePath() );
         PREFS.get( PREF_TEMA, "claro" );
         PREFS.getBoolean( PREF_DEPURADOR_ATIVO, false );
+        PREFS.getBoolean( PREF_GRADE_ATIVA, false );
         PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 );
         
         /*for ( Entry<String, Color> e : defaultColors.entrySet() ) {

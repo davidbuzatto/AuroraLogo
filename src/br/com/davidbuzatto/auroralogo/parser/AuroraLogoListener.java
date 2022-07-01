@@ -230,15 +230,39 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitMovimentarPonto(AuroraLogoParser.MovimentarPontoContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#trocarCor}.
+	 * Enter a parse tree produced by the {@code trocarCorPincel}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
 	 * @param ctx the parse tree
 	 */
-	void enterTrocarCor(AuroraLogoParser.TrocarCorContext ctx);
+	void enterTrocarCorPincel(AuroraLogoParser.TrocarCorPincelContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#trocarCor}.
+	 * Exit a parse tree produced by the {@code trocarCorPincel}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
 	 * @param ctx the parse tree
 	 */
-	void exitTrocarCor(AuroraLogoParser.TrocarCorContext ctx);
+	void exitTrocarCorPincel(AuroraLogoParser.TrocarCorPincelContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code trocarCorFundo}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrocarCorFundo(AuroraLogoParser.TrocarCorFundoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code trocarCorFundo}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrocarCorFundo(AuroraLogoParser.TrocarCorFundoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#configuracaoCor}.
+	 * @param ctx the parse tree
+	 */
+	void enterConfiguracaoCor(AuroraLogoParser.ConfiguracaoCorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#configuracaoCor}.
+	 * @param ctx the parse tree
+	 */
+	void exitConfiguracaoCor(AuroraLogoParser.ConfiguracaoCorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#girar}.
 	 * @param ctx the parse tree

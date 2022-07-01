@@ -22,7 +22,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> {
 
     private Tartaruga tartaruga;
-    private Map<String, Integer> memoria = new HashMap<>();
+    //private Map<String, Integer> memoria = new HashMap<>();
     private JanelaPrincipal janelaPrincipal;
     
     public DesenhistaAuroraLogoVisitor( Tartaruga tartaruga, JanelaPrincipal janelaPrincipal ) {
@@ -67,15 +67,15 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
     }
     
     @Override
-    public Integer visitTrocarCor( AuroraLogoParser.TrocarCorContext ctx ) {
+    public Integer visitTrocarCorPincel( AuroraLogoParser.TrocarCorPincelContext ctx ) {
         
-        Color cor = Color.BLACK;
+       /* Color cor = Color.BLACK;
         
-        if ( ctx.HEX() != null ) {
-            cor = Color.decode( ctx.HEX().getText() );
+        if ( ctx.configuracaoCor().HEX() != null ) {
+            cor = Color.decode( ctx.configuracaoCor().HEX().getText() );
         } else {
             
-            switch ( ctx.cor.getType() ) {
+            switch ( ctx.configuracaoCor().cor.getType() ) {
                 case AuroraLogoParser.PRETO:
                     cor = Color.BLACK;
                     break;
@@ -115,24 +115,168 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
         
         int vezes = 1;
         
-        if ( ctx.expr() != null ) {
-            vezes = visit( ctx.expr() );
+        if ( ctx.configuracaoCor().expr() != null ) {
+            vezes = visit( ctx.configuracaoCor().expr() );
             if ( vezes <= 0 ) {
                 vezes = 1;
             }
         }
         
         for ( int i = 0; i < vezes; i++ ) {
-            if ( ctx.CLARO() != null ) {
+            if ( ctx.configuracaoCor().CLARO() != null ) {
                 cor = cor.brighter();
-            } else if ( ctx.ESCURO() != null ) {
+            } else if ( ctx.configuracaoCor().ESCURO() != null ) {
+                cor = cor.darker();
+            }
+        }*/
+        
+        tartaruga.trocarCorPincel( obterCor( Color.BLACK, ctx ) );
+        
+        return 0;
+        
+    }
+    
+    @Override
+    public Integer visitTrocarCorFundo( AuroraLogoParser.TrocarCorFundoContext ctx ) {
+        
+        /*Color cor = Color.WHITE;
+        
+        if ( ctx.configuracaoCor().HEX() != null ) {
+            cor = Color.decode( ctx.configuracaoCor().HEX().getText() );
+        } else {
+            
+            switch ( ctx.configuracaoCor().cor.getType() ) {
+                case AuroraLogoParser.PRETO:
+                    cor = Color.BLACK;
+                    break;
+                case AuroraLogoParser.AZUL:
+                    cor = Color.BLUE;
+                    break;
+                case AuroraLogoParser.CIANO:
+                    cor = Color.CYAN;
+                    break;
+                case AuroraLogoParser.CINZA:
+                    cor = Color.GRAY;
+                    break;
+                case AuroraLogoParser.VERDE:
+                    cor = Color.GREEN;
+                    break;
+                case AuroraLogoParser.MAGENTA:
+                    cor = Color.MAGENTA;
+                    break;
+                case AuroraLogoParser.LARANJA:
+                    cor = Color.ORANGE;
+                    break;
+                case AuroraLogoParser.ROSA:
+                    cor = Color.PINK;
+                    break;
+                case AuroraLogoParser.VERMELHO:
+                    cor = Color.RED;
+                    break;
+                case AuroraLogoParser.BRANCO:
+                    cor = Color.WHITE;
+                    break;
+                case AuroraLogoParser.AMARELO:
+                    cor = Color.YELLOW;
+                    break;
+            }
+            
+        }
+        
+        int vezes = 1;
+        
+        if ( ctx.configuracaoCor().expr() != null ) {
+            vezes = visit( ctx.configuracaoCor().expr() );
+            if ( vezes <= 0 ) {
+                vezes = 1;
+            }
+        }
+        
+        for ( int i = 0; i < vezes; i++ ) {
+            if ( ctx.configuracaoCor().CLARO() != null ) {
+                cor = cor.brighter();
+            } else if ( ctx.configuracaoCor().ESCURO() != null ) {
+                cor = cor.darker();
+            }
+        }*/
+        
+        tartaruga.trocarCorFundo( obterCor( Color.WHITE, ctx ) );
+        
+        return 0;
+        
+    }
+    
+    private Color obterCor( Color corInicial, AuroraLogoParser.TrocarCorContext ctx ) {
+        
+        Color cor = corInicial;
+        AuroraLogoParser.ConfiguracaoCorContext configuracaoCor = null;
+        
+        if ( ctx instanceof AuroraLogoParser.TrocarCorPincelContext ) {
+            configuracaoCor = ( (AuroraLogoParser.TrocarCorPincelContext) ctx ).configuracaoCor();
+        } else if ( ctx instanceof AuroraLogoParser.TrocarCorFundoContext ) {
+            configuracaoCor = ( (AuroraLogoParser.TrocarCorFundoContext) ctx ).configuracaoCor();
+        }
+        
+        if ( configuracaoCor.HEX() != null ) {
+            cor = Color.decode( configuracaoCor.HEX().getText() );
+        } else {
+            
+            switch ( configuracaoCor.cor.getType() ) {
+                case AuroraLogoParser.PRETO:
+                    cor = Color.BLACK;
+                    break;
+                case AuroraLogoParser.AZUL:
+                    cor = Color.BLUE;
+                    break;
+                case AuroraLogoParser.CIANO:
+                    cor = Color.CYAN;
+                    break;
+                case AuroraLogoParser.CINZA:
+                    cor = Color.GRAY;
+                    break;
+                case AuroraLogoParser.VERDE:
+                    cor = Color.GREEN;
+                    break;
+                case AuroraLogoParser.MAGENTA:
+                    cor = Color.MAGENTA;
+                    break;
+                case AuroraLogoParser.LARANJA:
+                    cor = Color.ORANGE;
+                    break;
+                case AuroraLogoParser.ROSA:
+                    cor = Color.PINK;
+                    break;
+                case AuroraLogoParser.VERMELHO:
+                    cor = Color.RED;
+                    break;
+                case AuroraLogoParser.BRANCO:
+                    cor = Color.WHITE;
+                    break;
+                case AuroraLogoParser.AMARELO:
+                    cor = Color.YELLOW;
+                    break;
+            }
+            
+        }
+        
+        int vezes = 1;
+        
+        if ( configuracaoCor.expr() != null ) {
+            vezes = visit( configuracaoCor.expr() );
+            if ( vezes <= 0 ) {
+                vezes = 1;
+            }
+        }
+        
+        for ( int i = 0; i < vezes; i++ ) {
+            if ( configuracaoCor.CLARO() != null ) {
+                cor = cor.brighter();
+            } else if ( configuracaoCor.ESCURO() != null ) {
                 cor = cor.darker();
             }
         }
         
-        tartaruga.trocarCor( cor );
-        
-        return 0;
+        return cor;
         
     }
     
@@ -223,7 +367,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
         } catch ( NumberFormatException exc ) {
         }
         
-        memoria.put( id, valor );
+        tartaruga.inserirOuAtualizarMemoria( id, valor );
         
         return 0;
         
@@ -251,7 +395,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
     public Integer visitAtribuir( AuroraLogoParser.AtribuirContext ctx ) {
         String id = ctx.ID().getText();
         int valor = visit( ctx.expr() );
-        memoria.put( id, valor );
+        tartaruga.inserirOuAtualizarMemoria( id, valor );
         return valor;
     }
 
@@ -458,10 +602,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
     @Override
     public Integer visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
         String id = ctx.ID().getText();
-        if ( memoria.containsKey( id ) ) {
-            return memoria.get( id );
-        }
-        return 0;
+        return tartaruga.lerMemoria( id );
     }
 
     public Integer visitFatorParenteses( AuroraLogoParser.FatorParentesesContext ctx ) {

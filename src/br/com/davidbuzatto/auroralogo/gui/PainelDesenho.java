@@ -28,9 +28,6 @@ public class PainelDesenho extends JPanel {
                 RenderingHints.KEY_ANTIALIASING, 
                 RenderingHints.VALUE_ANTIALIAS_ON );
         
-        g2d.setColor( Color.WHITE );
-        g2d.fillRect( 0, 0, getWidth(), getHeight() );
-        
         if ( tartaruga != null ) {
             
             if ( tartaruga.isEstadoInicial() ) {

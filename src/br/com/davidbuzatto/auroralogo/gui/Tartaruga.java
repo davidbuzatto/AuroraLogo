@@ -10,7 +10,10 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import javax.imageio.ImageIO;
 
 /**
@@ -21,21 +24,25 @@ public class Tartaruga {
     
     private class Estado implements Cloneable {
 
-        private int x;
-        private int y;
-        private int angulo;
-        private BasicStroke contorno;
-        private String texto;
-        private Color cor;
-        private boolean desenhando;
+        int x;
+        int y;
+        int angulo;
+        BasicStroke contorno;
+        String texto;
+        Color corPincel;
+        Color corFundo;
+        boolean desenhando;
+        Map<String, Integer> memoria;
         
-        public Estado( int x, int y, int angulo, int grossura, Color cor, boolean desenhando ) {
+        public Estado( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando ) {
             this.x = x;
             this.y = y;
             this.angulo = angulo;
             this.contorno = new BasicStroke( grossura, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL );
-            this.cor = cor;
+            this.corPincel = corPincel;
+            this.corFundo = corFundo;
             this.desenhando = desenhando;
+            this.memoria = new LinkedHashMap<>();
         }
 
         @Override
@@ -47,14 +54,35 @@ public class Tartaruga {
             e.angulo = angulo;
             e.contorno = new BasicStroke( e.contorno.getLineWidth(), e.contorno.getEndCap(), e.contorno.getLineJoin() );
             e.texto = null;
-            e.cor = cor;
+            e.corPincel = corPincel;
+            e.corFundo = corFundo;
             e.desenhando = desenhando;
+            e.memoria = new LinkedHashMap<>();
+            
+            for ( Entry<String, Integer> en : memoria.entrySet() ) {
+                e.memoria.put( en.getKey(), en.getValue() );
+            }
             
             return e;
             
         }
         
     }
+    
+    private static final Color COR_GRADE = new Color( 230, 230, 230 );
+    private static final Color COR_FUNDO_DEPURADOR = new Color( 255, 255, 255, 200 );
+    private static final Color COR_TEXTO_DEPURADOR = Color.BLACK;
+    private static final String[] PROPRIEDADES_DEPURADOR = {
+        "estado atual: ",
+        "x: ",
+        "y: ",
+        "ângulo: ",
+        "grossura: ",
+        "cor do pincel: ",
+        "cor do fundo: ",
+        "desenhando: ",
+        "variáveis: "
+    };
     
     private List<Estado> estados;
     private BufferedImage imgTartaruga;
@@ -64,12 +92,13 @@ public class Tartaruga {
     private int estadoAtual;
     
     private boolean depuradorAtivo;
+    private boolean gradeAtiva;
     
-    public Tartaruga( int x, int y, int angulo, int grossura, Color cor, boolean desenhando, PainelDesenho painelDesenho ) {
+    public Tartaruga( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando, PainelDesenho painelDesenho ) {
         
         estados = new ArrayList<>();
         
-        Estado e = new Estado( x, y, angulo, grossura, cor, desenhando );
+        Estado e = new Estado( x, y, angulo, grossura, corPincel, corFundo, desenhando );
         estados.add( e );
         
         this.painelDesenho = painelDesenho;
@@ -144,9 +173,15 @@ public class Tartaruga {
         
     }
     
-    public void trocarCor( Color cor ) {
+    public void trocarCorPincel( Color corPincel ) {
         Estado e = clonarUltimoEstado();
-        e.cor = cor;
+        e.corPincel = corPincel;
+        estados.add( e );
+    }
+    
+    public void trocarCorFundo( Color corFundo ) {
+        Estado e = clonarUltimoEstado();
+        e.corFundo = corFundo;
         estados.add( e );
     }
     
@@ -238,15 +273,34 @@ public class Tartaruga {
         estadoAtual = 0;
     }
     
+    public void inserirOuAtualizarMemoria( String id, Integer valor ) {
+        Estado e = clonarUltimoEstado();
+        e.memoria.put( id, valor );
+        estados.add( e );
+    }
+    
+    public Integer lerMemoria( String id ) {
+        Estado eAtual = estados.get( estados.size() - 1 );
+        return eAtual.memoria.getOrDefault( id, 0 );
+    }
+    
     public void desenhar( Graphics2D g2d ) {
         
         g2d = (Graphics2D) g2d.create();
         
+        Estado estadoFinal = estados.get( estados.size() - 1 );
+        g2d.setColor( estadoFinal.corFundo );
+        g2d.fillRect( 0, 0, painelDesenho.getWidth(), painelDesenho.getHeight() );
+        
+        if ( gradeAtiva ) {
+            desenharGrade( g2d, 20 );
+        }
+            
         if ( estados.size() == 1 || estadoAtual == 0 ) {
             
             Estado atu = estados.get( 0 );
-            g2d.setColor( atu.cor );
             
+            g2d.setColor( atu.corPincel );
             desenharTartaruga( g2d, atu );
             
         } else {
@@ -258,7 +312,7 @@ public class Tartaruga {
                 Estado ant = estados.get( i-1 );
                 Estado atu = estados.get( i );
 
-                g2d.setColor( atu.cor );
+                g2d.setColor( atu.corPincel );
                 g2d.setStroke( atu.contorno );
 
                 if ( ant.desenhando ) {
@@ -271,12 +325,6 @@ public class Tartaruga {
                         g2d.drawLine( ant.x, ant.y, atu.x, atu.y );
                     }
                 }
-
-                /*if ( passoAPasso ) {
-                    desenharTartaruga( g2d, atu );
-                } else if ( i == estados.size() - 1 ) {
-                    desenharTartaruga( g2d, atu );
-                }*/
                 
                 if ( i == ate ) {
                     desenharTartaruga( g2d, atu );
@@ -287,8 +335,112 @@ public class Tartaruga {
         }
         
         if ( depuradorAtivo ) {
-            g2d.drawRect( 0, 0, 100, 100 );
-            g2d.drawString( "Estado Atual: " + estadoAtual, 10, 10 );
+            desenharDepurador( g2d );
+        }
+        
+        g2d.dispose();
+        
+    }
+    
+    private void desenharGrade( Graphics2D g2d, int espacamento ) {
+        
+        g2d = (Graphics2D) g2d.create();
+        
+        g2d.setColor( COR_GRADE );
+        int c = 1;
+        
+        int iniX = painelDesenho.getWidth() / 2;
+        int iniY = painelDesenho.getHeight()/ 2;
+        
+        for ( int i = iniX; i < painelDesenho.getWidth(); i += espacamento ) {
+            g2d.drawLine( i, 0, i, painelDesenho.getHeight() );
+            g2d.drawLine( ( iniX - ( espacamento * c ) ), 0, ( iniX - ( espacamento * c ) ), painelDesenho.getHeight() );
+            c++;
+        }
+        
+        c = 1;
+        for ( int i = painelDesenho.getHeight() / 2; i < painelDesenho.getHeight(); i += espacamento ) {
+            g2d.drawLine( 0, i, painelDesenho.getWidth(), i );
+            g2d.drawLine( 0, ( iniY - ( espacamento * c ) ), painelDesenho.getWidth(), ( iniY - ( espacamento * c ) ) );
+            c++;
+        }
+        
+        g2d.dispose();
+        
+    }
+    
+    private void desenharDepurador( Graphics2D g2d ) {
+        
+        g2d = (Graphics2D) g2d.create();
+        
+        Color corFundo = COR_FUNDO_DEPURADOR;
+        Color corTexto = COR_TEXTO_DEPURADOR;
+        
+        Estado atu = estados.get( this.estadoAtual );
+        
+        int xIni = 0;
+        int yIni = 0;
+        int larg = 200;
+        int alt = painelDesenho.getHeight();
+        
+        g2d.setStroke( new BasicStroke( 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL ) );
+        
+        g2d.setColor( corFundo );
+        g2d.fillRect( xIni, yIni, larg, alt );
+        
+        g2d.setColor( corTexto );
+        g2d.drawRect( xIni, yIni, larg, alt );
+        
+        Object[] valores = {
+            estadoAtual + 1,
+            atu.x,
+            atu.y,
+            atu.angulo + "º",
+            String.format( "%.2f", atu.contorno.getLineWidth() ),
+            atu.corPincel,
+            atu.corFundo,
+            atu.desenhando ? "sim" : "não",
+            ""
+        };
+        
+        
+        int xIniStrings = 10;
+        int yIniStrings = 20;
+        int passoY = 20;
+        
+        int yAtual;
+        int i;
+        
+        for ( i = 0; i < PROPRIEDADES_DEPURADOR.length; i++ ) {
+            
+            yAtual = yIniStrings + passoY * i;
+            g2d.setColor( corTexto );
+            
+            if ( valores[i] instanceof Color ) {
+                
+                g2d.drawString( PROPRIEDADES_DEPURADOR[i], xIniStrings, yAtual );
+                
+                g2d.setColor( (Color) valores[i] );
+                g2d.fillRect( 85, yAtual - 10, 10, 10 );
+
+                g2d.setColor( corTexto );
+                g2d.drawRect( 85, yAtual - 10, 10, 10 );
+        
+            } else {
+                
+                if ( PROPRIEDADES_DEPURADOR[i].equals( "variáveis: " ) ) {
+                    g2d.drawString( PROPRIEDADES_DEPURADOR[i] + ( atu.memoria.isEmpty() ? "não há" : "" ), xIniStrings, yAtual );
+                } else {
+                    g2d.drawString( PROPRIEDADES_DEPURADOR[i] + valores[i], xIniStrings, yAtual );
+                }
+                
+            }
+            
+        }
+        
+        for ( Entry<String, Integer> e : atu.memoria.entrySet() ) {
+            yAtual = yIniStrings + passoY * i++;
+            g2d.drawString( "    " + e.getKey() + ": " + e.getValue(), xIniStrings, yAtual );
         }
         
         g2d.dispose();
@@ -370,6 +522,14 @@ public class Tartaruga {
 
     public boolean isDepuradorAtivo() {
         return depuradorAtivo;
+    }
+
+    public boolean isGradeAtiva() {
+        return gradeAtiva;
+    }
+
+    public void setGradeAtiva( boolean gradeAtiva ) {
+        this.gradeAtiva = gradeAtiva;
     }
     
 }

@@ -258,6 +258,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "cor " | 
 "desengrossar " | 
 "direita " | 
+"do " | 
 "em " | 
 "engrossar " | 
 "enquanto " | 
@@ -265,6 +266,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "escrever " | 
 "escuro " | 
 "esquerda " | 
+"fundo " | 
 "girar " | 
 "grossura " | 
 "laranja " | 

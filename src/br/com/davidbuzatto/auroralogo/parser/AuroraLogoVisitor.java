@@ -143,11 +143,25 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitMovimentarPonto(AuroraLogoParser.MovimentarPontoContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#trocarCor}.
+	 * Visit a parse tree produced by the {@code trocarCorPincel}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitTrocarCor(AuroraLogoParser.TrocarCorContext ctx);
+	T visitTrocarCorPincel(AuroraLogoParser.TrocarCorPincelContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code trocarCorFundo}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrocarCorFundo(AuroraLogoParser.TrocarCorFundoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#configuracaoCor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConfiguracaoCor(AuroraLogoParser.ConfiguracaoCorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#girar}.
 	 * @param ctx the parse tree

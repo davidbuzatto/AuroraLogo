@@ -101,6 +101,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 painelDesenho.getHeight() / 2, 
                 0, 1, 
                 Color.BLACK, 
+                Color.WHITE,
                 true, 
                 painelDesenho );
         painelDesenho.setTartaruga( tartaruga );
@@ -150,6 +151,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         sliderQuadrosPorSegundo = new javax.swing.JSlider();
         lblQuadrosPorSegundo = new javax.swing.JLabel();
         preenchimento = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
+        btnGrade = new javax.swing.JToggleButton();
         btnDepurador = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         painelDesenho = new br.com.davidbuzatto.auroralogo.gui.PainelDesenho();
@@ -178,6 +180,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         menuItemExecutarPassoAPasso = new javax.swing.JMenuItem();
         menuItemExecutarPassoAPassoAutomatico = new javax.swing.JMenuItem();
         separadorMenuExecutar1 = new javax.swing.JPopupMenu.Separator();
+        menuItemCBGrade = new javax.swing.JCheckBoxMenuItem();
         menuItemCBDepurador = new javax.swing.JCheckBoxMenuItem();
         menuExemplos = new javax.swing.JMenu();
         menuTemas = new javax.swing.JMenu();
@@ -490,6 +493,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         barraFerramentas.add(lblQuadrosPorSegundo);
         barraFerramentas.add(preenchimento);
 
+        btnGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/note.png"))); // NOI18N
+        btnGrade.setToolTipText("Grade");
+        btnGrade.setFocusable(false);
+        btnGrade.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnGrade.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGradeActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnGrade);
+
         btnDepurador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"))); // NOI18N
         btnDepurador.setToolTipText("Depurador");
         btnDepurador.setFocusable(false);
@@ -691,7 +706,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         menuExecutar.add(menuItemExecutarPassoAPassoAutomatico);
         menuExecutar.add(separadorMenuExecutar1);
 
-        menuItemCBDepurador.setText("Ativar Depurador");
+        menuItemCBGrade.setText("Mostrar Grade");
+        menuItemCBGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/note.png"))); // NOI18N
+        menuItemCBGrade.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCBGradeActionPerformed(evt);
+            }
+        });
+        menuExecutar.add(menuItemCBGrade);
+
+        menuItemCBDepurador.setText("Mostrar Depurador");
         menuItemCBDepurador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"))); // NOI18N
         menuItemCBDepurador.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -976,7 +1000,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setBooleanPref( PREF_DEPURADOR_ATIVO, tartaruga.isDepuradorAtivo() );
         
         menuItemCBDepurador.setSelected( tartaruga.isDepuradorAtivo() );
-        menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Desativar Depurador" : "Ativar Depurador" );
+        menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Esconder Depurador" : "Mostrar Depurador" );
         
         painelDesenho.repaint();
         
@@ -988,7 +1012,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         setBooleanPref( PREF_DEPURADOR_ATIVO, tartaruga.isDepuradorAtivo() );
         
         btnDepurador.setSelected( tartaruga.isDepuradorAtivo() );
-        menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Desativar Depurador" : "Ativar Depurador" );
+        menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Esconder Depurador" : "Mostrar Depurador" );
         
         painelDesenho.repaint();
         
@@ -1010,6 +1034,30 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void menuItemRTemaNimbusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaNimbusActionPerformed
         configurarTemaNimbus();
     }//GEN-LAST:event_menuItemRTemaNimbusActionPerformed
+
+    private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
+        
+        tartaruga.setGradeAtiva( !tartaruga.isGradeAtiva() );
+        setBooleanPref( PREF_GRADE_ATIVA, tartaruga.isGradeAtiva() );
+        
+        menuItemCBGrade.setSelected( tartaruga.isGradeAtiva() );
+        menuItemCBGrade.setText( tartaruga.isGradeAtiva() ? "Esconder Grade" : "Mostrar Grade" );
+        
+        painelDesenho.repaint();
+        
+    }//GEN-LAST:event_btnGradeActionPerformed
+
+    private void menuItemCBGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCBGradeActionPerformed
+        
+        tartaruga.setGradeAtiva( !tartaruga.isGradeAtiva() );
+        setBooleanPref( PREF_GRADE_ATIVA, tartaruga.isGradeAtiva() );
+        
+        btnGrade.setSelected( tartaruga.isGradeAtiva() );
+        menuItemCBGrade.setText( tartaruga.isGradeAtiva() ? "Esconder Grade" : "Mostrar Grade" );
+        
+        painelDesenho.repaint();
+        
+    }//GEN-LAST:event_menuItemCBGradeActionPerformed
 
     private void atualizarQuadrosPorSegundo() {
         lblQuadrosPorSegundo.setText( 
@@ -1131,7 +1179,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testes", true );
+            carregarTemplate( "testesGrande", true );
         }
 
     }
@@ -1589,6 +1637,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnPararPassoAPassoAutomatico,
             sliderQuadrosPorSegundo,
             btnDepurador,
+            btnGrade,
             textAreaCodigo
         };
         
@@ -1626,15 +1675,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
                 janela.setVisible( true );
                 
-                if ( getBooleanPref( PREF_DEPURADOR_ATIVO ) ) {
-                    janela.btnDepurador.setSelected( true );
-                    janela.menuItemCBDepurador.setSelected( true );
-                    janela.tartaruga.setDepuradorAtivo( true );
-                } else {
-                    janela.btnDepurador.setSelected( false );
-                    janela.menuItemCBDepurador.setSelected( false );
-                    janela.tartaruga.setDepuradorAtivo( false );
-                }
+                boolean depuradorAtivo = getBooleanPref( PREF_DEPURADOR_ATIVO );
+                boolean gradeAtiva = getBooleanPref( PREF_GRADE_ATIVA );
+                
+                janela.btnDepurador.setSelected( depuradorAtivo );
+                janela.menuItemCBDepurador.setSelected( depuradorAtivo );
+                janela.tartaruga.setDepuradorAtivo( depuradorAtivo );
+                janela.menuItemCBDepurador.setText( depuradorAtivo ? "Esconder Depurador" : "Mostrar Depurador" );
+                
+                janela.btnGrade.setSelected( gradeAtiva );
+                janela.menuItemCBGrade.setSelected( gradeAtiva );
+                janela.tartaruga.setGradeAtiva( gradeAtiva );
+                janela.menuItemCBGrade.setText( gradeAtiva ? "Esconder Grade" : "Mostrar Grade" );
                 
                 janela.sliderQuadrosPorSegundo.setValue( getIntPref( PREF_VALOR_SLIDER_PASSO_AUTOMATICO ) );
                 
@@ -1656,6 +1708,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnExecutarPassoAPasso;
     private javax.swing.JButton btnExecutarPassoAPassoAutomatico;
     private javax.swing.JButton btnFinalPassoAPasso;
+    private javax.swing.JToggleButton btnGrade;
     private javax.swing.ButtonGroup btnGroupTemas;
     private javax.swing.JButton btnInicioPassoAPasso;
     private javax.swing.JButton btnNovo;
@@ -1675,6 +1728,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAbrir;
     private javax.swing.JMenuItem menuItemAumentarFonte;
     private javax.swing.JCheckBoxMenuItem menuItemCBDepurador;
+    private javax.swing.JCheckBoxMenuItem menuItemCBGrade;
     private javax.swing.JMenuItem menuItemColar;
     private javax.swing.JMenuItem menuItemCopiar;
     private javax.swing.JMenuItem menuItemCopiarTextoFormatado;

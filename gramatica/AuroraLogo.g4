@@ -89,7 +89,11 @@ movimentar   : VA PARA ( DIR | ESQ | CIM | BAI ) ( EM expr )?   # movimentarDire
              | VA PARA '(' expr ',' expr ')'                    # movimentarPonto
              ;
 
-trocarCor    : TROC COR PARA ( HEX | cor=( PRETO
+trocarCor    : TROC COR PARA        configuracaoCor # trocarCorPincel
+             | TROC COR DO FUN PARA configuracaoCor # trocarCorFundo
+             ;
+
+configuracaoCor : ( HEX | cor=( PRETO
                                          | AZUL
                                          | CIANO
                                          | CINZA
@@ -100,7 +104,7 @@ trocarCor    : TROC COR PARA ( HEX | cor=( PRETO
                                          | VERMELHO
                                          | BRANCO
                                          | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
-             ;
+                ;
 
 girar        : GIR ( EM ( SUB | SUBA )? expr )?
              ;
@@ -161,6 +165,8 @@ CIM  : 'cima'                     ;
 BAI  : 'baixo'                    ;
 TROC : 'trocar'                   ;
 COR  : 'cor'                      ;
+DO   : 'do'                       ;
+FUN  : 'fundo'                    ;
 GIR  : 'girar'                    ;
 ENG  : 'engrossar'                ;
 DES  : 'desengrossar'             ;

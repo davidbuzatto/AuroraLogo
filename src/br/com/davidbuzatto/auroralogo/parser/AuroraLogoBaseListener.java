@@ -268,13 +268,37 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterTrocarCor(AuroraLogoParser.TrocarCorContext ctx) { }
+	@Override public void enterTrocarCorPincel(AuroraLogoParser.TrocarCorPincelContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitTrocarCor(AuroraLogoParser.TrocarCorContext ctx) { }
+	@Override public void exitTrocarCorPincel(AuroraLogoParser.TrocarCorPincelContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterTrocarCorFundo(AuroraLogoParser.TrocarCorFundoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrocarCorFundo(AuroraLogoParser.TrocarCorFundoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConfiguracaoCor(AuroraLogoParser.ConfiguracaoCorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConfiguracaoCor(AuroraLogoParser.ConfiguracaoCorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
