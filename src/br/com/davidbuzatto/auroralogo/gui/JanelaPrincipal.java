@@ -48,29 +48,70 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import java.awt.Component;
-import javax.swing.JTextPane;
+import java.awt.ComponentOrientation;
+import java.awt.event.ActionListener;
+import javax.swing.Action;
+import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
+import javax.swing.JLabel;
+import javax.swing.JMenuItem;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JSeparator;
+import javax.swing.UIManager;
+import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
+import org.fife.rsta.ui.CollapsibleSectionPanel;
+import org.fife.rsta.ui.GoToDialog;
+import org.fife.rsta.ui.search.FindDialog;
+import org.fife.rsta.ui.search.FindToolBar;
+import org.fife.rsta.ui.search.ReplaceDialog;
+import org.fife.rsta.ui.search.ReplaceToolBar;
+import org.fife.rsta.ui.search.SearchEvent;
+import static org.fife.rsta.ui.search.SearchEvent.Type.FIND;
+import static org.fife.rsta.ui.search.SearchEvent.Type.MARK_ALL;
+import static org.fife.rsta.ui.search.SearchEvent.Type.REPLACE;
+import static org.fife.rsta.ui.search.SearchEvent.Type.REPLACE_ALL;
+import org.fife.rsta.ui.search.SearchListener;
 import org.fife.ui.rsyntaxtextarea.ErrorStrip;
+import org.fife.ui.rsyntaxtextarea.folding.CurlyFoldParser;
+import org.fife.ui.rsyntaxtextarea.folding.FoldParserManager;
+import org.fife.ui.rtextarea.RTextScrollPane;
+import org.fife.ui.rtextarea.SearchContext;
+import org.fife.ui.rtextarea.SearchEngine;
+import org.fife.ui.rtextarea.SearchResult;
 
 /**
  *
  * @author David
  */
-public class JanelaPrincipal extends javax.swing.JFrame {
+public class JanelaPrincipal extends javax.swing.JFrame implements SearchListener {
 
     private static final String VERSAO = "v0.1";
     private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
-    
+
     private Font fontePadrao;
-    
+
     private Tartaruga tartaruga;
-    
+
     private File arquivoAtual;
     private FileNameExtensionFilter filtroExtensao;
 
     private boolean pararPassoAPasso;
     private boolean pararPassoAPassoAutomatico;
+    private boolean deveAtualizarComponentesExecutarPassoAPasso;
+
+    private RSyntaxTextArea textAreaCodigo;
+    private ErrorStrip errorStrip;
+    private StatusBar statusBar;
+    private RTextScrollPane scrollPaneCodigo;
+
+    private FindDialog findDialog;
+    private ReplaceDialog replaceDialog;
+    private FindToolBar findToolBar;
+    private ReplaceToolBar replaceToolBar;
+    private CollapsibleSectionPanel csp;
     
     /**
      * Creates new form JanelaPrincipal
@@ -79,33 +120,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         initComponents();
         montarTitulo( true );
-        
+
         configurarTextAreaCodigo();
+        configurarDialogosDeBusca();
+        
         atualizarBotoesDesfazerRefazer( textAreaCodigo );
         atualizarQuadrosPorSegundo();
         
         fontePadrao = textAreaCodigo.getDefaultFont();
         textPaneSaida.setFont( fontePadrao );
-        
-        filtroExtensao = new FileNameExtensionFilter( 
-                "Arquivo AuroraLogo" , "aulg" );
-        
-        DefaultCaret caret = (DefaultCaret) textPaneSaida.getCaret();
-        caret.setUpdatePolicy( DefaultCaret.ALWAYS_UPDATE );
-        
+
+        filtroExtensao = new FileNameExtensionFilter(
+                "Arquivo AuroraLogo", "aulg" );
+
         // *********** persistir nas preferências ****************
         //setExtendedState( MAXIMIZED_BOTH );
-        
-        tartaruga = new Tartaruga( 
-                painelDesenho.getWidth() / 2, 
-                painelDesenho.getHeight() / 2, 
-                0, 1, 
-                Color.BLACK, 
+        tartaruga = new Tartaruga(
+                painelDesenho.getWidth() / 2,
+                painelDesenho.getHeight() / 2,
+                0, 1,
+                Color.BLACK,
                 Color.WHITE,
-                true, 
-                painelDesenho );
+                true,
+                painelDesenho,
+                fontePadrao );
         painelDesenho.setTartaruga( tartaruga );
-        
+
     }
 
     /**
@@ -120,8 +160,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btnGroupTemas = new javax.swing.ButtonGroup();
         paineCodigoFonte = new javax.swing.JPanel();
         painelTextAreaCodigo = new javax.swing.JPanel();
-        scrollPaneCodigo = new javax.swing.JScrollPane();
-        textAreaCodigo = new org.fife.ui.rsyntaxtextarea.RSyntaxTextArea();
         painelSaida = new javax.swing.JPanel();
         scrollPaneSaida = new javax.swing.JScrollPane();
         textPaneSaida = new javax.swing.JTextPane();
@@ -145,6 +183,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btnAnteriorPassoAPasso = new javax.swing.JButton();
         btnProximoPassoAPasso = new javax.swing.JButton();
         btnFinalPassoAPasso = new javax.swing.JButton();
+        sliderEstadoAtual = new javax.swing.JSlider();
         separador5 = new javax.swing.JToolBar.Separator();
         btnExecutarPassoAPassoAutomatico = new javax.swing.JButton();
         btnPararPassoAPassoAutomatico = new javax.swing.JButton();
@@ -153,7 +192,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         preenchimento = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         btnGrade = new javax.swing.JToggleButton();
         btnDepurador = new javax.swing.JToggleButton();
-        jPanel2 = new javax.swing.JPanel();
+        painelDesenhoContainer = new javax.swing.JPanel();
         painelDesenho = new br.com.davidbuzatto.auroralogo.gui.PainelDesenho();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
@@ -173,6 +212,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         separadorMenuEditar2 = new javax.swing.JPopupMenu.Separator();
         menuItemCopiarTextoFormatado = new javax.swing.JMenuItem();
         separadorMenuEditar3 = new javax.swing.JPopupMenu.Separator();
+        menuItemProcurar = new javax.swing.JMenuItem();
+        menuItemSubstituir = new javax.swing.JMenuItem();
+        menuItemIrPara = new javax.swing.JMenuItem();
+        separadorMenuEditar4 = new javax.swing.JPopupMenu.Separator();
         menuItemAumentarFonte = new javax.swing.JMenuItem();
         menuItemDiminuirFonte = new javax.swing.JMenuItem();
         menuExecutar = new javax.swing.JMenu();
@@ -206,12 +249,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código Fonte"));
 
         painelTextAreaCodigo.setLayout(new java.awt.BorderLayout());
-
-        textAreaCodigo.setColumns(20);
-        textAreaCodigo.setRows(5);
-        scrollPaneCodigo.setViewportView(textAreaCodigo);
-
-        painelTextAreaCodigo.add(scrollPaneCodigo, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout paineCodigoFonteLayout = new javax.swing.GroupLayout(paineCodigoFonte);
         paineCodigoFonte.setLayout(paineCodigoFonteLayout);
@@ -442,6 +479,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         barraFerramentas.add(btnFinalPassoAPasso);
+
+        sliderEstadoAtual.setMaximum(50);
+        sliderEstadoAtual.setSnapToTicks(true);
+        sliderEstadoAtual.setToolTipText("Estado Atual");
+        sliderEstadoAtual.setValue(0);
+        sliderEstadoAtual.setEnabled(false);
+        sliderEstadoAtual.setMaximumSize(new java.awt.Dimension(150, 20));
+        sliderEstadoAtual.setMinimumSize(new java.awt.Dimension(150, 20));
+        sliderEstadoAtual.setPreferredSize(new java.awt.Dimension(150, 20));
+        sliderEstadoAtual.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                sliderEstadoAtualStateChanged(evt);
+            }
+        });
+        barraFerramentas.add(sliderEstadoAtual);
         barraFerramentas.add(separador5);
 
         btnExecutarPassoAPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"))); // NOI18N
@@ -517,7 +569,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnDepurador);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Desenho"));
+        painelDesenhoContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Desenho"));
 
         javax.swing.GroupLayout painelDesenhoLayout = new javax.swing.GroupLayout(painelDesenho);
         painelDesenho.setLayout(painelDesenhoLayout);
@@ -530,18 +582,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        javax.swing.GroupLayout painelDesenhoContainerLayout = new javax.swing.GroupLayout(painelDesenhoContainer);
+        painelDesenhoContainer.setLayout(painelDesenhoContainerLayout);
+        painelDesenhoContainerLayout.setHorizontalGroup(
+            painelDesenhoContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDesenhoContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelDesenho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        painelDesenhoContainerLayout.setVerticalGroup(
+            painelDesenhoContainerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelDesenhoContainerLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(painelDesenho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -655,6 +707,34 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         menuEditar.add(menuItemCopiarTextoFormatado);
         menuEditar.add(separadorMenuEditar3);
+
+        menuItemProcurar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/find.png"))); // NOI18N
+        menuItemProcurar.setText("Procurar...");
+        menuItemProcurar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemProcurarActionPerformed(evt);
+            }
+        });
+        menuEditar.add(menuItemProcurar);
+
+        menuItemSubstituir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/arrow_refresh_small.png"))); // NOI18N
+        menuItemSubstituir.setText("Substituir...");
+        menuItemSubstituir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemSubstituirActionPerformed(evt);
+            }
+        });
+        menuEditar.add(menuItemSubstituir);
+
+        menuItemIrPara.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/pencil_go.png"))); // NOI18N
+        menuItemIrPara.setText("Ir para linha...");
+        menuItemIrPara.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemIrParaActionPerformed(evt);
+            }
+        });
+        menuEditar.add(menuItemIrPara);
+        menuEditar.add(separadorMenuEditar4);
 
         menuItemAumentarFonte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/font_add.png"))); // NOI18N
         menuItemAumentarFonte.setText("Aumentar Fonte");
@@ -786,7 +866,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(painelSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelDesenhoContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addComponent(barraFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
         );
@@ -800,7 +880,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(painelSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelDesenhoContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -829,19 +909,32 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExecutarPassoAPassoAutomaticoActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-        
+
         if ( tartaruga != null ) {
-            
+
+            tartaruga.limpar();
             tartaruga.atualizarPosicaoEstadoInicial( painelDesenho.getWidth() / 2, painelDesenho.getHeight() / 2 );
-
-            if ( !tartaruga.isEstadoInicial() ) {
-                executarCodigo();
-            }
-
             painelTextAreaCodigo.repaint();
-            
+
+            mudarEstadoGUI( true );
+            btnPararPassoAPasso.setEnabled( false );
+            btnInicioPassoAPasso.setEnabled( false );
+            btnAnteriorPassoAPasso.setEnabled( false );
+            btnProximoPassoAPasso.setEnabled( false );
+            btnFinalPassoAPasso.setEnabled( false );
+
+            deveAtualizarComponentesExecutarPassoAPasso = false;
+            sliderEstadoAtual.setEnabled( false );
+            sliderEstadoAtual.setValue( 0 );
+            sliderEstadoAtual.setMaximum( 100 );
+            deveAtualizarComponentesExecutarPassoAPasso = true;
+
+            btnPararPassoAPassoAutomatico.setEnabled( false );
+
+            pararPassoAPasso = true;
+
         }
-        
+
     }//GEN-LAST:event_formComponentResized
 
     private void btnSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarComoActionPerformed
@@ -881,37 +974,41 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRefazerActionPerformed
 
     private void btnPararPassoAPassoAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararPassoAPassoAutomaticoActionPerformed
-        
+
         mudarEstadoGUI( true );
-        
+
         btnExecutarPassoAPassoAutomatico.setEnabled( true );
         btnPararPassoAPassoAutomatico.setEnabled( false );
-        
+
         pararPassoAPassoAutomatico = true;
-        
+
     }//GEN-LAST:event_btnPararPassoAPassoAutomaticoActionPerformed
 
     private void btnInicioPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioPassoAPassoActionPerformed
         tartaruga.irParaEstadoInicial();
-        atualizarBotoesExecutarPassoAPasso();
+        atualizarComponentesExecutarPassoAPasso();
+        sliderEstadoAtual.setValue( tartaruga.getEstadoAtual() );
         painelDesenho.repaint();
     }//GEN-LAST:event_btnInicioPassoAPassoActionPerformed
 
     private void btnAnteriorPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorPassoAPassoActionPerformed
         tartaruga.irParaEstadoAnterior();
-        atualizarBotoesExecutarPassoAPasso();
+        atualizarComponentesExecutarPassoAPasso();
+        sliderEstadoAtual.setValue( tartaruga.getEstadoAtual() );
         painelDesenho.repaint();
     }//GEN-LAST:event_btnAnteriorPassoAPassoActionPerformed
 
     private void btnProximoPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoPassoAPassoActionPerformed
         tartaruga.irParaProximoEstado();
-        atualizarBotoesExecutarPassoAPasso();
+        atualizarComponentesExecutarPassoAPasso();
+        sliderEstadoAtual.setValue( tartaruga.getEstadoAtual() );
         painelDesenho.repaint();
     }//GEN-LAST:event_btnProximoPassoAPassoActionPerformed
 
     private void btnFinalPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalPassoAPassoActionPerformed
         tartaruga.irParaEstadoFinal();
-        atualizarBotoesExecutarPassoAPasso();
+        atualizarComponentesExecutarPassoAPasso();
+        sliderEstadoAtual.setValue( tartaruga.getEstadoAtual() );
         painelDesenho.repaint();
     }//GEN-LAST:event_btnFinalPassoAPassoActionPerformed
 
@@ -920,22 +1017,28 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnExecutarPassoAPassoActionPerformed
 
     private void btnPararPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararPassoAPassoActionPerformed
-        
+
         mudarEstadoGUI( true );
-        
+
         btnExecutarPassoAPasso.setEnabled( true );
         btnPararPassoAPasso.setEnabled( false );
-        
+
         btnInicioPassoAPasso.setEnabled( false );
         btnProximoPassoAPasso.setEnabled( false );
         btnAnteriorPassoAPasso.setEnabled( false );
         btnFinalPassoAPasso.setEnabled( false );
-        
+
+        deveAtualizarComponentesExecutarPassoAPasso = false;
+        sliderEstadoAtual.setEnabled( false );
+        sliderEstadoAtual.setValue( 0 );
+        sliderEstadoAtual.setMaximum( 100 );
+        deveAtualizarComponentesExecutarPassoAPasso = true;
+
         btnPararPassoAPassoAutomatico.setEnabled( false );
-        
+
         //tartaruga.limpar();
         painelDesenho.repaint();
-        
+
     }//GEN-LAST:event_btnPararPassoAPassoActionPerformed
 
     private void menuItemDesfazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDesfazerActionPerformed
@@ -995,27 +1098,27 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAumentarFonteActionPerformed
 
     private void btnDepuradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepuradorActionPerformed
-        
+
         tartaruga.setDepuradorAtivo( !tartaruga.isDepuradorAtivo() );
         setBooleanPref( PREF_DEPURADOR_ATIVO, tartaruga.isDepuradorAtivo() );
-        
+
         menuItemCBDepurador.setSelected( tartaruga.isDepuradorAtivo() );
         menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Esconder Depurador" : "Mostrar Depurador" );
-        
+
         painelDesenho.repaint();
-        
+
     }//GEN-LAST:event_btnDepuradorActionPerformed
 
     private void menuItemCBDepuradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCBDepuradorActionPerformed
-        
+
         tartaruga.setDepuradorAtivo( !tartaruga.isDepuradorAtivo() );
         setBooleanPref( PREF_DEPURADOR_ATIVO, tartaruga.isDepuradorAtivo() );
-        
+
         btnDepurador.setSelected( tartaruga.isDepuradorAtivo() );
         menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Esconder Depurador" : "Mostrar Depurador" );
-        
+
         painelDesenho.repaint();
-        
+
     }//GEN-LAST:event_menuItemCBDepuradorActionPerformed
 
     private void sliderQuadrosPorSegundoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderQuadrosPorSegundoStateChanged
@@ -1036,64 +1139,126 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemRTemaNimbusActionPerformed
 
     private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
-        
+
         tartaruga.setGradeAtiva( !tartaruga.isGradeAtiva() );
         setBooleanPref( PREF_GRADE_ATIVA, tartaruga.isGradeAtiva() );
-        
+
         menuItemCBGrade.setSelected( tartaruga.isGradeAtiva() );
         menuItemCBGrade.setText( tartaruga.isGradeAtiva() ? "Esconder Grade" : "Mostrar Grade" );
-        
+
         painelDesenho.repaint();
-        
+
     }//GEN-LAST:event_btnGradeActionPerformed
 
     private void menuItemCBGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCBGradeActionPerformed
-        
+
         tartaruga.setGradeAtiva( !tartaruga.isGradeAtiva() );
         setBooleanPref( PREF_GRADE_ATIVA, tartaruga.isGradeAtiva() );
-        
+
         btnGrade.setSelected( tartaruga.isGradeAtiva() );
         menuItemCBGrade.setText( tartaruga.isGradeAtiva() ? "Esconder Grade" : "Mostrar Grade" );
-        
+
         painelDesenho.repaint();
-        
+
     }//GEN-LAST:event_menuItemCBGradeActionPerformed
 
+    private void sliderEstadoAtualStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderEstadoAtualStateChanged
+
+        tartaruga.setEstadoAtual( sliderEstadoAtual.getValue() );
+
+        if ( deveAtualizarComponentesExecutarPassoAPasso ) {
+            atualizarComponentesExecutarPassoAPasso();
+        }
+
+        painelDesenho.repaint();
+
+    }//GEN-LAST:event_sliderEstadoAtualStateChanged
+
+    private void menuItemProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProcurarActionPerformed
+        if ( replaceDialog.isVisible() ) {
+            replaceDialog.setVisible( false );
+        }
+        findDialog.setVisible( true );
+    }//GEN-LAST:event_menuItemProcurarActionPerformed
+
+    private void menuItemSubstituirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSubstituirActionPerformed
+        if ( findDialog.isVisible() ) {
+            findDialog.setVisible( false );
+        }
+        replaceDialog.setVisible( true );
+    }//GEN-LAST:event_menuItemSubstituirActionPerformed
+
+    private void menuItemIrParaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemIrParaActionPerformed
+
+        if ( findDialog.isVisible() ) {
+            findDialog.setVisible( false );
+        }
+        
+        if ( replaceDialog.isVisible() ) {
+            replaceDialog.setVisible( false );
+        }
+        
+        GoToDialog dialogo = new GoToDialog( JanelaPrincipal.this );
+        dialogo.setMaxLineNumberAllowed( textAreaCodigo.getLineCount() );
+        dialogo.setVisible( true );
+        int linha = dialogo.getLineNumber();
+        
+        if ( linha > 0 ) {
+            try {
+                textAreaCodigo.setCaretPosition( textAreaCodigo.getLineStartOffset( linha - 1 ) );
+            } catch ( BadLocationException exc ) {
+                UIManager.getLookAndFeel().provideErrorFeedback( textAreaCodigo );
+                exc.printStackTrace();
+            }
+        }
+
+    }//GEN-LAST:event_menuItemIrParaActionPerformed
+
     private void atualizarQuadrosPorSegundo() {
-        lblQuadrosPorSegundo.setText( 
-                String.format( " %d quadros por segundo", 
-                sliderQuadrosPorSegundo.getValue() ) );
+        lblQuadrosPorSegundo.setText(
+                String.format( " %d quadros por segundo",
+                        sliderQuadrosPorSegundo.getValue() ) );
     }
-    
-    private void montarTitulo( boolean inserirAsterisco ) {
-        
+
+    private void montarTitulo() {
+
         setTitle( "AuroraLogo - " + VERSAO );
-        
+
         if ( arquivoAtual != null ) {
             setTitle( getTitle() + " - " + arquivoAtual.getName() );
         } else {
             setTitle( getTitle() + " - " + "Sem título" );
         }
-        
-        if ( inserirAsterisco ) {
-            setTitle( getTitle() + "*" );
-        }
-        
+
     }
-    
+
+    private void montarTitulo( boolean inserirAsterisco ) {
+
+        montarTitulo();
+
+        /*if ( inserirAsterisco ) {
+            setTitle( getTitle() + "*" );
+        }*/
+    }
+
     private void configurarTextAreaCodigo() {
-        
+
+        textAreaCodigo = new RSyntaxTextArea();
+
         textAreaCodigo.setTabSize( 4 );
         textAreaCodigo.setCaretPosition( 0 );
-        textAreaCodigo.requestFocusInWindow();
         textAreaCodigo.setMarkOccurrences( true );
         textAreaCodigo.setCodeFoldingEnabled( true );
         textAreaCodigo.setClearWhitespaceLinesEnabled( false );
         textAreaCodigo.setMarginLineEnabled( true );
+        textAreaCodigo.requestFocusInWindow();
+
+        DefaultCaret caret = ( DefaultCaret ) textPaneSaida.getCaret();
+        caret.setUpdatePolicy( DefaultCaret.ALWAYS_UPDATE );
 
         InputMap im = textAreaCodigo.getInputMap();
         ActionMap am = textAreaCodigo.getActionMap();
-        
+
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK ), "decreaseFontSize" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK ), "decreaseFontSize" );
         //am.put( "decreaseFontSize", new RSyntaxTextAreaEditorKit.DecreaseFontSizeAction() );
@@ -1102,8 +1267,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             public void actionPerformed( ActionEvent e ) {
                 diminuirFonte();
             }
-        });
-        
+        } );
+
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
@@ -1113,9 +1278,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             public void actionPerformed( ActionEvent e ) {
                 aumentarFonte();
             }
-        });
-        
-        
+        } );
+
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_0, KeyEvent.CTRL_DOWN_MASK ), "fontSizeToDefault" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_NUMPAD0, KeyEvent.CTRL_DOWN_MASK ), "fontSizeToDefault" );
         am.put( "fontSizeToDefault", new AbstractAction() {
@@ -1124,14 +1288,27 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 textAreaCodigo.setFont( fontePadrao );
                 textPaneSaida.setFont( fontePadrao );
             }
-        });
+        } );
 
         int ctrlShift = InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK;
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_C, ctrlShift ), "copyAsStyledText" );
         am.put( "copyAsStyledText", new RSyntaxTextAreaEditorKit.CopyCutAsStyledTextAction( false ) );
-        
+
+        JPopupMenu pMenu = textAreaCodigo.getPopupMenu();
+        JMenuItem menuItemCor = new JMenuItem( "Inserir Cor" );
+        menuItemCor.setIcon( new ImageIcon( getClass().getResource( "/br/com/davidbuzatto/auroralogo/gui/icones/palette.png" ) ) );
+        pMenu.add( new JSeparator() );
+        pMenu.add( menuItemCor );
+
+        menuItemCor.addActionListener( new ActionListener() {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                inserirCorTextAreaCodigo();
+            }
+        } );
+
         textAreaCodigo.getDocument().addDocumentListener( new DocumentListener() {
-            
+
             @Override
             public void insertUpdate( DocumentEvent e ) {
                 montarTitulo( true );
@@ -1149,11 +1326,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 montarTitulo( true );
                 atualizarBotoesDesfazerRefazer( textAreaCodigo );
             }
-            
-        });
-        
-        AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
-        atmf.putMapping( "text/AuroraLogo", "br.com.davidbuzatto.auroralogo.gui.sh.AuroraLogoSyntaxHighlighter");
+
+        } );
+
+        FoldParserManager.get().addFoldParserMapping( "text/AuroraLogo", new CurlyFoldParser() );
+
+        AbstractTokenMakerFactory atmf = ( AbstractTokenMakerFactory ) TokenMakerFactory.getDefaultInstance();
+        atmf.putMapping( "text/AuroraLogo", "br.com.davidbuzatto.auroralogo.gui.sh.AuroraLogoSyntaxHighlighter" );
         textAreaCodigo.setSyntaxEditingStyle( "text/AuroraLogo" );
 
         // se definido pelo usuário
@@ -1171,11 +1350,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
         textAreaCodigo.setSyntaxScheme( syntaxScheme );*/
         
-        ErrorStrip errorStrip = new ErrorStrip( textAreaCodigo );
+        errorStrip = new ErrorStrip( textAreaCodigo );
+        scrollPaneCodigo = new RTextScrollPane( textAreaCodigo, true );
+        statusBar = new StatusBar();
         
-        painelTextAreaCodigo.add( scrollPaneCodigo, BorderLayout.CENTER );
+        csp = new CollapsibleSectionPanel();
+        csp.add( scrollPaneCodigo );
+        
+        painelTextAreaCodigo.add( csp, BorderLayout.CENTER );
         painelTextAreaCodigo.add( errorStrip, BorderLayout.LINE_END );
-        
+        painelTextAreaCodigo.add( statusBar, BorderLayout.SOUTH );
+
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
@@ -1184,32 +1369,62 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     }
 
+    private void configurarDialogosDeBusca() {
+
+        findDialog = new FindDialog( this, this );
+        replaceDialog = new ReplaceDialog( this, this );
+        
+        /*SwingUtilities.updateComponentTreeUI(JanelaPrincipal.this);
+        findDialog.updateUI();
+        replaceDialog.updateUI();*/
+
+        // This ties the properties of the two dialogs together (match case,
+        // regex, etc.).
+        SearchContext context = findDialog.getSearchContext();
+        replaceDialog.setSearchContext( context );
+
+        // Create tool bars and tie their search contexts together also.
+        findToolBar = new FindToolBar( this );
+        findToolBar.setSearchContext( context );
+        replaceToolBar = new ReplaceToolBar( this );
+        replaceToolBar.setSearchContext( context );
+        
+        KeyStroke ks = KeyStroke.getKeyStroke( KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK );
+        Action a = csp.addBottomComponent( ks, findToolBar );
+        a.putValue( Action.NAME, "Mostrar Barra Localizar");
+        
+        ks = KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK );
+        a = csp.addBottomComponent(ks, replaceToolBar);
+        a.putValue( Action.NAME, "Mostrar Barra Substituir");
+
+    }
+
     private void desfazer() {
         textAreaCodigo.undoLastAction();
         atualizarBotoesDesfazerRefazer( textAreaCodigo );
     }
-    
+
     private void refazer() {
         textAreaCodigo.redoLastAction();
         atualizarBotoesDesfazerRefazer( textAreaCodigo );
     }
-    
+
     private void aumentarFonte() {
         Font f = textAreaCodigo.getFont();
         Font nf = new Font( f.getName(), f.getStyle(), f.getSize() == 40 ? 40 : f.getSize() + 1 );
         textAreaCodigo.setFont( nf );
         textPaneSaida.setFont( nf );
     }
-    
+
     private void diminuirFonte() {
         Font f = textAreaCodigo.getFont();
         Font nf = new Font( f.getName(), f.getStyle(), f.getSize() == 2 ? 2 : f.getSize() - 1 );
         textAreaCodigo.setFont( nf );
         textPaneSaida.setFont( nf );
     }
-    
-    private void atualizarBotoesDesfazerRefazer(  RSyntaxTextArea textAreaCodigo ) {
-        
+
+    private void atualizarBotoesDesfazerRefazer( RSyntaxTextArea textAreaCodigo ) {
+
         if ( textAreaCodigo.canUndo() ) {
             btnDesfazer.setEnabled( true );
             menuItemDesfazer.setEnabled( true );
@@ -1225,73 +1440,79 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnRefazer.setEnabled( false );
             menuItemRefazer.setEnabled( false );
         }
-                
+
     }
-    
+
     private boolean executarCodigo() {
-        
+
         try {
-            
+
             String codigo = textAreaCodigo.getText().trim();
-            AuroraLogoErrorListener errorListener = new AuroraLogoErrorListener( 
-                        textAreaCodigo, textPaneSaida, this, painelDesenho, tartaruga );
-            
+            AuroraLogoErrorListener errorListener = new AuroraLogoErrorListener(
+                    textAreaCodigo,
+                    errorStrip,
+                    textPaneSaida,
+                    this,
+                    painelDesenho,
+                    tartaruga );
+
             textPaneSaida.setText( "" );
-            
+
             if ( !codigo.isEmpty() ) {
-                
-                AuroraLogoLexer lexer = new AuroraLogoLexer( 
+
+                AuroraLogoLexer lexer = new AuroraLogoLexer(
                         CharStreams.fromString( textAreaCodigo.getText() ) );
                 CommonTokenStream tokens = new CommonTokenStream( lexer );
-                
+
                 AuroraLogoParser parser = new AuroraLogoParser( tokens );
                 parser.removeErrorListeners();
                 parser.addErrorListener( errorListener );
-                
+                //parser.setErrorHandler( new BailErrorStrategy() );
+
                 ParseTree tree = parser.prog();
-                
+
                 if ( !errorListener.houveErro() ) {
                     DesenhistaAuroraLogoVisitor visitor = new DesenhistaAuroraLogoVisitor( tartaruga, this );
                     visitor.visit( tree );
                 }
-                
+
                 if ( DEBUG_PARSER ) {
                     mostrarDados( null, parser, tree, true );
                 }
-                
+
             } else {
                 tartaruga.limpar();
             }
-            
+
             return !errorListener.houveErro();
-            
+
         } catch ( RecognitionException exc ) {
             tartaruga.limpar();
         } catch ( Exception exc ) {
             tartaruga.limpar();
         }
-        
+
         return false;
-        
+
     }
-    
+
     private void novoArquivo() {
-        
+
         salvar( arquivoAtual );
         arquivoAtual = null;
         carregarTemplate( "novoArquivo", false );
-        
+
         tartaruga.limpar();
         painelDesenho.repaint();
-        
+
         montarTitulo( false );
-        
+
     }
-    
+
     private void abrirArquivo() {
-        
+
         salvar( arquivoAtual );
-        
+
         File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
         JFileChooser jfc = new JFileChooser( diretorioAtual );
         jfc.setDialogTitle( "Abrir..." );
@@ -1306,46 +1527,45 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             carregarArquivo( arquivo, true );
 
         }
-        
+
         montarTitulo( false );
-        
+
     }
-    
+
     private void salvarArquivo() {
-        
+
         if ( arquivoAtual == null ) {
             fragmentoSalvar( "Salvar..." );
         }
-        
+
         salvar( arquivoAtual );
-        
+
     }
-    
-    
+
     private void salvarArquivoComo() {
-        
+
         salvar( arquivoAtual );
         fragmentoSalvar( "Salvar Como..." );
         salvar( arquivoAtual );
-        
+
     }
-    
+
     private void salvar( File arquivo ) {
-        
+
         if ( arquivo != null ) {
-            try ( PrintStream ps = new PrintStream( new FileOutputStream( arquivo ) ) ) {
+            try (  PrintStream ps = new PrintStream( new FileOutputStream( arquivo ) ) ) {
                 ps.print( textAreaCodigo.getText() );
             } catch ( FileNotFoundException exc ) {
                 exc.printStackTrace();
             }
         }
-        
+
         montarTitulo( false );
-        
+
     }
-    
+
     private void fragmentoSalvar( String tituloDialogo ) {
-        
+
         File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
         JFileChooser jfc = new JFileChooser( diretorioAtual );
         jfc.setDialogTitle( tituloDialogo );
@@ -1359,9 +1579,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             boolean salvar = true;
 
             if ( arquivo.exists() ) {
-                if ( JOptionPane.showConfirmDialog( null, 
-                        "O arquivo já existe, deseja sobrescrevê-lo?", 
-                        "Confirmação", 
+                if ( JOptionPane.showConfirmDialog( null,
+                        "O arquivo já existe, deseja sobrescrevê-lo?",
+                        "Confirmação",
                         JOptionPane.YES_NO_OPTION ) == JOptionPane.NO_OPTION ) {
                     salvar = false;
                 }
@@ -1379,55 +1599,62 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
 
         }
-        
+
     }
-    
+
     private void executar() {
-        
+
         salvar( arquivoAtual );
         tartaruga.limpar();
         tartaruga.setPassoAPasso( false );
-        
+
         if ( executarCodigo() ) {
             tartaruga.irParaEstadoFinal();
         }
-        
+
         painelDesenho.repaint();
-        
+
     }
-    
+
     private void executarPassoAPasso() {
-        
+
         salvar( arquivoAtual );
         tartaruga.limpar();
         tartaruga.setPassoAPasso( true );
-        
+
         if ( executarCodigo() ) {
+
             mudarEstadoGUI( false );
+
+            sliderEstadoAtual.setEnabled( true );
+            sliderEstadoAtual.setValue( 0 );
+            sliderEstadoAtual.setMaximum( tartaruga.getUltimoEstado() );
+
             tartaruga.irParaEstadoInicial();
-            atualizarBotoesExecutarPassoAPasso();
+            atualizarComponentesExecutarPassoAPasso();
+
         }
-        
+
         painelDesenho.repaint();
-        
+
     }
-    
+
     private void executarPassoAPassoAutomatico() {
-        
+
         salvar( arquivoAtual );
         tartaruga.limpar();
         tartaruga.setPassoAPasso( true );
-        
+
         if ( executarCodigo() ) {
-            
+
             mudarEstadoGUI( false );
-        
+
             sliderQuadrosPorSegundo.setEnabled( true );
             btnExecutarPassoAPassoAutomatico.setEnabled( false );
             btnPararPassoAPassoAutomatico.setEnabled( true );
-        
+
             tartaruga.irParaEstadoInicial();
-        
+
             new Thread( new Runnable() {
                 @Override
                 public void run() {
@@ -1440,7 +1667,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                                 tartaruga.irParaProximoEstado();
                                 painelDesenho.repaint();
                             }
-                        });
+                        } );
                         try {
                             Thread.sleep( 1000 / sliderQuadrosPorSegundo.getValue() );
                         } catch ( InterruptedException exc ) {
@@ -1454,110 +1681,115 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                     btnAnteriorPassoAPasso.setEnabled( false );
                     btnFinalPassoAPasso.setEnabled( false );
                     btnPararPassoAPasso.setEnabled( false );
+                    sliderEstadoAtual.setEnabled( false );
 
                     btnExecutarPassoAPassoAutomatico.setEnabled( true );
                     btnPararPassoAPassoAutomatico.setEnabled( false );
 
                 }
-            }).start();
-            
+            } ).start();
+
         }
-        
+
         painelDesenho.repaint();
-        
+
     }
-    
+
     private void sair() {
-        
+
         if ( PRODUCAO ) {
-            
+
             salvarArquivo();
 
-            if ( JOptionPane.showConfirmDialog( 
-                    this, 
-                    "Deseja mesmo sair?", "Sair", 
+            if ( JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseja mesmo sair?", "Sair",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE ) == JOptionPane.YES_OPTION ) {
                 System.exit( 0 );
             }
-        
+
         } else {
             System.exit( 0 );
         }
-        
+
     }
-    
+
     private void carregarTemplate( String template, boolean inicio ) {
-        
-        try ( Scanner s = new Scanner( 
-                getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/templates/" 
-                        + template + ".aulg" ), StandardCharsets.UTF_8 )) {
+
+        try (  Scanner s = new Scanner(
+                getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/templates/"
+                        + template + ".aulg" ), StandardCharsets.UTF_8 ) ) {
             carregar( s, inicio );
         }
-        
+
     }
-    
+
     private void carregarArquivo( File arquivo, boolean inicio ) {
-        
-        try ( Scanner s = new Scanner( arquivo, StandardCharsets.UTF_8 ) ) {
+
+        try (  Scanner s = new Scanner( arquivo, StandardCharsets.UTF_8 ) ) {
             carregar( s, inicio );
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
-        
+
     }
-    
+
     private void carregar( Scanner s, boolean inicio ) {
-        
+
         StringBuilder sb = sb = new StringBuilder();
         sb.append( s.nextLine() );
         while ( s.hasNextLine() ) {
             sb.append( "\n" ).append( s.nextLine() );
         }
-        
+
         String codigo = sb.toString();
-        String data = new SimpleDateFormat( 
-                "dd/MM/yyyy", Locale.forLanguageTag( "pt-BR" ) ).format( 
-                        new Date() );
-        
+        String data = new SimpleDateFormat(
+                "dd/MM/yyyy", Locale.forLanguageTag( "pt-BR" ) ).format(
+                new Date() );
+
         codigo = codigo.replace( "<USUARIO>", System.getProperty( "user.name" ) );
         codigo = codigo.replace( "<DATA>", data );
-        
+
         textAreaCodigo.setText( codigo );
         textAreaCodigo.setCaretPosition( inicio ? 0 : textAreaCodigo.getText().length() );
-        
+
     }
-    
+
     private void configurarTemaClaro() {
-        
+
         FlatIntelliJLaf.setup();
         SwingUtilities.updateComponentTreeUI( this );
-        
+
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/claro.xml" ) );
             t.apply( textAreaCodigo );
             setPref( PREF_TEMA, "claro" );
+            findDialog.updateUI();
+            replaceDialog.updateUI();
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
     }
-    
+
     private void configurarTemaEscuro() {
-        
+
         FlatDarculaLaf.setup();
         SwingUtilities.updateComponentTreeUI( this );
-        
+
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/escuro.xml" ) );
             t.apply( textAreaCodigo );
             setPref( PREF_TEMA, "escuro" );
+            findDialog.updateUI();
+            replaceDialog.updateUI();
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
     }
-    
+
     private void configurarTemaNimbus() {
-        
+
         try {
             for ( javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels() ) {
                 if ( "Nimbus".equals( info.getName() ) ) {
@@ -1574,23 +1806,35 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         } catch ( javax.swing.UnsupportedLookAndFeelException exc ) {
             java.util.logging.Logger.getLogger( getClass().getName() ).log( java.util.logging.Level.SEVERE, null, exc );
         }
-        
+
         SwingUtilities.updateComponentTreeUI( this );
-        
+
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/nimbus.xml" ) );
             t.apply( textAreaCodigo );
             setPref( PREF_TEMA, "nimbus" );
+            findDialog.updateUI();
+            replaceDialog.updateUI();
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
     }
-    
-    private void atualizarBotoesExecutarPassoAPasso() {
-        
+
+    private void inserirCorTextAreaCodigo() {
+
+        Color cor = JColorChooser.showDialog( this, "Cor", Color.BLACK, true );
+
+        if ( cor != null ) {
+            inserirCorCodigo( textAreaCodigo, cor );
+        }
+
+    }
+
+    private void atualizarComponentesExecutarPassoAPasso() {
+
         btnExecutarPassoAPasso.setEnabled( false );
         btnPararPassoAPasso.setEnabled( true );
-        
+
         if ( tartaruga.isEstadoInicial() ) {
             btnInicioPassoAPasso.setEnabled( false );
             btnAnteriorPassoAPasso.setEnabled( false );
@@ -1598,7 +1842,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnInicioPassoAPasso.setEnabled( true );
             btnAnteriorPassoAPasso.setEnabled( true );
         }
-        
+
         if ( tartaruga.isEstadoFinal() ) {
             btnFinalPassoAPasso.setEnabled( false );
             btnProximoPassoAPasso.setEnabled( false );
@@ -1606,11 +1850,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnFinalPassoAPasso.setEnabled( true );
             btnProximoPassoAPasso.setEnabled( true );
         }
-        
+
     }
-    
+
     private void mudarEstadoGUI( boolean habilitar ) {
-        
+
         Component[] componentes = {
             menuArquivo,
             menuEditar,
@@ -1633,6 +1877,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnAnteriorPassoAPasso,
             btnProximoPassoAPasso,
             btnFinalPassoAPasso,
+            sliderEstadoAtual,
             btnExecutarPassoAPassoAutomatico,
             btnPararPassoAPassoAutomatico,
             sliderQuadrosPorSegundo,
@@ -1640,13 +1885,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             btnGrade,
             textAreaCodigo
         };
-        
+
         for ( Component c : componentes ) {
             c.setEnabled( habilitar );
         }
-        
+
+        if ( habilitar ) {
+            atualizarBotoesDesfazerRefazer( textAreaCodigo );
+        }
+
     }
-    
+
     /**
      * @param args the command line arguments
      */
@@ -1654,7 +1903,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
         EventQueue.invokeLater( new Runnable() {
             public void run() {
-                
+
                 preparePreferences();
                 JanelaPrincipal janela = new JanelaPrincipal();
 
@@ -1672,26 +1921,97 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                         janela.menuItemRTemaNimbus.setSelected( true );
                         break;
                 }
-        
+
                 janela.setVisible( true );
-                
+
                 boolean depuradorAtivo = getBooleanPref( PREF_DEPURADOR_ATIVO );
                 boolean gradeAtiva = getBooleanPref( PREF_GRADE_ATIVA );
-                
+
                 janela.btnDepurador.setSelected( depuradorAtivo );
                 janela.menuItemCBDepurador.setSelected( depuradorAtivo );
                 janela.tartaruga.setDepuradorAtivo( depuradorAtivo );
                 janela.menuItemCBDepurador.setText( depuradorAtivo ? "Esconder Depurador" : "Mostrar Depurador" );
-                
+
                 janela.btnGrade.setSelected( gradeAtiva );
                 janela.menuItemCBGrade.setSelected( gradeAtiva );
                 janela.tartaruga.setGradeAtiva( gradeAtiva );
                 janela.menuItemCBGrade.setText( gradeAtiva ? "Esconder Grade" : "Mostrar Grade" );
-                
+
                 janela.sliderQuadrosPorSegundo.setValue( getIntPref( PREF_VALOR_SLIDER_PASSO_AUTOMATICO ) );
-                
+
             }
         } );
+
+    }
+
+    @Override
+    public void searchEvent( SearchEvent e ) {
+
+        SearchEvent.Type tipo = e.getType();
+        SearchContext contexto = e.getSearchContext();
+        SearchResult resultado;
+
+        switch ( tipo ) {
+            default:
+            case MARK_ALL:
+                resultado = SearchEngine.markAll( textAreaCodigo, contexto );
+                break;
+            case FIND:
+                resultado = SearchEngine.find( textAreaCodigo, contexto );
+                if ( !resultado.wasFound() || resultado.isWrapped() ) {
+                    UIManager.getLookAndFeel().provideErrorFeedback( textAreaCodigo );
+                }
+                break;
+            case REPLACE:
+                resultado = SearchEngine.replace( textAreaCodigo, contexto );
+                if ( !resultado.wasFound() || resultado.isWrapped() ) {
+                    UIManager.getLookAndFeel().provideErrorFeedback( textAreaCodigo );
+                }
+                break;
+            case REPLACE_ALL:
+                resultado = SearchEngine.replaceAll( textAreaCodigo, contexto );
+                JOptionPane.showMessageDialog( null, resultado.getCount()
+                        + " ocorrências substituídas." );
+                break;
+        }
+
+        String texto;
+        
+        if ( resultado.wasFound() ) {
+            texto = "Texto encontrado; ocorrências marcadas: " + resultado.getMarkedCount() + ".";
+        } else if ( tipo == SearchEvent.Type.MARK_ALL ) {
+            if ( resultado.getMarkedCount() > 0 ) {
+                texto = "Ocorrências marcadas: " + resultado.getMarkedCount() + ".";
+            } else {
+                texto = "";
+            }
+        } else {
+            texto = "Texto não encontrado.";
+        }
+
+        statusBar.setLabel( texto );
+
+    }
+
+    @Override
+    public String getSelectedText() {
+        return textAreaCodigo.getSelectedText();
+    }
+
+    private static class StatusBar extends JPanel {
+
+        private JLabel label;
+
+        StatusBar() {
+            label = new JLabel( "Pronto" );
+            setLayout( new BorderLayout() );
+            add( label, BorderLayout.LINE_START );
+            //add( new JLabel( new SizeGripIcon() ), BorderLayout.LINE_END );
+        }
+
+        void setLabel( String label ) {
+            this.label.setText( label );
+        }
 
     }
 
@@ -1718,7 +2038,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnRefazer;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarComo;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblQuadrosPorSegundo;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuArquivo;
@@ -1737,7 +2056,9 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemExecutar;
     private javax.swing.JMenuItem menuItemExecutarPassoAPasso;
     private javax.swing.JMenuItem menuItemExecutarPassoAPassoAutomatico;
+    private javax.swing.JMenuItem menuItemIrPara;
     private javax.swing.JMenuItem menuItemNovo;
+    private javax.swing.JMenuItem menuItemProcurar;
     private javax.swing.JRadioButtonMenuItem menuItemRTemaClaro;
     private javax.swing.JRadioButtonMenuItem menuItemRTemaEscuro;
     private javax.swing.JRadioButtonMenuItem menuItemRTemaNimbus;
@@ -1746,14 +2067,15 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemSalvar;
     private javax.swing.JMenuItem menuItemSalvarComo;
     private javax.swing.JMenuItem menuItemSobre;
+    private javax.swing.JMenuItem menuItemSubstituir;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenu menuTemas;
     private javax.swing.JPanel paineCodigoFonte;
     private br.com.davidbuzatto.auroralogo.gui.PainelDesenho painelDesenho;
+    private javax.swing.JPanel painelDesenhoContainer;
     private javax.swing.JPanel painelSaida;
     private javax.swing.JPanel painelTextAreaCodigo;
     private javax.swing.Box.Filler preenchimento;
-    private javax.swing.JScrollPane scrollPaneCodigo;
     private javax.swing.JScrollPane scrollPaneSaida;
     private javax.swing.JToolBar.Separator separador1;
     private javax.swing.JToolBar.Separator separador2;
@@ -1764,9 +2086,10 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator separadorMenuEditar1;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar2;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar3;
+    private javax.swing.JPopupMenu.Separator separadorMenuEditar4;
     private javax.swing.JPopupMenu.Separator separadorMenuExecutar1;
+    private javax.swing.JSlider sliderEstadoAtual;
     private javax.swing.JSlider sliderQuadrosPorSegundo;
-    private org.fife.ui.rsyntaxtextarea.RSyntaxTextArea textAreaCodigo;
     private javax.swing.JTextPane textPaneSaida;
     // End of variables declaration//GEN-END:variables
 }

@@ -156,7 +156,7 @@ public class AuroraLogoLexer extends Lexer {
 	private boolean HEX_sempred(RuleContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return getText().length() == 8;
+			return getText().length() == 8 || getText().length() == 10;
 		}
 		return true;
 	}

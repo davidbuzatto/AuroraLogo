@@ -5,7 +5,7 @@
    
    <!--  General editor colors. -->
    <background color="ffffff"/>
-   <caret color="ff0000"/>
+   <caret color="000000"/>
    <selection fg="default" useFG="false" bg="c8c8ff"/>
    <currentLineHighlight color="ffffaa" fade="false"/>
    <marginLine fg="b0b4b9"/>

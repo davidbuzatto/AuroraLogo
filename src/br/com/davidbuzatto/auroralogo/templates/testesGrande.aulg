@@ -56,7 +56,7 @@ vá para baixo em 120 .
 // gira 45 graus no sentido horário
 girar em 45 .
 trocar cor para 0x000000 .
-vá para baixo em 100 .
+vá para baixo em 115 .
 
 // gira 45 graus no sentido anti-horário
 girar em -45 .
@@ -74,8 +74,8 @@ repita (abc*3) vezes {
 }
 
 levantar pincel .
-vá para cima em 480 .
-vá para direita em 200 .
+vá para cima em 400 .
+vá para direita em 150 .
 abaixar pincel .
 
 i = 1 .
@@ -84,7 +84,7 @@ repita 36 vezes {
     trocar cor para 0xeb34c0 .
     vá para direita em 1 * i .
     trocar cor para 0x34e5eb .
-    vá para baixo em 2 * i .
+    vá para baixo em 1 * i .
     i = i + 1 .
     engrossar .
     trocar cor para 0x000000 .
@@ -93,7 +93,7 @@ repita 36 vezes {
 
 girar em 180 .
 desengrossar em 20 .
-vá para cima em 400 .
+vá para cima em 515 .
 girar em 45 .
 desengrossar em 5 .
 vá para cima em 100 .
@@ -105,10 +105,11 @@ desengrossar em 5 .
 vá para cima em 100 .
 girar em 45 .
 desengrossar .
-vá para cima em 100 .
+vá para cima em 115 .
 
 levantar pincel .
-vá para esquerda em 1200 .
+vá para esquerda em 840 .
+vá para cima em 260 .
 
 i = 0 .
 j = 0 .
@@ -149,12 +150,12 @@ vá para direita em largura .
 levantar pincel .
 vá para esquerda em largura .
 
-vá para cima em largura - 10.
+vá para cima em largura.
 vá para direita em largura .
 
 trocar cor para 0x9c34eb .
 abaixar pincel .
-vá para baixo em largura - 10.
+vá para baixo em largura.
 levantar pincel .
-vá para cima em largura - 10.
+vá para cima em largura.
 vá para direita em 50 .

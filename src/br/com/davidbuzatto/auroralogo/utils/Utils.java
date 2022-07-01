@@ -16,6 +16,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 /**
  *
@@ -104,6 +105,31 @@ public class Utils {
         } catch ( BadLocationException exc ) {
             exc.printStackTrace();
         }
+        
+    }
+    
+    public static void inserirCorCodigo( RSyntaxTextArea textAreaCodigo, Color cor ) {
+        
+        try {
+            
+            SimpleAttributeSet attr = new SimpleAttributeSet();
+            
+            textAreaCodigo.getDocument().insertString( 
+                    textAreaCodigo.getCaretPosition(), colorParaHexa( cor ), attr );
+            
+        } catch ( BadLocationException exc ) {
+            exc.printStackTrace();
+        }
+        
+    }
+    
+    public static String colorParaHexa( Color cor ) {
+        
+        return "0x" 
+                + String.format( "%02X", cor.getRed() )
+                + String.format( "%02X", cor.getGreen() )
+                + String.format( "%02X", cor.getBlue() )
+                + ( cor.getAlpha() != 255 ? String.format( "%02X", cor.getAlpha() ) : "" );
         
     }
     

@@ -4,8 +4,10 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -73,20 +75,21 @@ public class Tartaruga {
     private static final Color COR_FUNDO_DEPURADOR = new Color( 255, 255, 255, 200 );
     private static final Color COR_TEXTO_DEPURADOR = Color.BLACK;
     private static final String[] PROPRIEDADES_DEPURADOR = {
-        "estado atual: ",
-        "x: ",
-        "y: ",
-        "ângulo: ",
-        "grossura: ",
+        " estado atual: ",
+        "            x: ",
+        "            y: ",
+        "       ângulo: ",
+        "     grossura: ",
         "cor do pincel: ",
-        "cor do fundo: ",
-        "desenhando: ",
-        "variáveis: "
+        " cor do fundo: ",
+        "   desenhando: ",
+        "    variáveis: "
     };
     
     private List<Estado> estados;
     private BufferedImage imgTartaruga;
     private PainelDesenho painelDesenho;
+    private Font fonteDepurador;
     
     private boolean passoAPasso;
     private int estadoAtual;
@@ -94,7 +97,7 @@ public class Tartaruga {
     private boolean depuradorAtivo;
     private boolean gradeAtiva;
     
-    public Tartaruga( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando, PainelDesenho painelDesenho ) {
+    public Tartaruga( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando, PainelDesenho painelDesenho, Font fonteDepurador ) {
         
         estados = new ArrayList<>();
         
@@ -102,11 +105,10 @@ public class Tartaruga {
         estados.add( e );
         
         this.painelDesenho = painelDesenho;
+        this.fonteDepurador = fonteDepurador;
         
         try {
-            
             imgTartaruga = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/icones/tartaruga.png" ) );
-            
         } catch ( IOException exc )  {
         }
         
@@ -268,6 +270,7 @@ public class Tartaruga {
         Estado e = estados.get( 0 );
         e.x = painelDesenho.getWidth() / 2;
         e.y = painelDesenho.getHeight() / 2;
+        e.memoria.clear();
         estados.clear();
         estados.add( e );
         estadoAtual = 0;
@@ -380,10 +383,11 @@ public class Tartaruga {
         
         int xIni = 0;
         int yIni = 0;
-        int larg = 200;
+        int larg = 210;
         int alt = painelDesenho.getHeight();
         
         g2d.setStroke( new BasicStroke( 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL ) );
+        g2d.setFont( fonteDepurador );
         
         g2d.setColor( corFundo );
         g2d.fillRect( xIni, yIni, larg, alt );
@@ -406,7 +410,7 @@ public class Tartaruga {
         
         int xIniStrings = 10;
         int yIniStrings = 20;
-        int passoY = 20;
+        int passoY = 15;
         
         int yAtual;
         int i;
@@ -421,14 +425,16 @@ public class Tartaruga {
                 g2d.drawString( PROPRIEDADES_DEPURADOR[i], xIniStrings, yAtual );
                 
                 g2d.setColor( (Color) valores[i] );
-                g2d.fillRect( 85, yAtual - 10, 10, 10 );
+                g2d.fillRect( 115, yAtual - 10, 10, 10 );
 
                 g2d.setColor( corTexto );
-                g2d.drawRect( 85, yAtual - 10, 10, 10 );
+                g2d.drawRect( 115, yAtual - 10, 10, 10 );
+                
+                g2d.drawString( "(" + Utils.colorParaHexa( (Color) valores[i] )+ ")", 130, yAtual );
         
             } else {
                 
-                if ( PROPRIEDADES_DEPURADOR[i].equals( "variáveis: " ) ) {
+                if ( PROPRIEDADES_DEPURADOR[i].contains( "variáveis" ) ) {
                     g2d.drawString( PROPRIEDADES_DEPURADOR[i] + ( atu.memoria.isEmpty() ? "não há" : "" ), xIniStrings, yAtual );
                 } else {
                     g2d.drawString( PROPRIEDADES_DEPURADOR[i] + valores[i], xIniStrings, yAtual );
@@ -438,9 +444,15 @@ public class Tartaruga {
             
         }
         
+        int c = 0;
         for ( Entry<String, Integer> e : atu.memoria.entrySet() ) {
             yAtual = yIniStrings + passoY * i++;
-            g2d.drawString( "    " + e.getKey() + ": " + e.getValue(), xIniStrings, yAtual );
+            if ( c == atu.memoria.size() - 1 ) {
+                g2d.drawString( "        \u2514\u2500 " + e.getKey() + ": " + e.getValue(), xIniStrings, yAtual );
+            } else {
+                g2d.drawString( "        \u251e\u2500 " + e.getKey() + ": " + e.getValue(), xIniStrings, yAtual );
+            }
+            c++;
         }
         
         g2d.dispose();
@@ -471,6 +483,10 @@ public class Tartaruga {
         return estadoAtual == estados.size() - 1;
     }
     
+    public int getUltimoEstado() {
+        return estados.size() - 1;
+    }
+    
     public void atualizarPosicaoEstadoInicial( int x, int y ) {
         Estado e = estados.get( 0 );
         e.x = x;
@@ -494,6 +510,10 @@ public class Tartaruga {
 
     public void setEstadoAtual( int estadoAtual ) {
         this.estadoAtual = estadoAtual;
+    }
+    
+    public int getEstadoAtual() {
+        return estadoAtual;
     }
     
     public void irParaEstadoInicial() {

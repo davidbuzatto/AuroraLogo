@@ -68,142 +68,14 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
     
     @Override
     public Integer visitTrocarCorPincel( AuroraLogoParser.TrocarCorPincelContext ctx ) {
-        
-       /* Color cor = Color.BLACK;
-        
-        if ( ctx.configuracaoCor().HEX() != null ) {
-            cor = Color.decode( ctx.configuracaoCor().HEX().getText() );
-        } else {
-            
-            switch ( ctx.configuracaoCor().cor.getType() ) {
-                case AuroraLogoParser.PRETO:
-                    cor = Color.BLACK;
-                    break;
-                case AuroraLogoParser.AZUL:
-                    cor = Color.BLUE;
-                    break;
-                case AuroraLogoParser.CIANO:
-                    cor = Color.CYAN;
-                    break;
-                case AuroraLogoParser.CINZA:
-                    cor = Color.GRAY;
-                    break;
-                case AuroraLogoParser.VERDE:
-                    cor = Color.GREEN;
-                    break;
-                case AuroraLogoParser.MAGENTA:
-                    cor = Color.MAGENTA;
-                    break;
-                case AuroraLogoParser.LARANJA:
-                    cor = Color.ORANGE;
-                    break;
-                case AuroraLogoParser.ROSA:
-                    cor = Color.PINK;
-                    break;
-                case AuroraLogoParser.VERMELHO:
-                    cor = Color.RED;
-                    break;
-                case AuroraLogoParser.BRANCO:
-                    cor = Color.WHITE;
-                    break;
-                case AuroraLogoParser.AMARELO:
-                    cor = Color.YELLOW;
-                    break;
-            }
-            
-        }
-        
-        int vezes = 1;
-        
-        if ( ctx.configuracaoCor().expr() != null ) {
-            vezes = visit( ctx.configuracaoCor().expr() );
-            if ( vezes <= 0 ) {
-                vezes = 1;
-            }
-        }
-        
-        for ( int i = 0; i < vezes; i++ ) {
-            if ( ctx.configuracaoCor().CLARO() != null ) {
-                cor = cor.brighter();
-            } else if ( ctx.configuracaoCor().ESCURO() != null ) {
-                cor = cor.darker();
-            }
-        }*/
-        
         tartaruga.trocarCorPincel( obterCor( Color.BLACK, ctx ) );
-        
         return 0;
-        
     }
     
     @Override
     public Integer visitTrocarCorFundo( AuroraLogoParser.TrocarCorFundoContext ctx ) {
-        
-        /*Color cor = Color.WHITE;
-        
-        if ( ctx.configuracaoCor().HEX() != null ) {
-            cor = Color.decode( ctx.configuracaoCor().HEX().getText() );
-        } else {
-            
-            switch ( ctx.configuracaoCor().cor.getType() ) {
-                case AuroraLogoParser.PRETO:
-                    cor = Color.BLACK;
-                    break;
-                case AuroraLogoParser.AZUL:
-                    cor = Color.BLUE;
-                    break;
-                case AuroraLogoParser.CIANO:
-                    cor = Color.CYAN;
-                    break;
-                case AuroraLogoParser.CINZA:
-                    cor = Color.GRAY;
-                    break;
-                case AuroraLogoParser.VERDE:
-                    cor = Color.GREEN;
-                    break;
-                case AuroraLogoParser.MAGENTA:
-                    cor = Color.MAGENTA;
-                    break;
-                case AuroraLogoParser.LARANJA:
-                    cor = Color.ORANGE;
-                    break;
-                case AuroraLogoParser.ROSA:
-                    cor = Color.PINK;
-                    break;
-                case AuroraLogoParser.VERMELHO:
-                    cor = Color.RED;
-                    break;
-                case AuroraLogoParser.BRANCO:
-                    cor = Color.WHITE;
-                    break;
-                case AuroraLogoParser.AMARELO:
-                    cor = Color.YELLOW;
-                    break;
-            }
-            
-        }
-        
-        int vezes = 1;
-        
-        if ( ctx.configuracaoCor().expr() != null ) {
-            vezes = visit( ctx.configuracaoCor().expr() );
-            if ( vezes <= 0 ) {
-                vezes = 1;
-            }
-        }
-        
-        for ( int i = 0; i < vezes; i++ ) {
-            if ( ctx.configuracaoCor().CLARO() != null ) {
-                cor = cor.brighter();
-            } else if ( ctx.configuracaoCor().ESCURO() != null ) {
-                cor = cor.darker();
-            }
-        }*/
-        
         tartaruga.trocarCorFundo( obterCor( Color.WHITE, ctx ) );
-        
         return 0;
-        
     }
     
     private Color obterCor( Color corInicial, AuroraLogoParser.TrocarCorContext ctx ) {
@@ -218,7 +90,15 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Integer> 
         }
         
         if ( configuracaoCor.HEX() != null ) {
-            cor = Color.decode( configuracaoCor.HEX().getText() );
+            
+            //cor = Color.decode( configuracaoCor.HEX().getText() );
+            cor = Color.decode( configuracaoCor.HEX().getText().substring( 0, 8 ) );
+            
+            if ( configuracaoCor.HEX().getText().length() == 10 ) {
+                String alpha = configuracaoCor.HEX().getText().substring( 8 );
+                cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
+            }
+            
         } else {
             
             switch ( configuracaoCor.cor.getType() ) {

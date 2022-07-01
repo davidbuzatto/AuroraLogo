@@ -277,7 +277,7 @@ ID   : LET(LET|DIG)* ;
 
 // literais
 INT  : DIG+ ;
-HEX  : '0x' DHX+ {getText().length() == 8}?; // predicado semântico, força formato em 0x000000
+HEX  : '0x' DHX+ {getText().length() == 8 || getText().length() == 10}?; // predicado semântico, força formato em 0x000000 ou 0x00000000
 STRING : '"' ( ESCC | ~["\\] )* '"' ;
 
 // comentários
