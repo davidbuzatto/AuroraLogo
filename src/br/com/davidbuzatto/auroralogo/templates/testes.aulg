@@ -1,0 +1,6 @@
+repita 100 ve zes {
+    vá para direita em 100 .
+    vá para cima em 100 .
+    vá para esquerda em 100 .
+    vá para baixo em 100 .
+}

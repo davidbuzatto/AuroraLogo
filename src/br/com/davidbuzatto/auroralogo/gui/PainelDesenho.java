@@ -33,7 +33,7 @@ public class PainelDesenho extends JPanel {
         
         if ( tartaruga != null ) {
             
-            if ( tartaruga.estadoInicial() ) {
+            if ( tartaruga.isEstadoInicial() ) {
                 tartaruga.atualizarPosicaoEstadoInicial( getWidth() / 2, getHeight() / 2 );
             }
             

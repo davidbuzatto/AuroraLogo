@@ -235,13 +235,14 @@ public class Tartaruga {
         e.y = painelDesenho.getHeight() / 2;
         estados.clear();
         estados.add( e );
+        estadoAtual = 0;
     }
     
     public void desenhar( Graphics2D g2d ) {
         
         g2d = (Graphics2D) g2d.create();
         
-        if ( estados.size() == 1 ) {
+        if ( estados.size() == 1 || estadoAtual == 0 ) {
             
             Estado atu = estados.get( 0 );
             g2d.setColor( atu.cor );
@@ -249,11 +250,11 @@ public class Tartaruga {
             desenharTartaruga( g2d, atu );
             
         } else {
-        
+            
             int ate = passoAPasso ? estadoAtual : estados.size() - 1;
             
             for ( int i = 1; i <= ate; i++ ) {
-
+                
                 Estado ant = estados.get( i-1 );
                 Estado atu = estados.get( i );
 
@@ -287,6 +288,7 @@ public class Tartaruga {
         
         if ( depuradorAtivo ) {
             g2d.drawRect( 0, 0, 100, 100 );
+            g2d.drawString( "Estado Atual: " + estadoAtual, 10, 10 );
         }
         
         g2d.dispose();
@@ -309,11 +311,11 @@ public class Tartaruga {
         
     }
     
-    public boolean estadoInicial() {
-        return estados.size() == 1;
+    public boolean isEstadoInicial() {
+        return estados.size() == 1 || estadoAtual == 0;
     }
     
-    public boolean estadoFinal() {
+    public boolean isEstadoFinal() {
         return estadoAtual == estados.size() - 1;
     }
     
@@ -342,10 +344,24 @@ public class Tartaruga {
         this.estadoAtual = estadoAtual;
     }
     
-    public void proximoEstado() {
+    public void irParaEstadoInicial() {
+        estadoAtual = 0;
+    }
+    
+    public void irParaEstadoAnterior() {
+        if ( estadoAtual > 0 ) {
+            estadoAtual--;
+        }
+    }
+    
+    public void irParaProximoEstado() {
         if ( estadoAtual < estados.size() - 1 ) {
             estadoAtual++;
         }
+    }
+    
+    public void irParaEstadoFinal() {
+        estadoAtual = estados.size() - 1;
     }
     
     public void setDepuradorAtivo( boolean depuradorAtivo ) {

@@ -4,10 +4,11 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
+import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.DesenhistaAuroraLogoVisitor;
-import br.com.davidbuzatto.auroralogo.utils.Utils;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoErrorListener;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.BorderLayout;
@@ -42,14 +43,14 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.fife.ui.rsyntaxtextarea.AbstractTokenMakerFactory;
-import org.fife.ui.rsyntaxtextarea.ErrorStrip;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit;
-import org.fife.ui.rsyntaxtextarea.Style;
-import org.fife.ui.rsyntaxtextarea.SyntaxScheme;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
-import org.fife.ui.rtextarea.RTextScrollPane;
+import java.awt.Component;
+import javax.swing.JTextPane;
+import javax.swing.text.DefaultCaret;
+import org.fife.ui.rsyntaxtextarea.ErrorStrip;
 
 /**
  *
@@ -59,9 +60,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private static final String VERSAO = "v0.1";
     private static final boolean PRODUCAO = false;
+    private static final boolean DEBUG_PARSER = false;
     
-    private RSyntaxTextArea textAreaCodigo;
-    private RTextScrollPane scrollPaneCodigo;
     private Font fontePadrao;
     
     private Tartaruga tartaruga;
@@ -69,6 +69,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private File arquivoAtual;
     private FileNameExtensionFilter filtroExtensao;
 
+    private boolean pararPassoAPasso;
     private boolean pararPassoAPassoAutomatico;
     
     /**
@@ -77,15 +78,22 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     public JanelaPrincipal() {
 
         initComponents();
-        prepararTextArea();
         montarTitulo( true );
+        
+        configurarTextAreaCodigo();
         atualizarBotoesDesfazerRefazer( textAreaCodigo );
         atualizarQuadrosPorSegundo();
+        
         fontePadrao = textAreaCodigo.getDefaultFont();
+        textPaneSaida.setFont( fontePadrao );
         
         filtroExtensao = new FileNameExtensionFilter( 
                 "Arquivo AuroraLogo" , "aulg" );
         
+        DefaultCaret caret = (DefaultCaret) textPaneSaida.getCaret();
+        caret.setUpdatePolicy( DefaultCaret.ALWAYS_UPDATE );
+        
+        // *********** persistir nas preferências ****************
         //setExtendedState( MAXIMIZED_BOTH );
         
         tartaruga = new Tartaruga( 
@@ -96,12 +104,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 true, 
                 painelDesenho );
         painelDesenho.setTartaruga( tartaruga );
-        
-        /*tartaruga.moverParaCima( 10 );
-        tartaruga.moverParaDireita( 50 );
-        tartaruga.trocarCor( Color.decode( "#ff0000" ) );
-        tartaruga.moverParaBaixo( 100 );
-        tartaruga.moverParaEsquerda( 40 );*/
         
     }
 
@@ -115,8 +117,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         btnGroupTemas = new javax.swing.ButtonGroup();
-        painelCodigo = new javax.swing.JPanel();
-        painelDesenho = new br.com.davidbuzatto.auroralogo.gui.PainelDesenho();
+        paineCodigoFonte = new javax.swing.JPanel();
+        painelTextAreaCodigo = new javax.swing.JPanel();
+        scrollPaneCodigo = new javax.swing.JScrollPane();
+        textAreaCodigo = new org.fife.ui.rsyntaxtextarea.RSyntaxTextArea();
+        painelSaida = new javax.swing.JPanel();
+        scrollPaneSaida = new javax.swing.JScrollPane();
+        textPaneSaida = new javax.swing.JTextPane();
         barraFerramentas = new javax.swing.JToolBar();
         btnNovo = new javax.swing.JButton();
         btnAbrir = new javax.swing.JButton();
@@ -136,14 +143,16 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         btnInicioPassoAPasso = new javax.swing.JButton();
         btnAnteriorPassoAPasso = new javax.swing.JButton();
         btnProximoPassoAPasso = new javax.swing.JButton();
-        btnUltimoPassoAPasso = new javax.swing.JButton();
+        btnFinalPassoAPasso = new javax.swing.JButton();
         separador5 = new javax.swing.JToolBar.Separator();
         btnExecutarPassoAPassoAutomatico = new javax.swing.JButton();
-        btnPararExecutarPassoAutomatico = new javax.swing.JButton();
+        btnPararPassoAPassoAutomatico = new javax.swing.JButton();
         sliderQuadrosPorSegundo = new javax.swing.JSlider();
         lblQuadrosPorSegundo = new javax.swing.JLabel();
         preenchimento = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         btnDepurador = new javax.swing.JToggleButton();
+        jPanel2 = new javax.swing.JPanel();
+        painelDesenho = new br.com.davidbuzatto.auroralogo.gui.PainelDesenho();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         menuItemNovo = new javax.swing.JMenuItem();
@@ -171,11 +180,12 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         separadorMenuExecutar1 = new javax.swing.JPopupMenu.Separator();
         menuItemCBDepurador = new javax.swing.JCheckBoxMenuItem();
         menuExemplos = new javax.swing.JMenu();
-        submenuTemas = new javax.swing.JMenu();
+        menuTemas = new javax.swing.JMenu();
         menuItemRTemaClaro = new javax.swing.JRadioButtonMenuItem();
         menuItemRTemaEscuro = new javax.swing.JRadioButtonMenuItem();
+        menuItemRTemaNimbus = new javax.swing.JRadioButtonMenuItem();
         menuAjuda = new javax.swing.JMenu();
-        menuItemConfiguracoes1 = new javax.swing.JMenuItem();
+        menuItemSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("AuroraLogo");
@@ -190,17 +200,55 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        painelCodigo.setLayout(new java.awt.BorderLayout());
+        paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código Fonte"));
 
-        javax.swing.GroupLayout painelDesenhoLayout = new javax.swing.GroupLayout(painelDesenho);
-        painelDesenho.setLayout(painelDesenhoLayout);
-        painelDesenhoLayout.setHorizontalGroup(
-            painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 702, Short.MAX_VALUE)
+        painelTextAreaCodigo.setLayout(new java.awt.BorderLayout());
+
+        textAreaCodigo.setColumns(20);
+        textAreaCodigo.setRows(5);
+        scrollPaneCodigo.setViewportView(textAreaCodigo);
+
+        painelTextAreaCodigo.add(scrollPaneCodigo, java.awt.BorderLayout.CENTER);
+
+        javax.swing.GroupLayout paineCodigoFonteLayout = new javax.swing.GroupLayout(paineCodigoFonte);
+        paineCodigoFonte.setLayout(paineCodigoFonteLayout);
+        paineCodigoFonteLayout.setHorizontalGroup(
+            paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paineCodigoFonteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        painelDesenhoLayout.setVerticalGroup(
-            painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+        paineCodigoFonteLayout.setVerticalGroup(
+            paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paineCodigoFonteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        painelSaida.setBorder(javax.swing.BorderFactory.createTitledBorder("Saída"));
+
+        scrollPaneSaida.setAutoscrolls(true);
+
+        textPaneSaida.setFocusable(false);
+        scrollPaneSaida.setViewportView(textPaneSaida);
+
+        javax.swing.GroupLayout painelSaidaLayout = new javax.swing.GroupLayout(painelSaida);
+        painelSaida.setLayout(painelSaidaLayout);
+        painelSaidaLayout.setHorizontalGroup(
+            painelSaidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelSaidaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPaneSaida)
+                .addContainerGap())
+        );
+        painelSaidaLayout.setVerticalGroup(
+            painelSaidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelSaidaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPaneSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/page_white_add.png"))); // NOI18N
@@ -379,18 +427,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnProximoPassoAPasso);
 
-        btnUltimoPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_end_blue.png"))); // NOI18N
-        btnUltimoPassoAPasso.setToolTipText("Último");
-        btnUltimoPassoAPasso.setEnabled(false);
-        btnUltimoPassoAPasso.setFocusable(false);
-        btnUltimoPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnUltimoPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnUltimoPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
+        btnFinalPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_end_blue.png"))); // NOI18N
+        btnFinalPassoAPasso.setToolTipText("Final");
+        btnFinalPassoAPasso.setEnabled(false);
+        btnFinalPassoAPasso.setFocusable(false);
+        btnFinalPassoAPasso.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnFinalPassoAPasso.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnFinalPassoAPasso.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnUltimoPassoAPassoActionPerformed(evt);
+                btnFinalPassoAPassoActionPerformed(evt);
             }
         });
-        barraFerramentas.add(btnUltimoPassoAPasso);
+        barraFerramentas.add(btnFinalPassoAPasso);
         barraFerramentas.add(separador5);
 
         btnExecutarPassoAPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"))); // NOI18N
@@ -405,18 +453,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         });
         barraFerramentas.add(btnExecutarPassoAPassoAutomatico);
 
-        btnPararExecutarPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_stop_blue.png"))); // NOI18N
-        btnPararExecutarPassoAutomatico.setToolTipText("Parar Execução Passo a Passo Automático");
-        btnPararExecutarPassoAutomatico.setEnabled(false);
-        btnPararExecutarPassoAutomatico.setFocusable(false);
-        btnPararExecutarPassoAutomatico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnPararExecutarPassoAutomatico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        btnPararExecutarPassoAutomatico.addActionListener(new java.awt.event.ActionListener() {
+        btnPararPassoAPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/control_stop_blue.png"))); // NOI18N
+        btnPararPassoAPassoAutomatico.setToolTipText("Parar Execução Passo a Passo Automático");
+        btnPararPassoAPassoAutomatico.setEnabled(false);
+        btnPararPassoAPassoAutomatico.setFocusable(false);
+        btnPararPassoAPassoAutomatico.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnPararPassoAPassoAutomatico.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnPararPassoAPassoAutomatico.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnPararExecutarPassoAutomaticoActionPerformed(evt);
+                btnPararPassoAPassoAutomaticoActionPerformed(evt);
             }
         });
-        barraFerramentas.add(btnPararExecutarPassoAutomatico);
+        barraFerramentas.add(btnPararPassoAPassoAutomatico);
 
         sliderQuadrosPorSegundo.setMajorTickSpacing(5);
         sliderQuadrosPorSegundo.setMaximum(300);
@@ -453,6 +501,36 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
         });
         barraFerramentas.add(btnDepurador);
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Desenho"));
+
+        javax.swing.GroupLayout painelDesenhoLayout = new javax.swing.GroupLayout(painelDesenho);
+        painelDesenho.setLayout(painelDesenhoLayout);
+        painelDesenhoLayout.setHorizontalGroup(
+            painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        painelDesenhoLayout.setVerticalGroup(
+            painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelDesenho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelDesenho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         menuArquivo.setText("Arquivo");
 
@@ -627,7 +705,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         menuExemplos.setText("Exemplos");
         barraMenu.add(menuExemplos);
 
-        submenuTemas.setText("Temas");
+        menuTemas.setText("Temas");
 
         btnGroupTemas.add(menuItemRTemaClaro);
         menuItemRTemaClaro.setSelected(true);
@@ -637,7 +715,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 menuItemRTemaClaroActionPerformed(evt);
             }
         });
-        submenuTemas.add(menuItemRTemaClaro);
+        menuTemas.add(menuItemRTemaClaro);
 
         btnGroupTemas.add(menuItemRTemaEscuro);
         menuItemRTemaEscuro.setText("Escuro");
@@ -646,20 +724,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 menuItemRTemaEscuroActionPerformed(evt);
             }
         });
-        submenuTemas.add(menuItemRTemaEscuro);
+        menuTemas.add(menuItemRTemaEscuro);
 
-        barraMenu.add(submenuTemas);
+        btnGroupTemas.add(menuItemRTemaNimbus);
+        menuItemRTemaNimbus.setText("Nimbus");
+        menuItemRTemaNimbus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemRTemaNimbusActionPerformed(evt);
+            }
+        });
+        menuTemas.add(menuItemRTemaNimbus);
+
+        barraMenu.add(menuTemas);
 
         menuAjuda.setText("Ajuda");
 
-        menuItemConfiguracoes1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/help.png"))); // NOI18N
-        menuItemConfiguracoes1.setText("Sobre...");
-        menuItemConfiguracoes1.addActionListener(new java.awt.event.ActionListener() {
+        menuItemSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/help.png"))); // NOI18N
+        menuItemSobre.setText("Sobre...");
+        menuItemSobre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuItemConfiguracoes1ActionPerformed(evt);
+                menuItemSobreActionPerformed(evt);
             }
         });
-        menuAjuda.add(menuItemConfiguracoes1);
+        menuAjuda.add(menuItemSobre);
 
         barraMenu.add(menuAjuda);
 
@@ -671,11 +758,13 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painelCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(painelSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDesenho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(barraFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(barraFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -683,8 +772,11 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 .addComponent(barraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(painelCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 737, Short.MAX_VALUE)
-                    .addComponent(painelDesenho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(painelSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -714,13 +806,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
         
-        tartaruga.atualizarPosicaoEstadoInicial( painelDesenho.getWidth() / 2, painelDesenho.getHeight() / 2 );
-        
-        if ( !tartaruga.estadoInicial() ) {
-            executarCodigo();
+        if ( tartaruga != null ) {
+            
+            tartaruga.atualizarPosicaoEstadoInicial( painelDesenho.getWidth() / 2, painelDesenho.getHeight() / 2 );
+
+            if ( !tartaruga.isEstadoInicial() ) {
+                executarCodigo();
+            }
+
+            painelTextAreaCodigo.repaint();
+            
         }
-        
-        painelCodigo.repaint();
         
     }//GEN-LAST:event_formComponentResized
 
@@ -760,32 +856,62 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         refazer();
     }//GEN-LAST:event_btnRefazerActionPerformed
 
-    private void btnPararExecutarPassoAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararExecutarPassoAutomaticoActionPerformed
+    private void btnPararPassoAPassoAutomaticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararPassoAPassoAutomaticoActionPerformed
+        
+        mudarEstadoGUI( true );
+        
+        btnExecutarPassoAPassoAutomatico.setEnabled( true );
+        btnPararPassoAPassoAutomatico.setEnabled( false );
+        
         pararPassoAPassoAutomatico = true;
-    }//GEN-LAST:event_btnPararExecutarPassoAutomaticoActionPerformed
+        
+    }//GEN-LAST:event_btnPararPassoAPassoAutomaticoActionPerformed
 
     private void btnInicioPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioPassoAPassoActionPerformed
-        // TODO add your handling code here:
+        tartaruga.irParaEstadoInicial();
+        atualizarBotoesExecutarPassoAPasso();
+        painelDesenho.repaint();
     }//GEN-LAST:event_btnInicioPassoAPassoActionPerformed
 
     private void btnAnteriorPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorPassoAPassoActionPerformed
-        // TODO add your handling code here:
+        tartaruga.irParaEstadoAnterior();
+        atualizarBotoesExecutarPassoAPasso();
+        painelDesenho.repaint();
     }//GEN-LAST:event_btnAnteriorPassoAPassoActionPerformed
 
     private void btnProximoPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoPassoAPassoActionPerformed
-        // TODO add your handling code here:
+        tartaruga.irParaProximoEstado();
+        atualizarBotoesExecutarPassoAPasso();
+        painelDesenho.repaint();
     }//GEN-LAST:event_btnProximoPassoAPassoActionPerformed
 
-    private void btnUltimoPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoPassoAPassoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnUltimoPassoAPassoActionPerformed
+    private void btnFinalPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalPassoAPassoActionPerformed
+        tartaruga.irParaEstadoFinal();
+        atualizarBotoesExecutarPassoAPasso();
+        painelDesenho.repaint();
+    }//GEN-LAST:event_btnFinalPassoAPassoActionPerformed
 
     private void btnExecutarPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExecutarPassoAPassoActionPerformed
-        // TODO add your handling code here:
+        executarPassoAPasso();
     }//GEN-LAST:event_btnExecutarPassoAPassoActionPerformed
 
     private void btnPararPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPararPassoAPassoActionPerformed
-        // TODO add your handling code here:
+        
+        mudarEstadoGUI( true );
+        
+        btnExecutarPassoAPasso.setEnabled( true );
+        btnPararPassoAPasso.setEnabled( false );
+        
+        btnInicioPassoAPasso.setEnabled( false );
+        btnProximoPassoAPasso.setEnabled( false );
+        btnAnteriorPassoAPasso.setEnabled( false );
+        btnFinalPassoAPasso.setEnabled( false );
+        
+        btnPararPassoAPassoAutomatico.setEnabled( false );
+        
+        //tartaruga.limpar();
+        painelDesenho.repaint();
+        
     }//GEN-LAST:event_btnPararPassoAPassoActionPerformed
 
     private void menuItemDesfazerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDesfazerActionPerformed
@@ -813,7 +939,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemCopiarTextoFormatadoActionPerformed
 
     private void menuItemAumentarFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemAumentarFonteActionPerformed
-        aumentarFonte( evt );
+        aumentarFonte();
     }//GEN-LAST:event_menuItemAumentarFonteActionPerformed
 
     private void menuItemDiminuirFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemDiminuirFonteActionPerformed
@@ -829,50 +955,61 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_menuItemExecutarPassoAPassoAutomaticoActionPerformed
 
     private void menuItemExecutarPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemExecutarPassoAPassoActionPerformed
-        // TODO add your handling code here:
+        executarPassoAPasso();
     }//GEN-LAST:event_menuItemExecutarPassoAPassoActionPerformed
 
-    private void menuItemConfiguracoes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemConfiguracoes1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_menuItemConfiguracoes1ActionPerformed
+    private void menuItemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSobreActionPerformed
+        JOptionPane.showMessageDialog( this, "AuroraLogo - " + VERSAO, "Sobre...", JOptionPane.INFORMATION_MESSAGE );
+    }//GEN-LAST:event_menuItemSobreActionPerformed
 
     private void btnDiminuirFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiminuirFonteActionPerformed
         diminuirFonte();
     }//GEN-LAST:event_btnDiminuirFonteActionPerformed
 
     private void btnAumentarFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAumentarFonteActionPerformed
-        aumentarFonte( evt );
+        aumentarFonte();
     }//GEN-LAST:event_btnAumentarFonteActionPerformed
 
     private void btnDepuradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDepuradorActionPerformed
+        
         tartaruga.setDepuradorAtivo( !tartaruga.isDepuradorAtivo() );
+        setBooleanPref( PREF_DEPURADOR_ATIVO, tartaruga.isDepuradorAtivo() );
+        
         menuItemCBDepurador.setSelected( tartaruga.isDepuradorAtivo() );
         menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Desativar Depurador" : "Ativar Depurador" );
+        
         painelDesenho.repaint();
+        
     }//GEN-LAST:event_btnDepuradorActionPerformed
 
     private void menuItemCBDepuradorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCBDepuradorActionPerformed
+        
         tartaruga.setDepuradorAtivo( !tartaruga.isDepuradorAtivo() );
+        setBooleanPref( PREF_DEPURADOR_ATIVO, tartaruga.isDepuradorAtivo() );
+        
         btnDepurador.setSelected( tartaruga.isDepuradorAtivo() );
         menuItemCBDepurador.setText( tartaruga.isDepuradorAtivo() ? "Desativar Depurador" : "Ativar Depurador" );
+        
         painelDesenho.repaint();
+        
     }//GEN-LAST:event_menuItemCBDepuradorActionPerformed
 
     private void sliderQuadrosPorSegundoStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderQuadrosPorSegundoStateChanged
         atualizarQuadrosPorSegundo();
+        setIntPref( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, sliderQuadrosPorSegundo.getValue() );
     }//GEN-LAST:event_sliderQuadrosPorSegundoStateChanged
 
     private void menuItemRTemaClaroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaClaroActionPerformed
-        FlatIntelliJLaf.setup();
-        SwingUtilities.updateComponentTreeUI( this );
-        configurarTemaTextAreaCodigoClaro();
+        configurarTemaClaro();
     }//GEN-LAST:event_menuItemRTemaClaroActionPerformed
 
     private void menuItemRTemaEscuroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaEscuroActionPerformed
-        FlatDarculaLaf.setup();
-        SwingUtilities.updateComponentTreeUI( this );
-        configurarTemaTextAreaCodigoEscuro();
+        configurarTemaEscuro();
     }//GEN-LAST:event_menuItemRTemaEscuroActionPerformed
+
+    private void menuItemRTemaNimbusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaNimbusActionPerformed
+        configurarTemaNimbus();
+    }//GEN-LAST:event_menuItemRTemaNimbusActionPerformed
 
     private void atualizarQuadrosPorSegundo() {
         lblQuadrosPorSegundo.setText( 
@@ -896,43 +1033,8 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
     }
     
-    private void prepararTextArea() {
-
-        textAreaCodigo = criarTextAreaCodigo();
+    private void configurarTextAreaCodigo() {
         
-        AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
-        atmf.putMapping( "text/AuroraLogo", "br.com.davidbuzatto.auroralogo.gui.sh.AuroraLogoSyntaxHighlighter");
-        textAreaCodigo.setSyntaxEditingStyle( "text/AuroraLogo" );
-
-        /*SyntaxScheme syntaxScheme = new SyntaxScheme( true );
-        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD, new Style( new Color( Utils.getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD_2, new Style( new Color( Utils.getIntPref( "RESERVED_WORD_2" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.IDENTIFIER, new Style( Color.GREEN.darker() ) );
-        syntaxScheme.setStyle( SyntaxScheme.OPERATOR, new Style( Color.decode( "#9e6d03" ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.FUNCTION, new Style( new Color( Utils.getIntPref( "FUNCTION" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_DECIMAL_INT, new Style( Color.MAGENTA.darker().darker() ) );
-        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_FLOAT, new Style( Color.MAGENTA.darker().darker() ) );
-        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_HEXADECIMAL, new Style( Color.MAGENTA.darker().darker() ) );
-        syntaxScheme.setStyle( SyntaxScheme.COMMENT_EOL, new Style( Color.GRAY ) );
-        syntaxScheme.setStyle( SyntaxScheme.COMMENT_MULTILINE, new Style( Color.GRAY.darker() ) );
-        syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( Color.BLUE.darker().darker() ) );
-        textAreaCodigo.setSyntaxScheme( syntaxScheme );*/
-        
-        configurarTemaTextAreaCodigoClaro();
-        
-        scrollPaneCodigo = new RTextScrollPane( textAreaCodigo, true );
-        ErrorStrip errorStrip = new ErrorStrip( textAreaCodigo );
-        
-        painelCodigo.add( scrollPaneCodigo, BorderLayout.CENTER );
-        painelCodigo.add( errorStrip, BorderLayout.LINE_END );
-        
-        carregarTemplate( "exemplo", true );
-
-    }
-
-    private RSyntaxTextArea criarTextAreaCodigo() {
-
-        RSyntaxTextArea textAreaCodigo = new RSyntaxTextArea();
         textAreaCodigo.setTabSize( 4 );
         textAreaCodigo.setCaretPosition( 0 );
         textAreaCodigo.requestFocusInWindow();
@@ -946,12 +1048,25 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK ), "decreaseFontSize" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK ), "decreaseFontSize" );
-        am.put( "decreaseFontSize", new RSyntaxTextAreaEditorKit.DecreaseFontSizeAction() );
+        //am.put( "decreaseFontSize", new RSyntaxTextAreaEditorKit.DecreaseFontSizeAction() );
+        am.put( "decreaseFontSize", new AbstractAction() {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                diminuirFonte();
+            }
+        });
         
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
-        am.put( "increaseFontSize", new RSyntaxTextAreaEditorKit.IncreaseFontSizeAction() );
+        //am.put( "increaseFontSize", new RSyntaxTextAreaEditorKit.IncreaseFontSizeAction() );
+        am.put( "increaseFontSize", new AbstractAction() {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                aumentarFonte();
+            }
+        });
+        
         
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_0, KeyEvent.CTRL_DOWN_MASK ), "fontSizeToDefault" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_NUMPAD0, KeyEvent.CTRL_DOWN_MASK ), "fontSizeToDefault" );
@@ -959,6 +1074,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 textAreaCodigo.setFont( fontePadrao );
+                textPaneSaida.setFont( fontePadrao );
             }
         });
 
@@ -987,8 +1103,36 @@ public class JanelaPrincipal extends javax.swing.JFrame {
             }
             
         });
+        
+        AbstractTokenMakerFactory atmf = (AbstractTokenMakerFactory) TokenMakerFactory.getDefaultInstance();
+        atmf.putMapping( "text/AuroraLogo", "br.com.davidbuzatto.auroralogo.gui.sh.AuroraLogoSyntaxHighlighter");
+        textAreaCodigo.setSyntaxEditingStyle( "text/AuroraLogo" );
 
-        return textAreaCodigo;
+        // se definido pelo usuário
+        /*SyntaxScheme syntaxScheme = new SyntaxScheme( true );
+        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD_2, new Style( new Color( getIntPref( "RESERVED_WORD_2" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.IDENTIFIER, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.OPERATOR, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.FUNCTION, new Style( new Color( getIntPref( "FUNCTION" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_DECIMAL_INT, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_FLOAT, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_HEXADECIMAL, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.COMMENT_EOL, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.COMMENT_MULTILINE, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        textAreaCodigo.setSyntaxScheme( syntaxScheme );*/
+        
+        ErrorStrip errorStrip = new ErrorStrip( textAreaCodigo );
+        
+        painelTextAreaCodigo.add( scrollPaneCodigo, BorderLayout.CENTER );
+        painelTextAreaCodigo.add( errorStrip, BorderLayout.LINE_END );
+        
+        if ( PRODUCAO ) {
+            carregarTemplate( "novoArquivo", true );
+        } else {
+            carregarTemplate( "testes", true );
+        }
 
     }
 
@@ -1002,16 +1146,18 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         atualizarBotoesDesfazerRefazer( textAreaCodigo );
     }
     
-    private void aumentarFonte( ActionEvent evt ) {
+    private void aumentarFonte() {
         Font f = textAreaCodigo.getFont();
         Font nf = new Font( f.getName(), f.getStyle(), f.getSize() == 40 ? 40 : f.getSize() + 1 );
         textAreaCodigo.setFont( nf );
+        textPaneSaida.setFont( nf );
     }
     
     private void diminuirFonte() {
         Font f = textAreaCodigo.getFont();
         Font nf = new Font( f.getName(), f.getStyle(), f.getSize() == 2 ? 2 : f.getSize() - 1 );
         textAreaCodigo.setFont( nf );
+        textPaneSaida.setFont( nf );
     }
     
     private void atualizarBotoesDesfazerRefazer(  RSyntaxTextArea textAreaCodigo ) {
@@ -1034,35 +1180,50 @@ public class JanelaPrincipal extends javax.swing.JFrame {
                 
     }
     
-    private void executarCodigo() {
+    private boolean executarCodigo() {
         
         try {
             
             String codigo = textAreaCodigo.getText().trim();
-            //String codigo = new String( textArea.getText().trim().getBytes(), StandardCharsets.ISO_8859_1 );
+            AuroraLogoErrorListener errorListener = new AuroraLogoErrorListener( 
+                        textAreaCodigo, textPaneSaida, this, painelDesenho, tartaruga );
+            
+            textPaneSaida.setText( "" );
             
             if ( !codigo.isEmpty() ) {
                 
                 AuroraLogoLexer lexer = new AuroraLogoLexer( 
                         CharStreams.fromString( textAreaCodigo.getText() ) );
                 CommonTokenStream tokens = new CommonTokenStream( lexer );
-                AuroraLogoParser parser = new AuroraLogoParser( tokens );
-                ParseTree tree = parser.prog();
-
-                DesenhistaAuroraLogoVisitor visitor = new DesenhistaAuroraLogoVisitor( tartaruga, this );
-                visitor.visit( tree );
                 
-                //Utils.mostrarDados( null, parser, tree, true );
+                AuroraLogoParser parser = new AuroraLogoParser( tokens );
+                parser.removeErrorListeners();
+                parser.addErrorListener( errorListener );
+                
+                ParseTree tree = parser.prog();
+                
+                if ( !errorListener.houveErro() ) {
+                    DesenhistaAuroraLogoVisitor visitor = new DesenhistaAuroraLogoVisitor( tartaruga, this );
+                    visitor.visit( tree );
+                }
+                
+                if ( DEBUG_PARSER ) {
+                    mostrarDados( null, parser, tree, true );
+                }
                 
             } else {
                 tartaruga.limpar();
             }
+            
+            return !errorListener.houveErro();
             
         } catch ( RecognitionException exc ) {
             tartaruga.limpar();
         } catch ( Exception exc ) {
             tartaruga.limpar();
         }
+        
+        return false;
         
     }
     
@@ -1083,7 +1244,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
         salvar( arquivoAtual );
         
-        File diretorioAtual = new File( Utils.getPref( "CAMINHO_ABRIR_SALVAR" ) );
+        File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
         JFileChooser jfc = new JFileChooser( diretorioAtual );
         jfc.setDialogTitle( "Abrir..." );
         jfc.setMultiSelectionEnabled( false );
@@ -1137,7 +1298,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     
     private void fragmentoSalvar( String tituloDialogo ) {
         
-        File diretorioAtual = new File( Utils.getPref( "CAMINHO_ABRIR_SALVAR" ) );
+        File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
         JFileChooser jfc = new JFileChooser( diretorioAtual );
         jfc.setDialogTitle( tituloDialogo );
         jfc.setMultiSelectionEnabled( false );
@@ -1164,7 +1325,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
 
             if ( salvar ) {
 
-                Utils.setPref( "CAMINHO_ABRIR_SALVAR", arquivo.getParentFile().getAbsolutePath() );
+                setPref( PREF_CAMINHO_ABRIR_SALVAR, arquivo.getParentFile().getAbsolutePath() );
                 arquivoAtual = arquivo;
 
             }
@@ -1176,9 +1337,29 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void executar() {
         
         salvar( arquivoAtual );
-        tartaruga.setEstadoAtual( 0 );
+        tartaruga.limpar();
         tartaruga.setPassoAPasso( false );
-        executarCodigo();
+        
+        if ( executarCodigo() ) {
+            tartaruga.irParaEstadoFinal();
+        }
+        
+        painelDesenho.repaint();
+        
+    }
+    
+    private void executarPassoAPasso() {
+        
+        salvar( arquivoAtual );
+        tartaruga.limpar();
+        tartaruga.setPassoAPasso( true );
+        
+        if ( executarCodigo() ) {
+            mudarEstadoGUI( false );
+            tartaruga.irParaEstadoInicial();
+            atualizarBotoesExecutarPassoAPasso();
+        }
+        
         painelDesenho.repaint();
         
     }
@@ -1186,31 +1367,53 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private void executarPassoAPassoAutomatico() {
         
         salvar( arquivoAtual );
-        tartaruga.setEstadoAtual( 0 );
+        tartaruga.limpar();
         tartaruga.setPassoAPasso( true );
-        executarCodigo();
         
-        new Thread( new Runnable() {
-            @Override
-            public void run() {
-                
-                pararPassoAPassoAutomatico = false;
-                
-                while ( !tartaruga.estadoFinal() && !pararPassoAPassoAutomatico ) {
-                    EventQueue.invokeLater( new Runnable() {
-                        public void run() {
-                            tartaruga.proximoEstado();
-                            painelDesenho.repaint();
+        if ( executarCodigo() ) {
+            
+            mudarEstadoGUI( false );
+        
+            sliderQuadrosPorSegundo.setEnabled( true );
+            btnExecutarPassoAPassoAutomatico.setEnabled( false );
+            btnPararPassoAPassoAutomatico.setEnabled( true );
+        
+            tartaruga.irParaEstadoInicial();
+        
+            new Thread( new Runnable() {
+                @Override
+                public void run() {
+
+                    pararPassoAPassoAutomatico = false;
+
+                    while ( !tartaruga.isEstadoFinal() && !pararPassoAPassoAutomatico ) {
+                        EventQueue.invokeLater( new Runnable() {
+                            public void run() {
+                                tartaruga.irParaProximoEstado();
+                                painelDesenho.repaint();
+                            }
+                        });
+                        try {
+                            Thread.sleep( 1000 / sliderQuadrosPorSegundo.getValue() );
+                        } catch ( InterruptedException exc ) {
                         }
-                    });
-                    try {
-                        Thread.sleep( 1000 / sliderQuadrosPorSegundo.getValue() );
-                    } catch ( InterruptedException exc ) {
                     }
+
+                    mudarEstadoGUI( true );
+
+                    btnInicioPassoAPasso.setEnabled( false );
+                    btnProximoPassoAPasso.setEnabled( false );
+                    btnAnteriorPassoAPasso.setEnabled( false );
+                    btnFinalPassoAPasso.setEnabled( false );
+                    btnPararPassoAPasso.setEnabled( false );
+
+                    btnExecutarPassoAPassoAutomatico.setEnabled( true );
+                    btnPararPassoAPassoAutomatico.setEnabled( false );
+
                 }
-                
-            }
-        }).start();
+            }).start();
+            
+        }
         
         painelDesenho.repaint();
         
@@ -1277,22 +1480,122 @@ public class JanelaPrincipal extends javax.swing.JFrame {
         
     }
     
-    private void configurarTemaTextAreaCodigoClaro() {
+    private void configurarTemaClaro() {
+        
+        FlatIntelliJLaf.setup();
+        SwingUtilities.updateComponentTreeUI( this );
+        
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/claro.xml" ) );
             t.apply( textAreaCodigo );
+            setPref( PREF_TEMA, "claro" );
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
     }
     
-    private void configurarTemaTextAreaCodigoEscuro() {
+    private void configurarTemaEscuro() {
+        
+        FlatDarculaLaf.setup();
+        SwingUtilities.updateComponentTreeUI( this );
+        
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/escuro.xml" ) );
             t.apply( textAreaCodigo );
+            setPref( PREF_TEMA, "escuro" );
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
+    }
+    
+    private void configurarTemaNimbus() {
+        
+        try {
+            for ( javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels() ) {
+                if ( "Nimbus".equals( info.getName() ) ) {
+                    javax.swing.UIManager.setLookAndFeel( info.getClassName() );
+                    break;
+                }
+            }
+        } catch ( ClassNotFoundException exc ) {
+            java.util.logging.Logger.getLogger( getClass().getName() ).log( java.util.logging.Level.SEVERE, null, exc );
+        } catch ( InstantiationException exc ) {
+            java.util.logging.Logger.getLogger( getClass().getName() ).log( java.util.logging.Level.SEVERE, null, exc );
+        } catch ( IllegalAccessException exc ) {
+            java.util.logging.Logger.getLogger( getClass().getName() ).log( java.util.logging.Level.SEVERE, null, exc );
+        } catch ( javax.swing.UnsupportedLookAndFeelException exc ) {
+            java.util.logging.Logger.getLogger( getClass().getName() ).log( java.util.logging.Level.SEVERE, null, exc );
+        }
+        
+        SwingUtilities.updateComponentTreeUI( this );
+        
+        try {
+            Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/nimbus.xml" ) );
+            t.apply( textAreaCodigo );
+            setPref( PREF_TEMA, "nimbus" );
+        } catch ( IOException exc ) {
+            exc.printStackTrace();
+        }
+    }
+    
+    private void atualizarBotoesExecutarPassoAPasso() {
+        
+        btnExecutarPassoAPasso.setEnabled( false );
+        btnPararPassoAPasso.setEnabled( true );
+        
+        if ( tartaruga.isEstadoInicial() ) {
+            btnInicioPassoAPasso.setEnabled( false );
+            btnAnteriorPassoAPasso.setEnabled( false );
+        } else {
+            btnInicioPassoAPasso.setEnabled( true );
+            btnAnteriorPassoAPasso.setEnabled( true );
+        }
+        
+        if ( tartaruga.isEstadoFinal() ) {
+            btnFinalPassoAPasso.setEnabled( false );
+            btnProximoPassoAPasso.setEnabled( false );
+        } else {
+            btnFinalPassoAPasso.setEnabled( true );
+            btnProximoPassoAPasso.setEnabled( true );
+        }
+        
+    }
+    
+    private void mudarEstadoGUI( boolean habilitar ) {
+        
+        Component[] componentes = {
+            menuArquivo,
+            menuEditar,
+            menuExecutar,
+            menuExemplos,
+            menuTemas,
+            menuAjuda,
+            btnNovo,
+            btnAbrir,
+            btnSalvar,
+            btnSalvarComo,
+            btnDesfazer,
+            btnRefazer,
+            btnAumentarFonte,
+            btnDiminuirFonte,
+            btnExecutar,
+            btnExecutarPassoAPasso,
+            btnPararPassoAPasso,
+            btnInicioPassoAPasso,
+            btnAnteriorPassoAPasso,
+            btnProximoPassoAPasso,
+            btnFinalPassoAPasso,
+            btnExecutarPassoAPassoAutomatico,
+            btnPararPassoAPassoAutomatico,
+            sliderQuadrosPorSegundo,
+            btnDepurador,
+            textAreaCodigo
+        };
+        
+        for ( Component c : componentes ) {
+            c.setEnabled( habilitar );
+        }
+        
     }
     
     /**
@@ -1300,13 +1603,41 @@ public class JanelaPrincipal extends javax.swing.JFrame {
      */
     public static void main( String args[] ) {
 
-        Utils.preparePreferences();
-        
-        FlatIntelliJLaf.setup();
-        
         EventQueue.invokeLater( new Runnable() {
             public void run() {
-                new JanelaPrincipal().setVisible( true );
+                
+                preparePreferences();
+                JanelaPrincipal janela = new JanelaPrincipal();
+
+                switch ( getPref( PREF_TEMA ) ) {
+                    case "claro":
+                        janela.configurarTemaClaro();
+                        janela.menuItemRTemaClaro.setSelected( true );
+                        break;
+                    case "escuro":
+                        janela.configurarTemaEscuro();
+                        janela.menuItemRTemaEscuro.setSelected( true );
+                        break;
+                    case "nimbus":
+                        janela.configurarTemaNimbus();
+                        janela.menuItemRTemaNimbus.setSelected( true );
+                        break;
+                }
+        
+                janela.setVisible( true );
+                
+                if ( getBooleanPref( PREF_DEPURADOR_ATIVO ) ) {
+                    janela.btnDepurador.setSelected( true );
+                    janela.menuItemCBDepurador.setSelected( true );
+                    janela.tartaruga.setDepuradorAtivo( true );
+                } else {
+                    janela.btnDepurador.setSelected( false );
+                    janela.menuItemCBDepurador.setSelected( false );
+                    janela.tartaruga.setDepuradorAtivo( false );
+                }
+                
+                janela.sliderQuadrosPorSegundo.setValue( getIntPref( PREF_VALOR_SLIDER_PASSO_AUTOMATICO ) );
+                
             }
         } );
 
@@ -1324,16 +1655,17 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton btnExecutar;
     private javax.swing.JButton btnExecutarPassoAPasso;
     private javax.swing.JButton btnExecutarPassoAPassoAutomatico;
+    private javax.swing.JButton btnFinalPassoAPasso;
     private javax.swing.ButtonGroup btnGroupTemas;
     private javax.swing.JButton btnInicioPassoAPasso;
     private javax.swing.JButton btnNovo;
-    private javax.swing.JButton btnPararExecutarPassoAutomatico;
     private javax.swing.JButton btnPararPassoAPasso;
+    private javax.swing.JButton btnPararPassoAPassoAutomatico;
     private javax.swing.JButton btnProximoPassoAPasso;
     private javax.swing.JButton btnRefazer;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarComo;
-    private javax.swing.JButton btnUltimoPassoAPasso;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblQuadrosPorSegundo;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuArquivo;
@@ -1344,7 +1676,6 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemAumentarFonte;
     private javax.swing.JCheckBoxMenuItem menuItemCBDepurador;
     private javax.swing.JMenuItem menuItemColar;
-    private javax.swing.JMenuItem menuItemConfiguracoes1;
     private javax.swing.JMenuItem menuItemCopiar;
     private javax.swing.JMenuItem menuItemCopiarTextoFormatado;
     private javax.swing.JMenuItem menuItemDesfazer;
@@ -1355,14 +1686,21 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem menuItemNovo;
     private javax.swing.JRadioButtonMenuItem menuItemRTemaClaro;
     private javax.swing.JRadioButtonMenuItem menuItemRTemaEscuro;
+    private javax.swing.JRadioButtonMenuItem menuItemRTemaNimbus;
     private javax.swing.JMenuItem menuItemRecortar;
     private javax.swing.JMenuItem menuItemRefazer;
     private javax.swing.JMenuItem menuItemSalvar;
     private javax.swing.JMenuItem menuItemSalvarComo;
+    private javax.swing.JMenuItem menuItemSobre;
     private javax.swing.JMenuItem menuSair;
-    private javax.swing.JPanel painelCodigo;
+    private javax.swing.JMenu menuTemas;
+    private javax.swing.JPanel paineCodigoFonte;
     private br.com.davidbuzatto.auroralogo.gui.PainelDesenho painelDesenho;
+    private javax.swing.JPanel painelSaida;
+    private javax.swing.JPanel painelTextAreaCodigo;
     private javax.swing.Box.Filler preenchimento;
+    private javax.swing.JScrollPane scrollPaneCodigo;
+    private javax.swing.JScrollPane scrollPaneSaida;
     private javax.swing.JToolBar.Separator separador1;
     private javax.swing.JToolBar.Separator separador2;
     private javax.swing.JToolBar.Separator separador3;
@@ -1374,6 +1712,7 @@ public class JanelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator separadorMenuEditar3;
     private javax.swing.JPopupMenu.Separator separadorMenuExecutar1;
     private javax.swing.JSlider sliderQuadrosPorSegundo;
-    private javax.swing.JMenu submenuTemas;
+    private org.fife.ui.rsyntaxtextarea.RSyntaxTextArea textAreaCodigo;
+    private javax.swing.JTextPane textPaneSaida;
     // End of variables declaration//GEN-END:variables
 }
