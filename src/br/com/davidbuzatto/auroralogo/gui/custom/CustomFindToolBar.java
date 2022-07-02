@@ -52,6 +52,7 @@ import org.fife.ui.rtextarea.SearchContext;
  * @author Robert Futrell
  * @version 0.5
  * @see FindDialog
+ * Modificado por Prof. Dr. David Buzatto
  */
 public class CustomFindToolBar extends JPanel {
 
@@ -67,7 +68,6 @@ public class CustomFindToolBar extends JPanel {
     protected JCheckBox regexCheckBox;
     protected JCheckBox markAllCheckBox;
     protected JCheckBox wrapCheckBox;
-    private JLabel infoLabel;
     private Timer markAllTimer;
 
     /**
@@ -97,6 +97,7 @@ public class CustomFindToolBar extends JPanel {
         setLayout( new BorderLayout() );
         setBorder( BorderFactory.createEmptyBorder( 2, 5, 2, 5 ) );
         addSearchListener( listener );
+        
         this.listener = new ToolBarListener();
         setSearchContext( new SearchContext() );
         
@@ -117,19 +118,26 @@ public class CustomFindToolBar extends JPanel {
 
     protected Container createFieldPanel() {
 
+        findFieldListener = new FindFieldListener();
+        createFindButtons();
+        
         JPanel panel = new JPanel();
         panel.setLayout( new GridBagLayout() );
         
-        createFindButtons();
-
-        findFieldListener = new FindFieldListener();
-
+        JLabel labelP = new JLabel( MSG.getString( "FindWhat" ) );
+        
         findCombo = new CustomSearchComboBox( this, false );
         JTextComponent findField = UIUtil.getTextComponent( findCombo );
         findFieldListener.install( findField );
         
-        JLabel labelP = new JLabel( MSG.getString( "FindWhat" ) );
-        GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
+        matchCaseCheckBox = createCB( "MatchCase" );
+        regexCheckBox = createCB( "RegEx" );
+        wholeWordCheckBox = createCB( "WholeWord" );
+        markAllCheckBox = createCB( "MarkAll" );
+        wrapCheckBox = createCB( "Wrap" );
+        
+        
+        GridBagConstraints gridBagConstraints = new GridBagConstraints();
         gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         panel.add( labelP, gridBagConstraints );
@@ -147,13 +155,7 @@ public class CustomFindToolBar extends JPanel {
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         panel.add( findButton, gridBagConstraints );
-
-        matchCaseCheckBox = createCB( "MatchCase" );
-        regexCheckBox = createCB( "RegEx" );
-        wholeWordCheckBox = createCB( "WholeWord" );
-        markAllCheckBox = createCB( "MarkAll" );
-        wrapCheckBox = createCB( "Wrap" );
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 1;

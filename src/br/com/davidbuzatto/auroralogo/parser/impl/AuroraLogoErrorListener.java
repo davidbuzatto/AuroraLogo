@@ -8,7 +8,6 @@ import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.gui.PainelDesenho;
 import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
 import br.com.davidbuzatto.auroralogo.gui.sh.ErroEmLinhaParser;
-import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.util.Collections;
 import java.util.List;
@@ -18,7 +17,6 @@ import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.fife.ui.rsyntaxtextarea.ErrorStrip;
-import org.fife.ui.rsyntaxtextarea.RSyntaxDocument;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 /**
@@ -66,18 +64,12 @@ public class AuroraLogoErrorListener extends BaseErrorListener {
         List<String> stack = ( ( Parser ) recognizer ).getRuleInvocationStack();
         Collections.reverse( stack );
         
-        /*System.err.println( "rule stack: " + stack );
-        System.err.println( "line " 
-                + line + ":" 
-                + charPositionInLine + " at "
-                + offendingSymbol + ": " + msg );*/
-        
-        Utils.inserirTextoFormatado( 
-                textPaneSaida, 
-                String.format( "<erro> linha: %d, colunha %d ;\n", line, charPositionInLine ), 
+        erroLinhaParser.adicionarErro( 
+                offendingSymbol,
+                line - 1, 
+                charPositionInLine, 
+                1, 
                 Color.RED );
-        
-        textAreaCodigo.forceReparsing( erroLinhaParser );
         
         houveErro = true;
         

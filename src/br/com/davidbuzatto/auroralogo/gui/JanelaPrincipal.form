@@ -8,14 +8,19 @@
       <SubComponents>
         <Menu class="javax.swing.JMenu" name="menuArquivo">
           <Properties>
+            <Property name="mnemonic" type="int" value="65"/>
             <Property name="text" type="java.lang.String" value="Arquivo"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemNovo">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+N"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/page_white_add.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="78"/>
                 <Property name="text" type="java.lang.String" value="Novo"/>
               </Properties>
               <Events>
@@ -24,9 +29,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemAbrir">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+O"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/folder.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="65"/>
                 <Property name="text" type="java.lang.String" value="Abrir"/>
               </Properties>
               <Events>
@@ -35,9 +44,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSalvar">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+S"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/disk.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="83"/>
                 <Property name="text" type="java.lang.String" value="Salvar"/>
               </Properties>
               <Events>
@@ -46,9 +59,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSalvarComo">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+S"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/disk_multiple.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="67"/>
                 <Property name="text" type="java.lang.String" value="Salvar Como"/>
               </Properties>
               <Events>
@@ -59,9 +76,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuSair">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Alt+F4"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/door_out.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="114"/>
                 <Property name="text" type="java.lang.String" value="Sair"/>
               </Properties>
               <Events>
@@ -72,14 +93,19 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuEditar">
           <Properties>
+            <Property name="mnemonic" type="int" value="69"/>
             <Property name="text" type="java.lang.String" value="Editar"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemDesfazer">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+Z"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/arrow_undo.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="122"/>
                 <Property name="text" type="java.lang.String" value="Defazer"/>
               </Properties>
               <Events>
@@ -88,9 +114,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemRefazer">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+Y"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/arrow_redo.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="101"/>
                 <Property name="text" type="java.lang.String" value="Refazer"/>
               </Properties>
               <Events>
@@ -101,9 +131,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemRecortar">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+X"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/cut_red.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="82"/>
                 <Property name="text" type="java.lang.String" value="Recortar"/>
               </Properties>
               <Events>
@@ -112,9 +146,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemCopiar">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+C"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/page_white_copy.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="67"/>
                 <Property name="text" type="java.lang.String" value="Copiar"/>
               </Properties>
               <Events>
@@ -123,9 +161,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemColar">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+V"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/page_white_paste.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="111"/>
                 <Property name="text" type="java.lang.String" value="Colar"/>
               </Properties>
               <Events>
@@ -136,9 +178,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemCopiarTextoFormatado">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+C"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/page_word.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="70"/>
                 <Property name="text" type="java.lang.String" value="Copiar Texto Formatado"/>
               </Properties>
               <Events>
@@ -149,9 +195,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemProcurar">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+F"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/find.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="80"/>
                 <Property name="text" type="java.lang.String" value="Procurar..."/>
               </Properties>
               <Events>
@@ -160,9 +210,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSubstituir">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+H"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/arrow_refresh_small.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="83"/>
                 <Property name="text" type="java.lang.String" value="Substituir..."/>
               </Properties>
               <Events>
@@ -171,9 +225,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemIrPara">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+G"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/pencil_go.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="73"/>
                 <Property name="text" type="java.lang.String" value="Ir para linha..."/>
               </Properties>
               <Events>
@@ -184,9 +242,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemAumentarFonte">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+EQUALS"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/font_add.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="65"/>
                 <Property name="text" type="java.lang.String" value="Aumentar Fonte"/>
               </Properties>
               <Events>
@@ -195,27 +257,51 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemDiminuirFonte">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+MINUS"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/font_delete.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="68"/>
                 <Property name="text" type="java.lang.String" value="Diminuir Fonte"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemDiminuirFonteActionPerformed"/>
               </Events>
             </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemFonteTamanhoPadrao">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+0"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/font.png"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="84"/>
+                <Property name="text" type="java.lang.String" value="Tamanho Padr&#xe3;o"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemFonteTamanhoPadraoActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuExecutar">
           <Properties>
+            <Property name="mnemonic" type="int" value="120"/>
             <Property name="text" type="java.lang.String" value="Executar"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutar">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F6"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/script_go.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="120"/>
                 <Property name="text" type="java.lang.String" value="Executar"/>
               </Properties>
               <Events>
@@ -224,9 +310,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPasso">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F7"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/script_lightning.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="80"/>
                 <Property name="text" type="java.lang.String" value="Executar Passo a Passo"/>
               </Properties>
               <Events>
@@ -235,9 +325,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPassoAutomatico">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F8"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="65"/>
                 <Property name="text" type="java.lang.String" value="Executar Passo a Passo (Autom&#xe1;tico)"/>
               </Properties>
               <Events>
@@ -248,6 +342,10 @@
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menuItemCBGrade">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+G"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="71"/>
                 <Property name="text" type="java.lang.String" value="Mostrar Grade"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/note.png"/>
@@ -259,7 +357,12 @@
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menuItemCBDepurador">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+D"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="68"/>
                 <Property name="text" type="java.lang.String" value="Mostrar Depurador"/>
+                <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"/>
                 </Property>
@@ -272,19 +375,25 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuExemplos">
           <Properties>
+            <Property name="mnemonic" type="int" value="112"/>
             <Property name="text" type="java.lang.String" value="Exemplos"/>
           </Properties>
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuTemas">
           <Properties>
+            <Property name="mnemonic" type="int" value="84"/>
             <Property name="text" type="java.lang.String" value="Temas"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="menuItemRTemaClaro">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+1"/>
+                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btnGroupTemas"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="67"/>
                 <Property name="selected" type="boolean" value="true"/>
                 <Property name="text" type="java.lang.String" value="Claro"/>
               </Properties>
@@ -294,9 +403,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="menuItemRTemaEscuro">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+2"/>
+                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btnGroupTemas"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="69"/>
                 <Property name="text" type="java.lang.String" value="Escuro"/>
               </Properties>
               <Events>
@@ -305,9 +418,13 @@
             </MenuItem>
             <MenuItem class="javax.swing.JRadioButtonMenuItem" name="menuItemRTemaNimbus">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Shift+Ctrl+3"/>
+                </Property>
                 <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
                   <ComponentRef name="btnGroupTemas"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="78"/>
                 <Property name="text" type="java.lang.String" value="Nimbus"/>
               </Properties>
               <Events>
@@ -318,14 +435,19 @@
         </Menu>
         <Menu class="javax.swing.JMenu" name="menuAjuda">
           <Properties>
+            <Property name="mnemonic" type="int" value="106"/>
             <Property name="text" type="java.lang.String" value="Ajuda"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemSobre">
               <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="F1"/>
+                </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/help.png"/>
                 </Property>
+                <Property name="mnemonic" type="int" value="83"/>
                 <Property name="text" type="java.lang.String" value="Sobre..."/>
               </Properties>
               <Events>
@@ -348,6 +470,7 @@
   </SyntheticProperties>
   <Events>
     <EventHandler event="componentResized" listener="java.awt.event.ComponentListener" parameters="java.awt.event.ComponentEvent" handler="formComponentResized"/>
+    <EventHandler event="windowStateChanged" listener="java.awt.event.WindowStateListener" parameters="java.awt.event.WindowEvent" handler="formWindowStateChanged"/>
     <EventHandler event="windowClosing" listener="java.awt.event.WindowListener" parameters="java.awt.event.WindowEvent" handler="formWindowClosing"/>
   </Events>
   <AuxValues>
@@ -515,6 +638,20 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDiminuirFonteActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnFonteTamanhoPadrao">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/font.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Tamanho Padr&#xe3;o"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnFonteTamanhoPadraoActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separador3">

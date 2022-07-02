@@ -83,7 +83,8 @@ public class Tartaruga {
         "cor do pincel: ",
         " cor do fundo: ",
         "   desenhando: ",
-        "    variáveis: "
+        "               ",
+        "variáveis:"
     };
     
     private List<Estado> estados;
@@ -404,7 +405,8 @@ public class Tartaruga {
             atu.corPincel,
             atu.corFundo,
             atu.desenhando ? "sim" : "não",
-            ""
+            "",
+            "",
         };
         
         
@@ -435,7 +437,7 @@ public class Tartaruga {
             } else {
                 
                 if ( PROPRIEDADES_DEPURADOR[i].contains( "variáveis" ) ) {
-                    g2d.drawString( PROPRIEDADES_DEPURADOR[i] + ( atu.memoria.isEmpty() ? "não há" : "" ), xIniStrings, yAtual );
+                    g2d.drawString( PROPRIEDADES_DEPURADOR[i] + ( atu.memoria.isEmpty() ? " não há" : "\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510" ), xIniStrings, yAtual );
                 } else {
                     g2d.drawString( PROPRIEDADES_DEPURADOR[i] + valores[i], xIniStrings, yAtual );
                 }
@@ -446,13 +448,40 @@ public class Tartaruga {
         
         int c = 0;
         for ( Entry<String, Integer> e : atu.memoria.entrySet() ) {
-            yAtual = yIniStrings + passoY * i++;
-            if ( c == atu.memoria.size() - 1 ) {
-                g2d.drawString( "        \u2514\u2500 " + e.getKey() + ": " + e.getValue(), xIniStrings, yAtual );
-            } else {
-                g2d.drawString( "        \u251e\u2500 " + e.getKey() + ": " + e.getValue(), xIniStrings, yAtual );
+            
+            String nome = e.getKey();
+            if ( nome.length() > 10 ) {
+                nome = nome.substring( 0, 6 ) + "..." + nome.charAt( nome.length() - 1 );
             }
+            
+            String completo = nome + ": " + e.getValue();
+            if ( completo.length() > 22 ) {
+                completo = completo.substring( 0, 19 ) + "...";
+            }
+            //System.out.println( completo.length() );
+            
+            yAtual = yIniStrings + passoY * i++;
+            
+            if ( c == atu.memoria.size() - 1 ) {
+                completo = "\u2502 \u2514\u2500 " + completo;
+            } else {
+                completo = "\u2502 \u251e\u2500 " + completo;
+            }
+            
+            String complemento = "";
+            for ( int j = 0; j < 27 - completo.length(); j++ ) {
+                complemento += " ";
+            }
+            complemento += "\u2502";
+            
+            g2d.drawString( completo + complemento, xIniStrings, yAtual );
+            
             c++;
+        }
+        
+        if ( c > 0 ) {
+            yAtual = yIniStrings + passoY * i++;
+            g2d.drawString( "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518", xIniStrings, yAtual );
         }
         
         g2d.dispose();
@@ -468,7 +497,7 @@ public class Tartaruga {
         g2d.drawImage( 
                 imgTartaruga, 
                 e.x - imgTartaruga.getWidth() / 2, 
-                e.y - imgTartaruga.getHeight() + 4, 
+                e.y - imgTartaruga.getHeight() + 2, 
                 null );
         
         g2d.dispose();

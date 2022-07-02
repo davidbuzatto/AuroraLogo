@@ -32,6 +32,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxUtilities;
  * @version 0.5
  * @see FindToolBar
  * @see ReplaceDialog
+ * Modificado por Prof. Dr. David Buzatto
  */
 public class CustomReplaceToolBar extends CustomFindToolBar {
 
@@ -62,29 +63,34 @@ public class CustomReplaceToolBar extends CustomFindToolBar {
     @Override
     protected Container createFieldPanel() {
 
+        findFieldListener = new ReplaceFindFieldListener();
+        createFindButtons();
+        
         JPanel panel = new JPanel();
         panel.setLayout( new GridBagLayout() );
-
-        createFindButtons();
-        findFieldListener = new ReplaceFindFieldListener();
+        
+        JLabel labelP = new JLabel( MSG.getString( "FindWhat" ) );
+        JLabel labelS = new JLabel( MSG.getString( "ReplaceWith" ) );
         
         findCombo = new CustomSearchComboBox( this, false );
         JTextComponent findField = UIUtil.getTextComponent( findCombo );
         findFieldListener.install( findField );
-        //Container fcp = createContentAssistablePanel( findCombo );
 
         replaceCombo = new CustomSearchComboBox( this, true );
         JTextComponent replaceField = UIUtil.getTextComponent( replaceCombo );
         findFieldListener.install( replaceField );
-        //Container rcp = createContentAssistablePanel( replaceCombo );
         
-        JLabel labelP = new JLabel( MSG.getString( "FindWhat" ) );
+        matchCaseCheckBox = createCB( "MatchCase" );
+        regexCheckBox = createCB( "RegEx" );
+        wholeWordCheckBox = createCB( "WholeWord" );
+        markAllCheckBox = createCB( "MarkAll" );
+        wrapCheckBox = createCB( "Wrap" );
+        
         GridBagConstraints gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.ipadx = 5;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_END;
         panel.add( labelP, gridBagConstraints );
-
-        JLabel labelS = new JLabel( MSG.getString( "ReplaceWith" ) );
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -107,29 +113,37 @@ public class CustomReplaceToolBar extends CustomFindToolBar {
         panel.add( replaceCombo, gridBagConstraints );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 0;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         panel.add( findButton, gridBagConstraints );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 1;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        panel.add( replaceButton, gridBagConstraints );
+        
+        gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
-        //gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         panel.add( replaceAllButton, gridBagConstraints );
-
-        matchCaseCheckBox = createCB( "MatchCase" );
-        regexCheckBox = createCB( "RegEx" );
-        wholeWordCheckBox = createCB( "WholeWord" );
-        markAllCheckBox = createCB( "MarkAll" );
-        wrapCheckBox = createCB( "Wrap" );
-
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 2;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         panel.add( matchCaseCheckBox, gridBagConstraints );
 
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 2;
+        gridBagConstraints.gridy = 2;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
+        panel.add( regexCheckBox, gridBagConstraints );
+        
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 3;
@@ -138,28 +152,15 @@ public class CustomReplaceToolBar extends CustomFindToolBar {
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 1;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.gridy = 3;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        panel.add( replaceButton, gridBagConstraints );
+        panel.add( markAllCheckBox, gridBagConstraints );
 
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
         gridBagConstraints.gridy = 4;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         panel.add( wrapCheckBox, gridBagConstraints );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 2;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        panel.add( regexCheckBox, gridBagConstraints );
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 3;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        panel.add( markAllCheckBox, gridBagConstraints );
 
         return panel;
 

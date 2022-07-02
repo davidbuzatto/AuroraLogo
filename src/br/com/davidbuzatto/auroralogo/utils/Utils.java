@@ -31,6 +31,7 @@ public class Utils {
     public static final String PREF_DEPURADOR_ATIVO = "DEPURADOR_ATIVO";
     public static final String PREF_GRADE_ATIVA = "GRADE_ATIVA";
     public static final String PREF_VALOR_SLIDER_PASSO_AUTOMATICO = "VALOR_SLIDER_PASSO_AUTOMATICO";
+    public static final String PREF_JANELA_PRINCIPAL_MAXIMIZADA = "JANELA_PRINCIPAL_MAXIMIZADA";
     
     public static void mostrarDados( 
             CommonTokenStream tokens, 
@@ -90,14 +91,27 @@ public class Utils {
         
     }
     
-    public static void inserirTextoFormatado( JTextPane textPane, String texto, Color cor ) {
+    public static void inserirTextoFormatado( JTextPane textPane, String texto, boolean negrito, Color corTexto ) {
+        inserirTextoFormatado( textPane, texto, negrito, corTexto, null );
+    }
+    
+    public static void inserirTextoFormatado( JTextPane textPane, String texto, boolean negrito, Color corTexto, Color corFundo ) {
         
         try {
             
             SimpleAttributeSet attr = new SimpleAttributeSet();
             
-            StyleConstants.setForeground( attr, cor );
-            StyleConstants.setBold( attr, true );
+            if ( corTexto == null ) {
+                corTexto = Color.BLACK;
+            }
+            
+            if ( corFundo == null ) {
+                corFundo = textPane.getBackground();
+            }
+            
+            StyleConstants.setForeground( attr, corTexto );
+            StyleConstants.setBackground( attr, corFundo );
+            StyleConstants.setBold( attr, negrito );
             
             textPane.getDocument().insertString( 
                     textPane.getDocument().getLength(), texto, attr );
@@ -168,6 +182,7 @@ public class Utils {
         PREFS.getBoolean( PREF_DEPURADOR_ATIVO, false );
         PREFS.getBoolean( PREF_GRADE_ATIVA, false );
         PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 );
+        PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false );
         
         /*for ( Entry<String, Color> e : defaultColors.entrySet() ) {
             PREFS.putInt( e.getKey(), prefs.getInt( e.getKey(), e.getValue().getRGB() ) );
