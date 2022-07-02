@@ -4,6 +4,9 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
+import br.com.davidbuzatto.auroralogo.gui.custom.CustomFindToolBar;
+import br.com.davidbuzatto.auroralogo.gui.custom.CustomReplaceToolBar;
+import br.com.davidbuzatto.auroralogo.gui.sh.ErroEmLinhaParser;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
@@ -48,7 +51,6 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import java.awt.Component;
-import java.awt.ComponentOrientation;
 import java.awt.event.ActionListener;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -76,6 +78,7 @@ import org.fife.rsta.ui.search.SearchListener;
 import org.fife.ui.rsyntaxtextarea.ErrorStrip;
 import org.fife.ui.rsyntaxtextarea.folding.CurlyFoldParser;
 import org.fife.ui.rsyntaxtextarea.folding.FoldParserManager;
+import org.fife.ui.rsyntaxtextarea.parser.ParserNotice;
 import org.fife.ui.rtextarea.RTextScrollPane;
 import org.fife.ui.rtextarea.SearchContext;
 import org.fife.ui.rtextarea.SearchEngine;
@@ -109,9 +112,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private FindDialog findDialog;
     private ReplaceDialog replaceDialog;
-    private FindToolBar findToolBar;
-    private ReplaceToolBar replaceToolBar;
+    private CustomFindToolBar findToolBar;
+    private CustomReplaceToolBar replaceToolBar;
     private CollapsibleSectionPanel csp;
+    
+    private ErroEmLinhaParser erroLinhaParser;
     
     /**
      * Creates new form JanelaPrincipal
@@ -158,11 +163,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private void initComponents() {
 
         btnGroupTemas = new javax.swing.ButtonGroup();
-        paineCodigoFonte = new javax.swing.JPanel();
-        painelTextAreaCodigo = new javax.swing.JPanel();
-        painelSaida = new javax.swing.JPanel();
-        scrollPaneSaida = new javax.swing.JScrollPane();
-        textPaneSaida = new javax.swing.JTextPane();
         barraFerramentas = new javax.swing.JToolBar();
         btnNovo = new javax.swing.JButton();
         btnAbrir = new javax.swing.JButton();
@@ -192,6 +192,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         preenchimento = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         btnGrade = new javax.swing.JToggleButton();
         btnDepurador = new javax.swing.JToggleButton();
+        paineCodigoFonte = new javax.swing.JPanel();
+        painelTextAreaCodigo = new javax.swing.JPanel();
+        painelSaida = new javax.swing.JPanel();
+        scrollPaneSaida = new javax.swing.JScrollPane();
+        textPaneSaida = new javax.swing.JTextPane();
         painelDesenhoContainer = new javax.swing.JPanel();
         painelDesenho = new br.com.davidbuzatto.auroralogo.gui.PainelDesenho();
         barraMenu = new javax.swing.JMenuBar();
@@ -245,51 +250,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 formWindowClosing(evt);
             }
         });
-
-        paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código Fonte"));
-
-        painelTextAreaCodigo.setLayout(new java.awt.BorderLayout());
-
-        javax.swing.GroupLayout paineCodigoFonteLayout = new javax.swing.GroupLayout(paineCodigoFonte);
-        paineCodigoFonte.setLayout(paineCodigoFonteLayout);
-        paineCodigoFonteLayout.setHorizontalGroup(
-            paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paineCodigoFonteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 528, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-        paineCodigoFonteLayout.setVerticalGroup(
-            paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(paineCodigoFonteLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
-                .addContainerGap())
-        );
-
-        painelSaida.setBorder(javax.swing.BorderFactory.createTitledBorder("Saída"));
-
-        scrollPaneSaida.setAutoscrolls(true);
-
-        textPaneSaida.setFocusable(false);
-        scrollPaneSaida.setViewportView(textPaneSaida);
-
-        javax.swing.GroupLayout painelSaidaLayout = new javax.swing.GroupLayout(painelSaida);
-        painelSaida.setLayout(painelSaidaLayout);
-        painelSaidaLayout.setHorizontalGroup(
-            painelSaidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelSaidaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPaneSaida)
-                .addContainerGap())
-        );
-        painelSaidaLayout.setVerticalGroup(
-            painelSaidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelSaidaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(scrollPaneSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-                .addContainerGap())
-        );
 
         btnNovo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/page_white_add.png"))); // NOI18N
         btnNovo.setToolTipText("Novo");
@@ -568,6 +528,51 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         barraFerramentas.add(btnDepurador);
+
+        paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código Fonte"));
+
+        painelTextAreaCodigo.setLayout(new java.awt.BorderLayout());
+
+        javax.swing.GroupLayout paineCodigoFonteLayout = new javax.swing.GroupLayout(paineCodigoFonte);
+        paineCodigoFonte.setLayout(paineCodigoFonteLayout);
+        paineCodigoFonteLayout.setHorizontalGroup(
+            paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paineCodigoFonteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        paineCodigoFonteLayout.setVerticalGroup(
+            paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(paineCodigoFonteLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        painelSaida.setBorder(javax.swing.BorderFactory.createTitledBorder("Saída"));
+
+        scrollPaneSaida.setAutoscrolls(true);
+
+        textPaneSaida.setFocusable(false);
+        scrollPaneSaida.setViewportView(textPaneSaida);
+
+        javax.swing.GroupLayout painelSaidaLayout = new javax.swing.GroupLayout(painelSaida);
+        painelSaida.setLayout(painelSaidaLayout);
+        painelSaidaLayout.setHorizontalGroup(
+            painelSaidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelSaidaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPaneSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+        painelSaidaLayout.setVerticalGroup(
+            painelSaidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(painelSaidaLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(scrollPaneSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         painelDesenhoContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Desenho"));
 
@@ -1350,7 +1355,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
         textAreaCodigo.setSyntaxScheme( syntaxScheme );*/
         
+        erroLinhaParser = new ErroEmLinhaParser();
+        textAreaCodigo.addParser( erroLinhaParser );
+        
         errorStrip = new ErrorStrip( textAreaCodigo );
+        errorStrip.setLevelThreshold( ParserNotice.Level.ERROR );
         scrollPaneCodigo = new RTextScrollPane( textAreaCodigo, true );
         statusBar = new StatusBar();
         
@@ -1360,11 +1369,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         painelTextAreaCodigo.add( csp, BorderLayout.CENTER );
         painelTextAreaCodigo.add( errorStrip, BorderLayout.LINE_END );
         painelTextAreaCodigo.add( statusBar, BorderLayout.SOUTH );
-
+        
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testesGrande", true );
+            carregarTemplate( "testesErros", true );
         }
 
     }
@@ -1374,28 +1383,21 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         findDialog = new FindDialog( this, this );
         replaceDialog = new ReplaceDialog( this, this );
         
-        /*SwingUtilities.updateComponentTreeUI(JanelaPrincipal.this);
-        findDialog.updateUI();
-        replaceDialog.updateUI();*/
-
-        // This ties the properties of the two dialogs together (match case,
-        // regex, etc.).
         SearchContext context = findDialog.getSearchContext();
         replaceDialog.setSearchContext( context );
 
-        // Create tool bars and tie their search contexts together also.
-        findToolBar = new FindToolBar( this );
+        findToolBar = new CustomFindToolBar( this );
         findToolBar.setSearchContext( context );
-        replaceToolBar = new ReplaceToolBar( this );
+        replaceToolBar = new CustomReplaceToolBar( this );
         replaceToolBar.setSearchContext( context );
         
         KeyStroke ks = KeyStroke.getKeyStroke( KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK );
         Action a = csp.addBottomComponent( ks, findToolBar );
-        a.putValue( Action.NAME, "Mostrar Barra Localizar");
+        a.putValue( Action.NAME, "Mostrar Barra Localizar" );
         
         ks = KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK );
-        a = csp.addBottomComponent(ks, replaceToolBar);
-        a.putValue( Action.NAME, "Mostrar Barra Substituir");
+        a = csp.addBottomComponent( ks, replaceToolBar );
+        a.putValue( Action.NAME, "Mostrar Barra Substituir" );
 
     }
 
@@ -1451,6 +1453,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             AuroraLogoErrorListener errorListener = new AuroraLogoErrorListener(
                     textAreaCodigo,
                     errorStrip,
+                    erroLinhaParser,
                     textPaneSaida,
                     this,
                     painelDesenho,

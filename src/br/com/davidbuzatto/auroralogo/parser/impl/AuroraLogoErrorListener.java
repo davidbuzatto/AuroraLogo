@@ -7,6 +7,7 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.gui.PainelDesenho;
 import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
+import br.com.davidbuzatto.auroralogo.gui.sh.ErroEmLinhaParser;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.util.Collections;
@@ -17,6 +18,7 @@ import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 import org.fife.ui.rsyntaxtextarea.ErrorStrip;
+import org.fife.ui.rsyntaxtextarea.RSyntaxDocument;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 /**
@@ -27,6 +29,7 @@ public class AuroraLogoErrorListener extends BaseErrorListener {
 
     private RSyntaxTextArea textAreaCodigo;
     private ErrorStrip errorStrip;
+    private ErroEmLinhaParser erroLinhaParser;
     private JTextPane textPaneSaida;
     private JanelaPrincipal janelaPrincipal;
     private PainelDesenho painelDesenho;
@@ -36,6 +39,7 @@ public class AuroraLogoErrorListener extends BaseErrorListener {
     public AuroraLogoErrorListener( 
             RSyntaxTextArea textAreaCodigo, 
             ErrorStrip errorStrip,
+            ErroEmLinhaParser erroLinhaParser,
             JTextPane textPaneSaida, 
             JanelaPrincipal janelaPrincipal, 
             PainelDesenho painelDesenho, 
@@ -43,6 +47,7 @@ public class AuroraLogoErrorListener extends BaseErrorListener {
         
         this.textAreaCodigo = textAreaCodigo;
         this.errorStrip = errorStrip;
+        this.erroLinhaParser = erroLinhaParser;
         this.textPaneSaida = textPaneSaida;
         this.janelaPrincipal = janelaPrincipal;
         this.painelDesenho = painelDesenho;
@@ -72,7 +77,7 @@ public class AuroraLogoErrorListener extends BaseErrorListener {
                 String.format( "<erro> linha: %d, colunha %d ;\n", line, charPositionInLine ), 
                 Color.RED );
         
-        
+        textAreaCodigo.forceReparsing( erroLinhaParser );
         
         houveErro = true;
         
