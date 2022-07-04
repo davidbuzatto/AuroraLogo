@@ -53,9 +53,11 @@ termo    : fator ( ( MUL | VEZS
 fator    : ( NAO | NAOT ) fator      # fatorNao
          | INT                       # fatorInt
          | DEC                       # fatorDec
+         | PI                        # fatorPi
          | ( bool | ID )             # fatorId          // atenção, literais booleanos aqui!
          | CHAR                      # fatorChar
          | STRING                    # fatorString
+         | funcaoMatematica          # fatorFuncaoMatematica
          | '(' expr ')'              # fatorParenteses
          ;
 
@@ -112,7 +114,7 @@ configuracaoCor : ( HEX | cor=( PRETO
                                          | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
                 ;
 
-girar        : GIR ( EM ( SUB | SUBA )? expr )?
+girar        : GIR ( EM expr GRA )?
              ;
 
 engrossar    : ENG ( EM expr )?
@@ -123,14 +125,6 @@ desengrossar : DES ( EM expr )?
 
 trocarGrossura  : TROC GROS PARA expr
                 ;
-
-/*
-escrever     : ESC ( STRING | expr ) concat* ( NA SAI )?
-             ;
-
-concat       : ( ADI | ADIA ) ( STRING | expr )
-             ;
-*/
 
 escrever     : ESC expr ( NA SAI )?
              ;
@@ -149,6 +143,34 @@ levantar     : LEV PINC
 
 limpar       : LIM
              ;
+
+funcaoMatematica : F_VABS '(' expr ')'                            # funcaoAbsoluto
+                 | F_RAIQ '(' expr ')'                            # funcaoRaizQuadrada
+                 | F_RAIC '(' expr ')'                            # funcaoRaizCubica
+                 | F_RAIZ '(' expr ',' expr ')'                   # funcaoRaiz
+                 | F_POTE '(' expr ',' expr ')'                   # funcaoPotencia
+                 | F_HIPO '(' expr ',' expr ')'                   # funcaoHipotenusa
+                 | F_CHAO '(' expr ')'                            # funcaoChao
+                 | F_TETO '(' expr ')'                            # funcaoTeto
+                 | F_ARRE '(' ( expr | expr ',' expr ) ')'        # funcaoArredondar
+                 | F_MINI '(' expr ',' expr ')'                   # funcaoMinimo
+                 | F_MAXI '(' expr ',' expr ')'                   # funcaoMaximo
+                 | F_NUMA '(' ( expr | expr ',' expr )? ')'       # funcaoNumeroAleatorio
+                 | F_SENO '(' expr ')'                            # funcaoSeno
+                 | F_COSS '(' expr ')'                            # funcaoCosseno
+                 | F_TANG '(' expr ')'                            # funcaoTangente
+                 | F_ASEN '(' expr ')'                            # funcaoArcoSeno
+                 | F_ACOS '(' expr ')'                            # funcaoArcoCosseno
+                 | F_ATAN '(' expr ')'                            # funcaoArcoTangente
+                 | F_CAPO '(' expr ',' expr ')'                   # funcaoCartesianoParaPolar
+                 | F_SENH '(' expr ')'                            # funcaoSenoHiperbolico
+                 | F_COSH '(' expr ')'                            # funcaoCossenoHiperbolico
+                 | F_TANH '(' expr ')'                            # funcaoTangenteHiperbolica
+                 | F_LOGA '(' ( expr | expr ',' expr ) ')'        # funcaoLogaritmo
+                 | F_GRRA '(' expr ')'                            # funcaoGrausParaRadianos
+                 | F_RAGR '(' expr ')'                            # funcaoRadianosParaGraus
+                 ;
+
 
 fragment
 LET : [a-zA-Z] ;
@@ -180,6 +202,7 @@ COR  : 'cor'                      ;
 DO   : 'do'                       ;
 FUN  : 'fundo'                    ;
 GIR  : 'girar'                    ;
+GRA  : 'graus'                    ;
 ENG  : 'engrossar'                ;
 DES  : 'desengrossar'             ;
 GROS : 'grossura'                 ;
@@ -198,6 +221,7 @@ VEZ  : 'vez'                      ;
 VEZS : 'vezes'                    ;
 NA   : 'na'                       ;
 SAI  : 'sa\u00EDda'               ;
+PI   : 'PI'                       ;
 VER  : 'VERDADEIRO'               ;
 FAL  : 'FALSO'                    ;
 
@@ -219,7 +243,37 @@ CLARO    : 'claro'    ;
 
 
 // funções
-RAIZ     : 'raiz'     ;
+// á = \u00E1
+// ã = \u00E3
+// í = \u00ED
+// ê = \u00EA
+// ó = \u00F3
+// ú = \u00FA
+F_VABS : 'valorAbsoluto'             ;
+F_RAIQ : 'raizQuadrada'              ;
+F_RAIC : 'raizC\u00FAbica'           ;
+F_RAIZ : 'raiz'                      ;
+F_POTE : 'pot\u00EAncia'             ;
+F_HIPO : 'hipotenusa'                ;
+F_CHAO : 'ch\u00E3o'                 ;
+F_TETO : 'teto'                      ;
+F_ARRE : 'arredondar'                ;
+F_MINI : 'm\u00EDnimo'               ;
+F_MAXI : 'm\u00E1ximo'               ;
+F_NUMA : 'n\u00FAmeroAleat\u00F3rio' ;
+F_SENO : 'seno'                      ;
+F_COSS : 'cosseno'                   ;
+F_TANG : 'tangente'                  ;
+F_ASEN : 'arcoSeno'                  ;
+F_ACOS : 'arcoCosseno'               ;
+F_ATAN : 'arcoTangente'              ;
+F_CAPO : 'cartesianoParaPolar'       ;
+F_SENH : 'senoHiperb\u00F3lico'      ;
+F_COSH : 'cossenoHiperb\u00F3lico'   ;
+F_TANH : 'tangenteHiperb\u00F3lica'  ;
+F_LOGA : 'logar\u00EDtmo'            ;
+F_GRRA : 'grausParaRadianos'         ;
+F_RAGR : 'radianosParaGraus'         ;
 
 
 // operadores de atribuição

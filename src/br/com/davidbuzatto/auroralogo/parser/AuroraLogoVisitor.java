@@ -74,6 +74,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorDec(AuroraLogoParser.FatorDecContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code fatorPi}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorPi(AuroraLogoParser.FatorPiContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code fatorId}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -94,6 +101,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFatorString(AuroraLogoParser.FatorStringContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code fatorFuncaoMatematica}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorFuncaoMatematica(AuroraLogoParser.FatorFuncaoMatematicaContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
@@ -249,4 +263,179 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitLimpar(AuroraLogoParser.LimparContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoAbsoluto}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoAbsoluto(AuroraLogoParser.FuncaoAbsolutoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoRaizQuadrada}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoRaizQuadrada(AuroraLogoParser.FuncaoRaizQuadradaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoRaizCubica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoRaizCubica(AuroraLogoParser.FuncaoRaizCubicaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoRaiz}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoRaiz(AuroraLogoParser.FuncaoRaizContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoPotencia}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoPotencia(AuroraLogoParser.FuncaoPotenciaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoHipotenusa}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoHipotenusa(AuroraLogoParser.FuncaoHipotenusaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoChao}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoChao(AuroraLogoParser.FuncaoChaoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoTeto}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoTeto(AuroraLogoParser.FuncaoTetoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoArredondar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoArredondar(AuroraLogoParser.FuncaoArredondarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoMinimo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoMinimo(AuroraLogoParser.FuncaoMinimoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoMaximo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoMaximo(AuroraLogoParser.FuncaoMaximoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoNumeroAleatorio}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoNumeroAleatorio(AuroraLogoParser.FuncaoNumeroAleatorioContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoSeno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoSeno(AuroraLogoParser.FuncaoSenoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCosseno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCosseno(AuroraLogoParser.FuncaoCossenoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoTangente}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoTangente(AuroraLogoParser.FuncaoTangenteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoArcoSeno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoArcoSeno(AuroraLogoParser.FuncaoArcoSenoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoArcoCosseno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoArcoCosseno(AuroraLogoParser.FuncaoArcoCossenoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoArcoTangente}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoArcoTangente(AuroraLogoParser.FuncaoArcoTangenteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCartesianoParaPolar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCartesianoParaPolar(AuroraLogoParser.FuncaoCartesianoParaPolarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoSenoHiperbolico}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoSenoHiperbolico(AuroraLogoParser.FuncaoSenoHiperbolicoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCossenoHiperbolico}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCossenoHiperbolico(AuroraLogoParser.FuncaoCossenoHiperbolicoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoTangenteHiperbolica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoTangenteHiperbolica(AuroraLogoParser.FuncaoTangenteHiperbolicaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoLogaritmo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoLogaritmo(AuroraLogoParser.FuncaoLogaritmoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoGrausParaRadianos}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoGrausParaRadianos(AuroraLogoParser.FuncaoGrausParaRadianosContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoRadianosParaGraus}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoRadianosParaGraus(AuroraLogoParser.FuncaoRadianosParaGrausContext ctx);
 }

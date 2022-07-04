@@ -51,8 +51,9 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import java.awt.Component;
-import java.awt.Frame;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
@@ -92,7 +93,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private static final String VERSAO = "v0.1";
     private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
-
+    
+    private Image iconeJanela;
     private Font fontePadrao;
 
     private Tartaruga tartaruga;
@@ -121,7 +123,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
      * Creates new form JanelaPrincipal
      */
     public JanelaPrincipal() {
-
+        
+        try {
+            iconeJanela = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/icones/iconeTartaruga.png" ) );
+        } catch ( IOException exc ) {}
+        
         initComponents();
         montarTitulo( true );
 
@@ -252,6 +258,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("AuroraLogo");
+        setIconImage(iconeJanela);
         addComponentListener(new java.awt.event.ComponentAdapter() {
             public void componentResized(java.awt.event.ComponentEvent evt) {
                 formComponentResized(evt);
@@ -1556,7 +1563,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testesGrande", true );
+            carregarTemplate( "testesFuncoes", true );
         }
 
     }
@@ -2102,7 +2109,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         EventQueue.invokeLater( new Runnable() {
             public void run() {
 
-                preparePreferences();
+                prepararPreferences( false );
                 JanelaPrincipal janela = new JanelaPrincipal();
 
                 switch ( getPref( PREF_TEMA ) ) {

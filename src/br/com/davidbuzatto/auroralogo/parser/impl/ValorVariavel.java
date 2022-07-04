@@ -30,6 +30,7 @@ public class ValorVariavel {
     
     public static ValorVariavel ZERO_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, 0.0 );
     public static ValorVariavel UM_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, 1.0 );
+    public static ValorVariavel PI_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, Math.PI );
     public static ValorVariavel MAIOR_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, Double.MAX_VALUE );
     public static ValorVariavel MENOR_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, Double.MIN_VALUE );
     public static ValorVariavel INFINITO_POSITIVO = new ValorVariavel( TipoVariavel.DECIMAL, Double.POSITIVE_INFINITY );
@@ -64,6 +65,11 @@ public class ValorVariavel {
     public boolean isDecimal() {
         return tipo == TipoVariavel.DECIMAL;
     }
+    
+    public boolean isNumero() {
+        return isInteiro() || isDecimal();
+    }
+    
     public boolean isCaractere() {
         return tipo == TipoVariavel.CARACTERE;
     }
@@ -102,6 +108,16 @@ public class ValorVariavel {
     
     public boolean isInfinitoNegativo() {
         return tipo == TipoVariavel.DECIMAL && valor.equals( Double.NEGATIVE_INFINITY );
+    }
+    
+    public boolean isNegativo() {
+        return tipo == TipoVariavel.INTEIRO && ( (Integer) valor < 0 ) ||
+               tipo == TipoVariavel.DECIMAL && ( (Double) valor < 0.0 );
+    }
+    
+    public boolean isPositivo() {
+        return tipo == TipoVariavel.INTEIRO && ( (Integer) valor >= 0 ) ||
+               tipo == TipoVariavel.DECIMAL && ( (Double) valor >= 0.0 );
     }
     
     public boolean isNaoNumero() {
@@ -176,6 +192,9 @@ public class ValorVariavel {
             case NULO:
                 return "NULO";
             case DECIMAL:
+                if ( ( (Double) valor ).isNaN() ) {
+                    return "NaN (Não-Número)";
+                }
                 return String.format( Locale.US, "%.3f", (Double) valor );
             default:
                 return String.valueOf( valor );
@@ -193,6 +212,9 @@ public class ValorVariavel {
     }
     
     public static ValorVariavel novoDecimal( Double valor ) {
+        if ( valor.isNaN() ) {
+            return NAO_NUMERO;
+        }
         return new ValorVariavel( TipoVariavel.DECIMAL, valor );
     }
     

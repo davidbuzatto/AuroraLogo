@@ -114,6 +114,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFatorDec(AuroraLogoParser.FatorDecContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code fatorPi}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorPi(AuroraLogoParser.FatorPiContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorPi}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorPi(AuroraLogoParser.FatorPiContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code fatorId}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -149,6 +161,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFatorString(AuroraLogoParser.FatorStringContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code fatorFuncaoMatematica}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorFuncaoMatematica(AuroraLogoParser.FatorFuncaoMatematicaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorFuncaoMatematica}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorFuncaoMatematica(AuroraLogoParser.FatorFuncaoMatematicaContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
@@ -409,4 +433,304 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitLimpar(AuroraLogoParser.LimparContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoAbsoluto}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoAbsoluto(AuroraLogoParser.FuncaoAbsolutoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoAbsoluto}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoAbsoluto(AuroraLogoParser.FuncaoAbsolutoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoRaizQuadrada}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoRaizQuadrada(AuroraLogoParser.FuncaoRaizQuadradaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoRaizQuadrada}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoRaizQuadrada(AuroraLogoParser.FuncaoRaizQuadradaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoRaizCubica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoRaizCubica(AuroraLogoParser.FuncaoRaizCubicaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoRaizCubica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoRaizCubica(AuroraLogoParser.FuncaoRaizCubicaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoRaiz}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoRaiz(AuroraLogoParser.FuncaoRaizContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoRaiz}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoRaiz(AuroraLogoParser.FuncaoRaizContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoPotencia}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoPotencia(AuroraLogoParser.FuncaoPotenciaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoPotencia}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoPotencia(AuroraLogoParser.FuncaoPotenciaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoHipotenusa}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoHipotenusa(AuroraLogoParser.FuncaoHipotenusaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoHipotenusa}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoHipotenusa(AuroraLogoParser.FuncaoHipotenusaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoChao}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoChao(AuroraLogoParser.FuncaoChaoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoChao}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoChao(AuroraLogoParser.FuncaoChaoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoTeto}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoTeto(AuroraLogoParser.FuncaoTetoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoTeto}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoTeto(AuroraLogoParser.FuncaoTetoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoArredondar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoArredondar(AuroraLogoParser.FuncaoArredondarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoArredondar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoArredondar(AuroraLogoParser.FuncaoArredondarContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoMinimo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoMinimo(AuroraLogoParser.FuncaoMinimoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoMinimo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoMinimo(AuroraLogoParser.FuncaoMinimoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoMaximo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoMaximo(AuroraLogoParser.FuncaoMaximoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoMaximo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoMaximo(AuroraLogoParser.FuncaoMaximoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoNumeroAleatorio}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoNumeroAleatorio(AuroraLogoParser.FuncaoNumeroAleatorioContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoNumeroAleatorio}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoNumeroAleatorio(AuroraLogoParser.FuncaoNumeroAleatorioContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoSeno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoSeno(AuroraLogoParser.FuncaoSenoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoSeno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoSeno(AuroraLogoParser.FuncaoSenoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCosseno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCosseno(AuroraLogoParser.FuncaoCossenoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCosseno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCosseno(AuroraLogoParser.FuncaoCossenoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoTangente}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoTangente(AuroraLogoParser.FuncaoTangenteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoTangente}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoTangente(AuroraLogoParser.FuncaoTangenteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoArcoSeno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoArcoSeno(AuroraLogoParser.FuncaoArcoSenoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoArcoSeno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoArcoSeno(AuroraLogoParser.FuncaoArcoSenoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoArcoCosseno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoArcoCosseno(AuroraLogoParser.FuncaoArcoCossenoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoArcoCosseno}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoArcoCosseno(AuroraLogoParser.FuncaoArcoCossenoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoArcoTangente}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoArcoTangente(AuroraLogoParser.FuncaoArcoTangenteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoArcoTangente}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoArcoTangente(AuroraLogoParser.FuncaoArcoTangenteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCartesianoParaPolar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCartesianoParaPolar(AuroraLogoParser.FuncaoCartesianoParaPolarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCartesianoParaPolar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCartesianoParaPolar(AuroraLogoParser.FuncaoCartesianoParaPolarContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoSenoHiperbolico}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoSenoHiperbolico(AuroraLogoParser.FuncaoSenoHiperbolicoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoSenoHiperbolico}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoSenoHiperbolico(AuroraLogoParser.FuncaoSenoHiperbolicoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCossenoHiperbolico}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCossenoHiperbolico(AuroraLogoParser.FuncaoCossenoHiperbolicoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCossenoHiperbolico}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCossenoHiperbolico(AuroraLogoParser.FuncaoCossenoHiperbolicoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoTangenteHiperbolica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoTangenteHiperbolica(AuroraLogoParser.FuncaoTangenteHiperbolicaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoTangenteHiperbolica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoTangenteHiperbolica(AuroraLogoParser.FuncaoTangenteHiperbolicaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoLogaritmo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoLogaritmo(AuroraLogoParser.FuncaoLogaritmoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoLogaritmo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoLogaritmo(AuroraLogoParser.FuncaoLogaritmoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoGrausParaRadianos}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoGrausParaRadianos(AuroraLogoParser.FuncaoGrausParaRadianosContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoGrausParaRadianos}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoGrausParaRadianos(AuroraLogoParser.FuncaoGrausParaRadianosContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoRadianosParaGraus}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoRadianosParaGraus(AuroraLogoParser.FuncaoRadianosParaGrausContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoRadianosParaGraus}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoRadianosParaGraus(AuroraLogoParser.FuncaoRadianosParaGrausContext ctx);
 }

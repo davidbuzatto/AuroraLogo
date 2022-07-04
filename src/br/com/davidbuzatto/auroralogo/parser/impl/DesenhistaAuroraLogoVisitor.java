@@ -12,6 +12,7 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.ValorVariavel.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
+import java.util.Locale;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -173,10 +174,6 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         
         if ( ctx.expr() != null ) {
             valor = visit( ctx.expr() ).valorInteiro();
-        }
-        
-        if ( ctx.SUB() != null || ctx.SUBA() != null ) {
-            valor = -valor;
         }
         
         tartaruga.girar( valor );
@@ -1396,6 +1393,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
+    public ValorVariavel visitFatorPi( AuroraLogoParser.FatorPiContext ctx ) {
+        System.out.println( "a" );
+        return PI_DECIMAL;
+    }
+
+    @Override
     public ValorVariavel visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
         
         if ( ctx.bool() != null ) {
@@ -1518,6 +1521,359 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     public ValorVariavel visitErrorNode( ErrorNode node ) {
         System.out.println( node );
         return NULO;
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoAbsoluto( AuroraLogoParser.FuncaoAbsolutoContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isInteiro() ) {
+            return novoInteiro( Math.abs( v.valorInteiro() ) );
+        } else if ( v.isDecimal() ) {
+            return novoDecimal( Math.abs( v.valorDecimal() ) );
+        }
+       
+        return ZERO_INTEIRO;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoRaizQuadrada( AuroraLogoParser.FuncaoRaizQuadradaContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isInteiro() ) {
+            if ( v.isPositivo() ) {
+                return novoDecimal( Math.sqrt( v.valorInteiro() ) );
+            }
+        } else if ( v.isDecimal() ) {
+            if ( v.isPositivo() ) {
+                return novoDecimal( Math.sqrt( v.valorDecimal() ) );
+            }
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoRaizCubica( AuroraLogoParser.FuncaoRaizCubicaContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isInteiro() ) {
+            return novoDecimal( Math.cbrt( v.valorInteiro() ) );
+        } else if ( v.isDecimal() ) {
+            return novoDecimal( Math.cbrt( v.valorDecimal() ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoRaiz( AuroraLogoParser.FuncaoRaizContext ctx ) {
+        
+        ValorVariavel vRad = visit( ctx.expr( 0 ) );
+        ValorVariavel vInd = visit( ctx.expr( 1 ) );
+        
+        if ( vRad.isNumero() && vInd.isNumero() ) {
+            return novoDecimal( Math.pow( vRad.valorDecimal(), 1.0 / vInd.valorDecimal() ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoPotencia( AuroraLogoParser.FuncaoPotenciaContext ctx ) {
+        
+        ValorVariavel vBase = visit( ctx.expr( 0 ) );
+        ValorVariavel vExp = visit( ctx.expr( 1 ) );
+        
+        if ( vBase.isNumero() && vExp.isNumero() ) {
+            return novoDecimal( Math.pow( vBase.valorDecimal(), vExp.valorDecimal() ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoHipotenusa( AuroraLogoParser.FuncaoHipotenusaContext ctx ) {
+        
+        ValorVariavel lado1 = visit( ctx.expr( 0 ) );
+        ValorVariavel lado2 = visit( ctx.expr( 1 ) );
+        
+        if ( lado1.isNumero() && lado2.isNumero() ) {
+            return novoDecimal( Math.hypot( lado1.valorDecimal(), lado2.valorDecimal() ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoChao( AuroraLogoParser.FuncaoChaoContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isNumero() ) {
+            return novoDecimal( Math.floor( v.valorDecimal() ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoTeto( AuroraLogoParser.FuncaoTetoContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isNumero() ) {
+            return novoDecimal( Math.ceil( v.valorDecimal() ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoArredondar( AuroraLogoParser.FuncaoArredondarContext ctx ) {
+        
+        if ( ctx.expr( 1 ) == null ) {
+            
+            ValorVariavel v = visit( ctx.expr( 0 ) );
+        
+            if ( v.isNumero() ) {
+                return novoInteiro( (int) Math.round( v.valorDecimal() ) );
+            }
+        
+        } else {
+            
+            ValorVariavel v = visit( ctx.expr( 0 ) );
+            ValorVariavel casas = visit( ctx.expr( 1 ) );
+            try {
+            if ( v.isNumero() && casas.isNumero() ) {
+                String vs = String.format( Locale.US, "%." + casas.valorInteiro() + "f", v.valorDecimal() );
+                return novoDecimal( Double.valueOf( vs ) );
+            }
+            } catch ( Exception exc ) {
+                exc.printStackTrace();
+            }
+            
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoMinimo( AuroraLogoParser.FuncaoMinimoContext ctx ) {
+        
+        ValorVariavel n1 = visit( ctx.expr( 0 ) );
+        ValorVariavel n2 = visit( ctx.expr( 1 ) );
+        
+        if ( n1.isNumero() && n2.isNumero() ) {
+            if ( n1.isInteiro() && n2.isInteiro() ) {
+                return novoInteiro( Math.min( n1.valorInteiro(), n2.valorInteiro() ) );
+            }
+            return novoDecimal( Math.min( n1.valorDecimal(), n2.valorDecimal() ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoMaximo( AuroraLogoParser.FuncaoMaximoContext ctx ) {
+        
+        ValorVariavel n1 = visit( ctx.expr( 0 ) );
+        ValorVariavel n2 = visit( ctx.expr( 1 ) );
+        
+        if ( n1.isNumero() && n2.isNumero() ) {
+            if ( n1.isInteiro() && n2.isInteiro() ) {
+                return novoInteiro( Math.max( n1.valorInteiro(), n2.valorInteiro() ) );
+            }
+            return novoDecimal( Math.max( n1.valorDecimal(), n2.valorDecimal() ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoNumeroAleatorio( AuroraLogoParser.FuncaoNumeroAleatorioContext ctx ) {
+        // TODO: função número aleatório
+        return super.visitFuncaoNumeroAleatorio( ctx ); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoSeno( AuroraLogoParser.FuncaoSenoContext ctx ) {
+        
+        ValorVariavel a = visit( ctx.expr() );
+        
+        if ( a.isNumero() ) {
+            double rad = Math.toRadians( a.valorDecimal() );
+            return novoDecimal( Math.sin( rad ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoSenoHiperbolico( AuroraLogoParser.FuncaoSenoHiperbolicoContext ctx ) {
+        
+        ValorVariavel a = visit( ctx.expr() );
+        
+        if ( a.isNumero() ) {
+            return novoDecimal( Math.sinh( a.valorDecimal() ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoArcoSeno( AuroraLogoParser.FuncaoArcoSenoContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isNumero() ) {
+            return novoDecimal( Math.toDegrees( Math.asin( v.valorDecimal() ) ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoCosseno( AuroraLogoParser.FuncaoCossenoContext ctx ) {
+        
+        ValorVariavel a = visit( ctx.expr() );
+        
+        if ( a.isNumero() ) {
+            double rad = Math.toRadians( a.valorDecimal() );
+            return novoDecimal( Math.cos( rad ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoCossenoHiperbolico( AuroraLogoParser.FuncaoCossenoHiperbolicoContext ctx ) {
+        
+        ValorVariavel a = visit( ctx.expr() );
+        
+        if ( a.isNumero() ) {
+            return novoDecimal( Math.cosh( a.valorDecimal() ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoArcoCosseno( AuroraLogoParser.FuncaoArcoCossenoContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isNumero() ) {
+            return novoDecimal( Math.toDegrees( Math.acos( v.valorDecimal() ) ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoTangente( AuroraLogoParser.FuncaoTangenteContext ctx ) {
+        
+        ValorVariavel a = visit( ctx.expr() );
+        
+        if ( a.isNumero() ) {
+            double rad = Math.toRadians( a.valorDecimal() );
+            return novoDecimal( Math.tan( rad ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoTangenteHiperbolica( AuroraLogoParser.FuncaoTangenteHiperbolicaContext ctx ) {
+        
+        ValorVariavel a = visit( ctx.expr() );
+        
+        if ( a.isNumero() ) {
+            return novoDecimal( Math.tanh( a.valorDecimal() ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoArcoTangente( AuroraLogoParser.FuncaoArcoTangenteContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isNumero() ) {
+            return novoDecimal( Math.toDegrees( Math.atan( v.valorDecimal() ) ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoCartesianoParaPolar( AuroraLogoParser.FuncaoCartesianoParaPolarContext ctx ) {
+        
+        ValorVariavel y = visit( ctx.expr( 0 ) );
+        ValorVariavel x = visit( ctx.expr( 1 ) );
+        
+        if ( y.isNumero() && x.isNumero() ) {
+            return novoDecimal( Math.toDegrees( Math.atan2( y.valorDecimal(), x.valorDecimal() ) ) );
+        }
+       
+        return ZERO_DECIMAL;
+       
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoLogaritmo( AuroraLogoParser.FuncaoLogaritmoContext ctx ) {
+        // TODO: função logarítmo
+        return super.visitFuncaoLogaritmo( ctx ); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoGrausParaRadianos( AuroraLogoParser.FuncaoGrausParaRadianosContext ctx ) {
+        
+        ValorVariavel g = visit( ctx.expr() );
+        
+        if ( g.isNumero() ) {
+            return novoDecimal( Math.toRadians( g.valorDecimal() ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoRadianosParaGraus( AuroraLogoParser.FuncaoRadianosParaGrausContext ctx ) {
+        
+        ValorVariavel r = visit( ctx.expr() );
+        
+        if ( r.isNumero() ) {
+            return novoDecimal( Math.toDegrees( r.valorDecimal() ) );
+        }
+        
+        return ZERO_DECIMAL;
+        
     }
     
 }

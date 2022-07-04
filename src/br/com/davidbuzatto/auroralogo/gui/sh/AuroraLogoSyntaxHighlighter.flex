@@ -247,6 +247,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 
 	/* Keywords */
 	"FALSO " | 
+"PI " | 
 "VERDADEIRO " | 
 "abaixar " | 
 "amarelo " | 
@@ -270,6 +271,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "esquerda " | 
 "fundo " | 
 "girar " | 
+"graus " | 
 "grossura " | 
 "laranja " | 
 "ler " | 
@@ -299,7 +301,31 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	/* No data types */
 
 	/* Functions */
-	"raiz "		{ addToken(Token.FUNCTION); }
+	"arcoCosseno " | 
+"arcoSeno " | 
+"arcoTangente " | 
+"arredondar " | 
+"cartesianoParaPolar " | 
+"ch\u00E3o " | 
+"cosseno " | 
+"cossenoHiperb\u00F3lico " | 
+"grausParaRadianos " | 
+"hipotenusa " | 
+"logar\u00EDtmo " | 
+"m\u00E1ximo " | 
+"m\u00EDnimo " | 
+"n\u00FAmeroAleat\u00F3rio " | 
+"pot\u00EAncia " | 
+"radianosParaGraus " | 
+"raiz " | 
+"raizC\u00FAbica " | 
+"raizQuadrada " | 
+"seno " | 
+"senoHiperb\u00F3lico " | 
+"tangente " | 
+"tangenteHiperb\u00F3lica " | 
+"teto " | 
+"valorAbsoluto "		{ addToken(Token.FUNCTION); }
 
 	
 

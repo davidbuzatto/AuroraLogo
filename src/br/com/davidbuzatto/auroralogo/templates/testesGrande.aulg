@@ -54,12 +54,12 @@ desengrossar em 3 .
 vá para baixo em 120 .
 
 // gira 45 graus no sentido horário
-girar em 45 .
+girar em 45 graus .
 trocar cor para 0x000000 .
 vá para baixo em 115 .
 
 // gira 45 graus no sentido anti-horário
-girar em -45 .
+girar em -45 graus .
 
 // instrução de repetição
 repetir (abc*3) vezes {
@@ -80,7 +80,7 @@ abaixar pincel .
 
 i = 1 .
 repetir 36 vezes {
-    girar em 10 .
+    girar em 10 graus .
     trocar cor para 0xeb34c0 .
     vá para direita em 1 * i .
     trocar cor para 0x34e5eb .
@@ -91,19 +91,19 @@ repetir 36 vezes {
     escrever "              espiral: " + (i-1) .
 }
 
-girar em 180 .
+girar em 180 graus .
 desengrossar em 20 .
 vá para cima em 515 .
-girar em 45 .
+girar em 45 graus .
 desengrossar em 5 .
 vá para cima em 100 .
-girar em 45 .
+girar em 45 graus .
 desengrossar em 5 .
 vá para cima em 100 .
-girar em 45 .
+girar em 45 graus .
 desengrossar em 5 .
 vá para cima em 100 .
-girar em 45 .
+girar em 45 graus .
 desengrossar .
 vá para cima em 115 .
 

@@ -1,0 +1,151 @@
+a = valorAbsoluto( -4 ) .
+escrever "valorAbsoluto( -4 ) = " + a na saída .
+
+a = valorAbsoluto( 4 ) .
+escrever "valorAbsoluto( 4 ) = " + a na saída .
+
+a = valorAbsoluto( -4.5 ) .
+escrever "valorAbsoluto( -4.5 ) = " + a na saída .
+
+a = valorAbsoluto( 4.5 ) .
+escrever "valorAbsoluto( 4.5 ) = " + a na saída .
+
+
+a = raizQuadrada( 25 ) .
+escrever "raizQuadrada( 25 ) = " + a na saída .
+
+a = raizQuadrada( 2 ) .
+escrever "raizQuadrada( 2 ) = " + a na saída .
+
+a = raizQuadrada( -2 ) .
+escrever "raizQuadrada( -2 ) = " + a na saída .
+
+
+a = raizCúbica( 27 ) .
+escrever "raizCúbica( 27 ) = " + a na saída .
+
+a = raizCúbica( -27 ) .
+escrever "raizCúbica( -27 ) = " + a na saída .
+
+a = raizCúbica( 14 ) .
+escrever "raizCúbica( 14 ) = " + a na saída .
+
+
+a = raiz( 27, 3 ) .
+escrever "raiz( 27, 3 ) = " + a na saída .
+
+a = raiz( -27, 10 ) .
+escrever "raizCúbica( -27, 10 ) = " + a na saída .
+
+a = raiz( 1024, 2 ) .
+escrever "raiz( 1024, 2 ) = " + a na saída .
+
+a = raiz( 10000, 10 ) .
+escrever "raiz( 10000, 10 ) = " + a na saída .
+
+
+a = potência( 4, 3 ) .
+escrever "potência( 4, 3 ) = " + a na saída .
+
+a = potência( 4, 3.5 ) .
+escrever "potência( 4, 3.5 ) = " + a na saída .
+
+a = potência( 4, -3 ) .
+escrever "potência( 4, -3 ) = " + a na saída .
+
+
+a = hipotenusa( 3, 4 ) .
+escrever "hipotenusa( 3, 4 ) = " + a na saída .
+
+
+a = chão( 10.1 ) .
+escrever "chão( 10.1 ) = " + a na saída .
+
+a = teto( 10.1 ) .
+escrever "teto( 10.1 ) = " + a na saída .
+
+a = arredondar( 2.55 ) .
+escrever "arredondar( 2.55 ) = " + a na saída .
+
+a = arredondar( 2.7465, 1 ) .
+escrever "arredondar( 2.7465, 1 ) = " + a na saída .
+
+a = arredondar( 2.7465, 2 ) .
+escrever "arredondar( 2.7465, 2 ) = " + a na saída .
+
+a = arredondar( 2.7465, 3 ) .
+escrever "arredondar( 2.7465, 3 ) = " + a na saída .
+
+
+a = mínimo( 10, 4 ) .
+escrever "mínimo( 10, 4 ) = " + a na saída .
+
+a = mínimo( 10, 4.0 ) .
+escrever "mínimo( 10, 4.0 ) = " + a na saída .
+
+a = mínimo( 10.0, 4 ) .
+escrever "mínimo( 10.0, 4 ) = " + a na saída .
+
+a = máximo( 10, 4 ) .
+escrever "máximo( 10, 4 ) = " + a na saída .
+
+a = máximo( 10, 4.0 ) .
+escrever "máximo( 10, 4.0 ) = " + a na saída .
+
+a = máximo( 10.0, 4 ) .
+escrever "máximo( 10.0, 4 ) = " + a na saída .
+
+
+/*a = númeroAleatório() .
+escrever "númeroAleatório() = " + a na saída .
+
+a = númeroAleatório( 5 ) .
+escrever "númeroAleatório( 5 ) = " + a na saída .
+
+a = númeroAleatório( 4, 10 ) .
+escrever "númeroAleatório( 4, 10 ) = " + a na saída .*/
+
+
+a = seno( 45 ) .
+escrever "seno( 45 ) = " + a na saída .
+
+a = cosseno( 45 ) .
+escrever "cosseno( 45 ) = " + a na saída .
+
+a = tangente( 45 ) .
+escrever "tangente( 45 ) = " + a na saída .
+
+a = arcoSeno( 0.707 ) .
+escrever "arcoSeno( 0.707 ) = " + a na saída .
+
+a = arcoCosseno( 0.707 ) .
+escrever "arcoCosseno( 0.707 ) = " + a na saída .
+
+a = arcoTangente( 1 ) .
+escrever "arcoTangente( 1 ) = " + a na saída .
+
+a = cartesianoParaPolar( 100, 100 ) .
+escrever "cartesianoParaPolar( 100, 100 ) = " + a na saída .
+
+a = senoHiperbólico( 1 ) .
+escrever "senoHiperbólico( 1 ) = " + a na saída .
+
+a = cossenoHiperbólico( 1 ) .
+escrever "cossenoHiperbólico( 1 ) = " + a na saída .
+
+a = tangenteHiperbólica( 1 ) .
+escrever "tangenteHiperbólica( 1 ) = " + a na saída .
+
+
+/*a = logarítmo( 10 ) .
+escrever "logarítmo( 10 ) = " + a na saída .
+
+a = logarítmo( 1024, 2 ) .
+escrever "logarítmo( 1024, 2 ) = " + a na saída .*/
+
+
+a = grausParaRadianos( 180 ) .
+escrever "grausParaRadianos( 180 ) = " + a na saída .
+
+a = radianosParaGraus( PI ) .
+escrever "radianosParaGraus( PI ) = " + a na saída .

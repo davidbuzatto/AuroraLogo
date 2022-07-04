@@ -1,6 +1,8 @@
 Splash Screen;
-Ícone da janela e do programa;
-Funções matemáticas;
+
+-> Funções matemáticas;
+-> Sintax Highligh das funções;
+
 Números em ponto flutuante na implementação da tartaruga;
 Instruções geométricas;
 Outras estruturas de repetição (seguir CPRL);
@@ -12,6 +14,5 @@ Funções definidas pelo usuário;
 Sobre e ajuda;
 Melhorar mensagens de erro, usando uma sequência de comandos corretos comparando com a linha errada;
 Exemplos de código;
-Verificar inicialização sem as preferências padrão;
 Registrar AuroraLogo;
 Registrar CSCH

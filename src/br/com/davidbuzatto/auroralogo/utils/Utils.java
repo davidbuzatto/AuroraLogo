@@ -278,15 +278,25 @@ public class Utils {
         
     }
     
-    public static void preparePreferences() {
+    public static void prepararPreferences( boolean reset ) {
         
-        PREFS.get( PREF_CAMINHO_ABRIR_SALVAR, new File( "" ).getAbsolutePath() );
-        PREFS.get( PREF_TEMA, "claro" );
-        PREFS.getBoolean( PREF_DEPURADOR_ATIVO, false );
-        PREFS.getBoolean( PREF_GRADE_ATIVA, false );
-        PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 );
-        PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false );
-        PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE );
+        if ( reset ) {
+            PREFS.remove( PREF_CAMINHO_ABRIR_SALVAR );
+            PREFS.remove( PREF_TEMA );
+            PREFS.remove( PREF_DEPURADOR_ATIVO );
+            PREFS.remove( PREF_GRADE_ATIVA );
+            PREFS.remove( PREF_VALOR_SLIDER_PASSO_AUTOMATICO );
+            PREFS.remove( PREF_JANELA_PRINCIPAL_MAXIMIZADA );
+            PREFS.remove( PREF_COR_TARTARUGA );
+        }
+        
+        PREFS.put( PREF_CAMINHO_ABRIR_SALVAR, PREFS.get( PREF_CAMINHO_ABRIR_SALVAR, new File( "" ).getAbsolutePath() ) );
+        PREFS.put( PREF_TEMA, PREFS.get( PREF_TEMA, "claro" ) );
+        PREFS.putBoolean( PREF_DEPURADOR_ATIVO, PREFS.getBoolean( PREF_DEPURADOR_ATIVO, false ) );
+        PREFS.putBoolean( PREF_GRADE_ATIVA, PREFS.getBoolean( PREF_GRADE_ATIVA, false ) );
+        PREFS.putInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 ) );
+        PREFS.putBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false ) );
+        PREFS.putInt( PREF_COR_TARTARUGA, PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE ) );
         
     }
     
@@ -339,7 +349,7 @@ public class Utils {
     }
     
     public static void main( String[] args ) {
-        System.out.println( toUnicodeScape( 'í' ) );
+        System.out.println( toUnicodeScape( 'ê' ) );
     }
     
 }
