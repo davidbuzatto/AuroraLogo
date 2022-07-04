@@ -4,7 +4,6 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
-import br.com.davidbuzatto.auroralogo.parser.impl.ValorVariavel;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -23,7 +22,7 @@ import javax.imageio.ImageIO;
  *
  * @author David
  */
-public class Tartaruga {
+public class TartarugaBack {
     
     private class Estado implements Cloneable {
 
@@ -35,7 +34,7 @@ public class Tartaruga {
         Color corPincel;
         Color corFundo;
         boolean desenhando;
-        Map<String, ValorVariavel> memoria;
+        Map<String, Integer> memoria;
         
         public Estado( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando ) {
             this.x = x;
@@ -62,7 +61,7 @@ public class Tartaruga {
             e.desenhando = desenhando;
             e.memoria = new LinkedHashMap<>();
             
-            for ( Entry<String, ValorVariavel> en : memoria.entrySet() ) {
+            for ( Entry<String, Integer> en : memoria.entrySet() ) {
                 e.memoria.put( en.getKey(), en.getValue() );
             }
             
@@ -89,11 +88,9 @@ public class Tartaruga {
     };
     
     private List<Estado> estados;
-    private BufferedImage imgTartarugaBase;
     private BufferedImage imgTartaruga;
     private PainelDesenho painelDesenho;
     private Font fonteDepurador;
-    private Color cor;
     
     private boolean passoAPasso;
     private int estadoAtual;
@@ -101,7 +98,7 @@ public class Tartaruga {
     private boolean depuradorAtivo;
     private boolean gradeAtiva;
     
-    public Tartaruga( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando, PainelDesenho painelDesenho, Font fonteDepurador ) {
+    public TartarugaBack( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando, PainelDesenho painelDesenho, Font fonteDepurador ) {
         
         estados = new ArrayList<>();
         
@@ -112,31 +109,10 @@ public class Tartaruga {
         this.fonteDepurador = fonteDepurador;
         
         try {
-            imgTartarugaBase = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/icones/tartaruga.png" ) );
             imgTartaruga = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/icones/tartaruga.png" ) );
         } catch ( IOException exc )  {
         }
         
-    }
-    
-    public void setCor( Color cor ) {
-        
-        this.cor = cor;
-        
-        if ( this.cor == null ) {
-            imgTartaruga = imgTartarugaBase;
-        } else {
-            imgTartaruga = Utils.processarImagemTartaruga( imgTartarugaBase, this.cor, .45 );
-        }
-        
-    }
-
-    public Color getCor() {
-        return cor;
-    }
-
-    public void setFonteDepurador( Font fonteDepurador ) {
-        this.fonteDepurador = fonteDepurador;
     }
     
     public void moverParaDireita( int quantidade ) {
@@ -301,15 +277,15 @@ public class Tartaruga {
         estadoAtual = 0;
     }
     
-    public void inserirOuAtualizarMemoria( String id, ValorVariavel valor ) {
+    public void inserirOuAtualizarMemoria( String id, Integer valor ) {
         Estado e = clonarUltimoEstado();
         e.memoria.put( id, valor );
         estados.add( e );
     }
     
-    public ValorVariavel lerMemoria( String id ) {
+    public Integer lerMemoria( String id ) {
         Estado eAtual = estados.get( estados.size() - 1 );
-        return eAtual.memoria.getOrDefault( id, ValorVariavel.NULO );
+        return eAtual.memoria.getOrDefault( id, 0 );
     }
     
     public void desenhar( Graphics2D g2d ) {
@@ -471,7 +447,7 @@ public class Tartaruga {
         }
         
         int c = 0;
-        for ( Entry<String, ValorVariavel> e : atu.memoria.entrySet() ) {
+        for ( Entry<String, Integer> e : atu.memoria.entrySet() ) {
             
             String nome = e.getKey();
             if ( nome.length() > 10 ) {
@@ -482,6 +458,7 @@ public class Tartaruga {
             if ( completo.length() > 22 ) {
                 completo = completo.substring( 0, 19 ) + "...";
             }
+            //System.out.println( completo.length() );
             
             yAtual = yIniStrings + passoY * i++;
             

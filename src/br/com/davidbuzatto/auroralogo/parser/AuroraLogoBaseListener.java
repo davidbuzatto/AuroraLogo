@@ -124,6 +124,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorDec(AuroraLogoParser.FatorDecContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorDec(AuroraLogoParser.FatorDecContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorId(AuroraLogoParser.FatorIdContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -131,6 +143,30 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFatorId(AuroraLogoParser.FatorIdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFatorChar(AuroraLogoParser.FatorCharContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorChar(AuroraLogoParser.FatorCharContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFatorString(AuroraLogoParser.FatorStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorString(AuroraLogoParser.FatorStringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -155,6 +191,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExprBool(AuroraLogoParser.ExprBoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBool(AuroraLogoParser.BoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBool(AuroraLogoParser.BoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -220,25 +268,25 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRepita(AuroraLogoParser.RepitaContext ctx) { }
+	@Override public void enterRepetir(AuroraLogoParser.RepetirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRepita(AuroraLogoParser.RepitaContext ctx) { }
+	@Override public void exitRepetir(AuroraLogoParser.RepetirContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterEnquanto(AuroraLogoParser.EnquantoContext ctx) { }
+	@Override public void enterRepetirEnquanto(AuroraLogoParser.RepetirEnquantoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitEnquanto(AuroraLogoParser.EnquantoContext ctx) { }
+	@Override public void exitRepetirEnquanto(AuroraLogoParser.RepetirEnquantoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

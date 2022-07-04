@@ -67,12 +67,33 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorInt(AuroraLogoParser.FatorIntContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code fatorDec}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorDec(AuroraLogoParser.FatorDecContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code fatorId}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitFatorId(AuroraLogoParser.FatorIdContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code fatorChar}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorChar(AuroraLogoParser.FatorCharContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code fatorString}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorString(AuroraLogoParser.FatorStringContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
@@ -86,6 +107,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprBool(AuroraLogoParser.ExprBoolContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#bool}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitBool(AuroraLogoParser.BoolContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#se}.
 	 * @param ctx the parse tree
@@ -117,17 +144,17 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSeSenao(AuroraLogoParser.SeSenaoContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#repita}.
+	 * Visit a parse tree produced by {@link AuroraLogoParser#repetir}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRepita(AuroraLogoParser.RepitaContext ctx);
+	T visitRepetir(AuroraLogoParser.RepetirContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#enquanto}.
+	 * Visit a parse tree produced by {@link AuroraLogoParser#repetirEnquanto}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitEnquanto(AuroraLogoParser.EnquantoContext ctx);
+	T visitRepetirEnquanto(AuroraLogoParser.RepetirEnquantoContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code movimentarDirecao}
 	 * labeled alternative in {@link AuroraLogoParser#movimentar}.

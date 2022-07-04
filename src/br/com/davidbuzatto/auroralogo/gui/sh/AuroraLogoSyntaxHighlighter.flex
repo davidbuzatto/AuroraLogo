@@ -246,7 +246,9 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 <YYINITIAL> {
 
 	/* Keywords */
-	"abaixar " | 
+	"FALSO " | 
+"VERDADEIRO " | 
+"abaixar " | 
 "amarelo " | 
 "azul " | 
 "baixo " | 
@@ -274,11 +276,13 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "levantar " | 
 "limpar " | 
 "magenta " | 
+"na " | 
 "para " | 
 "pincel " | 
 "preto " | 
-"repita " | 
+"repetir " | 
 "rosa " | 
+"sa\u00EDda " | 
 "se " | 
 "sen\u00E3o " | 
 "trocar " | 

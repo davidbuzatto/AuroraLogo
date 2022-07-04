@@ -1,6 +1,1 @@
-repita 100 vezes {
-    vá para direita em 100 .
-    vá para cima em 100 .
-    vá para esquerda em 100 .
-    vá para baixo em 100 .
-}
+a = 1 .

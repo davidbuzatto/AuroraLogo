@@ -3,6 +3,11 @@ package br.com.davidbuzatto.auroralogo.utils;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.color.ColorSpace;
+import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageOp;
+import java.awt.image.ColorConvertOp;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +31,14 @@ public class Utils {
     
     private static final String PREFERENCES_PATH = "br.com.davidbuzatto.auroralogo";
     private static final Preferences PREFS = Preferences.userRoot().node( PREFERENCES_PATH );
+    
     public static final String PREF_CAMINHO_ABRIR_SALVAR = "CAMINHO_ABRIR_SALVAR";
     public static final String PREF_TEMA = "TEMA";
     public static final String PREF_DEPURADOR_ATIVO = "DEPURADOR_ATIVO";
     public static final String PREF_GRADE_ATIVA = "GRADE_ATIVA";
     public static final String PREF_VALOR_SLIDER_PASSO_AUTOMATICO = "VALOR_SLIDER_PASSO_AUTOMATICO";
     public static final String PREF_JANELA_PRINCIPAL_MAXIMIZADA = "JANELA_PRINCIPAL_MAXIMIZADA";
+    public static final String PREF_COR_TARTARUGA = "COR_TARTARUGA";
     
     public static void mostrarDados( 
             CommonTokenStream tokens, 
@@ -122,6 +129,72 @@ public class Utils {
         
     }
     
+    public static void inserirMensagemEmitente( JTextPane textPane, String quemDisse, String oQueDisse, Color corTexto ) {
+        
+        quemDisse += ":";
+        oQueDisse = " " + oQueDisse;
+        
+        if ( corTexto == null ) {
+            
+            int c = 0;
+            
+            Color[] cores = {
+                new Color( 151, 53, 152 ),
+                new Color( 0, 102, 203 ),
+                new Color( 24, 210, 233 ),
+                new Color( 104, 203, 60 ),
+                new Color( 244, 244, 0 ),
+                new Color( 249, 149, 38 ),
+                new Color( 245, 18, 9 )
+            };
+            
+            for ( char ch : quemDisse.toCharArray() ) {
+                
+                inserirTextoFormatado( 
+                        textPane, 
+                        ch + "", 
+                        true,
+                        gerarComponenteGradiente( cores[c], Color.WHITE, .5 ),
+                        gerarComponenteGradiente( cores[c], Color.BLACK, .5 ) );
+                
+                c++;
+                c %= cores.length;
+                
+            }
+
+            for ( char ch : oQueDisse.toCharArray() ) {
+                
+                Utils.inserirTextoFormatado( 
+                        textPane, 
+                        ch + "", 
+                        true,
+                        gerarComponenteGradiente( cores[c], Color.BLACK, .8 ) );
+                
+                c++;
+                c %= cores.length;
+                
+            }
+            
+        } else {
+        
+            inserirTextoFormatado( 
+                    textPane, 
+                    quemDisse, 
+                    true,
+                    gerarComponenteGradiente( corTexto, Color.WHITE, .5 ),
+                    gerarComponenteGradiente( corTexto, Color.BLACK, .5 ) );
+
+
+            Utils.inserirTextoFormatado( 
+                    textPane, 
+                    oQueDisse, 
+                    true,
+                    gerarComponenteGradiente( corTexto, Color.BLACK, .5 ) );
+        
+        }
+        
+    }
+    
     public static void inserirCorCodigo( RSyntaxTextArea textAreaCodigo, Color cor ) {
         
         try {
@@ -147,35 +220,65 @@ public class Utils {
         
     }
     
-    /*private static Map<String, Color> defaultColors = new HashMap<>();
+    public static String toUnicodeScape( char c ) {
+        return "\\u" + String.format( "%04X", (int) c );
+    }
     
-    static {
-        defaultColors.put( "RESERVED_WORD", Color.BLUE );
-        defaultColors.put( "RESERVED_WORD_2", Color.decode( "#9e6d03" ) );
-        defaultColors.put( "IDENTIFIER", Color.GREEN.darker() );
-        defaultColors.put( "OPERATOR", Color.decode( "#9e6d03" ) );
-        defaultColors.put( "FUNCTION", Color.BLACK );
-        defaultColors.put( "LITERAL_NUMBER_DECIMAL_INT", Color.MAGENTA.darker().darker() );
-        defaultColors.put( "LITERAL_NUMBER_FLOAT", Color.MAGENTA.darker().darker() );
-        defaultColors.put( "LITERAL_NUMBER_HEXADECIMAL", Color.BLUE );
-        defaultColors.put( "COMMENT_EOL", Color.GRAY );
-        defaultColors.put( "COMMENT_MULTILINE", Color.GRAY.darker() );
-        defaultColors.put( "COMMENT_DOCUMENTATION", Color.BLUE.darker().darker() );
-    };*/
+    public static BufferedImage processarImagemTartaruga( BufferedImage imgTartaruga, Color cor, double p ) {
+        
+        BufferedImageOp op = new ColorConvertOp(ColorSpace.getInstance(ColorSpace.CS_GRAY), null); 
+        BufferedImage imgCinza = op.filter( imgTartaruga, null );
+        BufferedImage imgFinal = new BufferedImage( imgTartaruga.getWidth(), imgTartaruga.getHeight(), BufferedImage.TYPE_INT_ARGB );
+        
+        WritableRaster wrC = imgCinza.getRaster();
+        WritableRaster wrF = imgFinal.getRaster();
+        WritableRaster wrT = imgTartaruga.getRaster();
+        
+        int[] corC = new int[2];
+        int[] corT = new int[4];
+        
+        for ( int x = 0; x < wrC.getWidth(); x++ ) {
+            for ( int y = 0; y < wrC.getHeight(); y++ ) {
+                
+                corC = wrC.getPixel( x, y, corC );
+                corT = wrT.getPixel( x, y, corT );
+                
+                if ( corT[3] != 0 ) {
+                    
+                    int r = (int) ( corC[0] * p + cor.getRed() * ( 1 - p ) );
+                    int g = (int) ( corC[0] * p + cor.getGreen() * ( 1 - p ) );
+                    int b = (int) ( corC[0] * p + cor.getBlue() * ( 1 - p ) );
+                    
+                    corT[0] = r;
+                    corT[1] = g;
+                    corT[2] = b;
+                    
+                    wrF.setPixel( x, y, corT );
+                }
+                
+            }
+            
+        }
+        
+        return imgFinal;
+        
+    }
+    
+    public static Color gerarComponenteGradiente( Color corEsquerda, Color corDireita, double posicao ) {
+        return gerarComponenteGradiente( corEsquerda, corDireita, posicao, 255 );
+    }
+    
+    public static Color gerarComponenteGradiente( Color corEsquerda, Color corDireita, double posicao, int alpha ) {
+        
+        int r = (int) ( corEsquerda.getRed() * posicao + corDireita.getRed() * ( 1 - posicao ) );
+        int g = (int) ( corEsquerda.getGreen() * posicao + corDireita.getGreen() * ( 1 - posicao ) );
+        int b = (int) ( corEsquerda.getBlue() * posicao + corDireita.getBlue() * ( 1 - posicao ) );
+        
+        return new Color( r, g, b, alpha );
+        
+    }
     
     public static void preparePreferences() {
-        
-        /*try {
-            PREFS.clear();
-        } catch ( BackingStoreException exc ) {
-            java.util.logging.Logger.getLogger( Utils.class.getName() ).log( java.util.logging.Level.SEVERE, null, exc );
-        }*/
-        
-        /*PREFS.remove( "CAMINHO_ABRIR_SALVAR" );
-        PREFS.remove( "TEMA" );*/
-        
-        /*PREFS.put( "CAMINHO_ABRIR_SALVAR", PREFS.get( "CAMINHO_ABRIR_SALVAR", new File( "" ).getAbsolutePath() ) );
-        PREFS.put( "TEMA", PREFS.get( "TEMA1", "claro" ) );*/
         
         PREFS.get( PREF_CAMINHO_ABRIR_SALVAR, new File( "" ).getAbsolutePath() );
         PREFS.get( PREF_TEMA, "claro" );
@@ -183,10 +286,7 @@ public class Utils {
         PREFS.getBoolean( PREF_GRADE_ATIVA, false );
         PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 );
         PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false );
-        
-        /*for ( Entry<String, Color> e : defaultColors.entrySet() ) {
-            PREFS.putInt( e.getKey(), prefs.getInt( e.getKey(), e.getValue().getRGB() ) );
-        }*/
+        PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE );
         
     }
     
@@ -236,6 +336,10 @@ public class Utils {
     
     public static void setBooleanPref( String key, boolean value ) {
         PREFS.putBoolean( key, value );
+    }
+    
+    public static void main( String[] args ) {
+        System.out.println( toUnicodeScape( 'í' ) );
     }
     
 }

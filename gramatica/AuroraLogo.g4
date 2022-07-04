@@ -10,8 +10,8 @@ prog : inst+ ;
 
 inst : ains DOT
      | se
-     | repita
-     | enquanto
+     | repetir
+     | repetirEnquanto
      ;
 
 ains : movimentar
@@ -52,11 +52,17 @@ termo    : fator ( ( MUL | VEZS
 
 fator    : ( NAO | NAOT ) fator      # fatorNao
          | INT                       # fatorInt
-         | ID                        # fatorId
+         | DEC                       # fatorDec
+         | ( bool | ID )             # fatorId          // atenção, literais booleanos aqui!
+         | CHAR                      # fatorChar
+         | STRING                    # fatorString
          | '(' expr ')'              # fatorParenteses
          ;
 
 exprBool : expr
+         ;
+
+bool     : VER | FAL
          ;
 
 // regras para os construtos da linguagem
@@ -76,13 +82,13 @@ seSenaoSeP   : SEN SE exprBool ENT '{' inst+ '}'
 seSenao      : ( SEN              '{' inst+ '}' )?
              ;
 
-// repita vezes
-repita       : REP expr ( VEZ | VEZS ) '{' inst+ '}'
+// repetir vezes
+repetir      : REP expr ( VEZ | VEZS ) '{' inst+ '}'
              ;
 
-// enquanto repita
-enquanto     : ( ENQ exprBool )? REP '{' inst+ '}'
-             ;
+// enquanto --- repetir
+repetirEnquanto   : ( ENQ exprBool )? REP '{' inst+ '}'
+                  ;
 
 // regras para instruções de ação
 movimentar   : VA PARA ( DIR | ESQ | CIM | BAI ) ( EM expr )?   # movimentarDirecao
@@ -118,13 +124,18 @@ desengrossar : DES ( EM expr )?
 trocarGrossura  : TROC GROS PARA expr
                 ;
 
-escrever     : ESC ( STRING | expr ) concat*
-             ;
-
-ler          : LER ID
+/*
+escrever     : ESC ( STRING | expr ) concat* ( NA SAI )?
              ;
 
 concat       : ( ADI | ADIA ) ( STRING | expr )
+             ;
+*/
+
+escrever     : ESC expr ( NA SAI )?
+             ;
+
+ler          : LER ID
              ;
 
 atribuir     : ID ( ATR | ATRA ) expr
@@ -156,6 +167,7 @@ UNICODE : 'u' DHX DHX DHX DHX ;
 
 // palavras chave
 // á = \u00E1
+// í = \u00ed
 VA   : 'v\u00E1'                  ;
 PARA : 'para'                     ;
 EM   : 'em'                       ;
@@ -181,9 +193,13 @@ SE   : 'se'                       ;
 ENT  : 'ent\u00E3o'               ;
 SEN  : 'sen\u00E3o'               ;
 ENQ  : 'enquanto'                 ;
-REP  : 'repita'                   ;
+REP  : 'repetir'                  ;
 VEZ  : 'vez'                      ;
 VEZS : 'vezes'                    ;
+NA   : 'na'                       ;
+SAI  : 'sa\u00EDda'               ;
+VER  : 'VERDADEIRO'               ;
+FAL  : 'FALSO'                    ;
 
 
 // constantes para cores
@@ -276,8 +292,10 @@ DOT  : '.' ;
 ID   : LET(LET|DIG)* ;
 
 // literais
-INT  : DIG+ ;
-HEX  : '0x' DHX+ {getText().length() == 8 || getText().length() == 10}?; // predicado semântico, força formato em 0x000000 ou 0x00000000
+INT    : DIG+ ;
+DEC    : DIG+ '.' DIG+ ;
+HEX    : '0x' DHX+ {getText().length() == 8 || getText().length() == 10}?; // predicado semântico, força formato em 0x000000 ou 0x00000000
+CHAR   : '\'' ( ESCC | ~["\\] ) '\'' ;
 STRING : '"' ( ESCC | ~["\\] )* '"' ;
 
 // comentários

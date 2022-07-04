@@ -18,7 +18,7 @@ levantar pincel .
 // abaixa o pincel de pintura
 abaixar pincel .
 
-escrever "olá mundo!" .
+escrever "olá mundo!" na saída .
 
 // movimenta 40 pixels vá para direita em
 vá para direita em 40 .
@@ -62,7 +62,7 @@ vá para baixo em 115 .
 girar em -45 .
 
 // instrução de repetição
-repita (abc*3) vezes {
+repetir (abc*3) vezes {
     trocar cor para 0xf59e42 .
     engrossar em 3 .
     vá para direita em 20 .
@@ -79,7 +79,7 @@ vá para direita em 150 .
 abaixar pincel .
 
 i = 1 .
-repita 36 vezes {
+repetir 36 vezes {
     girar em 10 .
     trocar cor para 0xeb34c0 .
     vá para direita em 1 * i .
@@ -117,14 +117,14 @@ largura = 400 .
 altura = 40 .
 engrossar em 2 .
 
-repita 10 vezes {
+repetir 10 vezes {
 	trocar cor para 0x83eb34 .
 	abaixar pincel .
     vá para direita em largura .
     levantar pincel .
     vá para esquerda em largura .
     j = 0 .
-    repita (10) vezes {
+    repetir (10) vezes {
     	trocar cor para 0x9c34eb .
     	abaixar pincel .
     	vá para baixo em altura .

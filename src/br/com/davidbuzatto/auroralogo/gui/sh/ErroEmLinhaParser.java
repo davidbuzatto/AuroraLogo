@@ -4,6 +4,7 @@
  */
 package br.com.davidbuzatto.auroralogo.gui.sh;
 
+import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -47,12 +48,14 @@ public class ErroEmLinhaParser extends AbstractParser {
     
     private RSyntaxTextArea textAreaCodigo;
     private JTextPane textPaneSaida;
+    private Tartaruga tartaruga;
     private Map<Integer, Erro> mapaErros;
     private List<DefaultParserNotice> erros;
     
-    public ErroEmLinhaParser( RSyntaxTextArea textAreaCodigo, JTextPane textPaneSaida ) {
+    public ErroEmLinhaParser( RSyntaxTextArea textAreaCodigo, JTextPane textPaneSaida, Tartaruga tartaruga ) {
         this.textAreaCodigo = textAreaCodigo;
         this.textPaneSaida = textPaneSaida;
+        this.tartaruga = tartaruga;
         mapaErros = new LinkedHashMap<>();
         erros = new ArrayList<>();
     }
@@ -122,27 +125,21 @@ public class ErroEmLinhaParser extends AbstractParser {
             
             if ( linha1 != null && linha2 == null ) {
                 Utils.inserirTextoFormatado( 
-                    textPaneSaida, 
-                    linha1 + ".\n\n", 
-                    true,
-                    Color.RED );
+                        textPaneSaida, 
+                        linha1 + "a.\n\n", 
+                        true,
+                        Color.RED );
             } else {
                 Utils.inserirTextoFormatado( 
-                    textPaneSaida, 
-                    linha1 + ":\n    ", 
-                    true,
-                    Color.RED );
-                Utils.inserirTextoFormatado( 
-                    textPaneSaida, 
-                    "tartaruga:", 
-                    true,
-                    Color.GREEN,
-                    new Color( 48, 151, 80 ) );
-                Utils.inserirTextoFormatado( 
-                    textPaneSaida, 
-                    " " + linha2 + "\n\n", 
-                    true,
-                    new Color( 48, 151, 80 ) );
+                        textPaneSaida, 
+                        linha1 + ":\n    ", 
+                        true,
+                        Color.RED );
+                Utils.inserirMensagemEmitente( 
+                        textPaneSaida, 
+                        "tartaruga", 
+                        linha2 + "\n\n", 
+                        tartaruga.getCor() );
             }
             
             erros.add( dpn );

@@ -125,6 +125,17 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         initComponents();
         montarTitulo( true );
 
+        tartaruga = new Tartaruga(
+                painelDesenho.getWidth() / 2,
+                painelDesenho.getHeight() / 2,
+                0, 1,
+                Color.BLACK,
+                Color.WHITE,
+                true,
+                painelDesenho,
+                fontePadrao );
+        painelDesenho.setTartaruga( tartaruga );
+        
         configurarTextAreaCodigo();
         configurarDialogosDeBusca();
         
@@ -136,19 +147,15 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         filtroExtensao = new FileNameExtensionFilter(
                 "Arquivo AuroraLogo", "aulg" );
-
-        // *********** persistir nas preferências ****************
-        //setExtendedState( MAXIMIZED_BOTH );
-        tartaruga = new Tartaruga(
-                painelDesenho.getWidth() / 2,
-                painelDesenho.getHeight() / 2,
-                0, 1,
-                Color.BLACK,
-                Color.WHITE,
-                true,
-                painelDesenho,
-                fontePadrao );
-        painelDesenho.setTartaruga( tartaruga );
+        
+        /* 
+         * precisa reconfigurar.
+         * como os componentes são muito acoplados, em algumas situações
+         * um precisa ser iniciado primeiro para o outro poder usar
+         * mas há uma dependência cruzada, sendo necessário reconfigurar
+         * alguns atributos.
+         */
+        tartaruga.setFonteDepurador( fontePadrao );
 
     }
 
@@ -192,6 +199,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         preenchimento = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         btnGrade = new javax.swing.JToggleButton();
         btnDepurador = new javax.swing.JToggleButton();
+        btnCorTartaruga = new javax.swing.JButton();
         paineCodigoFonte = new javax.swing.JPanel();
         painelTextAreaCodigo = new javax.swing.JPanel();
         painelSaida = new javax.swing.JPanel();
@@ -236,6 +244,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuItemRTemaClaro = new javax.swing.JRadioButtonMenuItem();
         menuItemRTemaEscuro = new javax.swing.JRadioButtonMenuItem();
         menuItemRTemaNimbus = new javax.swing.JRadioButtonMenuItem();
+        separadorMenuTemas1 = new javax.swing.JPopupMenu.Separator();
+        menuItemCorTartaruga = new javax.swing.JMenuItem();
+        menuItemTartarugaArcoIris = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
         menuItemSobre = new javax.swing.JMenuItem();
 
@@ -546,6 +557,18 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         barraFerramentas.add(btnDepurador);
+
+        btnCorTartaruga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/palette.png"))); // NOI18N
+        btnCorTartaruga.setToolTipText("Cor da Tartaruga");
+        btnCorTartaruga.setFocusable(false);
+        btnCorTartaruga.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCorTartaruga.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnCorTartaruga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCorTartarugaActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnCorTartaruga);
 
         paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código Fonte"));
 
@@ -926,6 +949,27 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         menuTemas.add(menuItemRTemaNimbus);
+        menuTemas.add(separadorMenuTemas1);
+
+        menuItemCorTartaruga.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemCorTartaruga.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/palette.png"))); // NOI18N
+        menuItemCorTartaruga.setText("Cor da Tartaruga");
+        menuItemCorTartaruga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemCorTartarugaActionPerformed(evt);
+            }
+        });
+        menuTemas.add(menuItemCorTartaruga);
+
+        menuItemTartarugaArcoIris.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_T, java.awt.event.InputEvent.ALT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemTartarugaArcoIris.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/iconeTartaruga.png"))); // NOI18N
+        menuItemTartarugaArcoIris.setText("Tartaruga Arco-Íris");
+        menuItemTartarugaArcoIris.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemTartarugaArcoIrisActionPerformed(evt);
+            }
+        });
+        menuTemas.add(menuItemTartarugaArcoIris);
 
         barraMenu.add(menuTemas);
 
@@ -1323,6 +1367,32 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         retornarFontePadrao();
     }//GEN-LAST:event_btnFonteTamanhoPadraoActionPerformed
 
+    private void btnCorTartarugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCorTartarugaActionPerformed
+        definirCorTartaruga();    
+    }//GEN-LAST:event_btnCorTartarugaActionPerformed
+
+    private void menuItemCorTartarugaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemCorTartarugaActionPerformed
+        definirCorTartaruga();
+    }//GEN-LAST:event_menuItemCorTartarugaActionPerformed
+
+    private void menuItemTartarugaArcoIrisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTartarugaArcoIrisActionPerformed
+        tartaruga.setCor( null );
+        setIntPref( PREF_COR_TARTARUGA, Integer.MAX_VALUE );
+        painelDesenho.repaint();
+    }//GEN-LAST:event_menuItemTartarugaArcoIrisActionPerformed
+
+    private void definirCorTartaruga() {
+        
+        Color c = JColorChooser.showDialog( this, "Cor da Tartaruga", tartaruga.getCor(), false );
+        
+        if ( c != null ) {
+            tartaruga.setCor( c );
+            setIntPref( PREF_COR_TARTARUGA, tartaruga.getCor() == null ? Integer.MAX_VALUE : tartaruga.getCor().getRGB() );
+            painelDesenho.repaint();    
+        }
+        
+    }
+    
     private void atualizarQuadrosPorSegundo() {
         lblQuadrosPorSegundo.setText(
                 String.format( " %d quadros por segundo",
@@ -1397,7 +1467,16 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 retornarFontePadrao();
             }
         } );
-
+        
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK ), "inserirCor" );
+        am.put( "inserirCor", new AbstractAction() {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                inserirCorTextAreaCodigo();
+            }
+        } );
+        
+        
         int ctrlShift = InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK;
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_C, ctrlShift ), "copyAsStyledText" );
         am.put( "copyAsStyledText", new RSyntaxTextAreaEditorKit.CopyCutAsStyledTextAction( false ) );
@@ -1405,6 +1484,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         JPopupMenu pMenu = textAreaCodigo.getPopupMenu();
         JMenuItem menuItemCor = new JMenuItem( "Inserir Cor" );
         menuItemCor.setIcon( new ImageIcon( getClass().getResource( "/br/com/davidbuzatto/auroralogo/gui/icones/palette.png" ) ) );
+        menuItemCor.setAccelerator( KeyStroke.getKeyStroke( KeyEvent.VK_U, InputEvent.CTRL_DOWN_MASK ) );
         pMenu.add( new JSeparator() );
         pMenu.add( menuItemCor );
 
@@ -1458,7 +1538,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
         textAreaCodigo.setSyntaxScheme( syntaxScheme );*/
         
-        erroLinhaParser = new ErroEmLinhaParser( textAreaCodigo, textPaneSaida );
+        erroLinhaParser = new ErroEmLinhaParser( textAreaCodigo, textPaneSaida, tartaruga );
         textAreaCodigo.addParser( erroLinhaParser );
         
         errorStrip = new ErrorStrip( textAreaCodigo );
@@ -1586,7 +1666,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 textAreaCodigo.forceReparsing( erroLinhaParser );
                 
                 if ( !errorListener.houveErro() ) {
-                    DesenhistaAuroraLogoVisitor visitor = new DesenhistaAuroraLogoVisitor( tartaruga, this );
+                    DesenhistaAuroraLogoVisitor visitor = new DesenhistaAuroraLogoVisitor( tartaruga, this, textPaneSaida );
                     visitor.visit( tree );
                 }
 
@@ -2040,6 +2120,14 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                         break;
                 }
 
+                
+                int corT = getIntPref( PREF_COR_TARTARUGA );
+                if ( corT != Integer.MAX_VALUE ) {
+                    janela.tartaruga.setCor( new Color( corT ) );
+                } else {
+                    janela.tartaruga.setCor( null );
+                }
+                
                 janela.setVisible( true );
 
                 if ( getBooleanPref( PREF_JANELA_PRINCIPAL_MAXIMIZADA ) ) {
@@ -2143,6 +2231,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JButton btnAbrir;
     private javax.swing.JButton btnAnteriorPassoAPasso;
     private javax.swing.JButton btnAumentarFonte;
+    private javax.swing.JButton btnCorTartaruga;
     private javax.swing.JToggleButton btnDepurador;
     private javax.swing.JButton btnDesfazer;
     private javax.swing.JButton btnDiminuirFonte;
@@ -2174,6 +2263,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JMenuItem menuItemColar;
     private javax.swing.JMenuItem menuItemCopiar;
     private javax.swing.JMenuItem menuItemCopiarTextoFormatado;
+    private javax.swing.JMenuItem menuItemCorTartaruga;
     private javax.swing.JMenuItem menuItemDesfazer;
     private javax.swing.JMenuItem menuItemDiminuirFonte;
     private javax.swing.JMenuItem menuItemExecutar;
@@ -2192,6 +2282,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JMenuItem menuItemSalvarComo;
     private javax.swing.JMenuItem menuItemSobre;
     private javax.swing.JMenuItem menuItemSubstituir;
+    private javax.swing.JMenuItem menuItemTartarugaArcoIris;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenu menuTemas;
     private javax.swing.JPanel paineCodigoFonte;
@@ -2212,6 +2303,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JPopupMenu.Separator separadorMenuEditar3;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar4;
     private javax.swing.JPopupMenu.Separator separadorMenuExecutar1;
+    private javax.swing.JPopupMenu.Separator separadorMenuTemas1;
     private javax.swing.JSlider sliderEstadoAtual;
     private javax.swing.JSlider sliderQuadrosPorSegundo;
     private javax.swing.JTextPane textPaneSaida;
