@@ -370,16 +370,6 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitLer(AuroraLogoParser.LerContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#concat}.
-	 * @param ctx the parse tree
-	 */
-	void enterConcat(AuroraLogoParser.ConcatContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#concat}.
-	 * @param ctx the parse tree
-	 */
-	void exitConcat(AuroraLogoParser.ConcatContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#atribuir}.
 	 * @param ctx the parse tree
 	 */

@@ -226,12 +226,6 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLer(AuroraLogoParser.LerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#concat}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitConcat(AuroraLogoParser.ConcatContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#atribuir}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
