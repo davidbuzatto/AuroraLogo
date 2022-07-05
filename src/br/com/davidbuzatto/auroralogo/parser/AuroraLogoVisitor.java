@@ -170,6 +170,18 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRepetirEnquanto(AuroraLogoParser.RepetirEnquantoContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#parar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParar(AuroraLogoParser.PararContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#continuar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitContinuar(AuroraLogoParser.ContinuarContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code movimentarDirecao}
 	 * labeled alternative in {@link AuroraLogoParser#movimentar}.
 	 * @param ctx the parse tree

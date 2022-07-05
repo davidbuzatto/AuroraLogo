@@ -27,6 +27,8 @@ ains : movimentar
      | levantar
      | limpar
      | expr
+     | parar
+     | continuar
      ;
 
 // regras para construção de expressões aritméticas, relacionais e lógicas
@@ -92,6 +94,12 @@ repetir      : REP expr ( VEZ | VEZS ) '{' inst+ '}'
 // enquanto --- repetir
 repetirEnquanto   : ( ENQ exprBool )? REP '{' inst+ '}'
                   ;
+
+parar        : PARR
+             ;
+
+continuar    : CONT
+             ;
 
 // regras para instruções de ação
 movimentar   : VA PARA ( DIR | ESQ | CIM | BAI ) ( EM expr )?   # movimentarDirecao
@@ -194,6 +202,8 @@ UNICODE : 'u' DHX DHX DHX DHX ;
 // í = \u00ed
 VA   : 'v\u00E1'                  ;
 PARA : 'para'                     ;
+PARR : 'parar'                    ;
+CONT : 'continuar'                ;
 EM   : 'em'                       ;
 DIR  : 'direita'                  ;
 ESQ  : 'esquerda'                 ;

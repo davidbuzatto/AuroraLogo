@@ -276,6 +276,26 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitRepetirEnquanto(AuroraLogoParser.RepetirEnquantoContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#parar}.
+	 * @param ctx the parse tree
+	 */
+	void enterParar(AuroraLogoParser.PararContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#parar}.
+	 * @param ctx the parse tree
+	 */
+	void exitParar(AuroraLogoParser.PararContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#continuar}.
+	 * @param ctx the parse tree
+	 */
+	void enterContinuar(AuroraLogoParser.ContinuarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#continuar}.
+	 * @param ctx the parse tree
+	 */
+	void exitContinuar(AuroraLogoParser.ContinuarContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code movimentarDirecao}
 	 * labeled alternative in {@link AuroraLogoParser#movimentar}.
 	 * @param ctx the parse tree

@@ -270,6 +270,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "cinza" | 
 "claro " | 
 "claro" | 
+"continuar " | 
+"continuar" | 
 "cor " | 
 "cor" | 
 "desengrossar " | 
@@ -314,6 +316,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "na" | 
 "para " | 
 "para" | 
+"parar " | 
+"parar" | 
 "pincel " | 
 "pincel" | 
 "preto " | 

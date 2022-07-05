@@ -1,1 +1,46 @@
-a = 1 .
+repetir 10 vezes {
+    vá para direita em 100 .
+    //parar .
+    //continuar .
+    vá para cima em 100 .
+    repetir 2 vezes {
+    	vá para esquerda em 10 .
+    	//parar .
+    	//continuar .
+    	vá para baixo em 10 .
+    	se 1 != 1 então {
+    		//parar .
+    		escrever "a" na saída .
+    		//continuar .
+    		escrever "b" na saída .
+    	} senão se 2 != 2 então {
+    		//parar .
+    		escrever "a" na saída .
+    		//continuar .
+    		escrever "b" na saída .
+    	} senão se 3 != 3 então {
+    		//parar .
+    		escrever "a" na saída .
+    		//continuar .
+    		escrever "b" na saída .
+    	} senão {
+    		se 1 != 1 então {
+    			//parar .
+    			escrever "a" na saída .
+	    		//continuar .
+	    		escrever "b" na saída .
+    		} senão se 2 == 2 então {
+    			repetir 2 vezes {
+    				vá para baixo em 5 .
+    				//parar .
+    				escrever "a" na saída .
+		    		//continuar .
+		    		escrever "b" na saída .
+    				vá para esquerda em 2 .
+    				vá para baixo em 2.
+    			}
+    		}
+    	}
+    	trocar cor para 0xff0000 .
+    }
+}

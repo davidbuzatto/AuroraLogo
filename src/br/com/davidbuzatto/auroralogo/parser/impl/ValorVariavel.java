@@ -19,7 +19,9 @@ public class ValorVariavel {
         CARACTERE,
         BOOLEANO,
         STRING,
-        NULO
+        NULO,
+        PARAR,
+        CONTINUAR
 
     }
     
@@ -139,6 +141,14 @@ public class ValorVariavel {
     public boolean isNulo() {
         return tipo == TipoVariavel.NULO;
     }
+    
+    public boolean isParar() {
+        return tipo == TipoVariavel.PARAR;
+    }
+    
+    public boolean isContinuar() {
+        return tipo == TipoVariavel.CONTINUAR;
+    }
 
     public Integer valorInteiro() {
         
@@ -174,6 +184,26 @@ public class ValorVariavel {
     
     public String valorString() {
         return tipo == TipoVariavel.STRING && valor != null ? (String) valor : "" ;
+    }
+    
+    public int valorIdParar() {
+        
+        if ( tipo == TipoVariavel.PARAR ) {
+            return (Integer) valor;
+        }
+        
+        return 0;
+        
+    }
+    
+    public int valorIdContinuar() {
+        
+        if ( tipo == TipoVariavel.CONTINUAR ) {
+            return (Integer) valor;
+        }
+        
+        return 0;
+        
     }
     
     @Override
@@ -247,6 +277,14 @@ public class ValorVariavel {
     
     public static ValorVariavel novaString( String valor ) {
         return new ValorVariavel( TipoVariavel.STRING, valor );
+    }
+    
+    public static ValorVariavel novoParar( int id ) {
+        return new ValorVariavel( TipoVariavel.PARAR, id );
+    }
+    
+    public static ValorVariavel novoContinuar( int id ) {
+        return new ValorVariavel( TipoVariavel.CONTINUAR, id );
     }
     
 }

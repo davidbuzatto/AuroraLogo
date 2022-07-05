@@ -13,7 +13,7 @@ Limpar os cabeçalhos e padronizar.
     caminhos
 
 Outras estruturas de repetição (seguir CPRL);
-Implementação do "break";
+Implementação do "break" e do "continue"; (quase pronto, verificar outra estrutura de repetição)
 Lidar com loops infinitos;
 
 Arrays;

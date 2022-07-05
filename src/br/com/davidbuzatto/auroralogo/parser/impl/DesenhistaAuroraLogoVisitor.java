@@ -30,6 +30,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     private JTextPane textPaneSaida;
     private Random gerador;
     
+    // id das instruções condicionais e de repetição
+    private int idInstrucaoRepeticao;
+    
     public DesenhistaAuroraLogoVisitor( 
             Tartaruga tartaruga, 
             JanelaPrincipal janelaPrincipal, 
@@ -1362,10 +1365,46 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         boolean entrouNoSe = false;
         boolean entrouEmAlgumSenaoSe = false;
         
+        ValorVariavel retorno = NULO;
+        
         if ( visit( ctx.seSe().exprBool() ).isVerdadeiro() ) {
             entrouNoSe = true;
             for ( AuroraLogoParser.InstContext c : ctx.seSe().inst() ) {
-                visit( c );
+                
+                if ( c.ains() != null ) { 
+                    
+                    // se for uma instrução de parada ou de continuar
+                    if ( c.ains().parar() != null ||
+                         c.ains().continuar() != null ) {
+                        
+                        ValorVariavel r;
+                        
+                        if ( c.ains().parar() != null ) {
+                            r = visit( c.ains().parar() );
+                            retorno = r; // sinaliza para o chamador
+                            break;       // para o for de instruções do se
+                        } else {
+                            r = visit( c.ains().continuar() );
+                            retorno = r; // sinaliza para o chamador
+                            break;       // continua o for de instruções do se 
+                        }
+                        
+                    } else {
+                        visit( c );
+                    }
+                    
+                } else {
+                    
+                    ValorVariavel v = visit( c );
+                    
+                    // captura retorno de outros ses
+                    if ( v != null && ( v.isParar() || v.isContinuar() ) ) {
+                        retorno = v;  // sinaliza para propagar
+                        break;        // para o for de instruções do se
+                    }
+                    
+                }
+                
             }
         } else if ( ctx.seSenaoSe().children != null ) {
             
@@ -1373,7 +1412,41 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 if ( visit( sssp.exprBool() ).isVerdadeiro() ) {
                     entrouEmAlgumSenaoSe = true;
                     for ( AuroraLogoParser.InstContext c : sssp.inst() ) {
-                        visit( c );
+                        
+                        if ( c.ains() != null ) { 
+
+                            // se for uma instrução de parada ou de continuar
+                            if ( c.ains().parar() != null ||
+                                 c.ains().continuar() != null ) {
+
+                                ValorVariavel r;
+
+                                if ( c.ains().parar() != null ) {
+                                    r = visit( c.ains().parar() );
+                                    retorno = r; // sinaliza para o chamador
+                                    break;       // para o for de instruções do se
+                                } else {
+                                    r = visit( c.ains().continuar() );
+                                    retorno = r; // sinaliza para o chamador
+                                    break;       // continua o for de instruções do se 
+                                }
+
+                            } else {
+                                visit( c );
+                            }
+
+                        } else {
+
+                            ValorVariavel v = visit( c );
+
+                            // captura retorno de outros ses
+                            if ( v != null && ( v.isParar() || v.isContinuar() ) ) {
+                                retorno = v;  // sinaliza para propagar
+                                break;        // para o for de instruções do senão se
+                            }
+
+                        }
+                        
                     }
                     break;
                 }
@@ -1383,31 +1456,131 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         
         if ( ctx.seSenao().children != null && !entrouNoSe && !entrouEmAlgumSenaoSe ) {
             for ( AuroraLogoParser.InstContext c : ctx.seSenao().inst() ) {
-                visit( c );
+                
+                if ( c.ains() != null ) { 
+                    
+                    // se for uma instrução de parada ou de continuar
+                    if ( c.ains().parar() != null ||
+                         c.ains().continuar() != null ) {
+                        
+                        ValorVariavel r;
+                        
+                        if ( c.ains().parar() != null ) {
+                            r = visit( c.ains().parar() );
+                            retorno = r; // sinaliza para o chamador
+                            break;       // para o for de instruções do se
+                        } else {
+                            r = visit( c.ains().continuar() );
+                            retorno = r; // sinaliza para o chamador
+                            break;       // continua o for de instruções do se 
+                        }
+                        
+                    } else {
+                        visit( c );
+                    }
+                    
+                } else {
+                    
+                    ValorVariavel v = visit( c );
+                    
+                    // captura retorno de outros ses
+                    if ( v != null && ( v.isParar() || v.isContinuar() ) ) {
+                        retorno = v;  // sinaliza para propagar
+                        break;        // para o for de instruções do senão
+                    }
+                    
+                }
+                
             }
+            
         }
         
-        return NULO;
+        return retorno;
         
     }
 
     @Override
     public ValorVariavel visitRepetir( AuroraLogoParser.RepetirContext ctx ) {
         
+        int id = ++idInstrucaoRepeticao;
         int quantidade = visit( ctx.expr() ).valorInteiro();
+        boolean breakExt = false;
         
         for ( int i = 0; i < quantidade; i++ ) {
-            for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
-                visit( c );
+            
+            if ( !breakExt ) {
+            
+                for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
+                    
+                    if ( c.ains() != null ) { 
+                        
+                        if ( c.ains().parar() != null  ) {
+                        
+                            // se for um parar do corpo da instrução
+                            ValorVariavel p = visit( c.ains().parar() );
+
+                            // se o id bater, para essa instrução
+                            if ( p.valorIdParar() == id ) {
+                                breakExt = true;
+                                break;
+                            }
+                            
+                        } else if ( c.ains().continuar() != null  ) {
+                            
+                            // se for um continuar do corpo da instrução
+                            ValorVariavel cont = visit( c.ains().continuar() );
+                            
+                            // se o id bater, continua essa instrução matando o for interno
+                            if ( cont.valorIdContinuar() == id ) {
+                                break;
+                            }
+                            
+                        } else {
+                            System.out.println( "a" );
+                            visit( c );
+                        }
+                        
+                    } else {
+                        
+                        ValorVariavel v = visit( c );
+                        
+                        if ( v != null ) { 
+                            
+                            // se for um parar indireto, propagado de um se
+                            if ( v.isParar() ) {
+
+                                // se o id bater, para essa instrução
+                                if ( v.valorIdParar() == id ) {
+                                    breakExt = true;
+                                    break;
+                                }
+                                
+                            } else if ( v.isContinuar() ) {
+
+                                // se o id bater, continua essa instrução matando o for interno
+                                if ( v.valorIdContinuar() == id ) {
+                                    break;
+                                }
+                                
+                            }
+                            
+                        }
+                        
+                    }
+                    
+                }
+            
             }
+            
         }
-        
         return NULO;
         
     }
 
     @Override
     public ValorVariavel visitRepetirEnquanto( AuroraLogoParser.RepetirEnquantoContext ctx ) {
+        
+        int id = ++idInstrucaoRepeticao;
         
         if ( ctx.ENQ() != null ) {
             
@@ -1435,6 +1608,16 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         
     }
 
+    @Override
+    public ValorVariavel visitParar( AuroraLogoParser.PararContext ctx ) {
+        return novoParar( idInstrucaoRepeticao );
+    }
+    
+    @Override
+    public ValorVariavel visitContinuar( AuroraLogoParser.ContinuarContext ctx ) {
+        return novoContinuar( idInstrucaoRepeticao );
+    }
+    
     @Override
     public ValorVariavel visitErrorNode( ErrorNode node ) {
         System.out.println( node );
