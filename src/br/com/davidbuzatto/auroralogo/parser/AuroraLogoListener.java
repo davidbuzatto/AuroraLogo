@@ -578,6 +578,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFuncaoNumeroAleatorio(AuroraLogoParser.FuncaoNumeroAleatorioContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code funcaoDefinirSementeAleatoria}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDefinirSementeAleatoria(AuroraLogoParser.FuncaoDefinirSementeAleatoriaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDefinirSementeAleatoria}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDefinirSementeAleatoria(AuroraLogoParser.FuncaoDefinirSementeAleatoriaContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code funcaoSeno}
 	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
 	 * @param ctx the parse tree

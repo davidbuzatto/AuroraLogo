@@ -96,14 +96,22 @@ a = máximo( 10.0, 4 ) .
 escrever "máximo( 10.0, 4 ) = " + a na saída .
 
 
-/*a = númeroAleatório() .
+//definirSementeAleatória( 1 ) .
+
+a = númeroAleatório() .
 escrever "númeroAleatório() = " + a na saída .
 
 a = númeroAleatório( 5 ) .
 escrever "númeroAleatório( 5 ) = " + a na saída .
 
+a = númeroAleatório( 5.0 ) .
+escrever "númeroAleatório( 5.0 ) = " + a na saída .
+
 a = númeroAleatório( 4, 10 ) .
-escrever "númeroAleatório( 4, 10 ) = " + a na saída .*/
+escrever "númeroAleatório( 4, 10 ) = " + a na saída .
+
+a = númeroAleatório( 4, 10.0 ) .
+escrever "númeroAleatório( 4, 10.0 ) = " + a na saída .
 
 
 a = seno( 45 ) .
@@ -137,11 +145,14 @@ a = tangenteHiperbólica( 1 ) .
 escrever "tangenteHiperbólica( 1 ) = " + a na saída .
 
 
-/*a = logarítmo( 10 ) .
+a = logarítmo( 10 ) .
 escrever "logarítmo( 10 ) = " + a na saída .
 
 a = logarítmo( 1024, 2 ) .
-escrever "logarítmo( 1024, 2 ) = " + a na saída .*/
+escrever "logarítmo( 1024, 2 ) = " + a na saída .
+
+a = logarítmo( 1000, 10 ) .
+escrever "logarítmo( 1000, 10 ) = " + a na saída .
 
 
 a = grausParaRadianos( 180 ) .

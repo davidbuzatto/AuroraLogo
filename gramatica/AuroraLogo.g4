@@ -26,6 +26,7 @@ ains : movimentar
      | abaixar
      | levantar
      | limpar
+     | expr
      ;
 
 // regras para construção de expressões aritméticas, relacionais e lógicas
@@ -156,6 +157,7 @@ funcaoMatematica : F_VABS '(' expr ')'                            # funcaoAbsolu
                  | F_MINI '(' expr ',' expr ')'                   # funcaoMinimo
                  | F_MAXI '(' expr ',' expr ')'                   # funcaoMaximo
                  | F_NUMA '(' ( expr | expr ',' expr )? ')'       # funcaoNumeroAleatorio
+                 | F_SEME '(' expr ')'                            # funcaoDefinirSementeAleatoria
                  | F_SENO '(' expr ')'                            # funcaoSeno
                  | F_COSS '(' expr ')'                            # funcaoCosseno
                  | F_TANG '(' expr ')'                            # funcaoTangente
@@ -249,31 +251,32 @@ CLARO    : 'claro'    ;
 // ê = \u00EA
 // ó = \u00F3
 // ú = \u00FA
-F_VABS : 'valorAbsoluto'             ;
-F_RAIQ : 'raizQuadrada'              ;
-F_RAIC : 'raizC\u00FAbica'           ;
-F_RAIZ : 'raiz'                      ;
-F_POTE : 'pot\u00EAncia'             ;
-F_HIPO : 'hipotenusa'                ;
-F_CHAO : 'ch\u00E3o'                 ;
-F_TETO : 'teto'                      ;
-F_ARRE : 'arredondar'                ;
-F_MINI : 'm\u00EDnimo'               ;
-F_MAXI : 'm\u00E1ximo'               ;
-F_NUMA : 'n\u00FAmeroAleat\u00F3rio' ;
-F_SENO : 'seno'                      ;
-F_COSS : 'cosseno'                   ;
-F_TANG : 'tangente'                  ;
-F_ASEN : 'arcoSeno'                  ;
-F_ACOS : 'arcoCosseno'               ;
-F_ATAN : 'arcoTangente'              ;
-F_CAPO : 'cartesianoParaPolar'       ;
-F_SENH : 'senoHiperb\u00F3lico'      ;
-F_COSH : 'cossenoHiperb\u00F3lico'   ;
-F_TANH : 'tangenteHiperb\u00F3lica'  ;
-F_LOGA : 'logar\u00EDtmo'            ;
-F_GRRA : 'grausParaRadianos'         ;
-F_RAGR : 'radianosParaGraus'         ;
+F_VABS : 'valorAbsoluto'                ;
+F_RAIQ : 'raizQuadrada'                 ;
+F_RAIC : 'raizC\u00FAbica'              ;
+F_RAIZ : 'raiz'                         ;
+F_POTE : 'pot\u00EAncia'                ;
+F_HIPO : 'hipotenusa'                   ;
+F_CHAO : 'ch\u00E3o'                    ;
+F_TETO : 'teto'                         ;
+F_ARRE : 'arredondar'                   ;
+F_MINI : 'm\u00EDnimo'                  ;
+F_MAXI : 'm\u00E1ximo'                  ;
+F_NUMA : 'n\u00FAmeroAleat\u00F3rio'    ;
+F_SEME : 'definirSementeAleat\u00F3ria' ;
+F_SENO : 'seno'                         ;
+F_COSS : 'cosseno'                      ;
+F_TANG : 'tangente'                     ;
+F_ASEN : 'arcoSeno'                     ;
+F_ACOS : 'arcoCosseno'                  ;
+F_ATAN : 'arcoTangente'                 ;
+F_CAPO : 'cartesianoParaPolar'          ;
+F_SENH : 'senoHiperb\u00F3lico'         ;
+F_COSH : 'cossenoHiperb\u00F3lico'      ;
+F_TANH : 'tangenteHiperb\u00F3lica'     ;
+F_LOGA : 'logar\u00EDtmo'               ;
+F_GRRA : 'grausParaRadianos'            ;
+F_RAGR : 'radianosParaGraus'            ;
 
 
 // operadores de atribuição

@@ -1,18 +1,31 @@
-Splash Screen;
+Limpar os cabeçalhos e padronizar.
 
--> Funções matemáticas;
--> Sintax Highligh das funções;
+-> Instruções geométricas;
+    configuração de cor de preenchimento
+    linha
+    quadrado
+    retângulo
+    círculo
+    elipse
+    polígono
+    estrela
+    curvas -> quadráticas e cúbicas
+    caminhos
 
-Números em ponto flutuante na implementação da tartaruga;
-Instruções geométricas;
 Outras estruturas de repetição (seguir CPRL);
 Implementação do "break";
 Lidar com loops infinitos;
+
 Arrays;
 Não permitir variáveis com o nome de palavras chave?
+
 Funções definidas pelo usuário;
+
 Sobre e ajuda;
+
 Melhorar mensagens de erro, usando uma sequência de comandos corretos comparando com a linha errada;
+
 Exemplos de código;
+
 Registrar AuroraLogo;
-Registrar CSCH
+Registrar CSCH.

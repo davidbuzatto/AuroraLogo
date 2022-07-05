@@ -13,6 +13,7 @@ import static br.com.davidbuzatto.auroralogo.parser.impl.ValorVariavel.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.util.Locale;
+import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -27,6 +28,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     private Tartaruga tartaruga;
     private JanelaPrincipal janelaPrincipal;
     private JTextPane textPaneSaida;
+    private Random gerador;
     
     public DesenhistaAuroraLogoVisitor( 
             Tartaruga tartaruga, 
@@ -36,25 +38,26 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         this.tartaruga.limpar();
         this.janelaPrincipal = janelaPrincipal;
         this.textPaneSaida = textPaneSaida;
+        this.gerador = new Random();
     }
     
     @Override
     public ValorVariavel visitMovimentarDirecao( AuroraLogoParser.MovimentarDirecaoContext ctx ) {
         
-        ValorVariavel valor = UM_INTEIRO;
+        ValorVariavel valor = UM_DECIMAL;
         
         if ( ctx.expr() != null ) {
             valor = visit( ctx.expr() );
         }
         
         if ( ctx.DIR() != null ) {
-            tartaruga.moverParaDireita( valor.valorInteiro() );
+            tartaruga.moverParaDireita( valor.valorDecimal() );
         } else if ( ctx.ESQ() != null ) {
-            tartaruga.moverParaEsquerda( valor.valorInteiro() );
+            tartaruga.moverParaEsquerda( valor.valorDecimal() );
         } else if ( ctx.CIM() != null ) {
-            tartaruga.moverParaCima( valor.valorInteiro() );
+            tartaruga.moverParaCima( valor.valorDecimal() );
         } else if ( ctx.BAI() != null ) {
-            tartaruga.moverParaBaixo( valor.valorInteiro() );
+            tartaruga.moverParaBaixo( valor.valorDecimal() );
         }
         
         return NULO;
@@ -64,8 +67,8 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     @Override
     public ValorVariavel visitMovimentarPonto( AuroraLogoParser.MovimentarPontoContext ctx ) {
         
-        int x = visit( ctx.expr( 0 ) ).valorInteiro();
-        int y = visit( ctx.expr( 1 ) ).valorInteiro();
+        double x = visit( ctx.expr( 0 ) ).valorDecimal();
+        double y = visit( ctx.expr( 1 ) ).valorDecimal();
         
         tartaruga.moverPara( x, y );
         
@@ -170,10 +173,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     @Override
     public ValorVariavel visitGirar( AuroraLogoParser.GirarContext ctx ) {
         
-        int valor = 1;
+        double valor = 1;
         
         if ( ctx.expr() != null ) {
-            valor = visit( ctx.expr() ).valorInteiro();
+            valor = visit( ctx.expr() ).valorDecimal();
         }
         
         tartaruga.girar( valor );
@@ -185,10 +188,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     @Override
     public ValorVariavel visitEngrossar( AuroraLogoParser.EngrossarContext ctx ) {
         
-        int valor = 1;
+        double valor = 1;
         
         if ( ctx.expr() != null ) {
-            valor = visit( ctx.expr() ).valorInteiro();
+            valor = visit( ctx.expr() ).valorDecimal();
         }
         
         tartaruga.engrossar( valor );
@@ -200,10 +203,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     @Override
     public ValorVariavel visitDesengrossar( AuroraLogoParser.DesengrossarContext ctx ) {
         
-        int valor = 1;
+        double valor = 1;
         
         if ( ctx.expr() != null ) {
-            valor = visit( ctx.expr() ).valorInteiro();
+            valor = visit( ctx.expr() ).valorDecimal();
         }
         
         tartaruga.desengrossar( valor );
@@ -214,54 +217,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
     @Override
     public ValorVariavel visitTrocarGrossura( AuroraLogoParser.TrocarGrossuraContext ctx ) {
-        tartaruga.setGrossura( visit( ctx.expr() ).valorInteiro() );
+        tartaruga.setGrossura( visit( ctx.expr() ).valorDecimal() );
         return NULO;
     }
 
     @Override
     public ValorVariavel visitEscrever( AuroraLogoParser.EscreverContext ctx ) {
-        
-        /*StringBuilder sb = new StringBuilder();
-        
-        if ( ctx.STRING() != null ) {
-            String t = ctx.STRING().getText();
-            t = t.substring( 1, t.length() - 1 );
-            sb.append( t );
-        } else {
-            ValorVariavel v = visit( ctx.expr() );
-            if ( v.isBooleano() ) {
-                sb.append( v );
-            } else {
-                sb.append( v.getValor() );
-            }
-        }
-        
-        if ( ctx.concat() != null ) {
-            
-            for ( AuroraLogoParser.ConcatContext c : ctx.concat() ) {
-                
-                if ( c.STRING() != null ) {
-                    String t = c.STRING().getText();
-                    t = t.substring( 1, t.length() - 1 );
-                    sb.append( t );
-                } else {
-                    ValorVariavel v = visit( c.expr() );
-                    if ( v.isBooleano() ) {
-                        sb.append( v );
-                    } else {
-                        sb.append( v.getValor() );
-                    }
-                }
-                
-            }
-            
-        }
-        
-        if ( ctx.NA() != null ) {
-            Utils.inserirMensagemEmitente( textPaneSaida, "tartaruga escreveu", sb.toString() + "\n", tartaruga.getCor() );
-        } else {
-            tartaruga.setTexto( sb.toString() );
-        }*/
         
         String valor;
         
@@ -400,48 +361,6 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         }
             
         return valor;
-        
-        
-        /*ValorVariavel valor = ZERO_INTEIRO;
-        boolean bValor = false;
-        boolean logExpr = false;
-        
-        for ( int i = 0; i < ctx.getChildCount(); i += 2 ) {
-            
-            if ( i == 0 ) {
-                valor = visit( ctx.getChild( i ) );
-                bValor = valor.valorInteiro() != 0;                            // inteiro como boolean
-            } else {
-                
-                logExpr = true;
-                
-                int op = ( (TerminalNode) ctx.getChild( i-1 ) ).getSymbol().getType();
-                boolean rv = visit( ctx.getChild( i ) ).valorInteiro() != 0;   // inteiro como boolean
-                
-                switch ( op ) {
-                    case AuroraLogoParser.ELG:
-                    case AuroraLogoParser.ELGT:
-                        bValor = bValor && rv;
-                        break;
-                    case AuroraLogoParser.OLG:
-                    case AuroraLogoParser.OLGT:
-                        bValor = bValor || rv;
-                        break;
-                }
-                
-            }
-            
-        }
-        
-        // tratando inteiro como boolean
-        if ( logExpr ) {
-            if ( bValor ) {
-                return UM_INTEIRO;
-            }
-            return ZERO_INTEIRO;
-        }
-            
-        return valor;*/
         
     }
     
@@ -1394,7 +1313,6 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
     @Override
     public ValorVariavel visitFatorPi( AuroraLogoParser.FatorPiContext ctx ) {
-        System.out.println( "a" );
         return PI_DECIMAL;
     }
 
@@ -1706,9 +1624,55 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
     @Override
     public ValorVariavel visitFuncaoNumeroAleatorio( AuroraLogoParser.FuncaoNumeroAleatorioContext ctx ) {
-        // TODO: função número aleatório
-        return super.visitFuncaoNumeroAleatorio( ctx ); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        
+        if ( ctx.expr( 0 ) == null ) {
+            return novoDecimal( gerador.nextDouble() );
+        } else if ( ctx.expr( 1 ) == null ) {
+            
+            ValorVariavel limite = visit( ctx.expr( 0 ) );
+            
+            if ( limite.isInteiro() ) {
+                return novoInteiro( gerador.nextInt( limite.valorInteiro() ) );
+            } else if ( limite.isDecimal() ) {
+                return novoDecimal( gerador.nextDouble( limite.valorDecimal() ) );
+            }
+            
+            return novoDecimal( gerador.nextDouble() );
+            
+        } else {
+            
+            ValorVariavel origem = visit( ctx.expr( 0 ) );
+            ValorVariavel limite = visit( ctx.expr( 1 ) );
+            
+            if ( origem.isNumero() && limite.isNumero() ) {
+                
+                if ( origem.isInteiro() && limite.isInteiro() ) {
+                    return novoInteiro( gerador.nextInt( origem.valorInteiro(), limite.valorInteiro() ) );
+                } else {
+                    return novoDecimal( gerador.nextDouble( origem.valorDecimal(), limite.valorDecimal() ) );
+                }
+                
+            }
+            
+            return novoDecimal( gerador.nextDouble() );
+            
+        }
+        
     }
+    
+    @Override
+    public ValorVariavel visitFuncaoDefinirSementeAleatoria( AuroraLogoParser.FuncaoDefinirSementeAleatoriaContext ctx ) {
+        
+        ValorVariavel v = visit( ctx.expr() );
+        
+        if ( v.isNumero() ) {
+            gerador = new Random( v.valorInteiro() );
+        }
+        
+        return NULO;
+        
+    }
+    
 
     @Override
     public ValorVariavel visitFuncaoSeno( AuroraLogoParser.FuncaoSenoContext ctx ) {
@@ -1846,8 +1810,30 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
     @Override
     public ValorVariavel visitFuncaoLogaritmo( AuroraLogoParser.FuncaoLogaritmoContext ctx ) {
-        // TODO: função logarítmo
-        return super.visitFuncaoLogaritmo( ctx ); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+        
+        ValorVariavel v = visit( ctx.expr( 0 ) );
+        
+        if ( ctx.expr( 1 ) == null ) {    
+            if ( v.isNumero() ) {
+                return novoDecimal( Math.log( v.valorDecimal() ) );
+            }
+        } else {
+            
+            ValorVariavel base = visit( ctx.expr( 1 ) );
+            
+            if ( v.isNumero() && base.isNumero() ) {
+                
+                double dv = v.valorDecimal();
+                double db = base.valorDecimal();
+                
+                return novoDecimal( Math.log( dv ) / Math.log( db ) );
+                
+            }
+            
+        }
+        
+        return ZERO_DECIMAL;
+        
     }
 
     @Override

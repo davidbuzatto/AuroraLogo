@@ -348,6 +348,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncaoNumeroAleatorio(AuroraLogoParser.FuncaoNumeroAleatorioContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code funcaoDefinirSementeAleatoria}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDefinirSementeAleatoria(AuroraLogoParser.FuncaoDefinirSementeAleatoriaContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code funcaoSeno}
 	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
 	 * @param ctx the parse tree

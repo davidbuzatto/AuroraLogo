@@ -90,7 +90,7 @@ import org.fife.ui.rtextarea.SearchResult;
  */
 public class JanelaPrincipal extends javax.swing.JFrame implements SearchListener {
 
-    private static final String VERSAO = "v0.1";
+    public static final String VERSAO = "v0.1";
     private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
     
@@ -1563,7 +1563,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testesFuncoes", true );
+            carregarTemplate( "testesGrande", true );
         }
 
     }
@@ -2134,8 +2134,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 } else {
                     janela.tartaruga.setCor( null );
                 }
-                
-                janela.setVisible( true );
 
                 if ( getBooleanPref( PREF_JANELA_PRINCIPAL_MAXIMIZADA ) ) {
                     janela.setExtendedState( MAXIMIZED_BOTH );
@@ -2155,6 +2153,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 janela.menuItemCBGrade.setText( gradeAtiva ? "Esconder Grade" : "Mostrar Grade" );
 
                 janela.sliderQuadrosPorSegundo.setValue( getIntPref( PREF_VALOR_SLIDER_PASSO_AUTOMATICO ) );
+                
+                updateSplashScreen( 6000 );
+                janela.setVisible( true );
 
             }
         } );

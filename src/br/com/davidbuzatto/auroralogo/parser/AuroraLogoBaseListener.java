@@ -640,6 +640,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFuncaoDefinirSementeAleatoria(AuroraLogoParser.FuncaoDefinirSementeAleatoriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncaoDefinirSementeAleatoria(AuroraLogoParser.FuncaoDefinirSementeAleatoriaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFuncaoSeno(AuroraLogoParser.FuncaoSenoContext ctx) { }
 	/**
 	 * {@inheritDoc}

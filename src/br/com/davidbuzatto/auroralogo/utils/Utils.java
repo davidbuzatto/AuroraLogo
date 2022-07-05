@@ -1,8 +1,14 @@
 package br.com.davidbuzatto.auroralogo.utils;
 
+import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
+import java.awt.Font;
+import java.awt.FontMetrics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.SplashScreen;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -278,6 +284,41 @@ public class Utils {
         
     }
     
+    public static void updateSplashScreen( int millisecondsToWait ) {
+        
+        SplashScreen sp = SplashScreen.getSplashScreen();
+        if ( sp != null ) {
+            
+            Graphics2D g2d = (Graphics2D) sp.createGraphics();
+            g2d.setRenderingHint( 
+                    RenderingHints.KEY_ANTIALIASING, 
+                    RenderingHints.VALUE_ANTIALIAS_ON );
+            g2d.setColor( new Color( 0, 102, 143 ) );
+            
+            Font f = new Font( "Century Gothic", Font.BOLD, 30 ) ;
+            if ( f.getFamily().equals( Font.DIALOG ) ) {
+                f = new Font( Font.MONOSPACED, Font.BOLD, 30 ) ;
+            }
+            g2d.setFont( f );
+            
+            FontMetrics fm = g2d.getFontMetrics();
+            String v = JanelaPrincipal.VERSAO;
+            int vWidth = fm.stringWidth( v );
+            
+            g2d.drawString( v, 300 - vWidth, 175 );
+            g2d.dispose();
+            
+            sp.update();
+            
+            try {
+                Thread.sleep( millisecondsToWait );
+            } catch ( InterruptedException exc ) {
+            }
+            
+        }
+        
+    }
+    
     public static void prepararPreferences( boolean reset ) {
         
         if ( reset ) {
@@ -349,7 +390,7 @@ public class Utils {
     }
     
     public static void main( String[] args ) {
-        System.out.println( toUnicodeScape( 'ê' ) );
+        System.out.println( toUnicodeScape( '.' ) );
     }
     
 }

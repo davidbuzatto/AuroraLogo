@@ -10,11 +10,13 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import javax.imageio.ImageIO;
@@ -27,9 +29,9 @@ public class Tartaruga {
     
     private class Estado implements Cloneable {
 
-        int x;
-        int y;
-        int angulo;
+        double x;
+        double y;
+        double angulo;
         BasicStroke contorno;
         String texto;
         Color corPincel;
@@ -37,11 +39,11 @@ public class Tartaruga {
         boolean desenhando;
         Map<String, ValorVariavel> memoria;
         
-        public Estado( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando ) {
+        public Estado( double x, double y, double angulo, double grossura, Color corPincel, Color corFundo, boolean desenhando ) {
             this.x = x;
             this.y = y;
             this.angulo = angulo;
-            this.contorno = new BasicStroke( grossura, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL );
+            this.contorno = new BasicStroke( (float) grossura, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL );
             this.corPincel = corPincel;
             this.corFundo = corFundo;
             this.desenhando = desenhando;
@@ -101,7 +103,7 @@ public class Tartaruga {
     private boolean depuradorAtivo;
     private boolean gradeAtiva;
     
-    public Tartaruga( int x, int y, int angulo, int grossura, Color corPincel, Color corFundo, boolean desenhando, PainelDesenho painelDesenho, Font fonteDepurador ) {
+    public Tartaruga( double x, double y, double angulo, double grossura, Color corPincel, Color corFundo, boolean desenhando, PainelDesenho painelDesenho, Font fonteDepurador ) {
         
         estados = new ArrayList<>();
         
@@ -139,7 +141,7 @@ public class Tartaruga {
         this.fonteDepurador = fonteDepurador;
     }
     
-    public void moverParaDireita( int quantidade ) {
+    public void moverParaDireita( double quantidade ) {
         
         if ( quantidade < 0 ) {
             quantidade = 0;
@@ -152,7 +154,7 @@ public class Tartaruga {
         
     }
     
-    public void moverParaEsquerda( int quantidade ) {
+    public void moverParaEsquerda( double quantidade ) {
         
         if ( quantidade < 0 ) {
             quantidade = 0;
@@ -165,7 +167,7 @@ public class Tartaruga {
         
     }
     
-    public void moverParaCima( int quantidade ) {
+    public void moverParaCima( double quantidade ) {
         
         if ( quantidade < 0 ) {
             quantidade = 0;
@@ -178,7 +180,7 @@ public class Tartaruga {
         
     }
     
-    public void moverParaBaixo( int quantidade ) {
+    public void moverParaBaixo( double quantidade ) {
         
         if ( quantidade < 0 ) {
             quantidade = 0;
@@ -191,7 +193,7 @@ public class Tartaruga {
         
     }
     
-    public void moverPara( int x, int y ) {
+    public void moverPara( double x, double y ) {
         
         Estado e = clonarUltimoEstado();
         e.x = x;
@@ -212,11 +214,11 @@ public class Tartaruga {
         estados.add( e );
     }
     
-    public void girar( int quantidade ) {
+    public void girar( double quantidade ) {
         
         Estado e = clonarUltimoEstado();
         
-        int novaQuantidade = e.angulo + quantidade;
+        double novaQuantidade = e.angulo + quantidade;
         novaQuantidade %= 360;
         
         if ( novaQuantidade < 0 ) {
@@ -228,20 +230,20 @@ public class Tartaruga {
         
     }
     
-    public void engrossar( int quantidade ) {
+    public void engrossar( double quantidade ) {
         
         if ( quantidade <= 0 ) {
             quantidade = 1;
         }
         
         Estado e = clonarUltimoEstado();
-        e.contorno = new BasicStroke( e.contorno.getLineWidth() + quantidade,
+        e.contorno = new BasicStroke( (float) (e.contorno.getLineWidth() + quantidade),
                 e.contorno.getEndCap(), e.contorno.getLineJoin() );
         estados.add( e );
         
     }
     
-    public void desengrossar( int quantidade ) {
+    public void desengrossar( double quantidade ) {
         
         if ( quantidade <= 0 ) {
             quantidade = 1;
@@ -249,25 +251,25 @@ public class Tartaruga {
         
         Estado e = clonarUltimoEstado();
         
-        int novaQuantidade = (int) e.contorno.getLineWidth() - quantidade;
+        double novaQuantidade = e.contorno.getLineWidth() - quantidade;
         if ( novaQuantidade <= 0 ) {
             novaQuantidade = 1;
         }
         
-        e.contorno = new BasicStroke( novaQuantidade,
+        e.contorno = new BasicStroke( (float) novaQuantidade,
                 e.contorno.getEndCap(), e.contorno.getLineJoin() );
         estados.add( e );
         
     }
     
-    public void setGrossura( int quantidade ) {
+    public void setGrossura( double quantidade ) {
         
         if ( quantidade <= 0 ) {
             quantidade = 1;
         }
         
         Estado e = clonarUltimoEstado();
-        e.contorno = new BasicStroke( quantidade,
+        e.contorno = new BasicStroke( (float) quantidade,
                 e.contorno.getEndCap(), e.contorno.getLineJoin() );
         estados.add( e );
         
@@ -347,10 +349,10 @@ public class Tartaruga {
                     if ( atu.texto != null ) {
                         Graphics2D g2ds = (Graphics2D) g2d.create();
                         g2ds.rotate( Math.toRadians( atu.angulo ), atu.x, atu.y );
-                        g2ds.drawString( atu.texto, atu.x, atu.y );
+                        g2ds.drawString( atu.texto, (int) atu.x, (int) atu.y );
                         g2ds.dispose();
                     } else {
-                        g2d.drawLine( ant.x, ant.y, atu.x, atu.y );
+                        g2d.draw( new Line2D.Double( ant.x, ant.y, atu.x, atu.y ) );
                     }
                 }
                 
@@ -422,10 +424,10 @@ public class Tartaruga {
         
         Object[] valores = {
             estadoAtual + 1,
-            atu.x,
-            atu.y,
-            atu.angulo + "º",
-            String.format( "%.2f", atu.contorno.getLineWidth() ),
+            String.format( Locale.US, "%.4f", atu.x ),
+            String.format( Locale.US, "%.4f", atu.y ),
+            String.format( Locale.US, "%.4f", atu.angulo ) + "º",
+            String.format( Locale.US, "%.4f", atu.contorno.getLineWidth() ),
             atu.corPincel,
             atu.corFundo,
             atu.desenhando ? "sim" : "não",
@@ -519,8 +521,8 @@ public class Tartaruga {
         
         g2d.drawImage( 
                 imgTartaruga, 
-                e.x - imgTartaruga.getWidth() / 2, 
-                e.y - imgTartaruga.getHeight() + 2, 
+                (int) e.x - imgTartaruga.getWidth() / 2, 
+                (int) e.y - imgTartaruga.getHeight() + 2, 
                 null );
         
         g2d.dispose();
@@ -539,7 +541,7 @@ public class Tartaruga {
         return estados.size() - 1;
     }
     
-    public void atualizarPosicaoEstadoInicial( int x, int y ) {
+    public void atualizarPosicaoEstadoInicial( double x, double y ) {
         Estado e = estados.get( 0 );
         e.x = x;
         e.y = y;

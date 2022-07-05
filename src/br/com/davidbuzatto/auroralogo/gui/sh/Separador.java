@@ -111,17 +111,22 @@ public class Separador {
             String linha = s.nextLine();
 
             if ( linhaAt == linhaAtPC && linhaAtPC <= linhaFimPC ) {
-                palavrasChave.add( extrairConteudo( linha ) );
+                palavrasChave.add( extrairConteudo( linha, "" ) );
+                palavrasChave.add( extrairConteudo( linha, " " ) );
                 linhaAtPC++;
             }
 
             if ( linhaAt == linhaAtFC && linhaAtFC <= linhaFimFC ) {
-                funcoes.add( extrairConteudo( linha ) );
+                funcoes.add( extrairConteudo( linha, "" ) );
+                funcoes.add( extrairConteudo( linha, " " ) );
+                funcoes.add( extrairConteudo( linha, "( " ) );
+                funcoes.add( extrairConteudo( linha, "() " ) );
                 linhaAtFC++;
             }
 
             if ( linhaAt == linhaAtOP && linhaAtOP <= linhaFimOP ) {
-                operadores.add( extrairConteudo( linha ) );
+                operadores.add( extrairConteudo( linha, "" ) );
+                operadores.add( extrairConteudo( linha, " " ) );
                 linhaAtOP++;
             }
 
@@ -197,14 +202,14 @@ public class Separador {
         
     }
     
-    private static String extrairConteudo( String base ) {
+    private static String extrairConteudo( String base, String terminador ) {
         
         base = base.substring( 1, base.lastIndexOf( "'=" ) );
         
         if ( base.equals( "." ) ) {
             base = " " + base;
         } else {
-            base += " ";
+            base += terminador;
         }
         
         return "\"" + base + "\"";
