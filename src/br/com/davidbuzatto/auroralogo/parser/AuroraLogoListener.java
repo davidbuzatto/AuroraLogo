@@ -414,15 +414,77 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitLer(AuroraLogoParser.LerContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#atribuir}.
+	 * Enter a parse tree produced by the {@code atribuirPadrao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
 	 * @param ctx the parse tree
 	 */
-	void enterAtribuir(AuroraLogoParser.AtribuirContext ctx);
+	void enterAtribuirPadrao(AuroraLogoParser.AtribuirPadraoContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#atribuir}.
+	 * Exit a parse tree produced by the {@code atribuirPadrao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
 	 * @param ctx the parse tree
 	 */
-	void exitAtribuir(AuroraLogoParser.AtribuirContext ctx);
+	void exitAtribuirPadrao(AuroraLogoParser.AtribuirPadraoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code atribuirAdicao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtribuirAdicao(AuroraLogoParser.AtribuirAdicaoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code atribuirAdicao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtribuirAdicao(AuroraLogoParser.AtribuirAdicaoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code atribuirSubtracao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtribuirSubtracao(AuroraLogoParser.AtribuirSubtracaoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code atribuirSubtracao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtribuirSubtracao(AuroraLogoParser.AtribuirSubtracaoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code atribuirMultiplicacao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtribuirMultiplicacao(AuroraLogoParser.AtribuirMultiplicacaoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code atribuirMultiplicacao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtribuirMultiplicacao(AuroraLogoParser.AtribuirMultiplicacaoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code atribuirDivisao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtribuirDivisao(AuroraLogoParser.AtribuirDivisaoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code atribuirDivisao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtribuirDivisao(AuroraLogoParser.AtribuirDivisaoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code atribuirResto}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtribuirResto(AuroraLogoParser.AtribuirRestoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code atribuirResto}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtribuirResto(AuroraLogoParser.AtribuirRestoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#abaixar}.
 	 * @param ctx the parse tree
@@ -765,4 +827,28 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFuncaoRadianosParaGraus(AuroraLogoParser.FuncaoRadianosParaGrausContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoIncrementar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoIncrementar(AuroraLogoParser.FuncaoIncrementarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoIncrementar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoIncrementar(AuroraLogoParser.FuncaoIncrementarContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDecrementar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDecrementar(AuroraLogoParser.FuncaoDecrementarContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDecrementar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDecrementar(AuroraLogoParser.FuncaoDecrementarContext ctx);
 }

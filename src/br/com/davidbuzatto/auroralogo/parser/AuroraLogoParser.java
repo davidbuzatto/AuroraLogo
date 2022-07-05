@@ -21,18 +21,21 @@ public class AuroraLogoParser extends Parser {
 		EM=10, DIR=11, ESQ=12, CIM=13, BAI=14, TROC=15, COR=16, DO=17, FUN=18, 
 		GIR=19, GRA=20, ENG=21, DES=22, GROS=23, ESC=24, LER=25, ABA=26, LEV=27, 
 		PINC=28, LIM=29, SE=30, ENT=31, SEN=32, ENQ=33, REP=34, VEZ=35, VEZS=36, 
-		NA=37, SAI=38, PI=39, VER=40, FAL=41, PRETO=42, AZUL=43, CIANO=44, CINZA=45, 
-		VERDE=46, MAGENTA=47, LARANJA=48, ROSA=49, VERMELHO=50, BRANCO=51, AMARELO=52, 
-		ESCURO=53, CLARO=54, F_VABS=55, F_RAIQ=56, F_RAIC=57, F_RAIZ=58, F_POTE=59, 
-		F_HIPO=60, F_CHAO=61, F_TETO=62, F_ARRE=63, F_MINI=64, F_MAXI=65, F_NUMA=66, 
-		F_SEME=67, F_SENO=68, F_COSS=69, F_TANG=70, F_ASEN=71, F_ACOS=72, F_ATAN=73, 
-		F_CAPO=74, F_SENH=75, F_COSH=76, F_TANH=77, F_LOGA=78, F_GRRA=79, F_RAGR=80, 
-		ATR=81, ATRA=82, ADI=83, ADIA=84, SUB=85, SUBA=86, MUL=87, DIV=88, DIVA=89, 
-		POR=90, MOD=91, MODA=92, IGU=93, IGUT=94, IGUA=95, DIF=96, DIFT=97, DIFA=98, 
-		ME=99, MET=100, MEA=101, MEI=102, MEIT=103, MEIA=104, MA=105, MAT=106, 
-		MAA=107, MAI=108, MAIT=109, MAIA=110, ELG=111, ELGT=112, OLG=113, OLGT=114, 
-		NAO=115, NAOT=116, DOT=117, ID=118, INT=119, DEC=120, HEX=121, CHAR=122, 
-		STRING=123, COMENTARIO=124, COMENTARIO_LINHA=125, WS=126;
+		NA=37, SAI=38, INCM=39, DCMM=40, SOMM=41, SUBM=42, MULM=43, DIVM=44, PI=45, 
+		VER=46, FAL=47, PRETO=48, AZUL=49, CIANO=50, CINZA=51, VERDE=52, MAGENTA=53, 
+		LARANJA=54, ROSA=55, VERMELHO=56, BRANCO=57, AMARELO=58, ESCURO=59, CLARO=60, 
+		F_VABS=61, F_RAIQ=62, F_RAIC=63, F_RAIZ=64, F_POTE=65, F_HIPO=66, F_CHAO=67, 
+		F_TETO=68, F_ARRE=69, F_MINI=70, F_MAXI=71, F_NUMA=72, F_SEME=73, F_SENO=74, 
+		F_COSS=75, F_TANG=76, F_ASEN=77, F_ACOS=78, F_ATAN=79, F_CAPO=80, F_SENH=81, 
+		F_COSH=82, F_TANH=83, F_LOGA=84, F_GRRA=85, F_RAGR=86, F_INC=87, F_DCM=88, 
+		ATR=89, ATRA=90, AC_A=91, AT_A=92, AC_S=93, AT_S=94, AC_M=95, AT_M=96, 
+		AC_D=97, AT_D=98, AC_R=99, AT_R=100, ADI=101, ADIA=102, SUB=103, SUBA=104, 
+		MUL=105, DIV=106, DIVA=107, POR=108, MOD=109, MODA=110, IGU=111, IGUT=112, 
+		IGUA=113, DIF=114, DIFT=115, DIFA=116, ME=117, MET=118, MEA=119, MEI=120, 
+		MEIT=121, MEIA=122, MA=123, MAT=124, MAA=125, MAI=126, MAIT=127, MAIA=128, 
+		ELG=129, ELGT=130, OLG=131, OLGT=132, NAO=133, NAOT=134, DOT=135, ID=136, 
+		INT=137, DEC=138, HEX=139, CHAR=140, STRING=141, COMENTARIO=142, COMENTARIO_LINHA=143, 
+		WS=144;
 	public static final int
 		RULE_prog = 0, RULE_inst = 1, RULE_ains = 2, RULE_expr = 3, RULE_relacao = 4, 
 		RULE_exprSimp = 5, RULE_termo = 6, RULE_fator = 7, RULE_exprBool = 8, 
@@ -60,24 +63,26 @@ public class AuroraLogoParser extends Parser {
 			"'trocar'", "'cor'", "'do'", "'fundo'", "'girar'", "'graus'", "'engrossar'", 
 			"'desengrossar'", "'grossura'", "'escrever'", "'ler'", "'abaixar'", "'levantar'", 
 			"'pincel'", "'limpar'", "'se'", "'ent\\u00E3o'", "'sen\\u00E3o'", "'enquanto'", 
-			"'repetir'", "'vez'", "'vezes'", "'na'", "'sa\\u00EDda'", "'PI'", "'VERDADEIRO'", 
-			"'FALSO'", "'preto'", "'azul'", "'ciano'", "'cinza'", "'verde'", "'magenta'", 
-			"'laranja'", "'rosa'", "'vermelho'", "'branco'", "'amarelo'", "'escuro'", 
-			"'claro'", "'valorAbsoluto'", "'raizQuadrada'", "'raizC\\u00FAbica'", 
-			"'raiz'", "'pot\\u00EAncia'", "'hipotenusa'", "'ch\\u00E3o'", "'teto'", 
-			"'arredondar'", "'m\\u00EDnimo'", "'m\\u00E1ximo'", "'n\\u00FAmeroAleat\\u00F3rio'", 
+			"'repetir'", "'vez'", "'vezes'", "'na'", "'sa\\u00EDda'", "'incrementando'", 
+			"'decrementando'", "'somando'", "'subtraindo'", "'multiplicando'", "'dividindo'", 
+			"'PI'", "'VERDADEIRO'", "'FALSO'", "'preto'", "'azul'", "'ciano'", "'cinza'", 
+			"'verde'", "'magenta'", "'laranja'", "'rosa'", "'vermelho'", "'branco'", 
+			"'amarelo'", "'escuro'", "'claro'", "'valorAbsoluto'", "'raizQuadrada'", 
+			"'raizC\\u00FAbica'", "'raiz'", "'pot\\u00EAncia'", "'hipotenusa'", "'ch\\u00E3o'", 
+			"'teto'", "'arredondar'", "'m\\u00EDnimo'", "'m\\u00E1ximo'", "'n\\u00FAmeroAleat\\u00F3rio'", 
 			"'definirSementeAleat\\u00F3ria'", "'seno'", "'cosseno'", "'tangente'", 
 			"'arcoSeno'", "'arcoCosseno'", "'arcoTangente'", "'cartesianoParaPolar'", 
 			"'senoHiperb\\u00F3lico'", "'cossenoHiperb\\u00F3lico'", "'tangenteHiperb\\u00F3lica'", 
-			"'logar\\u00EDtmo'", "'grausParaRadianos'", "'radianosParaGraus'", "'='", 
-			"'<-'", "'+'", "'mais'", "'-'", "'menos'", "'*'", "'/'", "'dividido'", 
-			"'por'", "'%'", "'resto'", "'=='", "'\\u00E9 igual a'", "'n\\u00E3o \\u00E9 diferente de'", 
-			"'!='", "'\\u00E9 diferente de'", "'n\\u00E3o \\u00E9 igual a'", "'<'", 
-			"'\\u00E9 menor que'", "'n\\u00E3o \\u00E9 maior ou igual a'", "'<='", 
-			"'\\u00E9 menor ou igual a'", "'n\\u00E3o \\u00E9 maior que'", "'>'", 
-			"'\\u00E9 maior que'", "'n\\u00E3o \\u00E9 menor ou igual a'", "'>='", 
-			"'\\u00E9 maior ou igual a'", "'n\\u00E3o \\u00E9 menor que'", "'&&'", 
-			"'E'", "'||'", "'OU'", "'!'", "'N\\u00C3O'", "'.'"
+			"'logar\\u00EDtmo'", "'grausParaRadianos'", "'radianosParaGraus'", "'incrementar'", 
+			"'decrementar'", "'='", "'<-'", "'+='", "'+<-'", "'-='", "'-<-'", "'*='", 
+			"'*<-'", "'/='", "'/<-'", "'%='", "'%<-'", "'+'", "'mais'", "'-'", "'menos'", 
+			"'*'", "'/'", "'dividido'", "'por'", "'%'", "'resto'", "'=='", "'\\u00E9 igual a'", 
+			"'n\\u00E3o \\u00E9 diferente de'", "'!='", "'\\u00E9 diferente de'", 
+			"'n\\u00E3o \\u00E9 igual a'", "'<'", "'\\u00E9 menor que'", "'n\\u00E3o \\u00E9 maior ou igual a'", 
+			"'<='", "'\\u00E9 menor ou igual a'", "'n\\u00E3o \\u00E9 maior que'", 
+			"'>'", "'\\u00E9 maior que'", "'n\\u00E3o \\u00E9 menor ou igual a'", 
+			"'>='", "'\\u00E9 maior ou igual a'", "'n\\u00E3o \\u00E9 menor que'", 
+			"'&&'", "'E'", "'||'", "'OU'", "'!'", "'N\\u00C3O'", "'.'"
 		};
 	}
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
@@ -86,18 +91,20 @@ public class AuroraLogoParser extends Parser {
 			null, null, null, null, null, null, "VA", "PARA", "PARR", "CONT", "EM", 
 			"DIR", "ESQ", "CIM", "BAI", "TROC", "COR", "DO", "FUN", "GIR", "GRA", 
 			"ENG", "DES", "GROS", "ESC", "LER", "ABA", "LEV", "PINC", "LIM", "SE", 
-			"ENT", "SEN", "ENQ", "REP", "VEZ", "VEZS", "NA", "SAI", "PI", "VER", 
-			"FAL", "PRETO", "AZUL", "CIANO", "CINZA", "VERDE", "MAGENTA", "LARANJA", 
-			"ROSA", "VERMELHO", "BRANCO", "AMARELO", "ESCURO", "CLARO", "F_VABS", 
-			"F_RAIQ", "F_RAIC", "F_RAIZ", "F_POTE", "F_HIPO", "F_CHAO", "F_TETO", 
-			"F_ARRE", "F_MINI", "F_MAXI", "F_NUMA", "F_SEME", "F_SENO", "F_COSS", 
-			"F_TANG", "F_ASEN", "F_ACOS", "F_ATAN", "F_CAPO", "F_SENH", "F_COSH", 
-			"F_TANH", "F_LOGA", "F_GRRA", "F_RAGR", "ATR", "ATRA", "ADI", "ADIA", 
-			"SUB", "SUBA", "MUL", "DIV", "DIVA", "POR", "MOD", "MODA", "IGU", "IGUT", 
-			"IGUA", "DIF", "DIFT", "DIFA", "ME", "MET", "MEA", "MEI", "MEIT", "MEIA", 
-			"MA", "MAT", "MAA", "MAI", "MAIT", "MAIA", "ELG", "ELGT", "OLG", "OLGT", 
-			"NAO", "NAOT", "DOT", "ID", "INT", "DEC", "HEX", "CHAR", "STRING", "COMENTARIO", 
-			"COMENTARIO_LINHA", "WS"
+			"ENT", "SEN", "ENQ", "REP", "VEZ", "VEZS", "NA", "SAI", "INCM", "DCMM", 
+			"SOMM", "SUBM", "MULM", "DIVM", "PI", "VER", "FAL", "PRETO", "AZUL", 
+			"CIANO", "CINZA", "VERDE", "MAGENTA", "LARANJA", "ROSA", "VERMELHO", 
+			"BRANCO", "AMARELO", "ESCURO", "CLARO", "F_VABS", "F_RAIQ", "F_RAIC", 
+			"F_RAIZ", "F_POTE", "F_HIPO", "F_CHAO", "F_TETO", "F_ARRE", "F_MINI", 
+			"F_MAXI", "F_NUMA", "F_SEME", "F_SENO", "F_COSS", "F_TANG", "F_ASEN", 
+			"F_ACOS", "F_ATAN", "F_CAPO", "F_SENH", "F_COSH", "F_TANH", "F_LOGA", 
+			"F_GRRA", "F_RAGR", "F_INC", "F_DCM", "ATR", "ATRA", "AC_A", "AT_A", 
+			"AC_S", "AT_S", "AC_M", "AT_M", "AC_D", "AT_D", "AC_R", "AT_R", "ADI", 
+			"ADIA", "SUB", "SUBA", "MUL", "DIV", "DIVA", "POR", "MOD", "MODA", "IGU", 
+			"IGUT", "IGUA", "DIF", "DIFT", "DIFA", "ME", "MET", "MEA", "MEI", "MEIT", 
+			"MEIA", "MA", "MAT", "MAA", "MAI", "MAIT", "MAIA", "ELG", "ELGT", "OLG", 
+			"OLGT", "NAO", "NAOT", "DOT", "ID", "INT", "DEC", "HEX", "CHAR", "STRING", 
+			"COMENTARIO", "COMENTARIO_LINHA", "WS"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -197,7 +204,7 @@ public class AuroraLogoParser extends Parser {
 				setState(69); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC) | (1L << F_RAIZ) | (1L << F_POTE) | (1L << F_HIPO) | (1L << F_CHAO) | (1L << F_TETO) | (1L << F_ARRE))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)) | (1L << (NAO - 64)) | (1L << (NAOT - 64)) | (1L << (ID - 64)) | (1L << (INT - 64)) | (1L << (DEC - 64)) | (1L << (CHAR - 64)) | (1L << (STRING - 64)))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_RAIZ - 64)) | (1L << (F_POTE - 64)) | (1L << (F_HIPO - 64)) | (1L << (F_CHAO - 64)) | (1L << (F_TETO - 64)) | (1L << (F_ARRE - 64)) | (1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (F_INC - 64)) | (1L << (F_DCM - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)))) != 0) || ((((_la - 133)) & ~0x3f) == 0 && ((1L << (_la - 133)) & ((1L << (NAO - 133)) | (1L << (NAOT - 133)) | (1L << (ID - 133)) | (1L << (INT - 133)) | (1L << (DEC - 133)) | (1L << (CHAR - 133)) | (1L << (STRING - 133)))) != 0) );
 			}
 		}
 		catch (RecognitionException re) {
@@ -538,12 +545,12 @@ public class AuroraLogoParser extends Parser {
 			setState(101);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 111)) & ~0x3f) == 0 && ((1L << (_la - 111)) & ((1L << (ELG - 111)) | (1L << (ELGT - 111)) | (1L << (OLG - 111)) | (1L << (OLGT - 111)))) != 0)) {
+			while (((((_la - 129)) & ~0x3f) == 0 && ((1L << (_la - 129)) & ((1L << (ELG - 129)) | (1L << (ELGT - 129)) | (1L << (OLG - 129)) | (1L << (OLGT - 129)))) != 0)) {
 				{
 				{
 				setState(97);
 				_la = _input.LA(1);
-				if ( !(((((_la - 111)) & ~0x3f) == 0 && ((1L << (_la - 111)) & ((1L << (ELG - 111)) | (1L << (ELGT - 111)) | (1L << (OLG - 111)) | (1L << (OLGT - 111)))) != 0)) ) {
+				if ( !(((((_la - 129)) & ~0x3f) == 0 && ((1L << (_la - 129)) & ((1L << (ELG - 129)) | (1L << (ELGT - 129)) | (1L << (OLG - 129)) | (1L << (OLGT - 129)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -629,12 +636,12 @@ public class AuroraLogoParser extends Parser {
 			setState(107);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 93)) & ~0x3f) == 0 && ((1L << (_la - 93)) & ((1L << (IGU - 93)) | (1L << (IGUT - 93)) | (1L << (IGUA - 93)) | (1L << (DIF - 93)) | (1L << (DIFT - 93)) | (1L << (DIFA - 93)) | (1L << (ME - 93)) | (1L << (MET - 93)) | (1L << (MEA - 93)) | (1L << (MEI - 93)) | (1L << (MEIT - 93)) | (1L << (MEIA - 93)) | (1L << (MA - 93)) | (1L << (MAT - 93)) | (1L << (MAA - 93)) | (1L << (MAI - 93)) | (1L << (MAIT - 93)) | (1L << (MAIA - 93)))) != 0)) {
+			if (((((_la - 111)) & ~0x3f) == 0 && ((1L << (_la - 111)) & ((1L << (IGU - 111)) | (1L << (IGUT - 111)) | (1L << (IGUA - 111)) | (1L << (DIF - 111)) | (1L << (DIFT - 111)) | (1L << (DIFA - 111)) | (1L << (ME - 111)) | (1L << (MET - 111)) | (1L << (MEA - 111)) | (1L << (MEI - 111)) | (1L << (MEIT - 111)) | (1L << (MEIA - 111)) | (1L << (MA - 111)) | (1L << (MAT - 111)) | (1L << (MAA - 111)) | (1L << (MAI - 111)) | (1L << (MAIT - 111)) | (1L << (MAIA - 111)))) != 0)) {
 				{
 				setState(105);
 				((RelacaoContext)_localctx).opRel = _input.LT(1);
 				_la = _input.LA(1);
-				if ( !(((((_la - 93)) & ~0x3f) == 0 && ((1L << (_la - 93)) & ((1L << (IGU - 93)) | (1L << (IGUT - 93)) | (1L << (IGUA - 93)) | (1L << (DIF - 93)) | (1L << (DIFT - 93)) | (1L << (DIFA - 93)) | (1L << (ME - 93)) | (1L << (MET - 93)) | (1L << (MEA - 93)) | (1L << (MEI - 93)) | (1L << (MEIT - 93)) | (1L << (MEIA - 93)) | (1L << (MA - 93)) | (1L << (MAT - 93)) | (1L << (MAA - 93)) | (1L << (MAI - 93)) | (1L << (MAIT - 93)) | (1L << (MAIA - 93)))) != 0)) ) {
+				if ( !(((((_la - 111)) & ~0x3f) == 0 && ((1L << (_la - 111)) & ((1L << (IGU - 111)) | (1L << (IGUT - 111)) | (1L << (IGUA - 111)) | (1L << (DIF - 111)) | (1L << (DIFT - 111)) | (1L << (DIFA - 111)) | (1L << (ME - 111)) | (1L << (MET - 111)) | (1L << (MEA - 111)) | (1L << (MEI - 111)) | (1L << (MEIT - 111)) | (1L << (MEIA - 111)) | (1L << (MA - 111)) | (1L << (MAT - 111)) | (1L << (MAA - 111)) | (1L << (MAI - 111)) | (1L << (MAIT - 111)) | (1L << (MAIA - 111)))) != 0)) ) {
 					((RelacaoContext)_localctx).opRel = (Token)_errHandler.recoverInline(this);
 				}
 				else {
@@ -713,12 +720,12 @@ public class AuroraLogoParser extends Parser {
 			setState(110);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if (((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & ((1L << (ADI - 83)) | (1L << (ADIA - 83)) | (1L << (SUB - 83)) | (1L << (SUBA - 83)))) != 0)) {
+			if (((((_la - 101)) & ~0x3f) == 0 && ((1L << (_la - 101)) & ((1L << (ADI - 101)) | (1L << (ADIA - 101)) | (1L << (SUB - 101)) | (1L << (SUBA - 101)))) != 0)) {
 				{
 				setState(109);
 				((ExprSimpContext)_localctx).opNeg = _input.LT(1);
 				_la = _input.LA(1);
-				if ( !(((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & ((1L << (ADI - 83)) | (1L << (ADIA - 83)) | (1L << (SUB - 83)) | (1L << (SUBA - 83)))) != 0)) ) {
+				if ( !(((((_la - 101)) & ~0x3f) == 0 && ((1L << (_la - 101)) & ((1L << (ADI - 101)) | (1L << (ADIA - 101)) | (1L << (SUB - 101)) | (1L << (SUBA - 101)))) != 0)) ) {
 					((ExprSimpContext)_localctx).opNeg = (Token)_errHandler.recoverInline(this);
 				}
 				else {
@@ -734,12 +741,12 @@ public class AuroraLogoParser extends Parser {
 			setState(117);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			while (((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & ((1L << (ADI - 83)) | (1L << (ADIA - 83)) | (1L << (SUB - 83)) | (1L << (SUBA - 83)))) != 0)) {
+			while (((((_la - 101)) & ~0x3f) == 0 && ((1L << (_la - 101)) & ((1L << (ADI - 101)) | (1L << (ADIA - 101)) | (1L << (SUB - 101)) | (1L << (SUBA - 101)))) != 0)) {
 				{
 				{
 				setState(113);
 				_la = _input.LA(1);
-				if ( !(((((_la - 83)) & ~0x3f) == 0 && ((1L << (_la - 83)) & ((1L << (ADI - 83)) | (1L << (ADIA - 83)) | (1L << (SUB - 83)) | (1L << (SUBA - 83)))) != 0)) ) {
+				if ( !(((((_la - 101)) & ~0x3f) == 0 && ((1L << (_la - 101)) & ((1L << (ADI - 101)) | (1L << (ADIA - 101)) | (1L << (SUB - 101)) | (1L << (SUBA - 101)))) != 0)) ) {
 				_errHandler.recoverInline(this);
 				}
 				else {
@@ -1200,6 +1207,8 @@ public class AuroraLogoParser extends Parser {
 			case F_LOGA:
 			case F_GRRA:
 			case F_RAGR:
+			case F_INC:
+			case F_DCM:
 				_localctx = new FatorFuncaoMatematicaContext(_localctx);
 				enterOuterAlt(_localctx, 8);
 				{
@@ -1443,7 +1452,7 @@ public class AuroraLogoParser extends Parser {
 				setState(169); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC) | (1L << F_RAIZ) | (1L << F_POTE) | (1L << F_HIPO) | (1L << F_CHAO) | (1L << F_TETO) | (1L << F_ARRE))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)) | (1L << (NAO - 64)) | (1L << (NAOT - 64)) | (1L << (ID - 64)) | (1L << (INT - 64)) | (1L << (DEC - 64)) | (1L << (CHAR - 64)) | (1L << (STRING - 64)))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_RAIZ - 64)) | (1L << (F_POTE - 64)) | (1L << (F_HIPO - 64)) | (1L << (F_CHAO - 64)) | (1L << (F_TETO - 64)) | (1L << (F_ARRE - 64)) | (1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (F_INC - 64)) | (1L << (F_DCM - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)))) != 0) || ((((_la - 133)) & ~0x3f) == 0 && ((1L << (_la - 133)) & ((1L << (NAO - 133)) | (1L << (NAOT - 133)) | (1L << (ID - 133)) | (1L << (INT - 133)) | (1L << (DEC - 133)) | (1L << (CHAR - 133)) | (1L << (STRING - 133)))) != 0) );
 			setState(171);
 			match(T__3);
 			}
@@ -1583,7 +1592,7 @@ public class AuroraLogoParser extends Parser {
 				setState(187); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC) | (1L << F_RAIZ) | (1L << F_POTE) | (1L << F_HIPO) | (1L << F_CHAO) | (1L << F_TETO) | (1L << F_ARRE))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)) | (1L << (NAO - 64)) | (1L << (NAOT - 64)) | (1L << (ID - 64)) | (1L << (INT - 64)) | (1L << (DEC - 64)) | (1L << (CHAR - 64)) | (1L << (STRING - 64)))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_RAIZ - 64)) | (1L << (F_POTE - 64)) | (1L << (F_HIPO - 64)) | (1L << (F_CHAO - 64)) | (1L << (F_TETO - 64)) | (1L << (F_ARRE - 64)) | (1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (F_INC - 64)) | (1L << (F_DCM - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)))) != 0) || ((((_la - 133)) & ~0x3f) == 0 && ((1L << (_la - 133)) & ((1L << (NAO - 133)) | (1L << (NAOT - 133)) | (1L << (ID - 133)) | (1L << (INT - 133)) | (1L << (DEC - 133)) | (1L << (CHAR - 133)) | (1L << (STRING - 133)))) != 0) );
 			setState(189);
 			match(T__3);
 			}
@@ -1655,7 +1664,7 @@ public class AuroraLogoParser extends Parser {
 					setState(196); 
 					_errHandler.sync(this);
 					_la = _input.LA(1);
-				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC) | (1L << F_RAIZ) | (1L << F_POTE) | (1L << F_HIPO) | (1L << F_CHAO) | (1L << F_TETO) | (1L << F_ARRE))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)) | (1L << (NAO - 64)) | (1L << (NAOT - 64)) | (1L << (ID - 64)) | (1L << (INT - 64)) | (1L << (DEC - 64)) | (1L << (CHAR - 64)) | (1L << (STRING - 64)))) != 0) );
+				} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_RAIZ - 64)) | (1L << (F_POTE - 64)) | (1L << (F_HIPO - 64)) | (1L << (F_CHAO - 64)) | (1L << (F_TETO - 64)) | (1L << (F_ARRE - 64)) | (1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (F_INC - 64)) | (1L << (F_DCM - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)))) != 0) || ((((_la - 133)) & ~0x3f) == 0 && ((1L << (_la - 133)) & ((1L << (NAO - 133)) | (1L << (NAOT - 133)) | (1L << (ID - 133)) | (1L << (INT - 133)) | (1L << (DEC - 133)) | (1L << (CHAR - 133)) | (1L << (STRING - 133)))) != 0) );
 				setState(198);
 				match(T__3);
 				}
@@ -1742,7 +1751,7 @@ public class AuroraLogoParser extends Parser {
 				setState(209); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC) | (1L << F_RAIZ) | (1L << F_POTE) | (1L << F_HIPO) | (1L << F_CHAO) | (1L << F_TETO) | (1L << F_ARRE))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)) | (1L << (NAO - 64)) | (1L << (NAOT - 64)) | (1L << (ID - 64)) | (1L << (INT - 64)) | (1L << (DEC - 64)) | (1L << (CHAR - 64)) | (1L << (STRING - 64)))) != 0) );
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_RAIZ - 64)) | (1L << (F_POTE - 64)) | (1L << (F_HIPO - 64)) | (1L << (F_CHAO - 64)) | (1L << (F_TETO - 64)) | (1L << (F_ARRE - 64)) | (1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (F_INC - 64)) | (1L << (F_DCM - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)))) != 0) || ((((_la - 133)) & ~0x3f) == 0 && ((1L << (_la - 133)) & ((1L << (NAO - 133)) | (1L << (NAOT - 133)) | (1L << (ID - 133)) | (1L << (INT - 133)) | (1L << (DEC - 133)) | (1L << (CHAR - 133)) | (1L << (STRING - 133)))) != 0) );
 			setState(211);
 			match(T__3);
 			}
@@ -1764,12 +1773,23 @@ public class AuroraLogoParser extends Parser {
 		public ExprBoolContext exprBool() {
 			return getRuleContext(ExprBoolContext.class,0);
 		}
+		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
+		public TerminalNode EM() { return getToken(AuroraLogoParser.EM, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
 		public List<InstContext> inst() {
 			return getRuleContexts(InstContext.class);
 		}
 		public InstContext inst(int i) {
 			return getRuleContext(InstContext.class,i);
 		}
+		public TerminalNode INCM() { return getToken(AuroraLogoParser.INCM, 0); }
+		public TerminalNode DCMM() { return getToken(AuroraLogoParser.DCMM, 0); }
+		public TerminalNode SOMM() { return getToken(AuroraLogoParser.SOMM, 0); }
+		public TerminalNode SUBM() { return getToken(AuroraLogoParser.SUBM, 0); }
+		public TerminalNode MULM() { return getToken(AuroraLogoParser.MULM, 0); }
+		public TerminalNode DIVM() { return getToken(AuroraLogoParser.DIVM, 0); }
 		public RepetirEnquantoContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
@@ -1810,23 +1830,83 @@ public class AuroraLogoParser extends Parser {
 
 			setState(217);
 			match(REP);
-			setState(218);
+			setState(228);
+			_errHandler.sync(this);
+			switch (_input.LA(1)) {
+			case INCM:
+			case DCMM:
+				{
+				setState(218);
+				_la = _input.LA(1);
+				if ( !(_la==INCM || _la==DCMM) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(219);
+				match(ID);
+				setState(222);
+				_errHandler.sync(this);
+				_la = _input.LA(1);
+				if (_la==EM) {
+					{
+					setState(220);
+					match(EM);
+					setState(221);
+					expr();
+					}
+				}
+
+				}
+				break;
+			case SOMM:
+			case SUBM:
+			case MULM:
+			case DIVM:
+				{
+				setState(224);
+				_la = _input.LA(1);
+				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << SOMM) | (1L << SUBM) | (1L << MULM) | (1L << DIVM))) != 0)) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(225);
+				match(ID);
+				setState(226);
+				match(EM);
+				setState(227);
+				expr();
+				}
+				break;
+			case T__2:
+				break;
+			default:
+				break;
+			}
+			setState(230);
 			match(T__2);
-			setState(220); 
+			setState(232); 
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			do {
 				{
 				{
-				setState(219);
+				setState(231);
 				inst();
 				}
 				}
-				setState(222); 
+				setState(234); 
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC) | (1L << F_RAIZ) | (1L << F_POTE) | (1L << F_HIPO) | (1L << F_CHAO) | (1L << F_TETO) | (1L << F_ARRE))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)) | (1L << (NAO - 64)) | (1L << (NAOT - 64)) | (1L << (ID - 64)) | (1L << (INT - 64)) | (1L << (DEC - 64)) | (1L << (CHAR - 64)) | (1L << (STRING - 64)))) != 0) );
-			setState(224);
+			} while ( (((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << VA) | (1L << PARR) | (1L << CONT) | (1L << TROC) | (1L << GIR) | (1L << ENG) | (1L << DES) | (1L << ESC) | (1L << LER) | (1L << ABA) | (1L << LEV) | (1L << LIM) | (1L << SE) | (1L << ENQ) | (1L << REP) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_RAIZ - 64)) | (1L << (F_POTE - 64)) | (1L << (F_HIPO - 64)) | (1L << (F_CHAO - 64)) | (1L << (F_TETO - 64)) | (1L << (F_ARRE - 64)) | (1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (F_INC - 64)) | (1L << (F_DCM - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)))) != 0) || ((((_la - 133)) & ~0x3f) == 0 && ((1L << (_la - 133)) & ((1L << (NAO - 133)) | (1L << (NAOT - 133)) | (1L << (ID - 133)) | (1L << (INT - 133)) | (1L << (DEC - 133)) | (1L << (CHAR - 133)) | (1L << (STRING - 133)))) != 0) );
+			setState(236);
 			match(T__3);
 			}
 		}
@@ -1868,7 +1948,7 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(226);
+			setState(238);
 			match(PARR);
 			}
 		}
@@ -1910,7 +1990,7 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(228);
+			setState(240);
 			match(CONT);
 			}
 		}
@@ -1992,18 +2072,18 @@ public class AuroraLogoParser extends Parser {
 		enterRule(_localctx, 38, RULE_movimentar);
 		int _la;
 		try {
-			setState(245);
+			setState(257);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,20,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
 			case 1:
 				_localctx = new MovimentarDirecaoContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(230);
+				setState(242);
 				match(VA);
-				setState(231);
+				setState(243);
 				match(PARA);
-				setState(232);
+				setState(244);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << DIR) | (1L << ESQ) | (1L << CIM) | (1L << BAI))) != 0)) ) {
 				_errHandler.recoverInline(this);
@@ -2013,14 +2093,14 @@ public class AuroraLogoParser extends Parser {
 					_errHandler.reportMatch(this);
 					consume();
 				}
-				setState(235);
+				setState(247);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 				if (_la==EM) {
 					{
-					setState(233);
+					setState(245);
 					match(EM);
-					setState(234);
+					setState(246);
 					expr();
 					}
 				}
@@ -2031,19 +2111,19 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new MovimentarPontoContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(237);
+				setState(249);
 				match(VA);
-				setState(238);
+				setState(250);
 				match(PARA);
-				setState(239);
+				setState(251);
 				match(T__0);
-				setState(240);
+				setState(252);
 				expr();
-				setState(241);
+				setState(253);
 				match(T__4);
-				setState(242);
+				setState(254);
 				expr();
-				setState(243);
+				setState(255);
 				match(T__1);
 				}
 				break;
@@ -2122,20 +2202,20 @@ public class AuroraLogoParser extends Parser {
 		TrocarCorContext _localctx = new TrocarCorContext(_ctx, getState());
 		enterRule(_localctx, 40, RULE_trocarCor);
 		try {
-			setState(257);
+			setState(269);
 			_errHandler.sync(this);
-			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
+			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
 			case 1:
 				_localctx = new TrocarCorPincelContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(247);
+				setState(259);
 				match(TROC);
-				setState(248);
+				setState(260);
 				match(COR);
-				setState(249);
+				setState(261);
 				match(PARA);
-				setState(250);
+				setState(262);
 				configuracaoCor();
 				}
 				break;
@@ -2143,17 +2223,17 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new TrocarCorFundoContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(251);
+				setState(263);
 				match(TROC);
-				setState(252);
+				setState(264);
 				match(COR);
-				setState(253);
+				setState(265);
 				match(DO);
-				setState(254);
+				setState(266);
 				match(FUN);
-				setState(255);
+				setState(267);
 				match(PARA);
-				setState(256);
+				setState(268);
 				configuracaoCor();
 				}
 				break;
@@ -2217,12 +2297,12 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(261);
+			setState(273);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case HEX:
 				{
-				setState(259);
+				setState(271);
 				match(HEX);
 				}
 				break;
@@ -2238,7 +2318,7 @@ public class AuroraLogoParser extends Parser {
 			case BRANCO:
 			case AMARELO:
 				{
-				setState(260);
+				setState(272);
 				((ConfiguracaoCorContext)_localctx).cor = _input.LT(1);
 				_la = _input.LA(1);
 				if ( !((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << PRETO) | (1L << AZUL) | (1L << CIANO) | (1L << CINZA) | (1L << VERDE) | (1L << MAGENTA) | (1L << LARANJA) | (1L << ROSA) | (1L << VERMELHO) | (1L << BRANCO) | (1L << AMARELO))) != 0)) ) {
@@ -2254,19 +2334,19 @@ public class AuroraLogoParser extends Parser {
 			default:
 				throw new NoViableAltException(this);
 			}
-			setState(269);
+			setState(281);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
-			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << ESCURO) | (1L << CLARO) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC) | (1L << F_RAIZ) | (1L << F_POTE) | (1L << F_HIPO) | (1L << F_CHAO) | (1L << F_TETO) | (1L << F_ARRE))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)) | (1L << (NAO - 64)) | (1L << (NAOT - 64)) | (1L << (ID - 64)) | (1L << (INT - 64)) | (1L << (DEC - 64)) | (1L << (CHAR - 64)) | (1L << (STRING - 64)))) != 0)) {
+			if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << ESCURO) | (1L << CLARO) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_RAIZ - 64)) | (1L << (F_POTE - 64)) | (1L << (F_HIPO - 64)) | (1L << (F_CHAO - 64)) | (1L << (F_TETO - 64)) | (1L << (F_ARRE - 64)) | (1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (F_INC - 64)) | (1L << (F_DCM - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)))) != 0) || ((((_la - 133)) & ~0x3f) == 0 && ((1L << (_la - 133)) & ((1L << (NAO - 133)) | (1L << (NAOT - 133)) | (1L << (ID - 133)) | (1L << (INT - 133)) | (1L << (DEC - 133)) | (1L << (CHAR - 133)) | (1L << (STRING - 133)))) != 0)) {
 				{
-				setState(266);
+				setState(278);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
-				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC) | (1L << F_RAIZ) | (1L << F_POTE) | (1L << F_HIPO) | (1L << F_CHAO) | (1L << F_TETO) | (1L << F_ARRE))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)) | (1L << (NAO - 64)) | (1L << (NAOT - 64)) | (1L << (ID - 64)) | (1L << (INT - 64)) | (1L << (DEC - 64)) | (1L << (CHAR - 64)) | (1L << (STRING - 64)))) != 0)) {
+				if ((((_la) & ~0x3f) == 0 && ((1L << _la) & ((1L << T__0) | (1L << PI) | (1L << VER) | (1L << FAL) | (1L << F_VABS) | (1L << F_RAIQ) | (1L << F_RAIC))) != 0) || ((((_la - 64)) & ~0x3f) == 0 && ((1L << (_la - 64)) & ((1L << (F_RAIZ - 64)) | (1L << (F_POTE - 64)) | (1L << (F_HIPO - 64)) | (1L << (F_CHAO - 64)) | (1L << (F_TETO - 64)) | (1L << (F_ARRE - 64)) | (1L << (F_MINI - 64)) | (1L << (F_MAXI - 64)) | (1L << (F_NUMA - 64)) | (1L << (F_SEME - 64)) | (1L << (F_SENO - 64)) | (1L << (F_COSS - 64)) | (1L << (F_TANG - 64)) | (1L << (F_ASEN - 64)) | (1L << (F_ACOS - 64)) | (1L << (F_ATAN - 64)) | (1L << (F_CAPO - 64)) | (1L << (F_SENH - 64)) | (1L << (F_COSH - 64)) | (1L << (F_TANH - 64)) | (1L << (F_LOGA - 64)) | (1L << (F_GRRA - 64)) | (1L << (F_RAGR - 64)) | (1L << (F_INC - 64)) | (1L << (F_DCM - 64)) | (1L << (ADI - 64)) | (1L << (ADIA - 64)) | (1L << (SUB - 64)) | (1L << (SUBA - 64)))) != 0) || ((((_la - 133)) & ~0x3f) == 0 && ((1L << (_la - 133)) & ((1L << (NAO - 133)) | (1L << (NAOT - 133)) | (1L << (ID - 133)) | (1L << (INT - 133)) | (1L << (DEC - 133)) | (1L << (CHAR - 133)) | (1L << (STRING - 133)))) != 0)) {
 					{
-					setState(263);
+					setState(275);
 					expr();
-					setState(264);
+					setState(276);
 					_la = _input.LA(1);
 					if ( !(_la==VEZ || _la==VEZS) ) {
 					_errHandler.recoverInline(this);
@@ -2279,7 +2359,7 @@ public class AuroraLogoParser extends Parser {
 					}
 				}
 
-				setState(268);
+				setState(280);
 				_la = _input.LA(1);
 				if ( !(_la==ESCURO || _la==CLARO) ) {
 				_errHandler.recoverInline(this);
@@ -2338,18 +2418,18 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(271);
+			setState(283);
 			match(GIR);
-			setState(276);
+			setState(288);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EM) {
 				{
-				setState(272);
+				setState(284);
 				match(EM);
-				setState(273);
+				setState(285);
 				expr();
-				setState(274);
+				setState(286);
 				match(GRA);
 				}
 			}
@@ -2399,16 +2479,16 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(278);
+			setState(290);
 			match(ENG);
-			setState(281);
+			setState(293);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EM) {
 				{
-				setState(279);
+				setState(291);
 				match(EM);
-				setState(280);
+				setState(292);
 				expr();
 				}
 			}
@@ -2458,16 +2538,16 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(283);
+			setState(295);
 			match(DES);
-			setState(286);
+			setState(298);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==EM) {
 				{
-				setState(284);
+				setState(296);
 				match(EM);
-				setState(285);
+				setState(297);
 				expr();
 				}
 			}
@@ -2517,13 +2597,13 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(288);
+			setState(300);
 			match(TROC);
-			setState(289);
+			setState(301);
 			match(GROS);
-			setState(290);
+			setState(302);
 			match(PARA);
-			setState(291);
+			setState(303);
 			expr();
 			}
 		}
@@ -2571,18 +2651,18 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(293);
+			setState(305);
 			match(ESC);
-			setState(294);
+			setState(306);
 			expr();
-			setState(297);
+			setState(309);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			if (_la==NA) {
 				{
-				setState(295);
+				setState(307);
 				match(NA);
-				setState(296);
+				setState(308);
 				match(SAI);
 				}
 			}
@@ -2628,9 +2708,9 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(299);
+			setState(311);
 			match(LER);
-			setState(300);
+			setState(312);
 			match(ID);
 			}
 		}
@@ -2646,27 +2726,145 @@ public class AuroraLogoParser extends Parser {
 	}
 
 	public static class AtribuirContext extends ParserRuleContext {
+		public AtribuirContext(ParserRuleContext parent, int invokingState) {
+			super(parent, invokingState);
+		}
+		@Override public int getRuleIndex() { return RULE_atribuir; }
+	 
+		public AtribuirContext() { }
+		public void copyFrom(AtribuirContext ctx) {
+			super.copyFrom(ctx);
+		}
+	}
+	public static class AtribuirDivisaoContext extends AtribuirContext {
+		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode AC_D() { return getToken(AuroraLogoParser.AC_D, 0); }
+		public TerminalNode AT_D() { return getToken(AuroraLogoParser.AT_D, 0); }
+		public AtribuirDivisaoContext(AtribuirContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterAtribuirDivisao(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitAtribuirDivisao(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitAtribuirDivisao(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtribuirPadraoContext extends AtribuirContext {
 		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
 		public ExprContext expr() {
 			return getRuleContext(ExprContext.class,0);
 		}
 		public TerminalNode ATR() { return getToken(AuroraLogoParser.ATR, 0); }
 		public TerminalNode ATRA() { return getToken(AuroraLogoParser.ATRA, 0); }
-		public AtribuirContext(ParserRuleContext parent, int invokingState) {
-			super(parent, invokingState);
-		}
-		@Override public int getRuleIndex() { return RULE_atribuir; }
+		public AtribuirPadraoContext(AtribuirContext ctx) { copyFrom(ctx); }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterAtribuir(this);
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterAtribuirPadrao(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitAtribuir(this);
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitAtribuirPadrao(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitAtribuir(this);
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitAtribuirPadrao(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtribuirRestoContext extends AtribuirContext {
+		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode AC_R() { return getToken(AuroraLogoParser.AC_R, 0); }
+		public TerminalNode AT_R() { return getToken(AuroraLogoParser.AT_R, 0); }
+		public AtribuirRestoContext(AtribuirContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterAtribuirResto(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitAtribuirResto(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitAtribuirResto(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtribuirAdicaoContext extends AtribuirContext {
+		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode AC_A() { return getToken(AuroraLogoParser.AC_A, 0); }
+		public TerminalNode AT_A() { return getToken(AuroraLogoParser.AT_A, 0); }
+		public AtribuirAdicaoContext(AtribuirContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterAtribuirAdicao(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitAtribuirAdicao(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitAtribuirAdicao(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtribuirSubtracaoContext extends AtribuirContext {
+		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode AC_S() { return getToken(AuroraLogoParser.AC_S, 0); }
+		public TerminalNode AT_S() { return getToken(AuroraLogoParser.AT_S, 0); }
+		public AtribuirSubtracaoContext(AtribuirContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterAtribuirSubtracao(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitAtribuirSubtracao(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitAtribuirSubtracao(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class AtribuirMultiplicacaoContext extends AtribuirContext {
+		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
+		}
+		public TerminalNode AC_M() { return getToken(AuroraLogoParser.AC_M, 0); }
+		public TerminalNode AT_M() { return getToken(AuroraLogoParser.AT_M, 0); }
+		public AtribuirMultiplicacaoContext(AtribuirContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterAtribuirMultiplicacao(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitAtribuirMultiplicacao(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitAtribuirMultiplicacao(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -2676,22 +2874,129 @@ public class AuroraLogoParser extends Parser {
 		enterRule(_localctx, 56, RULE_atribuir);
 		int _la;
 		try {
-			enterOuterAlt(_localctx, 1);
-			{
-			setState(302);
-			match(ID);
-			setState(303);
-			_la = _input.LA(1);
-			if ( !(_la==ATR || _la==ATRA) ) {
-			_errHandler.recoverInline(this);
-			}
-			else {
-				if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
-				_errHandler.reportMatch(this);
-				consume();
-			}
-			setState(304);
-			expr();
+			setState(332);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,31,_ctx) ) {
+			case 1:
+				_localctx = new AtribuirPadraoContext(_localctx);
+				enterOuterAlt(_localctx, 1);
+				{
+				setState(314);
+				match(ID);
+				setState(315);
+				_la = _input.LA(1);
+				if ( !(_la==ATR || _la==ATRA) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(316);
+				expr();
+				}
+				break;
+			case 2:
+				_localctx = new AtribuirAdicaoContext(_localctx);
+				enterOuterAlt(_localctx, 2);
+				{
+				setState(317);
+				match(ID);
+				setState(318);
+				_la = _input.LA(1);
+				if ( !(_la==AC_A || _la==AT_A) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(319);
+				expr();
+				}
+				break;
+			case 3:
+				_localctx = new AtribuirSubtracaoContext(_localctx);
+				enterOuterAlt(_localctx, 3);
+				{
+				setState(320);
+				match(ID);
+				setState(321);
+				_la = _input.LA(1);
+				if ( !(_la==AC_S || _la==AT_S) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(322);
+				expr();
+				}
+				break;
+			case 4:
+				_localctx = new AtribuirMultiplicacaoContext(_localctx);
+				enterOuterAlt(_localctx, 4);
+				{
+				setState(323);
+				match(ID);
+				setState(324);
+				_la = _input.LA(1);
+				if ( !(_la==AC_M || _la==AT_M) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(325);
+				expr();
+				}
+				break;
+			case 5:
+				_localctx = new AtribuirDivisaoContext(_localctx);
+				enterOuterAlt(_localctx, 5);
+				{
+				setState(326);
+				match(ID);
+				setState(327);
+				_la = _input.LA(1);
+				if ( !(_la==AC_D || _la==AT_D) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(328);
+				expr();
+				}
+				break;
+			case 6:
+				_localctx = new AtribuirRestoContext(_localctx);
+				enterOuterAlt(_localctx, 6);
+				{
+				setState(329);
+				match(ID);
+				setState(330);
+				_la = _input.LA(1);
+				if ( !(_la==AC_R || _la==AT_R) ) {
+				_errHandler.recoverInline(this);
+				}
+				else {
+					if ( _input.LA(1)==Token.EOF ) matchedEOF = true;
+					_errHandler.reportMatch(this);
+					consume();
+				}
+				setState(331);
+				expr();
+				}
+				break;
 			}
 		}
 		catch (RecognitionException re) {
@@ -2733,9 +3038,9 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(306);
+			setState(334);
 			match(ABA);
-			setState(307);
+			setState(335);
 			match(PINC);
 			}
 		}
@@ -2778,9 +3083,9 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(309);
+			setState(337);
 			match(LEV);
-			setState(310);
+			setState(338);
 			match(PINC);
 			}
 		}
@@ -2822,7 +3127,7 @@ public class AuroraLogoParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(312);
+			setState(340);
 			match(LIM);
 			}
 		}
@@ -2954,6 +3259,24 @@ public class AuroraLogoParser extends Parser {
 			else return visitor.visitChildren(this);
 		}
 	}
+	public static class FuncaoDecrementarContext extends FuncaoMatematicaContext {
+		public TerminalNode F_DCM() { return getToken(AuroraLogoParser.F_DCM, 0); }
+		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
+		public FuncaoDecrementarContext(FuncaoMatematicaContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterFuncaoDecrementar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitFuncaoDecrementar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitFuncaoDecrementar(this);
+			else return visitor.visitChildren(this);
+		}
+	}
 	public static class FuncaoDefinirSementeAleatoriaContext extends FuncaoMatematicaContext {
 		public TerminalNode F_SEME() { return getToken(AuroraLogoParser.F_SEME, 0); }
 		public ExprContext expr() {
@@ -3057,6 +3380,24 @@ public class AuroraLogoParser extends Parser {
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
 			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitFuncaoPotencia(this);
+			else return visitor.visitChildren(this);
+		}
+	}
+	public static class FuncaoIncrementarContext extends FuncaoMatematicaContext {
+		public TerminalNode F_INC() { return getToken(AuroraLogoParser.F_INC, 0); }
+		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
+		public FuncaoIncrementarContext(FuncaoMatematicaContext ctx) { copyFrom(ctx); }
+		@Override
+		public void enterRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterFuncaoIncrementar(this);
+		}
+		@Override
+		public void exitRule(ParseTreeListener listener) {
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitFuncaoIncrementar(this);
+		}
+		@Override
+		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitFuncaoIncrementar(this);
 			else return visitor.visitChildren(this);
 		}
 	}
@@ -3400,20 +3741,20 @@ public class AuroraLogoParser extends Parser {
 		FuncaoMatematicaContext _localctx = new FuncaoMatematicaContext(_ctx, getState());
 		enterRule(_localctx, 64, RULE_funcaoMatematica);
 		try {
-			setState(473);
+			setState(509);
 			_errHandler.sync(this);
 			switch (_input.LA(1)) {
 			case F_VABS:
 				_localctx = new FuncaoAbsolutoContext(_localctx);
 				enterOuterAlt(_localctx, 1);
 				{
-				setState(314);
+				setState(342);
 				match(F_VABS);
-				setState(315);
+				setState(343);
 				match(T__0);
-				setState(316);
+				setState(344);
 				expr();
-				setState(317);
+				setState(345);
 				match(T__1);
 				}
 				break;
@@ -3421,13 +3762,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoRaizQuadradaContext(_localctx);
 				enterOuterAlt(_localctx, 2);
 				{
-				setState(319);
+				setState(347);
 				match(F_RAIQ);
-				setState(320);
+				setState(348);
 				match(T__0);
-				setState(321);
+				setState(349);
 				expr();
-				setState(322);
+				setState(350);
 				match(T__1);
 				}
 				break;
@@ -3435,13 +3776,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoRaizCubicaContext(_localctx);
 				enterOuterAlt(_localctx, 3);
 				{
-				setState(324);
+				setState(352);
 				match(F_RAIC);
-				setState(325);
+				setState(353);
 				match(T__0);
-				setState(326);
+				setState(354);
 				expr();
-				setState(327);
+				setState(355);
 				match(T__1);
 				}
 				break;
@@ -3449,17 +3790,17 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoRaizContext(_localctx);
 				enterOuterAlt(_localctx, 4);
 				{
-				setState(329);
+				setState(357);
 				match(F_RAIZ);
-				setState(330);
+				setState(358);
 				match(T__0);
-				setState(331);
+				setState(359);
 				expr();
-				setState(332);
+				setState(360);
 				match(T__4);
-				setState(333);
+				setState(361);
 				expr();
-				setState(334);
+				setState(362);
 				match(T__1);
 				}
 				break;
@@ -3467,17 +3808,17 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoPotenciaContext(_localctx);
 				enterOuterAlt(_localctx, 5);
 				{
-				setState(336);
+				setState(364);
 				match(F_POTE);
-				setState(337);
+				setState(365);
 				match(T__0);
-				setState(338);
+				setState(366);
 				expr();
-				setState(339);
+				setState(367);
 				match(T__4);
-				setState(340);
+				setState(368);
 				expr();
-				setState(341);
+				setState(369);
 				match(T__1);
 				}
 				break;
@@ -3485,86 +3826,8 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoHipotenusaContext(_localctx);
 				enterOuterAlt(_localctx, 6);
 				{
-				setState(343);
-				match(F_HIPO);
-				setState(344);
-				match(T__0);
-				setState(345);
-				expr();
-				setState(346);
-				match(T__4);
-				setState(347);
-				expr();
-				setState(348);
-				match(T__1);
-				}
-				break;
-			case F_CHAO:
-				_localctx = new FuncaoChaoContext(_localctx);
-				enterOuterAlt(_localctx, 7);
-				{
-				setState(350);
-				match(F_CHAO);
-				setState(351);
-				match(T__0);
-				setState(352);
-				expr();
-				setState(353);
-				match(T__1);
-				}
-				break;
-			case F_TETO:
-				_localctx = new FuncaoTetoContext(_localctx);
-				enterOuterAlt(_localctx, 8);
-				{
-				setState(355);
-				match(F_TETO);
-				setState(356);
-				match(T__0);
-				setState(357);
-				expr();
-				setState(358);
-				match(T__1);
-				}
-				break;
-			case F_ARRE:
-				_localctx = new FuncaoArredondarContext(_localctx);
-				enterOuterAlt(_localctx, 9);
-				{
-				setState(360);
-				match(F_ARRE);
-				setState(361);
-				match(T__0);
-				setState(367);
-				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,29,_ctx) ) {
-				case 1:
-					{
-					setState(362);
-					expr();
-					}
-					break;
-				case 2:
-					{
-					setState(363);
-					expr();
-					setState(364);
-					match(T__4);
-					setState(365);
-					expr();
-					}
-					break;
-				}
-				setState(369);
-				match(T__1);
-				}
-				break;
-			case F_MINI:
-				_localctx = new FuncaoMinimoContext(_localctx);
-				enterOuterAlt(_localctx, 10);
-				{
 				setState(371);
-				match(F_MINI);
+				match(F_HIPO);
 				setState(372);
 				match(T__0);
 				setState(373);
@@ -3577,21 +3840,99 @@ public class AuroraLogoParser extends Parser {
 				match(T__1);
 				}
 				break;
-			case F_MAXI:
-				_localctx = new FuncaoMaximoContext(_localctx);
-				enterOuterAlt(_localctx, 11);
+			case F_CHAO:
+				_localctx = new FuncaoChaoContext(_localctx);
+				enterOuterAlt(_localctx, 7);
 				{
 				setState(378);
-				match(F_MAXI);
+				match(F_CHAO);
 				setState(379);
 				match(T__0);
 				setState(380);
 				expr();
 				setState(381);
-				match(T__4);
-				setState(382);
-				expr();
+				match(T__1);
+				}
+				break;
+			case F_TETO:
+				_localctx = new FuncaoTetoContext(_localctx);
+				enterOuterAlt(_localctx, 8);
+				{
 				setState(383);
+				match(F_TETO);
+				setState(384);
+				match(T__0);
+				setState(385);
+				expr();
+				setState(386);
+				match(T__1);
+				}
+				break;
+			case F_ARRE:
+				_localctx = new FuncaoArredondarContext(_localctx);
+				enterOuterAlt(_localctx, 9);
+				{
+				setState(388);
+				match(F_ARRE);
+				setState(389);
+				match(T__0);
+				setState(395);
+				_errHandler.sync(this);
+				switch ( getInterpreter().adaptivePredict(_input,32,_ctx) ) {
+				case 1:
+					{
+					setState(390);
+					expr();
+					}
+					break;
+				case 2:
+					{
+					setState(391);
+					expr();
+					setState(392);
+					match(T__4);
+					setState(393);
+					expr();
+					}
+					break;
+				}
+				setState(397);
+				match(T__1);
+				}
+				break;
+			case F_MINI:
+				_localctx = new FuncaoMinimoContext(_localctx);
+				enterOuterAlt(_localctx, 10);
+				{
+				setState(399);
+				match(F_MINI);
+				setState(400);
+				match(T__0);
+				setState(401);
+				expr();
+				setState(402);
+				match(T__4);
+				setState(403);
+				expr();
+				setState(404);
+				match(T__1);
+				}
+				break;
+			case F_MAXI:
+				_localctx = new FuncaoMaximoContext(_localctx);
+				enterOuterAlt(_localctx, 11);
+				{
+				setState(406);
+				match(F_MAXI);
+				setState(407);
+				match(T__0);
+				setState(408);
+				expr();
+				setState(409);
+				match(T__4);
+				setState(410);
+				expr();
+				setState(411);
 				match(T__1);
 				}
 				break;
@@ -3599,31 +3940,31 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoNumeroAleatorioContext(_localctx);
 				enterOuterAlt(_localctx, 12);
 				{
-				setState(385);
+				setState(413);
 				match(F_NUMA);
-				setState(386);
+				setState(414);
 				match(T__0);
-				setState(392);
+				setState(420);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,30,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,33,_ctx) ) {
 				case 1:
 					{
-					setState(387);
+					setState(415);
 					expr();
 					}
 					break;
 				case 2:
 					{
-					setState(388);
+					setState(416);
 					expr();
-					setState(389);
+					setState(417);
 					match(T__4);
-					setState(390);
+					setState(418);
 					expr();
 					}
 					break;
 				}
-				setState(394);
+				setState(422);
 				match(T__1);
 				}
 				break;
@@ -3631,13 +3972,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoDefinirSementeAleatoriaContext(_localctx);
 				enterOuterAlt(_localctx, 13);
 				{
-				setState(395);
+				setState(423);
 				match(F_SEME);
-				setState(396);
+				setState(424);
 				match(T__0);
-				setState(397);
+				setState(425);
 				expr();
-				setState(398);
+				setState(426);
 				match(T__1);
 				}
 				break;
@@ -3645,13 +3986,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoSenoContext(_localctx);
 				enterOuterAlt(_localctx, 14);
 				{
-				setState(400);
+				setState(428);
 				match(F_SENO);
-				setState(401);
+				setState(429);
 				match(T__0);
-				setState(402);
+				setState(430);
 				expr();
-				setState(403);
+				setState(431);
 				match(T__1);
 				}
 				break;
@@ -3659,13 +4000,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoCossenoContext(_localctx);
 				enterOuterAlt(_localctx, 15);
 				{
-				setState(405);
+				setState(433);
 				match(F_COSS);
-				setState(406);
+				setState(434);
 				match(T__0);
-				setState(407);
+				setState(435);
 				expr();
-				setState(408);
+				setState(436);
 				match(T__1);
 				}
 				break;
@@ -3673,13 +4014,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoTangenteContext(_localctx);
 				enterOuterAlt(_localctx, 16);
 				{
-				setState(410);
+				setState(438);
 				match(F_TANG);
-				setState(411);
+				setState(439);
 				match(T__0);
-				setState(412);
+				setState(440);
 				expr();
-				setState(413);
+				setState(441);
 				match(T__1);
 				}
 				break;
@@ -3687,13 +4028,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoArcoSenoContext(_localctx);
 				enterOuterAlt(_localctx, 17);
 				{
-				setState(415);
+				setState(443);
 				match(F_ASEN);
-				setState(416);
+				setState(444);
 				match(T__0);
-				setState(417);
+				setState(445);
 				expr();
-				setState(418);
+				setState(446);
 				match(T__1);
 				}
 				break;
@@ -3701,13 +4042,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoArcoCossenoContext(_localctx);
 				enterOuterAlt(_localctx, 18);
 				{
-				setState(420);
+				setState(448);
 				match(F_ACOS);
-				setState(421);
+				setState(449);
 				match(T__0);
-				setState(422);
+				setState(450);
 				expr();
-				setState(423);
+				setState(451);
 				match(T__1);
 				}
 				break;
@@ -3715,13 +4056,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoArcoTangenteContext(_localctx);
 				enterOuterAlt(_localctx, 19);
 				{
-				setState(425);
+				setState(453);
 				match(F_ATAN);
-				setState(426);
+				setState(454);
 				match(T__0);
-				setState(427);
+				setState(455);
 				expr();
-				setState(428);
+				setState(456);
 				match(T__1);
 				}
 				break;
@@ -3729,17 +4070,17 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoCartesianoParaPolarContext(_localctx);
 				enterOuterAlt(_localctx, 20);
 				{
-				setState(430);
+				setState(458);
 				match(F_CAPO);
-				setState(431);
+				setState(459);
 				match(T__0);
-				setState(432);
+				setState(460);
 				expr();
-				setState(433);
+				setState(461);
 				match(T__4);
-				setState(434);
+				setState(462);
 				expr();
-				setState(435);
+				setState(463);
 				match(T__1);
 				}
 				break;
@@ -3747,13 +4088,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoSenoHiperbolicoContext(_localctx);
 				enterOuterAlt(_localctx, 21);
 				{
-				setState(437);
+				setState(465);
 				match(F_SENH);
-				setState(438);
+				setState(466);
 				match(T__0);
-				setState(439);
+				setState(467);
 				expr();
-				setState(440);
+				setState(468);
 				match(T__1);
 				}
 				break;
@@ -3761,13 +4102,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoCossenoHiperbolicoContext(_localctx);
 				enterOuterAlt(_localctx, 22);
 				{
-				setState(442);
+				setState(470);
 				match(F_COSH);
-				setState(443);
+				setState(471);
 				match(T__0);
-				setState(444);
+				setState(472);
 				expr();
-				setState(445);
+				setState(473);
 				match(T__1);
 				}
 				break;
@@ -3775,13 +4116,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoTangenteHiperbolicaContext(_localctx);
 				enterOuterAlt(_localctx, 23);
 				{
-				setState(447);
+				setState(475);
 				match(F_TANH);
-				setState(448);
+				setState(476);
 				match(T__0);
-				setState(449);
+				setState(477);
 				expr();
-				setState(450);
+				setState(478);
 				match(T__1);
 				}
 				break;
@@ -3789,31 +4130,31 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoLogaritmoContext(_localctx);
 				enterOuterAlt(_localctx, 24);
 				{
-				setState(452);
+				setState(480);
 				match(F_LOGA);
-				setState(453);
+				setState(481);
 				match(T__0);
-				setState(459);
+				setState(487);
 				_errHandler.sync(this);
-				switch ( getInterpreter().adaptivePredict(_input,31,_ctx) ) {
+				switch ( getInterpreter().adaptivePredict(_input,34,_ctx) ) {
 				case 1:
 					{
-					setState(454);
+					setState(482);
 					expr();
 					}
 					break;
 				case 2:
 					{
-					setState(455);
+					setState(483);
 					expr();
-					setState(456);
+					setState(484);
 					match(T__4);
-					setState(457);
+					setState(485);
 					expr();
 					}
 					break;
 				}
-				setState(461);
+				setState(489);
 				match(T__1);
 				}
 				break;
@@ -3821,13 +4162,13 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoGrausParaRadianosContext(_localctx);
 				enterOuterAlt(_localctx, 25);
 				{
-				setState(463);
+				setState(491);
 				match(F_GRRA);
-				setState(464);
+				setState(492);
 				match(T__0);
-				setState(465);
+				setState(493);
 				expr();
-				setState(466);
+				setState(494);
 				match(T__1);
 				}
 				break;
@@ -3835,13 +4176,41 @@ public class AuroraLogoParser extends Parser {
 				_localctx = new FuncaoRadianosParaGrausContext(_localctx);
 				enterOuterAlt(_localctx, 26);
 				{
-				setState(468);
+				setState(496);
 				match(F_RAGR);
-				setState(469);
+				setState(497);
 				match(T__0);
-				setState(470);
+				setState(498);
 				expr();
-				setState(471);
+				setState(499);
+				match(T__1);
+				}
+				break;
+			case F_INC:
+				_localctx = new FuncaoIncrementarContext(_localctx);
+				enterOuterAlt(_localctx, 27);
+				{
+				setState(501);
+				match(F_INC);
+				setState(502);
+				match(T__0);
+				setState(503);
+				match(ID);
+				setState(504);
+				match(T__1);
+				}
+				break;
+			case F_DCM:
+				_localctx = new FuncaoDecrementarContext(_localctx);
+				enterOuterAlt(_localctx, 28);
+				{
+				setState(505);
+				match(F_DCM);
+				setState(506);
+				match(T__0);
+				setState(507);
+				match(ID);
+				setState(508);
 				match(T__1);
 				}
 				break;
@@ -3861,322 +4230,352 @@ public class AuroraLogoParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001~\u01dc\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001\u0002"+
-		"\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004\u0002"+
-		"\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007\u0002"+
-		"\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b\u0002"+
-		"\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007\u000f"+
-		"\u0002\u0010\u0007\u0010\u0002\u0011\u0007\u0011\u0002\u0012\u0007\u0012"+
-		"\u0002\u0013\u0007\u0013\u0002\u0014\u0007\u0014\u0002\u0015\u0007\u0015"+
-		"\u0002\u0016\u0007\u0016\u0002\u0017\u0007\u0017\u0002\u0018\u0007\u0018"+
-		"\u0002\u0019\u0007\u0019\u0002\u001a\u0007\u001a\u0002\u001b\u0007\u001b"+
-		"\u0002\u001c\u0007\u001c\u0002\u001d\u0007\u001d\u0002\u001e\u0007\u001e"+
-		"\u0002\u001f\u0007\u001f\u0002 \u0007 \u0001\u0000\u0004\u0000D\b\u0000"+
-		"\u000b\u0000\f\u0000E\u0001\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
-		"\u0001\u0001\u0001\u0001\u0003\u0001N\b\u0001\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002"+
-		"\u0001\u0002\u0003\u0002_\b\u0002\u0001\u0003\u0001\u0003\u0001\u0003"+
-		"\u0005\u0003d\b\u0003\n\u0003\f\u0003g\t\u0003\u0001\u0004\u0001\u0004"+
-		"\u0001\u0004\u0003\u0004l\b\u0004\u0001\u0005\u0003\u0005o\b\u0005\u0001"+
-		"\u0005\u0001\u0005\u0001\u0005\u0005\u0005t\b\u0005\n\u0005\f\u0005w\t"+
-		"\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001"+
-		"\u0006\u0001\u0006\u0001\u0006\u0003\u0006\u0081\b\u0006\u0001\u0006\u0005"+
-		"\u0006\u0084\b\u0006\n\u0006\f\u0006\u0087\t\u0006\u0001\u0007\u0001\u0007"+
-		"\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0003\u0007"+
-		"\u0090\b\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007"+
-		"\u0001\u0007\u0001\u0007\u0003\u0007\u0099\b\u0007\u0001\b\u0001\b\u0001"+
-		"\t\u0001\t\u0001\n\u0001\n\u0001\n\u0001\n\u0001\u000b\u0001\u000b\u0001"+
-		"\u000b\u0001\u000b\u0001\u000b\u0004\u000b\u00a8\b\u000b\u000b\u000b\f"+
-		"\u000b\u00a9\u0001\u000b\u0001\u000b\u0001\f\u0005\f\u00af\b\f\n\f\f\f"+
-		"\u00b2\t\f\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0004\r\u00ba"+
+		"\u0004\u0001\u0090\u0200\u0002\u0000\u0007\u0000\u0002\u0001\u0007\u0001"+
+		"\u0002\u0002\u0007\u0002\u0002\u0003\u0007\u0003\u0002\u0004\u0007\u0004"+
+		"\u0002\u0005\u0007\u0005\u0002\u0006\u0007\u0006\u0002\u0007\u0007\u0007"+
+		"\u0002\b\u0007\b\u0002\t\u0007\t\u0002\n\u0007\n\u0002\u000b\u0007\u000b"+
+		"\u0002\f\u0007\f\u0002\r\u0007\r\u0002\u000e\u0007\u000e\u0002\u000f\u0007"+
+		"\u000f\u0002\u0010\u0007\u0010\u0002\u0011\u0007\u0011\u0002\u0012\u0007"+
+		"\u0012\u0002\u0013\u0007\u0013\u0002\u0014\u0007\u0014\u0002\u0015\u0007"+
+		"\u0015\u0002\u0016\u0007\u0016\u0002\u0017\u0007\u0017\u0002\u0018\u0007"+
+		"\u0018\u0002\u0019\u0007\u0019\u0002\u001a\u0007\u001a\u0002\u001b\u0007"+
+		"\u001b\u0002\u001c\u0007\u001c\u0002\u001d\u0007\u001d\u0002\u001e\u0007"+
+		"\u001e\u0002\u001f\u0007\u001f\u0002 \u0007 \u0001\u0000\u0004\u0000D"+
+		"\b\u0000\u000b\u0000\f\u0000E\u0001\u0001\u0001\u0001\u0001\u0001\u0001"+
+		"\u0001\u0001\u0001\u0001\u0001\u0003\u0001N\b\u0001\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001\u0002\u0001"+
+		"\u0002\u0001\u0002\u0003\u0002_\b\u0002\u0001\u0003\u0001\u0003\u0001"+
+		"\u0003\u0005\u0003d\b\u0003\n\u0003\f\u0003g\t\u0003\u0001\u0004\u0001"+
+		"\u0004\u0001\u0004\u0003\u0004l\b\u0004\u0001\u0005\u0003\u0005o\b\u0005"+
+		"\u0001\u0005\u0001\u0005\u0001\u0005\u0005\u0005t\b\u0005\n\u0005\f\u0005"+
+		"w\t\u0005\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006\u0001\u0006"+
+		"\u0001\u0006\u0001\u0006\u0001\u0006\u0003\u0006\u0081\b\u0006\u0001\u0006"+
+		"\u0005\u0006\u0084\b\u0006\n\u0006\f\u0006\u0087\t\u0006\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0003"+
+		"\u0007\u0090\b\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001\u0007\u0001"+
+		"\u0007\u0001\u0007\u0001\u0007\u0003\u0007\u0099\b\u0007\u0001\b\u0001"+
+		"\b\u0001\t\u0001\t\u0001\n\u0001\n\u0001\n\u0001\n\u0001\u000b\u0001\u000b"+
+		"\u0001\u000b\u0001\u000b\u0001\u000b\u0004\u000b\u00a8\b\u000b\u000b\u000b"+
+		"\f\u000b\u00a9\u0001\u000b\u0001\u000b\u0001\f\u0005\f\u00af\b\f\n\f\f"+
+		"\f\u00b2\t\f\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0001\r\u0004\r\u00ba"+
 		"\b\r\u000b\r\f\r\u00bb\u0001\r\u0001\r\u0001\u000e\u0001\u000e\u0001\u000e"+
 		"\u0004\u000e\u00c3\b\u000e\u000b\u000e\f\u000e\u00c4\u0001\u000e\u0001"+
 		"\u000e\u0003\u000e\u00c9\b\u000e\u0001\u000f\u0001\u000f\u0001\u000f\u0001"+
 		"\u000f\u0001\u000f\u0004\u000f\u00d0\b\u000f\u000b\u000f\f\u000f\u00d1"+
 		"\u0001\u000f\u0001\u000f\u0001\u0010\u0001\u0010\u0003\u0010\u00d8\b\u0010"+
-		"\u0001\u0010\u0001\u0010\u0001\u0010\u0004\u0010\u00dd\b\u0010\u000b\u0010"+
-		"\f\u0010\u00de\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0001\u0012"+
-		"\u0001\u0012\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013"+
-		"\u0003\u0013\u00ec\b\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013"+
-		"\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0003\u0013\u00f6\b\u0013"+
-		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014"+
-		"\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0003\u0014\u0102\b\u0014"+
-		"\u0001\u0015\u0001\u0015\u0003\u0015\u0106\b\u0015\u0001\u0015\u0001\u0015"+
-		"\u0001\u0015\u0003\u0015\u010b\b\u0015\u0001\u0015\u0003\u0015\u010e\b"+
-		"\u0015\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0003"+
-		"\u0016\u0115\b\u0016\u0001\u0017\u0001\u0017\u0001\u0017\u0003\u0017\u011a"+
-		"\b\u0017\u0001\u0018\u0001\u0018\u0001\u0018\u0003\u0018\u011f\b\u0018"+
-		"\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u001a"+
-		"\u0001\u001a\u0001\u001a\u0001\u001a\u0003\u001a\u012a\b\u001a\u0001\u001b"+
-		"\u0001\u001b\u0001\u001b\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c"+
-		"\u0001\u001d\u0001\u001d\u0001\u001d\u0001\u001e\u0001\u001e\u0001\u001e"+
-		"\u0001\u001f\u0001\u001f\u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
+		"\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0003\u0010"+
+		"\u00df\b\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0001\u0010\u0003\u0010"+
+		"\u00e5\b\u0010\u0001\u0010\u0001\u0010\u0004\u0010\u00e9\b\u0010\u000b"+
+		"\u0010\f\u0010\u00ea\u0001\u0010\u0001\u0010\u0001\u0011\u0001\u0011\u0001"+
+		"\u0012\u0001\u0012\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001"+
+		"\u0013\u0003\u0013\u00f8\b\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001"+
+		"\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0001\u0013\u0003\u0013\u0102"+
+		"\b\u0013\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001"+
+		"\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0001\u0014\u0003\u0014\u010e"+
+		"\b\u0014\u0001\u0015\u0001\u0015\u0003\u0015\u0112\b\u0015\u0001\u0015"+
+		"\u0001\u0015\u0001\u0015\u0003\u0015\u0117\b\u0015\u0001\u0015\u0003\u0015"+
+		"\u011a\b\u0015\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016\u0001\u0016"+
+		"\u0003\u0016\u0121\b\u0016\u0001\u0017\u0001\u0017\u0001\u0017\u0003\u0017"+
+		"\u0126\b\u0017\u0001\u0018\u0001\u0018\u0001\u0018\u0003\u0018\u012b\b"+
+		"\u0018\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019\u0001\u0019\u0001"+
+		"\u001a\u0001\u001a\u0001\u001a\u0001\u001a\u0003\u001a\u0136\b\u001a\u0001"+
+		"\u001b\u0001\u001b\u0001\u001b\u0001\u001c\u0001\u001c\u0001\u001c\u0001"+
+		"\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001"+
+		"\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001\u001c\u0001"+
+		"\u001c\u0001\u001c\u0001\u001c\u0003\u001c\u014d\b\u001c\u0001\u001d\u0001"+
+		"\u001d\u0001\u001d\u0001\u001e\u0001\u001e\u0001\u001e\u0001\u001f\u0001"+
+		"\u001f\u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 "+
+		"\u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
+		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
+		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
+		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
+		" \u0001 \u0001 \u0001 \u0001 \u0003 \u018c\b \u0001 \u0001 \u0001 \u0001"+
+		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
+		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0003"+
+		" \u01a5\b \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
 		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
 		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
 		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
 		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0003 \u0170\b \u0001 \u0001"+
 		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
+		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0003 \u01e8\b \u0001 \u0001"+
 		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0003 \u0189\b \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0003 \u01cc"+
-		"\b \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001"+
-		" \u0001 \u0001 \u0003 \u01da\b \u0001 \u0000\u0000!\u0000\u0002\u0004"+
-		"\u0006\b\n\f\u000e\u0010\u0012\u0014\u0016\u0018\u001a\u001c\u001e \""+
-		"$&(*,.02468:<>@\u0000\n\u0001\u0000or\u0001\u0000]n\u0001\u0000SV\u0001"+
-		"\u0000st\u0001\u0000()\u0001\u0000#$\u0001\u0000\u000b\u000e\u0001\u0000"+
-		"*4\u0001\u000056\u0001\u0000QR\u020e\u0000C\u0001\u0000\u0000\u0000\u0002"+
-		"M\u0001\u0000\u0000\u0000\u0004^\u0001\u0000\u0000\u0000\u0006`\u0001"+
-		"\u0000\u0000\u0000\bh\u0001\u0000\u0000\u0000\nn\u0001\u0000\u0000\u0000"+
-		"\fx\u0001\u0000\u0000\u0000\u000e\u0098\u0001\u0000\u0000\u0000\u0010"+
-		"\u009a\u0001\u0000\u0000\u0000\u0012\u009c\u0001\u0000\u0000\u0000\u0014"+
-		"\u009e\u0001\u0000\u0000\u0000\u0016\u00a2\u0001\u0000\u0000\u0000\u0018"+
-		"\u00b0\u0001\u0000\u0000\u0000\u001a\u00b3\u0001\u0000\u0000\u0000\u001c"+
-		"\u00c8\u0001\u0000\u0000\u0000\u001e\u00ca\u0001\u0000\u0000\u0000 \u00d7"+
-		"\u0001\u0000\u0000\u0000\"\u00e2\u0001\u0000\u0000\u0000$\u00e4\u0001"+
-		"\u0000\u0000\u0000&\u00f5\u0001\u0000\u0000\u0000(\u0101\u0001\u0000\u0000"+
-		"\u0000*\u0105\u0001\u0000\u0000\u0000,\u010f\u0001\u0000\u0000\u0000."+
-		"\u0116\u0001\u0000\u0000\u00000\u011b\u0001\u0000\u0000\u00002\u0120\u0001"+
-		"\u0000\u0000\u00004\u0125\u0001\u0000\u0000\u00006\u012b\u0001\u0000\u0000"+
-		"\u00008\u012e\u0001\u0000\u0000\u0000:\u0132\u0001\u0000\u0000\u0000<"+
-		"\u0135\u0001\u0000\u0000\u0000>\u0138\u0001\u0000\u0000\u0000@\u01d9\u0001"+
-		"\u0000\u0000\u0000BD\u0003\u0002\u0001\u0000CB\u0001\u0000\u0000\u0000"+
-		"DE\u0001\u0000\u0000\u0000EC\u0001\u0000\u0000\u0000EF\u0001\u0000\u0000"+
-		"\u0000F\u0001\u0001\u0000\u0000\u0000GH\u0003\u0004\u0002\u0000HI\u0005"+
-		"u\u0000\u0000IN\u0001\u0000\u0000\u0000JN\u0003\u0014\n\u0000KN\u0003"+
-		"\u001e\u000f\u0000LN\u0003 \u0010\u0000MG\u0001\u0000\u0000\u0000MJ\u0001"+
-		"\u0000\u0000\u0000MK\u0001\u0000\u0000\u0000ML\u0001\u0000\u0000\u0000"+
-		"N\u0003\u0001\u0000\u0000\u0000O_\u0003&\u0013\u0000P_\u0003(\u0014\u0000"+
-		"Q_\u0003,\u0016\u0000R_\u0003.\u0017\u0000S_\u00030\u0018\u0000T_\u0003"+
-		"2\u0019\u0000U_\u00034\u001a\u0000V_\u00036\u001b\u0000W_\u00038\u001c"+
-		"\u0000X_\u0003:\u001d\u0000Y_\u0003<\u001e\u0000Z_\u0003>\u001f\u0000"+
-		"[_\u0003\u0006\u0003\u0000\\_\u0003\"\u0011\u0000]_\u0003$\u0012\u0000"+
-		"^O\u0001\u0000\u0000\u0000^P\u0001\u0000\u0000\u0000^Q\u0001\u0000\u0000"+
-		"\u0000^R\u0001\u0000\u0000\u0000^S\u0001\u0000\u0000\u0000^T\u0001\u0000"+
-		"\u0000\u0000^U\u0001\u0000\u0000\u0000^V\u0001\u0000\u0000\u0000^W\u0001"+
-		"\u0000\u0000\u0000^X\u0001\u0000\u0000\u0000^Y\u0001\u0000\u0000\u0000"+
-		"^Z\u0001\u0000\u0000\u0000^[\u0001\u0000\u0000\u0000^\\\u0001\u0000\u0000"+
-		"\u0000^]\u0001\u0000\u0000\u0000_\u0005\u0001\u0000\u0000\u0000`e\u0003"+
-		"\b\u0004\u0000ab\u0007\u0000\u0000\u0000bd\u0003\b\u0004\u0000ca\u0001"+
-		"\u0000\u0000\u0000dg\u0001\u0000\u0000\u0000ec\u0001\u0000\u0000\u0000"+
-		"ef\u0001\u0000\u0000\u0000f\u0007\u0001\u0000\u0000\u0000ge\u0001\u0000"+
-		"\u0000\u0000hk\u0003\n\u0005\u0000ij\u0007\u0001\u0000\u0000jl\u0003\n"+
-		"\u0005\u0000ki\u0001\u0000\u0000\u0000kl\u0001\u0000\u0000\u0000l\t\u0001"+
-		"\u0000\u0000\u0000mo\u0007\u0002\u0000\u0000nm\u0001\u0000\u0000\u0000"+
-		"no\u0001\u0000\u0000\u0000op\u0001\u0000\u0000\u0000pu\u0003\f\u0006\u0000"+
-		"qr\u0007\u0002\u0000\u0000rt\u0003\f\u0006\u0000sq\u0001\u0000\u0000\u0000"+
-		"tw\u0001\u0000\u0000\u0000us\u0001\u0000\u0000\u0000uv\u0001\u0000\u0000"+
-		"\u0000v\u000b\u0001\u0000\u0000\u0000wu\u0001\u0000\u0000\u0000x\u0085"+
-		"\u0003\u000e\u0007\u0000y\u0081\u0005W\u0000\u0000z\u0081\u0005$\u0000"+
-		"\u0000{\u0081\u0005X\u0000\u0000|}\u0005Y\u0000\u0000}\u0081\u0005Z\u0000"+
-		"\u0000~\u0081\u0005[\u0000\u0000\u007f\u0081\u0005\\\u0000\u0000\u0080"+
-		"y\u0001\u0000\u0000\u0000\u0080z\u0001\u0000\u0000\u0000\u0080{\u0001"+
-		"\u0000\u0000\u0000\u0080|\u0001\u0000\u0000\u0000\u0080~\u0001\u0000\u0000"+
-		"\u0000\u0080\u007f\u0001\u0000\u0000\u0000\u0081\u0082\u0001\u0000\u0000"+
-		"\u0000\u0082\u0084\u0003\u000e\u0007\u0000\u0083\u0080\u0001\u0000\u0000"+
-		"\u0000\u0084\u0087\u0001\u0000\u0000\u0000\u0085\u0083\u0001\u0000\u0000"+
-		"\u0000\u0085\u0086\u0001\u0000\u0000\u0000\u0086\r\u0001\u0000\u0000\u0000"+
-		"\u0087\u0085\u0001\u0000\u0000\u0000\u0088\u0089\u0007\u0003\u0000\u0000"+
-		"\u0089\u0099\u0003\u000e\u0007\u0000\u008a\u0099\u0005w\u0000\u0000\u008b"+
-		"\u0099\u0005x\u0000\u0000\u008c\u0099\u0005\'\u0000\u0000\u008d\u0090"+
-		"\u0003\u0012\t\u0000\u008e\u0090\u0005v\u0000\u0000\u008f\u008d\u0001"+
-		"\u0000\u0000\u0000\u008f\u008e\u0001\u0000\u0000\u0000\u0090\u0099\u0001"+
-		"\u0000\u0000\u0000\u0091\u0099\u0005z\u0000\u0000\u0092\u0099\u0005{\u0000"+
-		"\u0000\u0093\u0099\u0003@ \u0000\u0094\u0095\u0005\u0001\u0000\u0000\u0095"+
-		"\u0096\u0003\u0006\u0003\u0000\u0096\u0097\u0005\u0002\u0000\u0000\u0097"+
-		"\u0099\u0001\u0000\u0000\u0000\u0098\u0088\u0001\u0000\u0000\u0000\u0098"+
-		"\u008a\u0001\u0000\u0000\u0000\u0098\u008b\u0001\u0000\u0000\u0000\u0098"+
-		"\u008c\u0001\u0000\u0000\u0000\u0098\u008f\u0001\u0000\u0000\u0000\u0098"+
-		"\u0091\u0001\u0000\u0000\u0000\u0098\u0092\u0001\u0000\u0000\u0000\u0098"+
-		"\u0093\u0001\u0000\u0000\u0000\u0098\u0094\u0001\u0000\u0000\u0000\u0099"+
-		"\u000f\u0001\u0000\u0000\u0000\u009a\u009b\u0003\u0006\u0003\u0000\u009b"+
-		"\u0011\u0001\u0000\u0000\u0000\u009c\u009d\u0007\u0004\u0000\u0000\u009d"+
-		"\u0013\u0001\u0000\u0000\u0000\u009e\u009f\u0003\u0016\u000b\u0000\u009f"+
-		"\u00a0\u0003\u0018\f\u0000\u00a0\u00a1\u0003\u001c\u000e\u0000\u00a1\u0015"+
-		"\u0001\u0000\u0000\u0000\u00a2\u00a3\u0005\u001e\u0000\u0000\u00a3\u00a4"+
-		"\u0003\u0010\b\u0000\u00a4\u00a5\u0005\u001f\u0000\u0000\u00a5\u00a7\u0005"+
-		"\u0003\u0000\u0000\u00a6\u00a8\u0003\u0002\u0001\u0000\u00a7\u00a6\u0001"+
-		"\u0000\u0000\u0000\u00a8\u00a9\u0001\u0000\u0000\u0000\u00a9\u00a7\u0001"+
-		"\u0000\u0000\u0000\u00a9\u00aa\u0001\u0000\u0000\u0000\u00aa\u00ab\u0001"+
-		"\u0000\u0000\u0000\u00ab\u00ac\u0005\u0004\u0000\u0000\u00ac\u0017\u0001"+
-		"\u0000\u0000\u0000\u00ad\u00af\u0003\u001a\r\u0000\u00ae\u00ad\u0001\u0000"+
-		"\u0000\u0000\u00af\u00b2\u0001\u0000\u0000\u0000\u00b0\u00ae\u0001\u0000"+
-		"\u0000\u0000\u00b0\u00b1\u0001\u0000\u0000\u0000\u00b1\u0019\u0001\u0000"+
-		"\u0000\u0000\u00b2\u00b0\u0001\u0000\u0000\u0000\u00b3\u00b4\u0005 \u0000"+
-		"\u0000\u00b4\u00b5\u0005\u001e\u0000\u0000\u00b5\u00b6\u0003\u0010\b\u0000"+
-		"\u00b6\u00b7\u0005\u001f\u0000\u0000\u00b7\u00b9\u0005\u0003\u0000\u0000"+
-		"\u00b8\u00ba\u0003\u0002\u0001\u0000\u00b9\u00b8\u0001\u0000\u0000\u0000"+
-		"\u00ba\u00bb\u0001\u0000\u0000\u0000\u00bb\u00b9\u0001\u0000\u0000\u0000"+
-		"\u00bb\u00bc\u0001\u0000\u0000\u0000\u00bc\u00bd\u0001\u0000\u0000\u0000"+
-		"\u00bd\u00be\u0005\u0004\u0000\u0000\u00be\u001b\u0001\u0000\u0000\u0000"+
-		"\u00bf\u00c0\u0005 \u0000\u0000\u00c0\u00c2\u0005\u0003\u0000\u0000\u00c1"+
-		"\u00c3\u0003\u0002\u0001\u0000\u00c2\u00c1\u0001\u0000\u0000\u0000\u00c3"+
-		"\u00c4\u0001\u0000\u0000\u0000\u00c4\u00c2\u0001\u0000\u0000\u0000\u00c4"+
-		"\u00c5\u0001\u0000\u0000\u0000\u00c5\u00c6\u0001\u0000\u0000\u0000\u00c6"+
-		"\u00c7\u0005\u0004\u0000\u0000\u00c7\u00c9\u0001\u0000\u0000\u0000\u00c8"+
-		"\u00bf\u0001\u0000\u0000\u0000\u00c8\u00c9\u0001\u0000\u0000\u0000\u00c9"+
-		"\u001d\u0001\u0000\u0000\u0000\u00ca\u00cb\u0005\"\u0000\u0000\u00cb\u00cc"+
-		"\u0003\u0006\u0003\u0000\u00cc\u00cd\u0007\u0005\u0000\u0000\u00cd\u00cf"+
-		"\u0005\u0003\u0000\u0000\u00ce\u00d0\u0003\u0002\u0001\u0000\u00cf\u00ce"+
-		"\u0001\u0000\u0000\u0000\u00d0\u00d1\u0001\u0000\u0000\u0000\u00d1\u00cf"+
-		"\u0001\u0000\u0000\u0000\u00d1\u00d2\u0001\u0000\u0000\u0000\u00d2\u00d3"+
-		"\u0001\u0000\u0000\u0000\u00d3\u00d4\u0005\u0004\u0000\u0000\u00d4\u001f"+
-		"\u0001\u0000\u0000\u0000\u00d5\u00d6\u0005!\u0000\u0000\u00d6\u00d8\u0003"+
-		"\u0010\b\u0000\u00d7\u00d5\u0001\u0000\u0000\u0000\u00d7\u00d8\u0001\u0000"+
-		"\u0000\u0000\u00d8\u00d9\u0001\u0000\u0000\u0000\u00d9\u00da\u0005\"\u0000"+
-		"\u0000\u00da\u00dc\u0005\u0003\u0000\u0000\u00db\u00dd\u0003\u0002\u0001"+
-		"\u0000\u00dc\u00db\u0001\u0000\u0000\u0000\u00dd\u00de\u0001\u0000\u0000"+
-		"\u0000\u00de\u00dc\u0001\u0000\u0000\u0000\u00de\u00df\u0001\u0000\u0000"+
-		"\u0000\u00df\u00e0\u0001\u0000\u0000\u0000\u00e0\u00e1\u0005\u0004\u0000"+
-		"\u0000\u00e1!\u0001\u0000\u0000\u0000\u00e2\u00e3\u0005\b\u0000\u0000"+
-		"\u00e3#\u0001\u0000\u0000\u0000\u00e4\u00e5\u0005\t\u0000\u0000\u00e5"+
-		"%\u0001\u0000\u0000\u0000\u00e6\u00e7\u0005\u0006\u0000\u0000\u00e7\u00e8"+
-		"\u0005\u0007\u0000\u0000\u00e8\u00eb\u0007\u0006\u0000\u0000\u00e9\u00ea"+
-		"\u0005\n\u0000\u0000\u00ea\u00ec\u0003\u0006\u0003\u0000\u00eb\u00e9\u0001"+
-		"\u0000\u0000\u0000\u00eb\u00ec\u0001\u0000\u0000\u0000\u00ec\u00f6\u0001"+
-		"\u0000\u0000\u0000\u00ed\u00ee\u0005\u0006\u0000\u0000\u00ee\u00ef\u0005"+
-		"\u0007\u0000\u0000\u00ef\u00f0\u0005\u0001\u0000\u0000\u00f0\u00f1\u0003"+
-		"\u0006\u0003\u0000\u00f1\u00f2\u0005\u0005\u0000\u0000\u00f2\u00f3\u0003"+
-		"\u0006\u0003\u0000\u00f3\u00f4\u0005\u0002\u0000\u0000\u00f4\u00f6\u0001"+
-		"\u0000\u0000\u0000\u00f5\u00e6\u0001\u0000\u0000\u0000\u00f5\u00ed\u0001"+
-		"\u0000\u0000\u0000\u00f6\'\u0001\u0000\u0000\u0000\u00f7\u00f8\u0005\u000f"+
-		"\u0000\u0000\u00f8\u00f9\u0005\u0010\u0000\u0000\u00f9\u00fa\u0005\u0007"+
-		"\u0000\u0000\u00fa\u0102\u0003*\u0015\u0000\u00fb\u00fc\u0005\u000f\u0000"+
-		"\u0000\u00fc\u00fd\u0005\u0010\u0000\u0000\u00fd\u00fe\u0005\u0011\u0000"+
-		"\u0000\u00fe\u00ff\u0005\u0012\u0000\u0000\u00ff\u0100\u0005\u0007\u0000"+
-		"\u0000\u0100\u0102\u0003*\u0015\u0000\u0101\u00f7\u0001\u0000\u0000\u0000"+
-		"\u0101\u00fb\u0001\u0000\u0000\u0000\u0102)\u0001\u0000\u0000\u0000\u0103"+
-		"\u0106\u0005y\u0000\u0000\u0104\u0106\u0007\u0007\u0000\u0000\u0105\u0103"+
-		"\u0001\u0000\u0000\u0000\u0105\u0104\u0001\u0000\u0000\u0000\u0106\u010d"+
-		"\u0001\u0000\u0000\u0000\u0107\u0108\u0003\u0006\u0003\u0000\u0108\u0109"+
-		"\u0007\u0005\u0000\u0000\u0109\u010b\u0001\u0000\u0000\u0000\u010a\u0107"+
-		"\u0001\u0000\u0000\u0000\u010a\u010b\u0001\u0000\u0000\u0000\u010b\u010c"+
-		"\u0001\u0000\u0000\u0000\u010c\u010e\u0007\b\u0000\u0000\u010d\u010a\u0001"+
-		"\u0000\u0000\u0000\u010d\u010e\u0001\u0000\u0000\u0000\u010e+\u0001\u0000"+
-		"\u0000\u0000\u010f\u0114\u0005\u0013\u0000\u0000\u0110\u0111\u0005\n\u0000"+
-		"\u0000\u0111\u0112\u0003\u0006\u0003\u0000\u0112\u0113\u0005\u0014\u0000"+
-		"\u0000\u0113\u0115\u0001\u0000\u0000\u0000\u0114\u0110\u0001\u0000\u0000"+
-		"\u0000\u0114\u0115\u0001\u0000\u0000\u0000\u0115-\u0001\u0000\u0000\u0000"+
-		"\u0116\u0119\u0005\u0015\u0000\u0000\u0117\u0118\u0005\n\u0000\u0000\u0118"+
-		"\u011a\u0003\u0006\u0003\u0000\u0119\u0117\u0001\u0000\u0000\u0000\u0119"+
-		"\u011a\u0001\u0000\u0000\u0000\u011a/\u0001\u0000\u0000\u0000\u011b\u011e"+
-		"\u0005\u0016\u0000\u0000\u011c\u011d\u0005\n\u0000\u0000\u011d\u011f\u0003"+
-		"\u0006\u0003\u0000\u011e\u011c\u0001\u0000\u0000\u0000\u011e\u011f\u0001"+
-		"\u0000\u0000\u0000\u011f1\u0001\u0000\u0000\u0000\u0120\u0121\u0005\u000f"+
-		"\u0000\u0000\u0121\u0122\u0005\u0017\u0000\u0000\u0122\u0123\u0005\u0007"+
-		"\u0000\u0000\u0123\u0124\u0003\u0006\u0003\u0000\u01243\u0001\u0000\u0000"+
-		"\u0000\u0125\u0126\u0005\u0018\u0000\u0000\u0126\u0129\u0003\u0006\u0003"+
-		"\u0000\u0127\u0128\u0005%\u0000\u0000\u0128\u012a\u0005&\u0000\u0000\u0129"+
-		"\u0127\u0001\u0000\u0000\u0000\u0129\u012a\u0001\u0000\u0000\u0000\u012a"+
-		"5\u0001\u0000\u0000\u0000\u012b\u012c\u0005\u0019\u0000\u0000\u012c\u012d"+
-		"\u0005v\u0000\u0000\u012d7\u0001\u0000\u0000\u0000\u012e\u012f\u0005v"+
-		"\u0000\u0000\u012f\u0130\u0007\t\u0000\u0000\u0130\u0131\u0003\u0006\u0003"+
-		"\u0000\u01319\u0001\u0000\u0000\u0000\u0132\u0133\u0005\u001a\u0000\u0000"+
-		"\u0133\u0134\u0005\u001c\u0000\u0000\u0134;\u0001\u0000\u0000\u0000\u0135"+
-		"\u0136\u0005\u001b\u0000\u0000\u0136\u0137\u0005\u001c\u0000\u0000\u0137"+
-		"=\u0001\u0000\u0000\u0000\u0138\u0139\u0005\u001d\u0000\u0000\u0139?\u0001"+
-		"\u0000\u0000\u0000\u013a\u013b\u00057\u0000\u0000\u013b\u013c\u0005\u0001"+
-		"\u0000\u0000\u013c\u013d\u0003\u0006\u0003\u0000\u013d\u013e\u0005\u0002"+
-		"\u0000\u0000\u013e\u01da\u0001\u0000\u0000\u0000\u013f\u0140\u00058\u0000"+
-		"\u0000\u0140\u0141\u0005\u0001\u0000\u0000\u0141\u0142\u0003\u0006\u0003"+
-		"\u0000\u0142\u0143\u0005\u0002\u0000\u0000\u0143\u01da\u0001\u0000\u0000"+
-		"\u0000\u0144\u0145\u00059\u0000\u0000\u0145\u0146\u0005\u0001\u0000\u0000"+
-		"\u0146\u0147\u0003\u0006\u0003\u0000\u0147\u0148\u0005\u0002\u0000\u0000"+
-		"\u0148\u01da\u0001\u0000\u0000\u0000\u0149\u014a\u0005:\u0000\u0000\u014a"+
-		"\u014b\u0005\u0001\u0000\u0000\u014b\u014c\u0003\u0006\u0003\u0000\u014c"+
-		"\u014d\u0005\u0005\u0000\u0000\u014d\u014e\u0003\u0006\u0003\u0000\u014e"+
-		"\u014f\u0005\u0002\u0000\u0000\u014f\u01da\u0001\u0000\u0000\u0000\u0150"+
-		"\u0151\u0005;\u0000\u0000\u0151\u0152\u0005\u0001\u0000\u0000\u0152\u0153"+
-		"\u0003\u0006\u0003\u0000\u0153\u0154\u0005\u0005\u0000\u0000\u0154\u0155"+
-		"\u0003\u0006\u0003\u0000\u0155\u0156\u0005\u0002\u0000\u0000\u0156\u01da"+
-		"\u0001\u0000\u0000\u0000\u0157\u0158\u0005<\u0000\u0000\u0158\u0159\u0005"+
-		"\u0001\u0000\u0000\u0159\u015a\u0003\u0006\u0003\u0000\u015a\u015b\u0005"+
-		"\u0005\u0000\u0000\u015b\u015c\u0003\u0006\u0003\u0000\u015c\u015d\u0005"+
-		"\u0002\u0000\u0000\u015d\u01da\u0001\u0000\u0000\u0000\u015e\u015f\u0005"+
-		"=\u0000\u0000\u015f\u0160\u0005\u0001\u0000\u0000\u0160\u0161\u0003\u0006"+
-		"\u0003\u0000\u0161\u0162\u0005\u0002\u0000\u0000\u0162\u01da\u0001\u0000"+
-		"\u0000\u0000\u0163\u0164\u0005>\u0000\u0000\u0164\u0165\u0005\u0001\u0000"+
-		"\u0000\u0165\u0166\u0003\u0006\u0003\u0000\u0166\u0167\u0005\u0002\u0000"+
-		"\u0000\u0167\u01da\u0001\u0000\u0000\u0000\u0168\u0169\u0005?\u0000\u0000"+
-		"\u0169\u016f\u0005\u0001\u0000\u0000\u016a\u0170\u0003\u0006\u0003\u0000"+
-		"\u016b\u016c\u0003\u0006\u0003\u0000\u016c\u016d\u0005\u0005\u0000\u0000"+
-		"\u016d\u016e\u0003\u0006\u0003\u0000\u016e\u0170\u0001\u0000\u0000\u0000"+
-		"\u016f\u016a\u0001\u0000\u0000\u0000\u016f\u016b\u0001\u0000\u0000\u0000"+
-		"\u0170\u0171\u0001\u0000\u0000\u0000\u0171\u0172\u0005\u0002\u0000\u0000"+
-		"\u0172\u01da\u0001\u0000\u0000\u0000\u0173\u0174\u0005@\u0000\u0000\u0174"+
-		"\u0175\u0005\u0001\u0000\u0000\u0175\u0176\u0003\u0006\u0003\u0000\u0176"+
-		"\u0177\u0005\u0005\u0000\u0000\u0177\u0178\u0003\u0006\u0003\u0000\u0178"+
-		"\u0179\u0005\u0002\u0000\u0000\u0179\u01da\u0001\u0000\u0000\u0000\u017a"+
-		"\u017b\u0005A\u0000\u0000\u017b\u017c\u0005\u0001\u0000\u0000\u017c\u017d"+
-		"\u0003\u0006\u0003\u0000\u017d\u017e\u0005\u0005\u0000\u0000\u017e\u017f"+
-		"\u0003\u0006\u0003\u0000\u017f\u0180\u0005\u0002\u0000\u0000\u0180\u01da"+
-		"\u0001\u0000\u0000\u0000\u0181\u0182\u0005B\u0000\u0000\u0182\u0188\u0005"+
-		"\u0001\u0000\u0000\u0183\u0189\u0003\u0006\u0003\u0000\u0184\u0185\u0003"+
-		"\u0006\u0003\u0000\u0185\u0186\u0005\u0005\u0000\u0000\u0186\u0187\u0003"+
-		"\u0006\u0003\u0000\u0187\u0189\u0001\u0000\u0000\u0000\u0188\u0183\u0001"+
-		"\u0000\u0000\u0000\u0188\u0184\u0001\u0000\u0000\u0000\u0188\u0189\u0001"+
-		"\u0000\u0000\u0000\u0189\u018a\u0001\u0000\u0000\u0000\u018a\u01da\u0005"+
-		"\u0002\u0000\u0000\u018b\u018c\u0005C\u0000\u0000\u018c\u018d\u0005\u0001"+
-		"\u0000\u0000\u018d\u018e\u0003\u0006\u0003\u0000\u018e\u018f\u0005\u0002"+
-		"\u0000\u0000\u018f\u01da\u0001\u0000\u0000\u0000\u0190\u0191\u0005D\u0000"+
-		"\u0000\u0191\u0192\u0005\u0001\u0000\u0000\u0192\u0193\u0003\u0006\u0003"+
-		"\u0000\u0193\u0194\u0005\u0002\u0000\u0000\u0194\u01da\u0001\u0000\u0000"+
-		"\u0000\u0195\u0196\u0005E\u0000\u0000\u0196\u0197\u0005\u0001\u0000\u0000"+
-		"\u0197\u0198\u0003\u0006\u0003\u0000\u0198\u0199\u0005\u0002\u0000\u0000"+
-		"\u0199\u01da\u0001\u0000\u0000\u0000\u019a\u019b\u0005F\u0000\u0000\u019b"+
-		"\u019c\u0005\u0001\u0000\u0000\u019c\u019d\u0003\u0006\u0003\u0000\u019d"+
-		"\u019e\u0005\u0002\u0000\u0000\u019e\u01da\u0001\u0000\u0000\u0000\u019f"+
-		"\u01a0\u0005G\u0000\u0000\u01a0\u01a1\u0005\u0001\u0000\u0000\u01a1\u01a2"+
-		"\u0003\u0006\u0003\u0000\u01a2\u01a3\u0005\u0002\u0000\u0000\u01a3\u01da"+
-		"\u0001\u0000\u0000\u0000\u01a4\u01a5\u0005H\u0000\u0000\u01a5\u01a6\u0005"+
-		"\u0001\u0000\u0000\u01a6\u01a7\u0003\u0006\u0003\u0000\u01a7\u01a8\u0005"+
-		"\u0002\u0000\u0000\u01a8\u01da\u0001\u0000\u0000\u0000\u01a9\u01aa\u0005"+
-		"I\u0000\u0000\u01aa\u01ab\u0005\u0001\u0000\u0000\u01ab\u01ac\u0003\u0006"+
-		"\u0003\u0000\u01ac\u01ad\u0005\u0002\u0000\u0000\u01ad\u01da\u0001\u0000"+
-		"\u0000\u0000\u01ae\u01af\u0005J\u0000\u0000\u01af\u01b0\u0005\u0001\u0000"+
-		"\u0000\u01b0\u01b1\u0003\u0006\u0003\u0000\u01b1\u01b2\u0005\u0005\u0000"+
-		"\u0000\u01b2\u01b3\u0003\u0006\u0003\u0000\u01b3\u01b4\u0005\u0002\u0000"+
-		"\u0000\u01b4\u01da\u0001\u0000\u0000\u0000\u01b5\u01b6\u0005K\u0000\u0000"+
-		"\u01b6\u01b7\u0005\u0001\u0000\u0000\u01b7\u01b8\u0003\u0006\u0003\u0000"+
-		"\u01b8\u01b9\u0005\u0002\u0000\u0000\u01b9\u01da\u0001\u0000\u0000\u0000"+
-		"\u01ba\u01bb\u0005L\u0000\u0000\u01bb\u01bc\u0005\u0001\u0000\u0000\u01bc"+
-		"\u01bd\u0003\u0006\u0003\u0000\u01bd\u01be\u0005\u0002\u0000\u0000\u01be"+
-		"\u01da\u0001\u0000\u0000\u0000\u01bf\u01c0\u0005M\u0000\u0000\u01c0\u01c1"+
-		"\u0005\u0001\u0000\u0000\u01c1\u01c2\u0003\u0006\u0003\u0000\u01c2\u01c3"+
-		"\u0005\u0002\u0000\u0000\u01c3\u01da\u0001\u0000\u0000\u0000\u01c4\u01c5"+
-		"\u0005N\u0000\u0000\u01c5\u01cb\u0005\u0001\u0000\u0000\u01c6\u01cc\u0003"+
-		"\u0006\u0003\u0000\u01c7\u01c8\u0003\u0006\u0003\u0000\u01c8\u01c9\u0005"+
-		"\u0005\u0000\u0000\u01c9\u01ca\u0003\u0006\u0003\u0000\u01ca\u01cc\u0001"+
-		"\u0000\u0000\u0000\u01cb\u01c6\u0001\u0000\u0000\u0000\u01cb\u01c7\u0001"+
-		"\u0000\u0000\u0000\u01cc\u01cd\u0001\u0000\u0000\u0000\u01cd\u01ce\u0005"+
-		"\u0002\u0000\u0000\u01ce\u01da\u0001\u0000\u0000\u0000\u01cf\u01d0\u0005"+
-		"O\u0000\u0000\u01d0\u01d1\u0005\u0001\u0000\u0000\u01d1\u01d2\u0003\u0006"+
-		"\u0003\u0000\u01d2\u01d3\u0005\u0002\u0000\u0000\u01d3\u01da\u0001\u0000"+
-		"\u0000\u0000\u01d4\u01d5\u0005P\u0000\u0000\u01d5\u01d6\u0005\u0001\u0000"+
-		"\u0000\u01d6\u01d7\u0003\u0006\u0003\u0000\u01d7\u01d8\u0005\u0002\u0000"+
-		"\u0000\u01d8\u01da\u0001\u0000\u0000\u0000\u01d9\u013a\u0001\u0000\u0000"+
-		"\u0000\u01d9\u013f\u0001\u0000\u0000\u0000\u01d9\u0144\u0001\u0000\u0000"+
-		"\u0000\u01d9\u0149\u0001\u0000\u0000\u0000\u01d9\u0150\u0001\u0000\u0000"+
-		"\u0000\u01d9\u0157\u0001\u0000\u0000\u0000\u01d9\u015e\u0001\u0000\u0000"+
-		"\u0000\u01d9\u0163\u0001\u0000\u0000\u0000\u01d9\u0168\u0001\u0000\u0000"+
-		"\u0000\u01d9\u0173\u0001\u0000\u0000\u0000\u01d9\u017a\u0001\u0000\u0000"+
-		"\u0000\u01d9\u0181\u0001\u0000\u0000\u0000\u01d9\u018b\u0001\u0000\u0000"+
-		"\u0000\u01d9\u0190\u0001\u0000\u0000\u0000\u01d9\u0195\u0001\u0000\u0000"+
-		"\u0000\u01d9\u019a\u0001\u0000\u0000\u0000\u01d9\u019f\u0001\u0000\u0000"+
-		"\u0000\u01d9\u01a4\u0001\u0000\u0000\u0000\u01d9\u01a9\u0001\u0000\u0000"+
-		"\u0000\u01d9\u01ae\u0001\u0000\u0000\u0000\u01d9\u01b5\u0001\u0000\u0000"+
-		"\u0000\u01d9\u01ba\u0001\u0000\u0000\u0000\u01d9\u01bf\u0001\u0000\u0000"+
-		"\u0000\u01d9\u01c4\u0001\u0000\u0000\u0000\u01d9\u01cf\u0001\u0000\u0000"+
-		"\u0000\u01d9\u01d4\u0001\u0000\u0000\u0000\u01daA\u0001\u0000\u0000\u0000"+
-		"!EM^eknu\u0080\u0085\u008f\u0098\u00a9\u00b0\u00bb\u00c4\u00c8\u00d1\u00d7"+
-		"\u00de\u00eb\u00f5\u0101\u0105\u010a\u010d\u0114\u0119\u011e\u0129\u016f"+
-		"\u0188\u01cb\u01d9";
+		" \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0001 \u0003 \u01fe"+
+		"\b \u0001 \u0000\u0000!\u0000\u0002\u0004\u0006\b\n\f\u000e\u0010\u0012"+
+		"\u0014\u0016\u0018\u001a\u001c\u001e \"$&(*,.02468:<>@\u0000\u0011\u0001"+
+		"\u0000\u0081\u0084\u0001\u0000o\u0080\u0001\u0000eh\u0001\u0000\u0085"+
+		"\u0086\u0001\u0000./\u0001\u0000#$\u0001\u0000\'(\u0001\u0000),\u0001"+
+		"\u0000\u000b\u000e\u0001\u00000:\u0001\u0000;<\u0001\u0000YZ\u0001\u0000"+
+		"[\\\u0001\u0000]^\u0001\u0000_`\u0001\u0000ab\u0001\u0000cd\u023c\u0000"+
+		"C\u0001\u0000\u0000\u0000\u0002M\u0001\u0000\u0000\u0000\u0004^\u0001"+
+		"\u0000\u0000\u0000\u0006`\u0001\u0000\u0000\u0000\bh\u0001\u0000\u0000"+
+		"\u0000\nn\u0001\u0000\u0000\u0000\fx\u0001\u0000\u0000\u0000\u000e\u0098"+
+		"\u0001\u0000\u0000\u0000\u0010\u009a\u0001\u0000\u0000\u0000\u0012\u009c"+
+		"\u0001\u0000\u0000\u0000\u0014\u009e\u0001\u0000\u0000\u0000\u0016\u00a2"+
+		"\u0001\u0000\u0000\u0000\u0018\u00b0\u0001\u0000\u0000\u0000\u001a\u00b3"+
+		"\u0001\u0000\u0000\u0000\u001c\u00c8\u0001\u0000\u0000\u0000\u001e\u00ca"+
+		"\u0001\u0000\u0000\u0000 \u00d7\u0001\u0000\u0000\u0000\"\u00ee\u0001"+
+		"\u0000\u0000\u0000$\u00f0\u0001\u0000\u0000\u0000&\u0101\u0001\u0000\u0000"+
+		"\u0000(\u010d\u0001\u0000\u0000\u0000*\u0111\u0001\u0000\u0000\u0000,"+
+		"\u011b\u0001\u0000\u0000\u0000.\u0122\u0001\u0000\u0000\u00000\u0127\u0001"+
+		"\u0000\u0000\u00002\u012c\u0001\u0000\u0000\u00004\u0131\u0001\u0000\u0000"+
+		"\u00006\u0137\u0001\u0000\u0000\u00008\u014c\u0001\u0000\u0000\u0000:"+
+		"\u014e\u0001\u0000\u0000\u0000<\u0151\u0001\u0000\u0000\u0000>\u0154\u0001"+
+		"\u0000\u0000\u0000@\u01fd\u0001\u0000\u0000\u0000BD\u0003\u0002\u0001"+
+		"\u0000CB\u0001\u0000\u0000\u0000DE\u0001\u0000\u0000\u0000EC\u0001\u0000"+
+		"\u0000\u0000EF\u0001\u0000\u0000\u0000F\u0001\u0001\u0000\u0000\u0000"+
+		"GH\u0003\u0004\u0002\u0000HI\u0005\u0087\u0000\u0000IN\u0001\u0000\u0000"+
+		"\u0000JN\u0003\u0014\n\u0000KN\u0003\u001e\u000f\u0000LN\u0003 \u0010"+
+		"\u0000MG\u0001\u0000\u0000\u0000MJ\u0001\u0000\u0000\u0000MK\u0001\u0000"+
+		"\u0000\u0000ML\u0001\u0000\u0000\u0000N\u0003\u0001\u0000\u0000\u0000"+
+		"O_\u0003&\u0013\u0000P_\u0003(\u0014\u0000Q_\u0003,\u0016\u0000R_\u0003"+
+		".\u0017\u0000S_\u00030\u0018\u0000T_\u00032\u0019\u0000U_\u00034\u001a"+
+		"\u0000V_\u00036\u001b\u0000W_\u00038\u001c\u0000X_\u0003:\u001d\u0000"+
+		"Y_\u0003<\u001e\u0000Z_\u0003>\u001f\u0000[_\u0003\u0006\u0003\u0000\\"+
+		"_\u0003\"\u0011\u0000]_\u0003$\u0012\u0000^O\u0001\u0000\u0000\u0000^"+
+		"P\u0001\u0000\u0000\u0000^Q\u0001\u0000\u0000\u0000^R\u0001\u0000\u0000"+
+		"\u0000^S\u0001\u0000\u0000\u0000^T\u0001\u0000\u0000\u0000^U\u0001\u0000"+
+		"\u0000\u0000^V\u0001\u0000\u0000\u0000^W\u0001\u0000\u0000\u0000^X\u0001"+
+		"\u0000\u0000\u0000^Y\u0001\u0000\u0000\u0000^Z\u0001\u0000\u0000\u0000"+
+		"^[\u0001\u0000\u0000\u0000^\\\u0001\u0000\u0000\u0000^]\u0001\u0000\u0000"+
+		"\u0000_\u0005\u0001\u0000\u0000\u0000`e\u0003\b\u0004\u0000ab\u0007\u0000"+
+		"\u0000\u0000bd\u0003\b\u0004\u0000ca\u0001\u0000\u0000\u0000dg\u0001\u0000"+
+		"\u0000\u0000ec\u0001\u0000\u0000\u0000ef\u0001\u0000\u0000\u0000f\u0007"+
+		"\u0001\u0000\u0000\u0000ge\u0001\u0000\u0000\u0000hk\u0003\n\u0005\u0000"+
+		"ij\u0007\u0001\u0000\u0000jl\u0003\n\u0005\u0000ki\u0001\u0000\u0000\u0000"+
+		"kl\u0001\u0000\u0000\u0000l\t\u0001\u0000\u0000\u0000mo\u0007\u0002\u0000"+
+		"\u0000nm\u0001\u0000\u0000\u0000no\u0001\u0000\u0000\u0000op\u0001\u0000"+
+		"\u0000\u0000pu\u0003\f\u0006\u0000qr\u0007\u0002\u0000\u0000rt\u0003\f"+
+		"\u0006\u0000sq\u0001\u0000\u0000\u0000tw\u0001\u0000\u0000\u0000us\u0001"+
+		"\u0000\u0000\u0000uv\u0001\u0000\u0000\u0000v\u000b\u0001\u0000\u0000"+
+		"\u0000wu\u0001\u0000\u0000\u0000x\u0085\u0003\u000e\u0007\u0000y\u0081"+
+		"\u0005i\u0000\u0000z\u0081\u0005$\u0000\u0000{\u0081\u0005j\u0000\u0000"+
+		"|}\u0005k\u0000\u0000}\u0081\u0005l\u0000\u0000~\u0081\u0005m\u0000\u0000"+
+		"\u007f\u0081\u0005n\u0000\u0000\u0080y\u0001\u0000\u0000\u0000\u0080z"+
+		"\u0001\u0000\u0000\u0000\u0080{\u0001\u0000\u0000\u0000\u0080|\u0001\u0000"+
+		"\u0000\u0000\u0080~\u0001\u0000\u0000\u0000\u0080\u007f\u0001\u0000\u0000"+
+		"\u0000\u0081\u0082\u0001\u0000\u0000\u0000\u0082\u0084\u0003\u000e\u0007"+
+		"\u0000\u0083\u0080\u0001\u0000\u0000\u0000\u0084\u0087\u0001\u0000\u0000"+
+		"\u0000\u0085\u0083\u0001\u0000\u0000\u0000\u0085\u0086\u0001\u0000\u0000"+
+		"\u0000\u0086\r\u0001\u0000\u0000\u0000\u0087\u0085\u0001\u0000\u0000\u0000"+
+		"\u0088\u0089\u0007\u0003\u0000\u0000\u0089\u0099\u0003\u000e\u0007\u0000"+
+		"\u008a\u0099\u0005\u0089\u0000\u0000\u008b\u0099\u0005\u008a\u0000\u0000"+
+		"\u008c\u0099\u0005-\u0000\u0000\u008d\u0090\u0003\u0012\t\u0000\u008e"+
+		"\u0090\u0005\u0088\u0000\u0000\u008f\u008d\u0001\u0000\u0000\u0000\u008f"+
+		"\u008e\u0001\u0000\u0000\u0000\u0090\u0099\u0001\u0000\u0000\u0000\u0091"+
+		"\u0099\u0005\u008c\u0000\u0000\u0092\u0099\u0005\u008d\u0000\u0000\u0093"+
+		"\u0099\u0003@ \u0000\u0094\u0095\u0005\u0001\u0000\u0000\u0095\u0096\u0003"+
+		"\u0006\u0003\u0000\u0096\u0097\u0005\u0002\u0000\u0000\u0097\u0099\u0001"+
+		"\u0000\u0000\u0000\u0098\u0088\u0001\u0000\u0000\u0000\u0098\u008a\u0001"+
+		"\u0000\u0000\u0000\u0098\u008b\u0001\u0000\u0000\u0000\u0098\u008c\u0001"+
+		"\u0000\u0000\u0000\u0098\u008f\u0001\u0000\u0000\u0000\u0098\u0091\u0001"+
+		"\u0000\u0000\u0000\u0098\u0092\u0001\u0000\u0000\u0000\u0098\u0093\u0001"+
+		"\u0000\u0000\u0000\u0098\u0094\u0001\u0000\u0000\u0000\u0099\u000f\u0001"+
+		"\u0000\u0000\u0000\u009a\u009b\u0003\u0006\u0003\u0000\u009b\u0011\u0001"+
+		"\u0000\u0000\u0000\u009c\u009d\u0007\u0004\u0000\u0000\u009d\u0013\u0001"+
+		"\u0000\u0000\u0000\u009e\u009f\u0003\u0016\u000b\u0000\u009f\u00a0\u0003"+
+		"\u0018\f\u0000\u00a0\u00a1\u0003\u001c\u000e\u0000\u00a1\u0015\u0001\u0000"+
+		"\u0000\u0000\u00a2\u00a3\u0005\u001e\u0000\u0000\u00a3\u00a4\u0003\u0010"+
+		"\b\u0000\u00a4\u00a5\u0005\u001f\u0000\u0000\u00a5\u00a7\u0005\u0003\u0000"+
+		"\u0000\u00a6\u00a8\u0003\u0002\u0001\u0000\u00a7\u00a6\u0001\u0000\u0000"+
+		"\u0000\u00a8\u00a9\u0001\u0000\u0000\u0000\u00a9\u00a7\u0001\u0000\u0000"+
+		"\u0000\u00a9\u00aa\u0001\u0000\u0000\u0000\u00aa\u00ab\u0001\u0000\u0000"+
+		"\u0000\u00ab\u00ac\u0005\u0004\u0000\u0000\u00ac\u0017\u0001\u0000\u0000"+
+		"\u0000\u00ad\u00af\u0003\u001a\r\u0000\u00ae\u00ad\u0001\u0000\u0000\u0000"+
+		"\u00af\u00b2\u0001\u0000\u0000\u0000\u00b0\u00ae\u0001\u0000\u0000\u0000"+
+		"\u00b0\u00b1\u0001\u0000\u0000\u0000\u00b1\u0019\u0001\u0000\u0000\u0000"+
+		"\u00b2\u00b0\u0001\u0000\u0000\u0000\u00b3\u00b4\u0005 \u0000\u0000\u00b4"+
+		"\u00b5\u0005\u001e\u0000\u0000\u00b5\u00b6\u0003\u0010\b\u0000\u00b6\u00b7"+
+		"\u0005\u001f\u0000\u0000\u00b7\u00b9\u0005\u0003\u0000\u0000\u00b8\u00ba"+
+		"\u0003\u0002\u0001\u0000\u00b9\u00b8\u0001\u0000\u0000\u0000\u00ba\u00bb"+
+		"\u0001\u0000\u0000\u0000\u00bb\u00b9\u0001\u0000\u0000\u0000\u00bb\u00bc"+
+		"\u0001\u0000\u0000\u0000\u00bc\u00bd\u0001\u0000\u0000\u0000\u00bd\u00be"+
+		"\u0005\u0004\u0000\u0000\u00be\u001b\u0001\u0000\u0000\u0000\u00bf\u00c0"+
+		"\u0005 \u0000\u0000\u00c0\u00c2\u0005\u0003\u0000\u0000\u00c1\u00c3\u0003"+
+		"\u0002\u0001\u0000\u00c2\u00c1\u0001\u0000\u0000\u0000\u00c3\u00c4\u0001"+
+		"\u0000\u0000\u0000\u00c4\u00c2\u0001\u0000\u0000\u0000\u00c4\u00c5\u0001"+
+		"\u0000\u0000\u0000\u00c5\u00c6\u0001\u0000\u0000\u0000\u00c6\u00c7\u0005"+
+		"\u0004\u0000\u0000\u00c7\u00c9\u0001\u0000\u0000\u0000\u00c8\u00bf\u0001"+
+		"\u0000\u0000\u0000\u00c8\u00c9\u0001\u0000\u0000\u0000\u00c9\u001d\u0001"+
+		"\u0000\u0000\u0000\u00ca\u00cb\u0005\"\u0000\u0000\u00cb\u00cc\u0003\u0006"+
+		"\u0003\u0000\u00cc\u00cd\u0007\u0005\u0000\u0000\u00cd\u00cf\u0005\u0003"+
+		"\u0000\u0000\u00ce\u00d0\u0003\u0002\u0001\u0000\u00cf\u00ce\u0001\u0000"+
+		"\u0000\u0000\u00d0\u00d1\u0001\u0000\u0000\u0000\u00d1\u00cf\u0001\u0000"+
+		"\u0000\u0000\u00d1\u00d2\u0001\u0000\u0000\u0000\u00d2\u00d3\u0001\u0000"+
+		"\u0000\u0000\u00d3\u00d4\u0005\u0004\u0000\u0000\u00d4\u001f\u0001\u0000"+
+		"\u0000\u0000\u00d5\u00d6\u0005!\u0000\u0000\u00d6\u00d8\u0003\u0010\b"+
+		"\u0000\u00d7\u00d5\u0001\u0000\u0000\u0000\u00d7\u00d8\u0001\u0000\u0000"+
+		"\u0000\u00d8\u00d9\u0001\u0000\u0000\u0000\u00d9\u00e4\u0005\"\u0000\u0000"+
+		"\u00da\u00db\u0007\u0006\u0000\u0000\u00db\u00de\u0005\u0088\u0000\u0000"+
+		"\u00dc\u00dd\u0005\n\u0000\u0000\u00dd\u00df\u0003\u0006\u0003\u0000\u00de"+
+		"\u00dc\u0001\u0000\u0000\u0000\u00de\u00df\u0001\u0000\u0000\u0000\u00df"+
+		"\u00e5\u0001\u0000\u0000\u0000\u00e0\u00e1\u0007\u0007\u0000\u0000\u00e1"+
+		"\u00e2\u0005\u0088\u0000\u0000\u00e2\u00e3\u0005\n\u0000\u0000\u00e3\u00e5"+
+		"\u0003\u0006\u0003\u0000\u00e4\u00da\u0001\u0000\u0000\u0000\u00e4\u00e0"+
+		"\u0001\u0000\u0000\u0000\u00e4\u00e5\u0001\u0000\u0000\u0000\u00e5\u00e6"+
+		"\u0001\u0000\u0000\u0000\u00e6\u00e8\u0005\u0003\u0000\u0000\u00e7\u00e9"+
+		"\u0003\u0002\u0001\u0000\u00e8\u00e7\u0001\u0000\u0000\u0000\u00e9\u00ea"+
+		"\u0001\u0000\u0000\u0000\u00ea\u00e8\u0001\u0000\u0000\u0000\u00ea\u00eb"+
+		"\u0001\u0000\u0000\u0000\u00eb\u00ec\u0001\u0000\u0000\u0000\u00ec\u00ed"+
+		"\u0005\u0004\u0000\u0000\u00ed!\u0001\u0000\u0000\u0000\u00ee\u00ef\u0005"+
+		"\b\u0000\u0000\u00ef#\u0001\u0000\u0000\u0000\u00f0\u00f1\u0005\t\u0000"+
+		"\u0000\u00f1%\u0001\u0000\u0000\u0000\u00f2\u00f3\u0005\u0006\u0000\u0000"+
+		"\u00f3\u00f4\u0005\u0007\u0000\u0000\u00f4\u00f7\u0007\b\u0000\u0000\u00f5"+
+		"\u00f6\u0005\n\u0000\u0000\u00f6\u00f8\u0003\u0006\u0003\u0000\u00f7\u00f5"+
+		"\u0001\u0000\u0000\u0000\u00f7\u00f8\u0001\u0000\u0000\u0000\u00f8\u0102"+
+		"\u0001\u0000\u0000\u0000\u00f9\u00fa\u0005\u0006\u0000\u0000\u00fa\u00fb"+
+		"\u0005\u0007\u0000\u0000\u00fb\u00fc\u0005\u0001\u0000\u0000\u00fc\u00fd"+
+		"\u0003\u0006\u0003\u0000\u00fd\u00fe\u0005\u0005\u0000\u0000\u00fe\u00ff"+
+		"\u0003\u0006\u0003\u0000\u00ff\u0100\u0005\u0002\u0000\u0000\u0100\u0102"+
+		"\u0001\u0000\u0000\u0000\u0101\u00f2\u0001\u0000\u0000\u0000\u0101\u00f9"+
+		"\u0001\u0000\u0000\u0000\u0102\'\u0001\u0000\u0000\u0000\u0103\u0104\u0005"+
+		"\u000f\u0000\u0000\u0104\u0105\u0005\u0010\u0000\u0000\u0105\u0106\u0005"+
+		"\u0007\u0000\u0000\u0106\u010e\u0003*\u0015\u0000\u0107\u0108\u0005\u000f"+
+		"\u0000\u0000\u0108\u0109\u0005\u0010\u0000\u0000\u0109\u010a\u0005\u0011"+
+		"\u0000\u0000\u010a\u010b\u0005\u0012\u0000\u0000\u010b\u010c\u0005\u0007"+
+		"\u0000\u0000\u010c\u010e\u0003*\u0015\u0000\u010d\u0103\u0001\u0000\u0000"+
+		"\u0000\u010d\u0107\u0001\u0000\u0000\u0000\u010e)\u0001\u0000\u0000\u0000"+
+		"\u010f\u0112\u0005\u008b\u0000\u0000\u0110\u0112\u0007\t\u0000\u0000\u0111"+
+		"\u010f\u0001\u0000\u0000\u0000\u0111\u0110\u0001\u0000\u0000\u0000\u0112"+
+		"\u0119\u0001\u0000\u0000\u0000\u0113\u0114\u0003\u0006\u0003\u0000\u0114"+
+		"\u0115\u0007\u0005\u0000\u0000\u0115\u0117\u0001\u0000\u0000\u0000\u0116"+
+		"\u0113\u0001\u0000\u0000\u0000\u0116\u0117\u0001\u0000\u0000\u0000\u0117"+
+		"\u0118\u0001\u0000\u0000\u0000\u0118\u011a\u0007\n\u0000\u0000\u0119\u0116"+
+		"\u0001\u0000\u0000\u0000\u0119\u011a\u0001\u0000\u0000\u0000\u011a+\u0001"+
+		"\u0000\u0000\u0000\u011b\u0120\u0005\u0013\u0000\u0000\u011c\u011d\u0005"+
+		"\n\u0000\u0000\u011d\u011e\u0003\u0006\u0003\u0000\u011e\u011f\u0005\u0014"+
+		"\u0000\u0000\u011f\u0121\u0001\u0000\u0000\u0000\u0120\u011c\u0001\u0000"+
+		"\u0000\u0000\u0120\u0121\u0001\u0000\u0000\u0000\u0121-\u0001\u0000\u0000"+
+		"\u0000\u0122\u0125\u0005\u0015\u0000\u0000\u0123\u0124\u0005\n\u0000\u0000"+
+		"\u0124\u0126\u0003\u0006\u0003\u0000\u0125\u0123\u0001\u0000\u0000\u0000"+
+		"\u0125\u0126\u0001\u0000\u0000\u0000\u0126/\u0001\u0000\u0000\u0000\u0127"+
+		"\u012a\u0005\u0016\u0000\u0000\u0128\u0129\u0005\n\u0000\u0000\u0129\u012b"+
+		"\u0003\u0006\u0003\u0000\u012a\u0128\u0001\u0000\u0000\u0000\u012a\u012b"+
+		"\u0001\u0000\u0000\u0000\u012b1\u0001\u0000\u0000\u0000\u012c\u012d\u0005"+
+		"\u000f\u0000\u0000\u012d\u012e\u0005\u0017\u0000\u0000\u012e\u012f\u0005"+
+		"\u0007\u0000\u0000\u012f\u0130\u0003\u0006\u0003\u0000\u01303\u0001\u0000"+
+		"\u0000\u0000\u0131\u0132\u0005\u0018\u0000\u0000\u0132\u0135\u0003\u0006"+
+		"\u0003\u0000\u0133\u0134\u0005%\u0000\u0000\u0134\u0136\u0005&\u0000\u0000"+
+		"\u0135\u0133\u0001\u0000\u0000\u0000\u0135\u0136\u0001\u0000\u0000\u0000"+
+		"\u01365\u0001\u0000\u0000\u0000\u0137\u0138\u0005\u0019\u0000\u0000\u0138"+
+		"\u0139\u0005\u0088\u0000\u0000\u01397\u0001\u0000\u0000\u0000\u013a\u013b"+
+		"\u0005\u0088\u0000\u0000\u013b\u013c\u0007\u000b\u0000\u0000\u013c\u014d"+
+		"\u0003\u0006\u0003\u0000\u013d\u013e\u0005\u0088\u0000\u0000\u013e\u013f"+
+		"\u0007\f\u0000\u0000\u013f\u014d\u0003\u0006\u0003\u0000\u0140\u0141\u0005"+
+		"\u0088\u0000\u0000\u0141\u0142\u0007\r\u0000\u0000\u0142\u014d\u0003\u0006"+
+		"\u0003\u0000\u0143\u0144\u0005\u0088\u0000\u0000\u0144\u0145\u0007\u000e"+
+		"\u0000\u0000\u0145\u014d\u0003\u0006\u0003\u0000\u0146\u0147\u0005\u0088"+
+		"\u0000\u0000\u0147\u0148\u0007\u000f\u0000\u0000\u0148\u014d\u0003\u0006"+
+		"\u0003\u0000\u0149\u014a\u0005\u0088\u0000\u0000\u014a\u014b\u0007\u0010"+
+		"\u0000\u0000\u014b\u014d\u0003\u0006\u0003\u0000\u014c\u013a\u0001\u0000"+
+		"\u0000\u0000\u014c\u013d\u0001\u0000\u0000\u0000\u014c\u0140\u0001\u0000"+
+		"\u0000\u0000\u014c\u0143\u0001\u0000\u0000\u0000\u014c\u0146\u0001\u0000"+
+		"\u0000\u0000\u014c\u0149\u0001\u0000\u0000\u0000\u014d9\u0001\u0000\u0000"+
+		"\u0000\u014e\u014f\u0005\u001a\u0000\u0000\u014f\u0150\u0005\u001c\u0000"+
+		"\u0000\u0150;\u0001\u0000\u0000\u0000\u0151\u0152\u0005\u001b\u0000\u0000"+
+		"\u0152\u0153\u0005\u001c\u0000\u0000\u0153=\u0001\u0000\u0000\u0000\u0154"+
+		"\u0155\u0005\u001d\u0000\u0000\u0155?\u0001\u0000\u0000\u0000\u0156\u0157"+
+		"\u0005=\u0000\u0000\u0157\u0158\u0005\u0001\u0000\u0000\u0158\u0159\u0003"+
+		"\u0006\u0003\u0000\u0159\u015a\u0005\u0002\u0000\u0000\u015a\u01fe\u0001"+
+		"\u0000\u0000\u0000\u015b\u015c\u0005>\u0000\u0000\u015c\u015d\u0005\u0001"+
+		"\u0000\u0000\u015d\u015e\u0003\u0006\u0003\u0000\u015e\u015f\u0005\u0002"+
+		"\u0000\u0000\u015f\u01fe\u0001\u0000\u0000\u0000\u0160\u0161\u0005?\u0000"+
+		"\u0000\u0161\u0162\u0005\u0001\u0000\u0000\u0162\u0163\u0003\u0006\u0003"+
+		"\u0000\u0163\u0164\u0005\u0002\u0000\u0000\u0164\u01fe\u0001\u0000\u0000"+
+		"\u0000\u0165\u0166\u0005@\u0000\u0000\u0166\u0167\u0005\u0001\u0000\u0000"+
+		"\u0167\u0168\u0003\u0006\u0003\u0000\u0168\u0169\u0005\u0005\u0000\u0000"+
+		"\u0169\u016a\u0003\u0006\u0003\u0000\u016a\u016b\u0005\u0002\u0000\u0000"+
+		"\u016b\u01fe\u0001\u0000\u0000\u0000\u016c\u016d\u0005A\u0000\u0000\u016d"+
+		"\u016e\u0005\u0001\u0000\u0000\u016e\u016f\u0003\u0006\u0003\u0000\u016f"+
+		"\u0170\u0005\u0005\u0000\u0000\u0170\u0171\u0003\u0006\u0003\u0000\u0171"+
+		"\u0172\u0005\u0002\u0000\u0000\u0172\u01fe\u0001\u0000\u0000\u0000\u0173"+
+		"\u0174\u0005B\u0000\u0000\u0174\u0175\u0005\u0001\u0000\u0000\u0175\u0176"+
+		"\u0003\u0006\u0003\u0000\u0176\u0177\u0005\u0005\u0000\u0000\u0177\u0178"+
+		"\u0003\u0006\u0003\u0000\u0178\u0179\u0005\u0002\u0000\u0000\u0179\u01fe"+
+		"\u0001\u0000\u0000\u0000\u017a\u017b\u0005C\u0000\u0000\u017b\u017c\u0005"+
+		"\u0001\u0000\u0000\u017c\u017d\u0003\u0006\u0003\u0000\u017d\u017e\u0005"+
+		"\u0002\u0000\u0000\u017e\u01fe\u0001\u0000\u0000\u0000\u017f\u0180\u0005"+
+		"D\u0000\u0000\u0180\u0181\u0005\u0001\u0000\u0000\u0181\u0182\u0003\u0006"+
+		"\u0003\u0000\u0182\u0183\u0005\u0002\u0000\u0000\u0183\u01fe\u0001\u0000"+
+		"\u0000\u0000\u0184\u0185\u0005E\u0000\u0000\u0185\u018b\u0005\u0001\u0000"+
+		"\u0000\u0186\u018c\u0003\u0006\u0003\u0000\u0187\u0188\u0003\u0006\u0003"+
+		"\u0000\u0188\u0189\u0005\u0005\u0000\u0000\u0189\u018a\u0003\u0006\u0003"+
+		"\u0000\u018a\u018c\u0001\u0000\u0000\u0000\u018b\u0186\u0001\u0000\u0000"+
+		"\u0000\u018b\u0187\u0001\u0000\u0000\u0000\u018c\u018d\u0001\u0000\u0000"+
+		"\u0000\u018d\u018e\u0005\u0002\u0000\u0000\u018e\u01fe\u0001\u0000\u0000"+
+		"\u0000\u018f\u0190\u0005F\u0000\u0000\u0190\u0191\u0005\u0001\u0000\u0000"+
+		"\u0191\u0192\u0003\u0006\u0003\u0000\u0192\u0193\u0005\u0005\u0000\u0000"+
+		"\u0193\u0194\u0003\u0006\u0003\u0000\u0194\u0195\u0005\u0002\u0000\u0000"+
+		"\u0195\u01fe\u0001\u0000\u0000\u0000\u0196\u0197\u0005G\u0000\u0000\u0197"+
+		"\u0198\u0005\u0001\u0000\u0000\u0198\u0199\u0003\u0006\u0003\u0000\u0199"+
+		"\u019a\u0005\u0005\u0000\u0000\u019a\u019b\u0003\u0006\u0003\u0000\u019b"+
+		"\u019c\u0005\u0002\u0000\u0000\u019c\u01fe\u0001\u0000\u0000\u0000\u019d"+
+		"\u019e\u0005H\u0000\u0000\u019e\u01a4\u0005\u0001\u0000\u0000\u019f\u01a5"+
+		"\u0003\u0006\u0003\u0000\u01a0\u01a1\u0003\u0006\u0003\u0000\u01a1\u01a2"+
+		"\u0005\u0005\u0000\u0000\u01a2\u01a3\u0003\u0006\u0003\u0000\u01a3\u01a5"+
+		"\u0001\u0000\u0000\u0000\u01a4\u019f\u0001\u0000\u0000\u0000\u01a4\u01a0"+
+		"\u0001\u0000\u0000\u0000\u01a4\u01a5\u0001\u0000\u0000\u0000\u01a5\u01a6"+
+		"\u0001\u0000\u0000\u0000\u01a6\u01fe\u0005\u0002\u0000\u0000\u01a7\u01a8"+
+		"\u0005I\u0000\u0000\u01a8\u01a9\u0005\u0001\u0000\u0000\u01a9\u01aa\u0003"+
+		"\u0006\u0003\u0000\u01aa\u01ab\u0005\u0002\u0000\u0000\u01ab\u01fe\u0001"+
+		"\u0000\u0000\u0000\u01ac\u01ad\u0005J\u0000\u0000\u01ad\u01ae\u0005\u0001"+
+		"\u0000\u0000\u01ae\u01af\u0003\u0006\u0003\u0000\u01af\u01b0\u0005\u0002"+
+		"\u0000\u0000\u01b0\u01fe\u0001\u0000\u0000\u0000\u01b1\u01b2\u0005K\u0000"+
+		"\u0000\u01b2\u01b3\u0005\u0001\u0000\u0000\u01b3\u01b4\u0003\u0006\u0003"+
+		"\u0000\u01b4\u01b5\u0005\u0002\u0000\u0000\u01b5\u01fe\u0001\u0000\u0000"+
+		"\u0000\u01b6\u01b7\u0005L\u0000\u0000\u01b7\u01b8\u0005\u0001\u0000\u0000"+
+		"\u01b8\u01b9\u0003\u0006\u0003\u0000\u01b9\u01ba\u0005\u0002\u0000\u0000"+
+		"\u01ba\u01fe\u0001\u0000\u0000\u0000\u01bb\u01bc\u0005M\u0000\u0000\u01bc"+
+		"\u01bd\u0005\u0001\u0000\u0000\u01bd\u01be\u0003\u0006\u0003\u0000\u01be"+
+		"\u01bf\u0005\u0002\u0000\u0000\u01bf\u01fe\u0001\u0000\u0000\u0000\u01c0"+
+		"\u01c1\u0005N\u0000\u0000\u01c1\u01c2\u0005\u0001\u0000\u0000\u01c2\u01c3"+
+		"\u0003\u0006\u0003\u0000\u01c3\u01c4\u0005\u0002\u0000\u0000\u01c4\u01fe"+
+		"\u0001\u0000\u0000\u0000\u01c5\u01c6\u0005O\u0000\u0000\u01c6\u01c7\u0005"+
+		"\u0001\u0000\u0000\u01c7\u01c8\u0003\u0006\u0003\u0000\u01c8\u01c9\u0005"+
+		"\u0002\u0000\u0000\u01c9\u01fe\u0001\u0000\u0000\u0000\u01ca\u01cb\u0005"+
+		"P\u0000\u0000\u01cb\u01cc\u0005\u0001\u0000\u0000\u01cc\u01cd\u0003\u0006"+
+		"\u0003\u0000\u01cd\u01ce\u0005\u0005\u0000\u0000\u01ce\u01cf\u0003\u0006"+
+		"\u0003\u0000\u01cf\u01d0\u0005\u0002\u0000\u0000\u01d0\u01fe\u0001\u0000"+
+		"\u0000\u0000\u01d1\u01d2\u0005Q\u0000\u0000\u01d2\u01d3\u0005\u0001\u0000"+
+		"\u0000\u01d3\u01d4\u0003\u0006\u0003\u0000\u01d4\u01d5\u0005\u0002\u0000"+
+		"\u0000\u01d5\u01fe\u0001\u0000\u0000\u0000\u01d6\u01d7\u0005R\u0000\u0000"+
+		"\u01d7\u01d8\u0005\u0001\u0000\u0000\u01d8\u01d9\u0003\u0006\u0003\u0000"+
+		"\u01d9\u01da\u0005\u0002\u0000\u0000\u01da\u01fe\u0001\u0000\u0000\u0000"+
+		"\u01db\u01dc\u0005S\u0000\u0000\u01dc\u01dd\u0005\u0001\u0000\u0000\u01dd"+
+		"\u01de\u0003\u0006\u0003\u0000\u01de\u01df\u0005\u0002\u0000\u0000\u01df"+
+		"\u01fe\u0001\u0000\u0000\u0000\u01e0\u01e1\u0005T\u0000\u0000\u01e1\u01e7"+
+		"\u0005\u0001\u0000\u0000\u01e2\u01e8\u0003\u0006\u0003\u0000\u01e3\u01e4"+
+		"\u0003\u0006\u0003\u0000\u01e4\u01e5\u0005\u0005\u0000\u0000\u01e5\u01e6"+
+		"\u0003\u0006\u0003\u0000\u01e6\u01e8\u0001\u0000\u0000\u0000\u01e7\u01e2"+
+		"\u0001\u0000\u0000\u0000\u01e7\u01e3\u0001\u0000\u0000\u0000\u01e8\u01e9"+
+		"\u0001\u0000\u0000\u0000\u01e9\u01ea\u0005\u0002\u0000\u0000\u01ea\u01fe"+
+		"\u0001\u0000\u0000\u0000\u01eb\u01ec\u0005U\u0000\u0000\u01ec\u01ed\u0005"+
+		"\u0001\u0000\u0000\u01ed\u01ee\u0003\u0006\u0003\u0000\u01ee\u01ef\u0005"+
+		"\u0002\u0000\u0000\u01ef\u01fe\u0001\u0000\u0000\u0000\u01f0\u01f1\u0005"+
+		"V\u0000\u0000\u01f1\u01f2\u0005\u0001\u0000\u0000\u01f2\u01f3\u0003\u0006"+
+		"\u0003\u0000\u01f3\u01f4\u0005\u0002\u0000\u0000\u01f4\u01fe\u0001\u0000"+
+		"\u0000\u0000\u01f5\u01f6\u0005W\u0000\u0000\u01f6\u01f7\u0005\u0001\u0000"+
+		"\u0000\u01f7\u01f8\u0005\u0088\u0000\u0000\u01f8\u01fe\u0005\u0002\u0000"+
+		"\u0000\u01f9\u01fa\u0005X\u0000\u0000\u01fa\u01fb\u0005\u0001\u0000\u0000"+
+		"\u01fb\u01fc\u0005\u0088\u0000\u0000\u01fc\u01fe\u0005\u0002\u0000\u0000"+
+		"\u01fd\u0156\u0001\u0000\u0000\u0000\u01fd\u015b\u0001\u0000\u0000\u0000"+
+		"\u01fd\u0160\u0001\u0000\u0000\u0000\u01fd\u0165\u0001\u0000\u0000\u0000"+
+		"\u01fd\u016c\u0001\u0000\u0000\u0000\u01fd\u0173\u0001\u0000\u0000\u0000"+
+		"\u01fd\u017a\u0001\u0000\u0000\u0000\u01fd\u017f\u0001\u0000\u0000\u0000"+
+		"\u01fd\u0184\u0001\u0000\u0000\u0000\u01fd\u018f\u0001\u0000\u0000\u0000"+
+		"\u01fd\u0196\u0001\u0000\u0000\u0000\u01fd\u019d\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01a7\u0001\u0000\u0000\u0000\u01fd\u01ac\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01b1\u0001\u0000\u0000\u0000\u01fd\u01b6\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01bb\u0001\u0000\u0000\u0000\u01fd\u01c0\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01c5\u0001\u0000\u0000\u0000\u01fd\u01ca\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01d1\u0001\u0000\u0000\u0000\u01fd\u01d6\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01db\u0001\u0000\u0000\u0000\u01fd\u01e0\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01eb\u0001\u0000\u0000\u0000\u01fd\u01f0\u0001\u0000\u0000\u0000"+
+		"\u01fd\u01f5\u0001\u0000\u0000\u0000\u01fd\u01f9\u0001\u0000\u0000\u0000"+
+		"\u01feA\u0001\u0000\u0000\u0000$EM^eknu\u0080\u0085\u008f\u0098\u00a9"+
+		"\u00b0\u00bb\u00c4\u00c8\u00d1\u00d7\u00de\u00e4\u00ea\u00f7\u0101\u010d"+
+		"\u0111\u0116\u0119\u0120\u0125\u012a\u0135\u014c\u018b\u01a4\u01e7\u01fd";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

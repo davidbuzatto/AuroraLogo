@@ -252,11 +252,47 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitLer(AuroraLogoParser.LerContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#atribuir}.
+	 * Visit a parse tree produced by the {@code atribuirPadrao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitAtribuir(AuroraLogoParser.AtribuirContext ctx);
+	T visitAtribuirPadrao(AuroraLogoParser.AtribuirPadraoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code atribuirAdicao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtribuirAdicao(AuroraLogoParser.AtribuirAdicaoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code atribuirSubtracao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtribuirSubtracao(AuroraLogoParser.AtribuirSubtracaoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code atribuirMultiplicacao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtribuirMultiplicacao(AuroraLogoParser.AtribuirMultiplicacaoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code atribuirDivisao}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtribuirDivisao(AuroraLogoParser.AtribuirDivisaoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code atribuirResto}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtribuirResto(AuroraLogoParser.AtribuirRestoContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#abaixar}.
 	 * @param ctx the parse tree
@@ -457,4 +493,18 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFuncaoRadianosParaGraus(AuroraLogoParser.FuncaoRadianosParaGrausContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoIncrementar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoIncrementar(AuroraLogoParser.FuncaoIncrementarContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDecrementar}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoMatematica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDecrementar(AuroraLogoParser.FuncaoDecrementarContext ctx);
 }

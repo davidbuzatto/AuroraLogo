@@ -472,13 +472,73 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterAtribuir(AuroraLogoParser.AtribuirContext ctx) { }
+	@Override public void enterAtribuirPadrao(AuroraLogoParser.AtribuirPadraoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAtribuir(AuroraLogoParser.AtribuirContext ctx) { }
+	@Override public void exitAtribuirPadrao(AuroraLogoParser.AtribuirPadraoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtribuirAdicao(AuroraLogoParser.AtribuirAdicaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtribuirAdicao(AuroraLogoParser.AtribuirAdicaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtribuirSubtracao(AuroraLogoParser.AtribuirSubtracaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtribuirSubtracao(AuroraLogoParser.AtribuirSubtracaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtribuirMultiplicacao(AuroraLogoParser.AtribuirMultiplicacaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtribuirMultiplicacao(AuroraLogoParser.AtribuirMultiplicacaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtribuirDivisao(AuroraLogoParser.AtribuirDivisaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtribuirDivisao(AuroraLogoParser.AtribuirDivisaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtribuirResto(AuroraLogoParser.AtribuirRestoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtribuirResto(AuroraLogoParser.AtribuirRestoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -827,6 +887,30 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFuncaoRadianosParaGraus(AuroraLogoParser.FuncaoRadianosParaGrausContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuncaoIncrementar(AuroraLogoParser.FuncaoIncrementarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncaoIncrementar(AuroraLogoParser.FuncaoIncrementarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuncaoDecrementar(AuroraLogoParser.FuncaoDecrementarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncaoDecrementar(AuroraLogoParser.FuncaoDecrementarContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

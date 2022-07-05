@@ -206,6 +206,90 @@ public class ValorVariavel {
         
     }
     
+    public void incrementar() {
+        
+        if ( isNumero() ) {
+            if ( isInteiro() ) {
+                valor = (Integer) valor + 1;
+            } else {
+                valor = (Double) valor + 1.0;
+            }
+        }
+        
+    }
+    
+    public void decrementar() {
+        
+        if ( isNumero() ) {
+            if ( isInteiro() ) {
+                valor = (Integer) valor - 1;
+            } else {
+                valor = (Double) valor - 1.0;
+            }
+        }
+        
+    }
+    
+    public void somar( ValorVariavel valor ) {
+        
+        if ( this.isNumero() && valor.isNumero() ) {
+            if ( isInteiro() ) {
+                this.valor = ( (Integer) this.valor ) + valor.valorInteiro();
+            } else {
+                this.valor = ( (Double) this.valor ) + valor.valorDecimal();
+            }
+        }
+        
+    }
+    
+    public void subtrair( ValorVariavel valor ) {
+        
+        if ( this.isNumero() && valor.isNumero() ) {
+            if ( isInteiro() ) {
+                this.valor = ( (Integer) this.valor ) - valor.valorInteiro();
+            } else {
+                this.valor = ( (Double) this.valor ) - valor.valorDecimal();
+            }
+        }
+        
+    }
+    
+    public void multiplicar( ValorVariavel valor ) {
+        
+        if ( this.isNumero() && valor.isNumero() ) {
+            if ( isInteiro() ) {
+                this.valor = ( (Integer) this.valor ) * valor.valorInteiro();
+            } else {
+                this.valor = ( (Double) this.valor ) * valor.valorDecimal();
+            }
+        }
+        
+    }
+    
+    public void dividir( ValorVariavel valor ) {
+        
+        if ( this.isNumero() && valor.isNumero() ) {
+            if ( isInteiro() ) {
+                this.valor = ( (Integer) this.valor ) / valor.valorInteiro();
+            } else {
+                this.valor = ( (Double) this.valor ) / valor.valorDecimal();
+            }
+        }
+        
+    }
+    
+    public void resto( ValorVariavel valor ) {
+        
+        if ( this.isNumero() && valor.isNumero() ) {
+            if ( isInteiro() ) {
+                this.valor = ( (Integer) this.valor ) % valor.valorInteiro();
+            } else {
+                this.valor = ( (Double) this.valor ) % valor.valorDecimal();
+            }
+        }
+        
+    }
+    
     @Override
     public String toString() {
         

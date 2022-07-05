@@ -323,7 +323,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitAtribuir( AuroraLogoParser.AtribuirContext ctx ) {
+    public ValorVariavel visitAtribuirPadrao( AuroraLogoParser.AtribuirPadraoContext ctx ) {
         
         String id = ctx.ID().getText();
         
@@ -331,6 +331,151 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         tartaruga.inserirOuAtualizarMemoria( id, valor );
         
         return valor;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitAtribuirAdicao( AuroraLogoParser.AtribuirAdicaoContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        ValorVariavel valor = visit( ctx.expr() );
+        
+        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        
+        if ( valor.isNumero() ) {
+            if ( vMemoria.isNumero() ) {
+                vMemoria.somar( valor );
+                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+            } else if ( vMemoria.isNulo() ) {
+                if ( valor.isInteiro() ) {
+                    ValorVariavel vN = novoInteiro( 0 );
+                    vN.somar( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                } else if ( valor.isDecimal() ) {
+                    ValorVariavel vN = novoDecimal( 0.0 );
+                    vN.somar( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                }
+            }
+        }
+        
+        return vMemoria;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitAtribuirSubtracao( AuroraLogoParser.AtribuirSubtracaoContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        ValorVariavel valor = visit( ctx.expr() );
+        
+        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        
+        if ( valor.isNumero() ) {
+            if ( vMemoria.isNumero() ) {
+                vMemoria.subtrair( valor );
+                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+            } else if ( vMemoria.isNulo() ) {
+                if ( valor.isInteiro() ) {
+                    ValorVariavel vN = novoInteiro( 0 );
+                    vN.subtrair( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                } else if ( valor.isDecimal() ) {
+                    ValorVariavel vN = novoDecimal( 0.0 );
+                    vN.subtrair( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                }
+            }
+        }
+        
+        return vMemoria;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitAtribuirMultiplicacao( AuroraLogoParser.AtribuirMultiplicacaoContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        ValorVariavel valor = visit( ctx.expr() );
+        
+        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        
+        if ( valor.isNumero() ) {
+            if ( vMemoria.isNumero() ) {
+                vMemoria.multiplicar( valor );
+                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+            } else if ( vMemoria.isNulo() ) {
+                if ( valor.isInteiro() ) {
+                    ValorVariavel vN = novoInteiro( 0 );
+                    vN.multiplicar( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                } else if ( valor.isDecimal() ) {
+                    ValorVariavel vN = novoDecimal( 0.0 );
+                    vN.multiplicar( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                }
+            }
+        }
+        
+        return vMemoria;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitAtribuirDivisao( AuroraLogoParser.AtribuirDivisaoContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        ValorVariavel valor = visit( ctx.expr() );
+        
+        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        
+        if ( valor.isNumero() ) {
+            if ( vMemoria.isNumero() ) {
+                vMemoria.dividir( valor );
+                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+            } else if ( vMemoria.isNulo() ) {
+                if ( valor.isInteiro() ) {
+                    ValorVariavel vN = novoInteiro( 0 );
+                    vN.dividir( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                } else if ( valor.isDecimal() ) {
+                    ValorVariavel vN = novoDecimal( 0.0 );
+                    vN.dividir( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                }
+            }
+        }
+        
+        return vMemoria;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitAtribuirResto( AuroraLogoParser.AtribuirRestoContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        ValorVariavel valor = visit( ctx.expr() );
+        
+        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        
+        if ( valor.isNumero() ) {
+            if ( vMemoria.isNumero() ) {
+                vMemoria.resto( valor );
+                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+            } else if ( vMemoria.isNulo() ) {
+                if ( valor.isInteiro() ) {
+                    ValorVariavel vN = novoInteiro( 0 );
+                    vN.resto( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                } else if ( valor.isDecimal() ) {
+                    ValorVariavel vN = novoDecimal( 0.0 );
+                    vN.resto( valor );
+                    tartaruga.inserirOuAtualizarMemoria( id, vN );
+                }
+            }
+        }
+        
+        return vMemoria;
         
     }
 
@@ -1528,15 +1673,14 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                         } else if ( c.ains().continuar() != null  ) {
                             
                             // se for um continuar do corpo da instrução
-                            ValorVariavel cont = visit( c.ains().continuar() );
+                            ValorVariavel con = visit( c.ains().continuar() );
                             
                             // se o id bater, continua essa instrução matando o for interno
-                            if ( cont.valorIdContinuar() == id ) {
+                            if ( con.valorIdContinuar() == id ) {
                                 break;
                             }
                             
                         } else {
-                            System.out.println( "a" );
                             visit( c );
                         }
                         
@@ -1570,9 +1714,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                     
                 }
             
+            } else {
+                break;
             }
             
         }
+        
         return NULO;
         
     }
@@ -1581,25 +1728,158 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     public ValorVariavel visitRepetirEnquanto( AuroraLogoParser.RepetirEnquantoContext ctx ) {
         
         int id = ++idInstrucaoRepeticao;
+        boolean breakExt = false;
         
         if ( ctx.ENQ() != null ) {
-            
+
+            // como tratar loop infinito implícito?
             while ( visit( ctx.exprBool() ).isVerdadeiro() ) {
-                for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
-                    visit( c );
+
+                if ( !breakExt ) {
+                
+                    for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
+
+                        if ( c.ains() != null ) { 
+
+                            if ( c.ains().parar() != null  ) {
+
+                                // se for um parar do corpo da instrução
+                                ValorVariavel p = visit( c.ains().parar() );
+
+                                // se o id bater, para essa instrução
+                                if ( p.valorIdParar() == id ) {
+                                    breakExt = true;
+                                    break;
+                                }
+
+                            } else if ( c.ains().continuar() != null  ) {
+
+                                // se for um continuar do corpo da instrução
+                                ValorVariavel con = visit( c.ains().continuar() );
+
+                                // se o id bater, continua essa instrução matando o for interno
+                                if ( con.valorIdContinuar() == id ) {
+                                    break;
+                                }
+
+                            } else {
+                                visit( c );
+                            }
+
+                        } else {
+
+                            ValorVariavel v = visit( c );
+
+                            if ( v != null ) { 
+
+                                // se for um parar indireto, propagado de um se
+                                if ( v.isParar() ) {
+
+                                    // se o id bater, para essa instrução
+                                    if ( v.valorIdParar() == id ) {
+                                        breakExt = true;
+                                        break;
+                                    }
+
+                                } else if ( v.isContinuar() ) {
+
+                                    // se o id bater, continua essa instrução matando o for interno
+                                    if ( v.valorIdContinuar() == id ) {
+                                        break;
+                                    }
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+                
+                } else {
+                    break;
                 }
+
             }
             
-        } else {
+        } else { // loop infinito explícito
             
-            int cont = 0;
-            int max = 1000;
-            
-            while ( cont < max ) {
-                for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
-                    visit( c );
+            if ( !breakExt ) {
+                
+                int cont = 0;
+                int max = 1000;
+
+                while ( cont < max ) {
+                    
+                    if ( !breakExt ) {
+                
+                        for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
+
+                            if ( c.ains() != null ) { 
+
+                                if ( c.ains().parar() != null  ) {
+
+                                    // se for um parar do corpo da instrução
+                                    ValorVariavel p = visit( c.ains().parar() );
+
+                                    // se o id bater, para essa instrução
+                                    if ( p.valorIdParar() == id ) {
+                                        breakExt = true;
+                                        break;
+                                    }
+
+                                } else if ( c.ains().continuar() != null  ) {
+
+                                    // se for um continuar do corpo da instrução
+                                    ValorVariavel con = visit( c.ains().continuar() );
+
+                                    // se o id bater, continua essa instrução matando o for interno
+                                    if ( con.valorIdContinuar() == id ) {
+                                        break;
+                                    }
+
+                                } else {
+                                    visit( c );
+                                }
+
+                            } else {
+
+                                ValorVariavel v = visit( c );
+
+                                if ( v != null ) { 
+
+                                    // se for um parar indireto, propagado de um se
+                                    if ( v.isParar() ) {
+
+                                        // se o id bater, para essa instrução
+                                        if ( v.valorIdParar() == id ) {
+                                            breakExt = true;
+                                            break;
+                                        }
+
+                                    } else if ( v.isContinuar() ) {
+
+                                        // se o id bater, continua essa instrução matando o for interno
+                                        if ( v.valorIdContinuar() == id ) {
+                                            break;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+
+                        }
+                        
+                        cont++;
+                        
+                    } else {
+                        break;
+                    }
+                    
                 }
-                cont++;
+                
             }
             
         }
@@ -2042,6 +2322,36 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         }
         
         return ZERO_DECIMAL;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoIncrementar( AuroraLogoParser.FuncaoIncrementarContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        ValorVariavel valor = tartaruga.lerMemoria( id );
+        
+        if ( valor.isNumero() ) {
+            valor.incrementar();
+            tartaruga.inserirOuAtualizarMemoria( id, valor );
+        }
+        
+        return valor;
+        
+    }
+    
+    @Override
+    public ValorVariavel visitFuncaoDecrementar( AuroraLogoParser.FuncaoDecrementarContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        ValorVariavel valor = tartaruga.lerMemoria( id );
+        
+        if ( valor.isNumero() ) {
+            valor.decrementar();
+            tartaruga.inserirOuAtualizarMemoria( id, valor );
+        }
+        
+        return valor;
         
     }
     

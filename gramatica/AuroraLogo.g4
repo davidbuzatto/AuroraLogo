@@ -92,7 +92,13 @@ repetir      : REP expr ( VEZ | VEZS ) '{' inst+ '}'
              ;
 
 // enquanto --- repetir
-repetirEnquanto   : ( ENQ exprBool )? REP '{' inst+ '}'
+repetirEnquanto   : ( ENQ exprBool )? REP
+                    ( 
+                      ( INCM | DCMM ) ID ( EM expr )?
+                      |
+                      ( SOMM | SUBM | MULM | DIVM ) ID EM expr 
+                    )?
+                    '{' inst+ '}'
                   ;
 
 parar        : PARR
@@ -141,7 +147,12 @@ escrever     : ESC expr ( NA SAI )?
 ler          : LER ID
              ;
 
-atribuir     : ID ( ATR | ATRA ) expr
+atribuir     : ID (  ATR | ATRA ) expr     # atribuirPadrao
+             | ID ( AC_A | AT_A ) expr     # atribuirAdicao
+             | ID ( AC_S | AT_S ) expr     # atribuirSubtracao
+             | ID ( AC_M | AT_M ) expr     # atribuirMultiplicacao
+             | ID ( AC_D | AT_D ) expr     # atribuirDivisao
+             | ID ( AC_R | AT_R ) expr     # atribuirResto
              ;
 
 abaixar      : ABA PINC
@@ -179,6 +190,8 @@ funcaoMatematica : F_VABS '(' expr ')'                            # funcaoAbsolu
                  | F_LOGA '(' ( expr | expr ',' expr ) ')'        # funcaoLogaritmo
                  | F_GRRA '(' expr ')'                            # funcaoGrausParaRadianos
                  | F_RAGR '(' expr ')'                            # funcaoRadianosParaGraus
+                 | F_INC  '(' ID ')'                              # funcaoIncrementar
+                 | F_DCM  '(' ID ')'                              # funcaoDecrementar
                  ;
 
 
@@ -233,6 +246,12 @@ VEZ  : 'vez'                      ;
 VEZS : 'vezes'                    ;
 NA   : 'na'                       ;
 SAI  : 'sa\u00EDda'               ;
+INCM : 'incrementando'            ;
+DCMM : 'decrementando'            ;
+SOMM : 'somando'                  ;
+SUBM : 'subtraindo'               ;
+MULM : 'multiplicando'            ;
+DIVM : 'dividindo'                ;
 PI   : 'PI'                       ;
 VER  : 'VERDADEIRO'               ;
 FAL  : 'FALSO'                    ;
@@ -287,11 +306,23 @@ F_TANH : 'tangenteHiperb\u00F3lica'     ;
 F_LOGA : 'logar\u00EDtmo'               ;
 F_GRRA : 'grausParaRadianos'            ;
 F_RAGR : 'radianosParaGraus'            ;
+F_INC  : 'incrementar'                  ;
+F_DCM  : 'decrementar'                  ;
 
 
 // operadores de atribuição
-ATR  : '='   ;
-ATRA : '<-'  ;
+ATR  : '='    ;
+ATRA : '<-'   ;
+AC_A : '+='   ;
+AT_A : '+<-'  ;
+AC_S : '-='   ;
+AT_S : '-<-'  ;
+AC_M : '*='   ;
+AT_M : '*<-'  ;
+AC_D : '/='   ;
+AT_D : '/<-'  ;
+AC_R : '%='   ;
+AT_R : '%<-'  ;
 
 
 // operadores aritméticos

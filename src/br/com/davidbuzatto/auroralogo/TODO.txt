@@ -1,5 +1,15 @@
 Limpar os cabeçalhos e padronizar.
 
+operadores compostos de atribuição;
+função incrementar
+função decrementar
+
+divisão por zero em inteiros
+enquanto i < 10 repetir incrementando i
+enquanto i < 10 repetir decrementando i
+
+amarrar execução no editor???
+
 -> Instruções geométricas;
     configuração de cor de preenchimento
     linha
