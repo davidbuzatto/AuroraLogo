@@ -556,14 +556,7 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitDesenhar(AuroraLogoParser.DesenharContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitFuncaoDesenharLinha(AuroraLogoParser.FuncaoDesenharLinhaContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFuncaoDesenharSegmento(AuroraLogoParser.FuncaoDesenharSegmentoContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -598,6 +591,13 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFuncaoDesenharArco(AuroraLogoParser.FuncaoDesenharArcoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitFuncaoDesenharPoligonoRegular(AuroraLogoParser.FuncaoDesenharPoligonoRegularContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -619,7 +619,7 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFuncaoDesenharCurvaQudratica(AuroraLogoParser.FuncaoDesenharCurvaQudraticaContext ctx) { return visitChildren(ctx); }
+	@Override public T visitFuncaoDesenharCurvaQuadratica(AuroraLogoParser.FuncaoDesenharCurvaQuadraticaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -633,40 +633,40 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFuncaoCCIniciarCaminho(AuroraLogoParser.FuncaoCCIniciarCaminhoContext ctx) { return visitChildren(ctx); }
+	@Override public T visitDesenharCaminho(AuroraLogoParser.DesenharCaminhoContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFuncaoCCMoverAte(AuroraLogoParser.FuncaoCCMoverAteContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoCaminhoMoverAte(AuroraLogoParser.InstrucaoCaminhoMoverAteContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFuncaoCCLinhaAte(AuroraLogoParser.FuncaoCCLinhaAteContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoCaminhoLinhaAte(AuroraLogoParser.InstrucaoCaminhoLinhaAteContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFuncaoCCCurvaQuadraticaAte(AuroraLogoParser.FuncaoCCCurvaQuadraticaAteContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoCaminhoCurvaQuadraticaAte(AuroraLogoParser.InstrucaoCaminhoCurvaQuadraticaAteContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFuncaoCCCurvaCubicaAte(AuroraLogoParser.FuncaoCCCurvaCubicaAteContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoCaminhoCurvaCubicaAte(AuroraLogoParser.InstrucaoCaminhoCurvaCubicaAteContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
-	@Override public T visitFuncaoCCFecharCaminho(AuroraLogoParser.FuncaoCCFecharCaminhoContext ctx) { return visitChildren(ctx); }
+	@Override public T visitInstrucaoCaminhoFecharCaminho(AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx) { return visitChildren(ctx); }
 }

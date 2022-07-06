@@ -1,0 +1,59 @@
+trocar cor do preenchimento para 0x0000ff .
+
+desenhar segmento( 300, 150, 320, 150 ) .
+
+desenhar quadrado( 300, 200, 40 ) preenchido .
+
+desenhar retângulo( 300, 250, 100, 40 ) preenchido .
+
+desenhar círculo( 300, 300, 20 ) preenchido .
+
+desenhar elipse( 300, 350, 100, 40 ) preenchida .
+
+desenhar arco( 300, 400, 40, 40, 0, 90 ) preenchido .
+
+desenhar arco( 350, 400, 40, 40, 0, 120, ABERTO ) preenchido .
+
+desenhar arco( 400, 400, 40, 40, 0, 150, CORDA ) preenchido .
+
+desenhar arco( 450, 400, 40, 40, 0, 210, PIZZA ) preenchido .
+
+desenhar polígonoRegular( 300, 450, 20, 0, 3 ) preenchido .
+
+desenhar polígonoRegular( 350, 450, 20, 0, 4 ) preenchido .
+
+desenhar polígonoRegular( 400, 450, 20, 0, 5 ) preenchido .
+
+desenhar polígonoRegular( 450, 450, 20, 0, 6 ) preenchido .
+
+desenhar estrela( 300, 500, 20, 0, 3 ) preenchida .
+
+desenhar estrela( 350, 500, 20, 0, 4 ) preenchida .
+
+desenhar estrela( 400, 500, 20, 0, 5 ) preenchida .
+
+desenhar estrela( 450, 500, 20, 0, 6 ) preenchida .
+
+desenhar polígono( 300, 550, 350, 550, 325, 575 ) preenchido .
+
+desenhar polígono( 350, 550, 400, 550, 390, 575, 360, 575 ) preenchido .
+
+desenhar curvaQuadrática( 300, 600, 400, 570, 500, 600 ) preenchida .
+
+desenhar curvaCúbica( 300, 650, 350, 620, 450, 680, 500, 650 ) preenchida .
+
+i = 100 .
+repetir 10 vezes {
+    desenhar caminho {
+        mover até ( i, 700 ) .
+        linha até ( i+50, 700 ) . 
+        linha até ( i+50, 670 ) .
+        linha até ( i+100, 700 ) .
+        curva quadrática até ( i+125, 670, i+150, 730 ) .
+        curva cúbica até ( i+160, 720, i+190, 740, i+200, 730 ) . 
+        linha até ( i+210, 750 ) . 
+        linha até ( i+50, 750 ) . 
+        //fechar .
+    }
+    i += 50 .
+}

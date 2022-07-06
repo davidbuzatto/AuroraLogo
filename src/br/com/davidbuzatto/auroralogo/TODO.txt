@@ -1,20 +1,21 @@
-Limpar os cabeçalhos e padronizar.
+Implementação:
+    - Consultar os dados da tartaruga!
+    - Implementar case;
+    - Arrays;
+    - Lidar com loops infinitos;
+    - Sobre e ajuda;
+    - Exemplos de código;
+    - Funções definidas pelo usuário;
+    - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
+      comparando com a linha errada;
 
--> Instruções geométricas; -> todas definidas. implementar agora no visitor e na tartaruga
+Gerenciamento:
+    - Limpar os cabeçalhos e padronizar.
 
-Lidar com loops infinitos;
+Questionamentos:
+    - Não permitir variáveis com o nome de palavras chave?
+    - Autocomplete para as funções geométricas e matemáticas?
+    - Amarrar execução no editor?
 
-amarrar execução no editor???
-Arrays;
-Não permitir variáveis com o nome de palavras chave?
-
-Funções definidas pelo usuário;
-
-Sobre e ajuda;
-
-Melhorar mensagens de erro, usando uma sequência de comandos corretos comparando com a linha errada;
-
-Exemplos de código;
-
-Registrar AuroraLogo;
-Registrar CSCH.
+- Registrar AuroraLogo;
+- Registrar CSCH.

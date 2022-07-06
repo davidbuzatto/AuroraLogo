@@ -319,6 +319,19 @@ public class Utils {
         
     }
     
+    public static void gerarCoordenadasPoligono( double xCentro, double yCentro, double raio, double angulo, double[] xs, double[] ys ) {
+        
+        int quantidadeLados = xs.length;
+        double incrementoAngulo = 360.0 / quantidadeLados;
+
+        for ( int i = 0; i < quantidadeLados; i++ ) {
+            xs[i] = xCentro + Math.cos( Math.toRadians( angulo ) ) * raio;
+            ys[i] = yCentro + Math.sin( Math.toRadians( angulo ) ) * raio;
+            angulo += incrementoAngulo;
+        }
+        
+    }
+    
     public static void prepararPreferences( boolean reset ) {
         
         if ( reset ) {

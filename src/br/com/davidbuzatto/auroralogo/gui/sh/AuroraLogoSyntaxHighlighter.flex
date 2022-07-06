@@ -246,22 +246,34 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 <YYINITIAL> {
 
 	/* Keywords */
-	"FALSO " | 
+	"ABERTO " | 
+"ABERTO" | 
+"CORDA " | 
+"CORDA" | 
+"FALSO " | 
 "FALSO" | 
 "PI " | 
 "PI" | 
+"PIZZA " | 
+"PIZZA" | 
 "VERDADEIRO " | 
 "VERDADEIRO" | 
 "abaixar " | 
 "abaixar" | 
 "amarelo " | 
 "amarelo" | 
+"at\u00E9 " | 
+"at\u00E9" | 
 "azul " | 
 "azul" | 
 "baixo " | 
 "baixo" | 
 "branco " | 
 "branco" | 
+"c\u00FAbica " | 
+"c\u00FAbica" | 
+"caminho " | 
+"caminho" | 
 "ciano " | 
 "ciano" | 
 "cima " | 
@@ -276,6 +288,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "continuar" | 
 "cor " | 
 "cor" | 
+"curva " | 
+"curva" | 
 "de " | 
 "de" | 
 "decrementando " | 
@@ -304,6 +318,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "escuro" | 
 "esquerda " | 
 "esquerda" | 
+"fechar " | 
+"fechar" | 
 "fundo " | 
 "fundo" | 
 "girar " | 
@@ -314,6 +330,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "grossura" | 
 "incrementando " | 
 "incrementando" | 
+"iniciar " | 
+"iniciar" | 
 "laranja " | 
 "laranja" | 
 "ler " | 
@@ -322,8 +340,12 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "levantar" | 
 "limpar " | 
 "limpar" | 
+"linha " | 
+"linha" | 
 "magenta " | 
 "magenta" | 
+"mover " | 
+"mover" | 
 "multiplicando " | 
 "multiplicando" | 
 "na " | 
@@ -336,10 +358,16 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "pincel" | 
 "por " | 
 "por" | 
+"preenchida " | 
+"preenchida" | 
+"preenchido " | 
+"preenchido" | 
 "preenchimento " | 
 "preenchimento" | 
 "preto " | 
 "preto" | 
+"quadr\u00E1tica " | 
+"quadr\u00E1tica" | 
 "repetir " | 
 "repetir" | 
 "rosa " | 
@@ -354,6 +382,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "somando" | 
 "subtraindo " | 
 "subtraindo" | 
+"terminar " | 
+"terminar" | 
 "trocar " | 
 "trocar" | 
 "v\u00E1 " | 
@@ -374,7 +404,11 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	/* No data types */
 
 	/* Functions */
-	"arcoCosseno " | 
+	"arco " | 
+"arco" | 
+"arco( " | 
+"arco() " | 
+"arcoCosseno " | 
 "arcoCosseno" | 
 "arcoCosseno( " | 
 "arcoCosseno() " | 
@@ -414,18 +448,10 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "curvaC\u00FAbica" | 
 "curvaC\u00FAbica( " | 
 "curvaC\u00FAbica() " | 
-"curvaC\u00FAbicaAt\u00E9 " | 
-"curvaC\u00FAbicaAt\u00E9" | 
-"curvaC\u00FAbicaAt\u00E9( " | 
-"curvaC\u00FAbicaAt\u00E9() " | 
 "curvaQuadr\u00E1tica " | 
 "curvaQuadr\u00E1tica" | 
 "curvaQuadr\u00E1tica( " | 
 "curvaQuadr\u00E1tica() " | 
-"curvaQuadr\u00E1ticaAt\u00E9 " | 
-"curvaQuadr\u00E1ticaAt\u00E9" | 
-"curvaQuadr\u00E1ticaAt\u00E9( " | 
-"curvaQuadr\u00E1ticaAt\u00E9() " | 
 "decrementar " | 
 "decrementar" | 
 "decrementar( " | 
@@ -442,10 +468,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "estrela" | 
 "estrela( " | 
 "estrela() " | 
-"fecharCaminho " | 
-"fecharCaminho" | 
-"fecharCaminho( " | 
-"fecharCaminho() " | 
 "grausParaRadianos " | 
 "grausParaRadianos" | 
 "grausParaRadianos( " | 
@@ -458,18 +480,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "incrementar" | 
 "incrementar( " | 
 "incrementar() " | 
-"iniciarCaminho " | 
-"iniciarCaminho" | 
-"iniciarCaminho( " | 
-"iniciarCaminho() " | 
-"linha " | 
-"linha" | 
-"linha( " | 
-"linha() " | 
-"linhaAt\u00E9 " | 
-"linhaAt\u00E9" | 
-"linhaAt\u00E9( " | 
-"linhaAt\u00E9() " | 
 "logar\u00EDtmo " | 
 "logar\u00EDtmo" | 
 "logar\u00EDtmo( " | 
@@ -482,10 +492,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "m\u00EDnimo" | 
 "m\u00EDnimo( " | 
 "m\u00EDnimo() " | 
-"moverAt\u00E9 " | 
-"moverAt\u00E9" | 
-"moverAt\u00E9( " | 
-"moverAt\u00E9() " | 
 "n\u00FAmeroAleat\u00F3rio " | 
 "n\u00FAmeroAleat\u00F3rio" | 
 "n\u00FAmeroAleat\u00F3rio( " | 
@@ -526,6 +532,10 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "ret\u00E2ngulo" | 
 "ret\u00E2ngulo( " | 
 "ret\u00E2ngulo() " | 
+"segmento " | 
+"segmento" | 
+"segmento( " | 
+"segmento() " | 
 "seno " | 
 "seno" | 
 "seno( " | 

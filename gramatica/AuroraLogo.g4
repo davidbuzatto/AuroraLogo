@@ -12,6 +12,7 @@ inst : ains DOT
      | se
      | repetir
      | repetirEnquanto
+     | desenharCaminho
      ;
 
 ains : movimentar
@@ -200,31 +201,46 @@ funcaoMatematica : F_VABS '(' expr ')'                            # funcaoAbsolu
                  ;
 
 // funções geométricas
-instrucaoGeometrica : desenhar 
-                    | criarCaminho
+instrucaoGeometrica : DESE funcaoGeometrica
                     ;
 
-desenhar            : DESE funcaoGeometrica
+                      //          x1       y1       x2       y2
+funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'                                                       # funcaoDesenharSegmento
+                      //          xc       yc      lado
+                    | FG_QUA '(' expr ',' expr ',' expr ')' PREO?                                                          # funcaoDesenharQuadrado
+                      //          x        y       larg     alt
+                    | FG_RET '(' expr ',' expr ',' expr ',' expr ')' PREO?                                                 # funcaoDesenharRetangulo
+                      //          xc       yc      raio
+                    | FG_CIC '(' expr ',' expr ',' expr ')' PREO?                                                          # funcaoDesenharCirculo
+                      //          xc       yc       eh       ev
+                    | FG_ELI '(' expr ',' expr ',' expr ',' expr ')' PREA?                                                 # funcaoDesenharElipse
+                      //          xc       yc       eh       ev      aini     afim
+                    | FG_ARC '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' ( ABE | COD | PIZ ) )? ')' PREO?  # funcaoDesenharArco
+                      //          xc       yc      raio     ang       ql
+                    | FG_POR '(' expr ',' expr ',' expr ',' expr ',' expr ')' PREO?                                        # funcaoDesenharPoligonoRegular
+                      //          xc       yc      raio     ang       qp
+                    | FG_EST '(' expr ',' expr ',' expr ',' expr ',' expr ')' PREA?                                        # funcaoDesenharEstrela
+                      //          x1       y1       x2       y2       x3       y3         xn       yn
+                    | FG_POL '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' expr ',' expr )* ')' PREO?        # funcaoDesenharPoligono
+                      //          x1       y1      ctx      cty       x2       y2
+                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' PREA?                               # funcaoDesenharCurvaQuadratica
+                      //          x1       y1      ct1x     ct1y     ct2x     ct2y      x2       y2
+                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' PREA?             # funcaoDesenharCurvaCubica
                     ;
 
-funcaoGeometrica    : FG_LIN '(' expr ')'     # funcaoDesenharLinha
-                    | FG_QUA '(' expr ')'     # funcaoDesenharQuadrado
-                    | FG_RET '(' expr ')'     # funcaoDesenharRetangulo
-                    | FG_CIC '(' expr ')'     # funcaoDesenharCirculo
-                    | FG_ELI '(' expr ')'     # funcaoDesenharElipse
-                    | FG_POR '(' expr ')'     # funcaoDesenharPoligonoRegular
-                    | FG_EST '(' expr ')'     # funcaoDesenharEstrela
-                    | FG_POL '(' expr ')'     # funcaoDesenharPoligono
-                    | FG_CQD '(' expr ')'     # funcaoDesenharCurvaQudratica
-                    | FG_CCU '(' expr ')'     # funcaoDesenharCurvaCubica
+
+desenharCaminho     : DESE CAM PREO? '{' ( instCaminho DOT )+ '}'
                     ;
 
-criarCaminho        : FG_PHI '()'             # funcaoCCIniciarCaminho
-                    | FG_PHM '(' expr ')'     # funcaoCCMoverAte
-                    | FG_PHL '(' expr ')'     # funcaoCCLinhaAte
-                    | FG_PHQ '(' expr ')'     # funcaoCCCurvaQuadraticaAte
-                    | FG_PHC '(' expr ')'     # funcaoCCCurvaCubicaAte
-                    | FG_PHF '(' expr ')'     # funcaoCCFecharCaminho
+                      //           x        y
+instCaminho         : MOV ATE '(' expr ',' expr ')'                                           # instrucaoCaminhoMoverAte
+                      //           x        y
+                    | LIN ATE '(' expr ',' expr ')'                                           # instrucaoCaminhoLinhaAte
+                      //               ctx      cty       x        y
+                    | CUR QUAD ATE '(' expr ',' expr ',' expr ',' expr ')'                    # instrucaoCaminhoCurvaQuadraticaAte
+                      //               ct1x     ct1y     ct2x     ct2y      x        y
+                    | CUR CUBI ATE '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')'  # instrucaoCaminhoCurvaCubicaAte
+                    | FEC                                                                     # instrucaoCaminhoFecharCaminho
                     ;
 
 fragment
@@ -245,53 +261,68 @@ UNICODE : 'u' DHX DHX DHX DHX ;
 // palavras chave
 // á = \u00E1
 // í = \u00ed
-VA   : 'v\u00E1'                  ;
-PARA : 'para'                     ;
-PARR : 'parar'                    ;
-CONT : 'continuar'                ;
-EM   : 'em'                       ;
-DIR  : 'direita'                  ;
-ESQ  : 'esquerda'                 ;
-CIM  : 'cima'                     ;
+ABA  : 'abaixar'                  ;
+ABE  : 'ABERTO'                   ;
+ATE  : 'at\u00E9'                 ;
 BAI  : 'baixo'                    ;
-TROC : 'trocar'                   ;
+CAM  : 'caminho'                  ;
+CIM  : 'cima'                     ;
+COD  : 'CORDA'                    ;
+COM  : 'com'                      ;
+CONT : 'continuar'                ;
 COR  : 'cor'                      ;
-DO   : 'do'                       ;
+CUBI : 'c\u00FAbica'              ;
+CUR  : 'curva'                    ;
+DCMM : 'decrementando'            ;
+DE   : 'de'                       ; 
+DES  : 'desengrossar'             ;
 DESE : 'desenhar'                 ;
+DIR  : 'direita'                  ;
+DIVM : 'dividindo'                ;
+DO   : 'do'                       ;
+EM   : 'em'                       ;
+ENG  : 'engrossar'                ;
+ENQ  : 'enquanto'                 ;
+ENT  : 'ent\u00E3o'               ;
+ESC  : 'escrever'                 ;
+ESQ  : 'esquerda'                 ;
+FAL  : 'FALSO'                    ;
+FEC  : 'fechar'                   ;
 FUN  : 'fundo'                    ;
 GIR  : 'girar'                    ;
 GRA  : 'graus'                    ;
-ENG  : 'engrossar'                ;
-DES  : 'desengrossar'             ;
 GROS : 'grossura'                 ;
-ESC  : 'escrever'                 ;
-LER  : 'ler'                      ;
-ABA  : 'abaixar'                  ;
-LEV  : 'levantar'                 ;
-PINC : 'pincel'                   ;
-PREE : 'preenchimento'            ;
-LIM  : 'limpar'                   ;
-SE   : 'se'                       ;
-ENT  : 'ent\u00E3o'               ;
-SEN  : 'sen\u00E3o'               ;
-ENQ  : 'enquanto'                 ;
-REP  : 'repetir'                  ;
-VEZ  : 'vez'                      ;
-VEZS : 'vezes'                    ;
-NA   : 'na'                       ;
-SAI  : 'sa\u00EDda'               ;
 INCM : 'incrementando'            ;
-DCMM : 'decrementando'            ;
+INI  : 'iniciar'                  ;
+LER  : 'ler'                      ;
+LEV  : 'levantar'                 ;
+LIM  : 'limpar'                   ;
+LIN  : 'linha'                    ;
+MOV  : 'mover'                    ;
+MULM : 'multiplicando'            ;
+NA   : 'na'                       ;
+PARA : 'para'                     ;
+PARR : 'parar'                    ;
+PI   : 'PI'                       ;
+PINC : 'pincel'                   ;
+PIZ  : 'PIZZA'                    ;
+POR  : 'por'                      ;
+PREA : 'preenchida'               ;
+PREE : 'preenchimento'            ;
+PREO : 'preenchido'               ;
+QUAD : 'quadr\u00E1tica'          ;
+REP  : 'repetir'                  ;
+SAI  : 'sa\u00EDda'               ;
+SE   : 'se'                       ;
+SEN  : 'sen\u00E3o'               ;
 SOMM : 'somando'                  ;
 SUBM : 'subtraindo'               ;
-MULM : 'multiplicando'            ;
-DIVM : 'dividindo'                ;
-POR  : 'por'                      ;
-DE   : 'de'                       ; 
-COM  : 'com'                      ;
-PI   : 'PI'                       ;
+TER  : 'terminar'                 ;
+TROC : 'trocar'                   ;
+VA   : 'v\u00E1'                  ;
 VER  : 'VERDADEIRO'               ;
-FAL  : 'FALSO'                    ;
+VEZ  : 'vez'                      ;
+VEZS : 'vezes'                    ;
 
 
 // constantes para cores
@@ -317,34 +348,34 @@ CLARO    : 'claro'    ;
 // ê = \u00EA
 // ó = \u00F3
 // ú = \u00FA
-F_VABS : 'valorAbsoluto'                ;
-F_RAIQ : 'raizQuadrada'                 ;
-F_RAIC : 'raizC\u00FAbica'              ;
-F_RAIZ : 'raiz'                         ;
-F_POTE : 'pot\u00EAncia'                ;
-F_HIPO : 'hipotenusa'                   ;
-F_CHAO : 'ch\u00E3o'                    ;
-F_TETO : 'teto'                         ;
-F_ARRE : 'arredondar'                   ;
-F_MINI : 'm\u00EDnimo'                  ;
-F_MAXI : 'm\u00E1ximo'                  ;
-F_NUMA : 'n\u00FAmeroAleat\u00F3rio'    ;
-F_SEME : 'definirSementeAleat\u00F3ria' ;
-F_SENO : 'seno'                         ;
-F_COSS : 'cosseno'                      ;
-F_TANG : 'tangente'                     ;
-F_ASEN : 'arcoSeno'                     ;
 F_ACOS : 'arcoCosseno'                  ;
+F_ARRE : 'arredondar'                   ;
+F_ASEN : 'arcoSeno'                     ;
 F_ATAN : 'arcoTangente'                 ;
 F_CAPO : 'cartesianoParaPolar'          ;
-F_SENH : 'senoHiperb\u00F3lico'         ;
+F_CHAO : 'ch\u00E3o'                    ;
 F_COSH : 'cossenoHiperb\u00F3lico'      ;
-F_TANH : 'tangenteHiperb\u00F3lica'     ;
-F_LOGA : 'logar\u00EDtmo'               ;
-F_GRRA : 'grausParaRadianos'            ;
-F_RAGR : 'radianosParaGraus'            ;
-F_INC  : 'incrementar'                  ;
+F_COSS : 'cosseno'                      ;
 F_DCM  : 'decrementar'                  ;
+F_GRRA : 'grausParaRadianos'            ;
+F_HIPO : 'hipotenusa'                   ;
+F_INC  : 'incrementar'                  ;
+F_LOGA : 'logar\u00EDtmo'               ;
+F_MAXI : 'm\u00E1ximo'                  ;
+F_MINI : 'm\u00EDnimo'                  ;
+F_NUMA : 'n\u00FAmeroAleat\u00F3rio'    ;
+F_POTE : 'pot\u00EAncia'                ;
+F_RAGR : 'radianosParaGraus'            ;
+F_RAIC : 'raizC\u00FAbica'              ;
+F_RAIQ : 'raizQuadrada'                 ;
+F_RAIZ : 'raiz'                         ;
+F_SEME : 'definirSementeAleat\u00F3ria' ;
+F_SENH : 'senoHiperb\u00F3lico'         ;
+F_SENO : 'seno'                         ;
+F_TANG : 'tangente'                     ;
+F_TANH : 'tangenteHiperb\u00F3lica'     ;
+F_TETO : 'teto'                         ;
+F_VABS : 'valorAbsoluto'                ;
 
 
 // funções geométricas
@@ -353,24 +384,17 @@ F_DCM  : 'decrementar'                  ;
 // é = \u00E9
 // í = \u00ED
 // ú = \u00FA
-FG_LIN : 'linha'                        ;
-FG_QUA : 'quadrado'                     ;
-FG_RET : 'ret\u00E2ngulo'               ;
+FG_ARC : 'arco'                         ;
+FG_CCU : 'curvaC\u00FAbica'             ;
 FG_CIC : 'c\u00EDrculo'                 ;
+FG_CQD : 'curvaQuadr\u00E1tica'         ;
 FG_ELI : 'elipse'                       ;
-FG_POR : 'pol\u00EDgonoRegular'         ;
 FG_EST : 'estrela'                      ;
 FG_POL : 'pol\u00EDgono'                ;
-FG_CQD : 'curvaQuadr\u00E1tica'         ;
-FG_CCU : 'curvaC\u00FAbica'             ;
-// caminho
-FG_PHI : 'iniciarCaminho'               ;
-FG_PHM : 'moverAt\u00E9'                ;
-FG_PHL : 'linhaAt\u00E9'                ;
-FG_PHQ : 'curvaQuadr\u00E1ticaAt\u00E9' ;
-FG_PHC : 'curvaC\u00FAbicaAt\u00E9'     ;
-FG_PHF : 'fecharCaminho'                ;
-
+FG_POR : 'pol\u00EDgonoRegular'         ;
+FG_QUA : 'quadrado'                     ;
+FG_RET : 'ret\u00E2ngulo'               ;
+FG_SEG : 'segmento'                     ;
 
 // operadores de atribuição
 ATR  : '='    ;

@@ -10,7 +10,14 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.Shape;
+import java.awt.geom.Arc2D;
+import java.awt.geom.CubicCurve2D;
+import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
+import java.awt.geom.QuadCurve2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -27,6 +34,43 @@ import javax.imageio.ImageIO;
  */
 public class Tartaruga {
     
+    private class Forma implements Cloneable {
+        
+        Shape forma;
+        boolean preenchida;
+        String nome;
+
+        public Forma( Shape forma, boolean preenchida, String nome ) {
+            this.forma = forma;
+            this.preenchida = preenchida;
+            this.nome = nome;
+        }
+        
+        @Override
+        public Object clone() throws CloneNotSupportedException {
+            
+            if ( forma instanceof Path2D.Double ) {
+                
+                Forma f = (Forma) super.clone();
+                f.forma = (Path2D.Double) ( (Path2D.Double) forma ).clone();
+                f.preenchida = preenchida;
+                f.nome = nome;
+
+                return f;
+                
+            }
+            
+            return null;
+            
+        }
+
+        @Override
+        public String toString() {
+            return nome;
+        }
+        
+    }
+    
     private class Estado implements Cloneable {
 
         double x;
@@ -38,6 +82,7 @@ public class Tartaruga {
         Color corPreenchimento;
         Color corFundo;
         boolean desenhando;
+        Forma forma;
         Map<String, ValorVariavel> memoria;
         
         public Estado( double x, double y, double angulo, double grossura, Color corPincel, Color corPreenchimento, Color corFundo, boolean desenhando ) {
@@ -49,6 +94,7 @@ public class Tartaruga {
             this.corPreenchimento = corPreenchimento;
             this.corFundo = corFundo;
             this.desenhando = desenhando;
+            this.forma = null;
             this.memoria = new LinkedHashMap<>();
         }
 
@@ -65,6 +111,7 @@ public class Tartaruga {
             e.corPreenchimento = corPreenchimento;
             e.corFundo = corFundo;
             e.desenhando = desenhando;
+            e.forma = null;
             e.memoria = new LinkedHashMap<>();
             
             for ( Entry<String, ValorVariavel> en : memoria.entrySet() ) {
@@ -80,12 +127,14 @@ public class Tartaruga {
     private static final Color COR_GRADE = new Color( 230, 230, 230 );
     private static final Color COR_FUNDO_DEPURADOR = new Color( 255, 255, 255, 200 );
     private static final Color COR_TEXTO_DEPURADOR = Color.BLACK;
+    
     private static final String[] PROPRIEDADES_DEPURADOR = {
         " estado atual: ",
         "            x: ",
         "            y: ",
         "       ângulo: ",
         "     grossura: ",
+        "  forma atual: ",
         "       pincel: ",
         "preenchimento: ",
         "        fundo: ",
@@ -100,6 +149,7 @@ public class Tartaruga {
     private PainelDesenho painelDesenho;
     private Font fonteDepurador;
     private Color cor;
+    private Forma caminho;
     
     private boolean passoAPasso;
     private int estadoAtual;
@@ -202,11 +252,21 @@ public class Tartaruga {
     }
     
     public void moverPara( double x, double y ) {
+        moverPara( x, y, true );
+    }
+    
+    public void moverPara( double x, double y, boolean gerarEstado ) {
         
-        Estado e = clonarUltimoEstado();
-        e.x = x;
-        e.y = y;
-        estados.add( e );
+        if ( gerarEstado ) {
+            Estado e = clonarUltimoEstado();
+            e.x = x;
+            e.y = y;
+            estados.add( e );
+        } else {
+            Estado e = estados.get( estados.size() - 1 );
+            e.x = x;
+            e.y = y;
+        }
         
     }
     
@@ -295,16 +355,38 @@ public class Tartaruga {
         estados.add( e );
     }
     
-    public void abaixar() {
-        Estado e = clonarUltimoEstado();
-        e.desenhando = true;
-        estados.add( e );
+    public void abaixarPincel() {
+        abaixarPincel( true );
     }
     
-    public void levantar() {
+    public void abaixarPincel( boolean gerarEstado ) {
+        
+        if ( gerarEstado ) {
+            Estado e = clonarUltimoEstado();
+            e.desenhando = true;
+            estados.add( e );
+        } else {
+            estados.get( estados.size() - 1 ).desenhando = true;
+        }
+        
+    }
+    
+    public void levantarPincel() {
         Estado e = clonarUltimoEstado();
         e.desenhando = false;
         estados.add( e );
+    }
+    
+    public void levantarPincel( boolean gerarEstado ) {
+        
+        if ( gerarEstado ) {
+            Estado e = clonarUltimoEstado();
+            e.desenhando = false;
+            estados.add( e );
+        } else {
+            estados.get( estados.size() - 1 ).desenhando = false;
+        }
+        
     }
     
     public void limpar() {
@@ -312,6 +394,7 @@ public class Tartaruga {
         e.x = painelDesenho.getWidth() / 2;
         e.y = painelDesenho.getHeight() / 2;
         e.memoria.clear();
+        e.desenhando = true;
         estados.clear();
         estados.add( e );
         estadoAtual = 0;
@@ -359,7 +442,17 @@ public class Tartaruga {
                 g2d.setColor( atu.corPincel );
                 g2d.setStroke( atu.contorno );
 
-                if ( ant.desenhando ) {
+                if ( atu.forma != null ) {
+                    
+                    if ( atu.forma.preenchida ) {
+                        g2d.setColor( atu.corPreenchimento );
+                        g2d.fill( atu.forma.forma );
+                    }
+                    
+                    g2d.setColor( atu.corPincel );
+                    g2d.draw( atu.forma.forma );
+                    
+                } else if ( ant.desenhando ) {
                     if ( atu.texto != null ) {
                         Graphics2D g2ds = (Graphics2D) g2d.create();
                         g2ds.rotate( Math.toRadians( atu.angulo ), atu.x, atu.y );
@@ -442,6 +535,7 @@ public class Tartaruga {
             String.format( Locale.US, "%.4f", atu.y ),
             String.format( Locale.US, "%.4f", atu.angulo ) + "º",
             String.format( Locale.US, "%.4f", atu.contorno.getLineWidth() ),
+            atu.forma == null ? "não há" : atu.forma,
             atu.corPincel,
             atu.corPreenchimento,
             atu.corFundo,
@@ -619,6 +713,280 @@ public class Tartaruga {
 
     public void setGradeAtiva( boolean gradeAtiva ) {
         this.gradeAtiva = gradeAtiva;
+    }
+    
+    public boolean isDesenhando() {
+        return estados.get( estados.size() - 1 ).desenhando;
+    }
+    
+    // funções geométricas
+
+    public void criarSegmento( double x1, double y1, double x2, double y2 ) {
+        Estado e = clonarUltimoEstado();
+        e.forma = new Forma( 
+                new Line2D.Double( x1, y1, x2, y2 ), 
+                false, "segmento" );
+        estados.add( e );
+    }
+
+    public void criarQuadrado( double xCentro, double yCentro, double lado, boolean preenchido ) {
+        Estado e = clonarUltimoEstado();
+        e.forma = new Forma( 
+                new Rectangle2D.Double( 
+                        xCentro - lado / 2, yCentro - lado / 2, 
+                        lado, lado ), 
+                preenchido, "quadrado" );
+        estados.add( e );
+    }
+
+    public void criarRetangulo( double xCentro, double yCentro, double largura, double altura, boolean preenchido ) {
+        Estado e = clonarUltimoEstado();
+        e.forma = new Forma( 
+                new Rectangle2D.Double( 
+                        xCentro - largura / 2, yCentro - altura / 2, 
+                        largura, altura ), 
+                preenchido, "retângulo" );
+        estados.add( e );
+    }
+
+    public void criarCirculo( double xCentro, double yCentro, double raio, boolean preenchido ) {
+        Estado e = clonarUltimoEstado();
+        e.forma = new Forma( 
+                new Ellipse2D.Double( 
+                        xCentro - raio, yCentro - raio, 
+                        raio * 2, raio * 2 ), 
+                preenchido, "círculo" );
+        estados.add( e );
+    }
+
+    public void criarElipse( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, boolean preenchida ) {
+        Estado e = clonarUltimoEstado();
+        e.forma = new Forma( 
+                new Ellipse2D.Double( xCentro - eixoHorizontal / 2, yCentro - eixoVertical / 2, 
+                        eixoHorizontal, eixoVertical ), 
+                preenchida, "elipse" );
+        estados.add( e );
+    }
+
+    public void criarArco( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, double anguloInicio, double anguloFim, int tipo, boolean preenchido ) {
+        Estado e = clonarUltimoEstado();
+        e.forma = new Forma( 
+                new Arc2D.Double( xCentro - eixoHorizontal / 2, yCentro - eixoVertical / 2, 
+                        eixoHorizontal, eixoVertical, 
+                        anguloInicio, anguloFim, tipo ), 
+                preenchido, "arco" );
+        estados.add( e );
+    }
+
+    public void criarPoligonoRegular( double xCentro, double yCentro, double raio, double angulo, int quantidadeLados, boolean preenchido ) {
+        
+        if ( quantidadeLados >= 3 ) {
+            
+            Estado e = clonarUltimoEstado();
+            Path2D.Double poligono = new Path2D.Double();
+            
+            double[] xs = new double[quantidadeLados];
+            double[] ys = new double[quantidadeLados];
+            Utils.gerarCoordenadasPoligono( xCentro, yCentro, raio, angulo, xs, ys );
+            
+            poligono.moveTo( xs[0], ys[0] );
+        
+            for ( int i = 1; i < quantidadeLados; i++ ) {
+                poligono.lineTo( xs[i], ys[i] );
+            }
+
+            poligono.closePath();
+            
+            e.forma = new Forma( poligono, preenchido, "polígono reg." );
+            estados.add( e );
+            
+        }
+        
+    }
+
+    public void criarEstrela( double xCentro, double yCentro, double raio, double angulo, int quantidadePontas, boolean preenchida ) {
+        
+        if ( quantidadePontas >= 3 ) {
+            
+            Estado e = clonarUltimoEstado();
+            Path2D.Double estrela = new Path2D.Double();
+            
+            double[] xs = new double[quantidadePontas];
+            double[] ys = new double[quantidadePontas];
+            Utils.gerarCoordenadasPoligono( xCentro, yCentro, raio, angulo, xs, ys );
+            
+            estrela.moveTo( xs[0], ys[0] );
+        
+            if ( quantidadePontas % 2 == 0 ) {
+            
+                for ( int i = 2; i < quantidadePontas; i += 2 ) {
+                    estrela.lineTo( xs[i], ys[i] );
+                }
+                estrela.closePath();
+
+                estrela.moveTo( xs[1], ys[1] );
+                for ( int i = 3; i < quantidadePontas; i += 2 ) {
+                    estrela.lineTo( xs[i], ys[i] );
+                }
+
+            } else {
+
+                for ( int i = 2; i < quantidadePontas * 2; i += 2 ) {
+                    estrela.lineTo( xs[i%quantidadePontas], ys[i%quantidadePontas] );
+                }
+
+            }
+
+            estrela.closePath();
+            
+            e.forma = new Forma( estrela, preenchida, "estrela" );
+            estados.add( e );
+            
+        }
+        
+    }
+
+    public void criarPoligono( double x1, double y1, double x2, double y2, double x3, double y3, boolean preenchido, double... xyn ) {
+        
+        if ( xyn.length % 2 == 0 ) {
+            
+            Estado e = clonarUltimoEstado();
+            
+            Path2D.Double poligono = new Path2D.Double();
+            poligono.moveTo( x1, y1 );
+            poligono.lineTo( x2, y2 );
+            poligono.lineTo( x3, y3 );
+            
+            for ( int i = 0; i < xyn.length; i += 2 ) {
+                poligono.lineTo( xyn[i], xyn[i+1] );
+            }
+            
+            poligono.closePath();
+            
+            e.forma = new Forma( poligono, preenchido, "polígono" );
+            estados.add( e );
+        
+        }
+        
+    }
+
+    public void criarCurvaQuadratica( double x1, double y1, double xControle, double yControle, double x2, double y2, boolean preenchida ) {
+        Estado e = clonarUltimoEstado();
+        e.forma = new Forma( 
+                new QuadCurve2D.Double( x1, y1, xControle, yControle, x2, y2 ), 
+                preenchida, "curva quad." );
+        estados.add( e );
+    }
+
+    public void criarCurvaCubica( double x1, double y1, double xControle1, double yControle1, double xControle2, double yControle2, double x2, double y2, boolean preenchida ) {
+        Estado e = clonarUltimoEstado();
+        e.forma = new Forma( 
+                new CubicCurve2D.Double( x1, y1, xControle1, yControle1, 
+                        xControle2, yControle2, x2, y2 ), 
+                preenchida, "curva cúbica" );
+        estados.add( e );
+    }
+
+    public void iniciarCaminho( boolean preenchido ) {
+        Estado e = clonarUltimoEstado();
+        caminho = null;
+        caminho = new Forma( new Path2D.Double(), preenchido, "caminho" );
+        e.forma = caminho;
+        estados.add( e );
+    }
+
+    public void caminhoMoverAte( double x, double y ) {
+        
+        if ( caminho != null ) {
+            
+            try { 
+                Estado e = clonarUltimoEstado();
+                caminho = (Forma) caminho.clone();
+                ( (Path2D.Double) caminho.forma ).moveTo( x, y );
+                e.forma = caminho;
+                estados.add( e );
+            } catch ( CloneNotSupportedException exc ) {
+                exc.printStackTrace();
+            }
+            
+        }
+        
+    }
+
+    public void caminhoLinhaAte( double x, double y ) {
+        
+        if ( caminho != null ) {
+            
+            try { 
+                Estado e = clonarUltimoEstado();
+                caminho = (Forma) caminho.clone();
+                ( (Path2D.Double) caminho.forma ).lineTo( x, y );
+                e.forma = caminho;
+                estados.add( e );
+            } catch ( CloneNotSupportedException exc ) {
+                exc.printStackTrace();
+            }
+            
+        }
+        
+    }
+
+    public void caminhoCurvaQuadraticaAte( double xControle, double yControle, double x, double y ) {
+        
+        if ( caminho != null ) {
+            
+            try { 
+                Estado e = clonarUltimoEstado();
+                caminho = (Forma) caminho.clone();
+                ( (Path2D.Double) caminho.forma ).quadTo( xControle, yControle, x, y );
+                e.forma = caminho;
+                estados.add( e );
+            } catch ( CloneNotSupportedException exc ) {
+                exc.printStackTrace();
+            }
+            
+        }
+        
+    }
+
+    public void caminhoCurvaCubicaAte( double xControle1, double yControle1, double xControle2, double yControle2, double x, double y ) {
+        
+        if ( caminho != null ) {
+            
+            try { 
+                Estado e = clonarUltimoEstado();
+                caminho = (Forma) caminho.clone();
+                ( (Path2D.Double) caminho.forma ).curveTo( xControle1, yControle1, xControle2, yControle2, x, y );
+                e.forma = caminho;
+                estados.add( e );
+            } catch ( CloneNotSupportedException exc ) {
+                exc.printStackTrace();
+            }
+            
+        }
+        
+    }
+
+    public void fecharCaminho() {
+        
+        if ( caminho != null ) {
+            
+            try { 
+                Estado e = clonarUltimoEstado();
+                caminho = (Forma) caminho.clone();
+                ( (Path2D.Double) caminho.forma ).closePath();
+                e.forma = caminho;
+                estados.add( e );
+            } catch ( CloneNotSupportedException exc ) {
+                exc.printStackTrace();
+            }
+            
+        }
+        
+    }
+    
+    public void terminarCaminho() {
+        caminho = null;
     }
     
 }

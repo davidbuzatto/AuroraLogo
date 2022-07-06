@@ -9,9 +9,11 @@ import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoBaseVisitor;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.InstCaminhoContext;
 import static br.com.davidbuzatto.auroralogo.parser.impl.ValorVariavel.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
+import java.awt.geom.Arc2D;
 import java.util.Locale;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -87,7 +89,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     
     @Override
     public ValorVariavel visitTrocarCorPreenchimento( AuroraLogoParser.TrocarCorPreenchimentoContext ctx ) {
+        try {
+        System.out.println( "a" );
         tartaruga.trocarCorPreenchimento( obterCor( Color.WHITE, ctx ) );
+        System.out.println( "b" );
+        } catch ( Exception exc ) {
+            exc.printStackTrace();
+        }
         return NULO;
     }
     
@@ -104,8 +112,8 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         
         if ( ctx instanceof AuroraLogoParser.TrocarCorPincelContext ) {
             configuracaoCor = ( (AuroraLogoParser.TrocarCorPincelContext) ctx ).configuracaoCor();
-        } else if ( ctx instanceof AuroraLogoParser.TrocarCorPincelContext ) {
-            configuracaoCor = ( (AuroraLogoParser.TrocarCorPincelContext) ctx ).configuracaoCor();
+        } else if ( ctx instanceof AuroraLogoParser.TrocarCorPreenchimentoContext ) {
+            configuracaoCor = ( (AuroraLogoParser.TrocarCorPreenchimentoContext) ctx ).configuracaoCor();
         } else if ( ctx instanceof AuroraLogoParser.TrocarCorFundoContext ) {
             configuracaoCor = ( (AuroraLogoParser.TrocarCorFundoContext) ctx ).configuracaoCor();
         }
@@ -314,13 +322,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
     @Override
     public ValorVariavel visitAbaixar( AuroraLogoParser.AbaixarContext ctx ) {
-        tartaruga.abaixar();
+        tartaruga.abaixarPincel();
         return NULO;
     }
 
     @Override
     public ValorVariavel visitLevantar( AuroraLogoParser.LevantarContext ctx ) {
-        tartaruga.levantar();
+        tartaruga.levantarPincel();
         return NULO;
     }
 
@@ -1949,6 +1957,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         return NULO;
     }
 
+    
+    // funções matemáticas
+    
     @Override
     public ValorVariavel visitFuncaoAbsoluto( AuroraLogoParser.FuncaoAbsolutoContext ctx ) {
         
@@ -2397,6 +2408,490 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         }
         
         return valor;
+        
+    }
+    
+    
+    // funções geométricas
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharSegmento( AuroraLogoParser.FuncaoDesenharSegmentoContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double x1 = visit( ctx.expr( 0 ) ).valorDecimal();
+            double y1 = visit( ctx.expr( 1 ) ).valorDecimal();
+            double x2 = visit( ctx.expr( 2 ) ).valorDecimal();
+            double y2 = visit( ctx.expr( 3 ) ).valorDecimal();
+
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( x1, y1 );
+            tartaruga.criarSegmento( x1, y1, x2, y2 );
+            tartaruga.moverPara( x2, y2, false );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharQuadrado( AuroraLogoParser.FuncaoDesenharQuadradoContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double xCentro = visit( ctx.expr( 0 ) ).valorDecimal();
+            double yCentro = visit( ctx.expr( 1 ) ).valorDecimal();
+            double lado = visit( ctx.expr( 2 ) ).valorDecimal();
+
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( xCentro, yCentro );
+            tartaruga.criarQuadrado( xCentro, yCentro, lado, ctx.PREO() != null );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharRetangulo( AuroraLogoParser.FuncaoDesenharRetanguloContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double xCentro = visit( ctx.expr( 0 ) ).valorDecimal();
+            double yCentro = visit( ctx.expr( 1 ) ).valorDecimal();
+            double largura = visit( ctx.expr( 2 ) ).valorDecimal();
+            double altura = visit( ctx.expr( 3 ) ).valorDecimal();
+
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( xCentro, yCentro );
+            tartaruga.criarRetangulo( xCentro, yCentro, largura, altura, ctx.PREO() != null );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharCirculo( AuroraLogoParser.FuncaoDesenharCirculoContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double xCentro = visit( ctx.expr( 0 ) ).valorDecimal();
+            double yCentro = visit( ctx.expr( 1 ) ).valorDecimal();
+            double raio = visit( ctx.expr( 2 ) ).valorDecimal();
+
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( xCentro, yCentro );
+            tartaruga.criarCirculo( xCentro, yCentro, raio, ctx.PREO() != null );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharElipse( AuroraLogoParser.FuncaoDesenharElipseContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double xCentro = visit( ctx.expr( 0 ) ).valorDecimal();
+            double yCentro = visit( ctx.expr( 1 ) ).valorDecimal();
+            double eixoHorizontal = visit( ctx.expr( 2 ) ).valorDecimal();
+            double eixoVertical = visit( ctx.expr( 3 ) ).valorDecimal();
+
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( xCentro, yCentro );
+            tartaruga.criarElipse( xCentro, yCentro, eixoHorizontal, eixoVertical, ctx.PREA() != null );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharArco( AuroraLogoParser.FuncaoDesenharArcoContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double xCentro = visit( ctx.expr( 0 ) ).valorDecimal();
+            double yCentro = visit( ctx.expr( 1 ) ).valorDecimal();
+            double eixoHorizontal = visit( ctx.expr( 2 ) ).valorDecimal();
+            double eixoVertical = visit( ctx.expr( 3 ) ).valorDecimal();
+            double anguloInicio = visit( ctx.expr( 4 ) ).valorDecimal();
+            double anguloFim = visit( ctx.expr( 5 ) ).valorDecimal();
+            int tipo = Arc2D.OPEN;
+            
+            if ( ctx.ABE() != null ) {
+                tipo = Arc2D.OPEN;
+            } else if ( ctx.COD() != null ) {
+                tipo = Arc2D.CHORD;
+            } else if ( ctx.PIZ() != null ) {
+                tipo = Arc2D.PIE;
+            }
+            
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( xCentro, yCentro );
+            tartaruga.criarArco( xCentro, yCentro, eixoHorizontal, eixoVertical, anguloInicio, anguloFim, tipo, ctx.PREO() != null );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharPoligonoRegular( AuroraLogoParser.FuncaoDesenharPoligonoRegularContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double xCentro = visit( ctx.expr( 0 ) ).valorDecimal();
+            double yCentro = visit( ctx.expr( 1 ) ).valorDecimal();
+            double raio = visit( ctx.expr( 2 ) ).valorDecimal();
+            double angulo = visit( ctx.expr( 3 ) ).valorDecimal();
+            int quantidadeLados = visit( ctx.expr( 4 ) ).valorInteiro();
+            
+            if ( quantidadeLados >= 3 ) {
+                
+                boolean d = tartaruga.isDesenhando();
+
+                tartaruga.levantarPincel( false );
+                tartaruga.moverPara( xCentro, yCentro );
+                tartaruga.criarPoligonoRegular( xCentro, yCentro, raio, angulo, quantidadeLados, ctx.PREO() != null );
+
+                if ( d ) {
+                    tartaruga.abaixarPincel( false );
+                }
+            
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharEstrela( AuroraLogoParser.FuncaoDesenharEstrelaContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double xCentro = visit( ctx.expr( 0 ) ).valorDecimal();
+            double yCentro = visit( ctx.expr( 1 ) ).valorDecimal();
+            double raio = visit( ctx.expr( 2 ) ).valorDecimal();
+            double angulo = visit( ctx.expr( 3 ) ).valorDecimal();
+            int quantidadePontas = visit( ctx.expr( 4 ) ).valorInteiro();
+            
+            if ( quantidadePontas >= 3 ) {
+                
+                boolean d = tartaruga.isDesenhando();
+
+                tartaruga.levantarPincel( false );
+                tartaruga.moverPara( xCentro, yCentro );
+                tartaruga.criarEstrela( xCentro, yCentro, raio, angulo, quantidadePontas, ctx.PREA() != null );
+
+                if ( d ) {
+                    tartaruga.abaixarPincel( false );
+                }
+            
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharPoligono( AuroraLogoParser.FuncaoDesenharPoligonoContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double[] xys = new double[ctx.expr().size()];
+            
+            double xMin = Double.MAX_VALUE;
+            double xMax = Double.MIN_VALUE;
+            double yMin = Double.MAX_VALUE;
+            double yMax = Double.MIN_VALUE;
+            
+            if ( xys.length % 2 == 0 ) {
+                
+                for ( int i = 0; i < xys.length; i += 2 ) {
+                    
+                    xys[i] = visit( ctx.expr( i ) ).valorDecimal();
+                    xys[i+1] = visit( ctx.expr( i+1 ) ).valorDecimal();
+                    
+                    if ( xys[i] < xMin ) {
+                        xMin = xys[i];
+                    }
+                    
+                    if ( xys[i] > xMax ) {
+                        xMax = xys[i];
+                    }
+                    
+                    if ( xys[i+1] < yMin ) {
+                        yMin = xys[i+1];
+                    }
+                    
+                    if ( xys[i+1] > yMax ) {
+                        yMax = xys[i+1];
+                    }
+                    
+                }
+
+                boolean d = tartaruga.isDesenhando();
+
+                tartaruga.levantarPincel( false );
+                tartaruga.moverPara( ( xMin + xMax ) / 2, ( yMin + yMax ) / 2 );
+                
+                if ( xys.length > 6 ) {
+                    double[] res = new double[xys.length - 6];
+                    for ( int i = 0; i < res.length; i++ ) {
+                        res[i] = xys[6+i];
+                    }
+                    tartaruga.criarPoligono( xys[0], xys[1], xys[2], xys[3], xys[4], xys[5], ctx.PREO() != null, res );
+                } else {
+                    tartaruga.criarPoligono( xys[0], xys[1], xys[2], xys[3], xys[4], xys[5], ctx.PREO() != null );
+                }
+                
+                
+
+                if ( d ) {
+                    tartaruga.abaixarPincel( false );
+                }
+            
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharCurvaQuadratica( AuroraLogoParser.FuncaoDesenharCurvaQuadraticaContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double x1 = visit( ctx.expr( 0 ) ).valorDecimal();
+            double y1 = visit( ctx.expr( 1 ) ).valorDecimal();
+            double xControle = visit( ctx.expr( 2 ) ).valorDecimal();
+            double yControle = visit( ctx.expr( 3 ) ).valorDecimal();
+            double x2 = visit( ctx.expr( 4 ) ).valorDecimal();
+            double y2 = visit( ctx.expr( 5 ) ).valorDecimal();
+            
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( x2, y2 );
+            tartaruga.criarCurvaQuadratica( x1, y1, xControle, yControle, x2, y2, ctx.PREA() != null );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitFuncaoDesenharCurvaCubica( AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double x1 = visit( ctx.expr( 0 ) ).valorDecimal();
+            double y1 = visit( ctx.expr( 1 ) ).valorDecimal();
+            double xControle1 = visit( ctx.expr( 2 ) ).valorDecimal();
+            double yControle1 = visit( ctx.expr( 3 ) ).valorDecimal();
+            double xControle2 = visit( ctx.expr( 4 ) ).valorDecimal();
+            double yControle2 = visit( ctx.expr( 5 ) ).valorDecimal();
+            double x2 = visit( ctx.expr( 6 ) ).valorDecimal();
+            double y2 = visit( ctx.expr( 7 ) ).valorDecimal();
+            
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( x2, y2 );
+            tartaruga.criarCurvaCubica( x1, y1, xControle1, yControle1, xControle2, yControle2, x2, y2, ctx.PREA() != null );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitDesenharCaminho( AuroraLogoParser.DesenharCaminhoContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            boolean d = tartaruga.isDesenhando();
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.iniciarCaminho( ctx.PREO() != null );
+            
+            for ( InstCaminhoContext c : ctx.instCaminho() ) {
+                visit( c );
+            }
+            
+            tartaruga.terminarCaminho();
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitInstrucaoCaminhoMoverAte( AuroraLogoParser.InstrucaoCaminhoMoverAteContext ctx ) {
+            
+        double x = visit( ctx.expr( 0 ) ).valorDecimal();
+        double y = visit( ctx.expr( 1 ) ).valorDecimal();
+
+        boolean d = tartaruga.isDesenhando();
+
+        tartaruga.levantarPincel( false );
+        tartaruga.moverPara( x, y );
+        tartaruga.caminhoMoverAte( x, y );
+
+        if ( d ) {
+            tartaruga.abaixarPincel( false );
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitInstrucaoCaminhoLinhaAte( AuroraLogoParser.InstrucaoCaminhoLinhaAteContext ctx ) {
+        
+        double x = visit( ctx.expr( 0 ) ).valorDecimal();
+        double y = visit( ctx.expr( 1 ) ).valorDecimal();
+
+        boolean d = tartaruga.isDesenhando();
+
+        tartaruga.levantarPincel( false );
+        tartaruga.moverPara( x, y );
+        tartaruga.caminhoLinhaAte( x, y );
+
+        if ( d ) {
+            tartaruga.abaixarPincel( false );
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitInstrucaoCaminhoCurvaQuadraticaAte( AuroraLogoParser.InstrucaoCaminhoCurvaQuadraticaAteContext ctx ) {
+        
+        double xControle = visit( ctx.expr( 0 ) ).valorDecimal();
+        double yControle = visit( ctx.expr( 1 ) ).valorDecimal();
+        double x = visit( ctx.expr( 2 ) ).valorDecimal();
+        double y = visit( ctx.expr( 3 ) ).valorDecimal();
+
+        boolean d = tartaruga.isDesenhando();
+
+        tartaruga.levantarPincel( false );
+        tartaruga.moverPara( x, y );
+        tartaruga.caminhoCurvaQuadraticaAte( xControle, yControle, x, y );
+
+        if ( d ) {
+            tartaruga.abaixarPincel( false );
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitInstrucaoCaminhoCurvaCubicaAte( AuroraLogoParser.InstrucaoCaminhoCurvaCubicaAteContext ctx ) {
+            
+        double xControle1 = visit( ctx.expr( 0 ) ).valorDecimal();
+        double yControle1 = visit( ctx.expr( 1 ) ).valorDecimal();
+        double xControle2 = visit( ctx.expr( 2 ) ).valorDecimal();
+        double yControle2 = visit( ctx.expr( 3 ) ).valorDecimal();
+        double x = visit( ctx.expr( 4 ) ).valorDecimal();
+        double y = visit( ctx.expr( 5 ) ).valorDecimal();
+
+        boolean d = tartaruga.isDesenhando();
+
+        tartaruga.levantarPincel( false );
+        tartaruga.moverPara( x, y );
+        tartaruga.caminhoCurvaCubicaAte( xControle1, yControle1, xControle2, yControle2, x, y );
+
+        if ( d ) {
+            tartaruga.abaixarPincel( false );
+        }
+        
+        return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitInstrucaoCaminhoFecharCaminho( AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx ) {
+        
+        boolean d = tartaruga.isDesenhando();
+
+        tartaruga.levantarPincel( false );
+        //tartaruga.moverPara( x, y );
+        tartaruga.fecharCaminho();
+
+        if ( d ) {
+            tartaruga.abaixarPincel( false );
+        }
+        
+        return NULO;
         
     }
     

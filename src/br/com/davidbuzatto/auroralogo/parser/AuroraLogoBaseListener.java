@@ -940,25 +940,13 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterDesenhar(AuroraLogoParser.DesenharContext ctx) { }
+	@Override public void enterFuncaoDesenharSegmento(AuroraLogoParser.FuncaoDesenharSegmentoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitDesenhar(AuroraLogoParser.DesenharContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFuncaoDesenharLinha(AuroraLogoParser.FuncaoDesenharLinhaContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFuncaoDesenharLinha(AuroraLogoParser.FuncaoDesenharLinhaContext ctx) { }
+	@Override public void exitFuncaoDesenharSegmento(AuroraLogoParser.FuncaoDesenharSegmentoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1012,6 +1000,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFuncaoDesenharArco(AuroraLogoParser.FuncaoDesenharArcoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncaoDesenharArco(AuroraLogoParser.FuncaoDesenharArcoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFuncaoDesenharPoligonoRegular(AuroraLogoParser.FuncaoDesenharPoligonoRegularContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1048,13 +1048,13 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncaoDesenharCurvaQudratica(AuroraLogoParser.FuncaoDesenharCurvaQudraticaContext ctx) { }
+	@Override public void enterFuncaoDesenharCurvaQuadratica(AuroraLogoParser.FuncaoDesenharCurvaQuadraticaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncaoDesenharCurvaQudratica(AuroraLogoParser.FuncaoDesenharCurvaQudraticaContext ctx) { }
+	@Override public void exitFuncaoDesenharCurvaQuadratica(AuroraLogoParser.FuncaoDesenharCurvaQuadraticaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1072,73 +1072,73 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncaoCCIniciarCaminho(AuroraLogoParser.FuncaoCCIniciarCaminhoContext ctx) { }
+	@Override public void enterDesenharCaminho(AuroraLogoParser.DesenharCaminhoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncaoCCIniciarCaminho(AuroraLogoParser.FuncaoCCIniciarCaminhoContext ctx) { }
+	@Override public void exitDesenharCaminho(AuroraLogoParser.DesenharCaminhoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncaoCCMoverAte(AuroraLogoParser.FuncaoCCMoverAteContext ctx) { }
+	@Override public void enterInstrucaoCaminhoMoverAte(AuroraLogoParser.InstrucaoCaminhoMoverAteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncaoCCMoverAte(AuroraLogoParser.FuncaoCCMoverAteContext ctx) { }
+	@Override public void exitInstrucaoCaminhoMoverAte(AuroraLogoParser.InstrucaoCaminhoMoverAteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncaoCCLinhaAte(AuroraLogoParser.FuncaoCCLinhaAteContext ctx) { }
+	@Override public void enterInstrucaoCaminhoLinhaAte(AuroraLogoParser.InstrucaoCaminhoLinhaAteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncaoCCLinhaAte(AuroraLogoParser.FuncaoCCLinhaAteContext ctx) { }
+	@Override public void exitInstrucaoCaminhoLinhaAte(AuroraLogoParser.InstrucaoCaminhoLinhaAteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncaoCCCurvaQuadraticaAte(AuroraLogoParser.FuncaoCCCurvaQuadraticaAteContext ctx) { }
+	@Override public void enterInstrucaoCaminhoCurvaQuadraticaAte(AuroraLogoParser.InstrucaoCaminhoCurvaQuadraticaAteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncaoCCCurvaQuadraticaAte(AuroraLogoParser.FuncaoCCCurvaQuadraticaAteContext ctx) { }
+	@Override public void exitInstrucaoCaminhoCurvaQuadraticaAte(AuroraLogoParser.InstrucaoCaminhoCurvaQuadraticaAteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncaoCCCurvaCubicaAte(AuroraLogoParser.FuncaoCCCurvaCubicaAteContext ctx) { }
+	@Override public void enterInstrucaoCaminhoCurvaCubicaAte(AuroraLogoParser.InstrucaoCaminhoCurvaCubicaAteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncaoCCCurvaCubicaAte(AuroraLogoParser.FuncaoCCCurvaCubicaAteContext ctx) { }
+	@Override public void exitInstrucaoCaminhoCurvaCubicaAte(AuroraLogoParser.InstrucaoCaminhoCurvaCubicaAteContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFuncaoCCFecharCaminho(AuroraLogoParser.FuncaoCCFecharCaminhoContext ctx) { }
+	@Override public void enterInstrucaoCaminhoFecharCaminho(AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFuncaoCCFecharCaminho(AuroraLogoParser.FuncaoCCFecharCaminhoContext ctx) { }
+	@Override public void exitInstrucaoCaminhoFecharCaminho(AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

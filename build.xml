@@ -111,12 +111,12 @@
             <arg value="../../${src.dir}/${saida}/AuroraLogoLexer.tokens"/>
             <arg value="../../${src.dir}/${saidaSH}/AuroraLogoSyntaxHighlighter.flext"/>
             <arg value="../../${src.dir}/${saidaSH}/AuroraLogoSyntaxHighlighter.flex"/>
-            <arg value="172"/>
-            <arg value="231"/>
-            <arg value="232"/>
-            <arg value="275"/>
-            <arg value="276"/>
-            <arg value="321"/>
+            <arg value="180"/>
+            <arg value="254"/>
+            <arg value="255"/>
+            <arg value="293"/>
+            <arg value="294"/>
+            <arg value="339"/>
         </java>
         
         <echo level="info">********** Gramática JFlex Gerada!    **********</echo>
