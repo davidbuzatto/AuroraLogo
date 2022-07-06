@@ -86,6 +86,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
+    public ValorVariavel visitTrocarCorPreenchimento( AuroraLogoParser.TrocarCorPreenchimentoContext ctx ) {
+        tartaruga.trocarCorPreenchimento( obterCor( Color.WHITE, ctx ) );
+        return NULO;
+    }
+    
+    @Override
     public ValorVariavel visitTrocarCorFundo( AuroraLogoParser.TrocarCorFundoContext ctx ) {
         tartaruga.trocarCorFundo( obterCor( Color.WHITE, ctx ) );
         return NULO;
@@ -97,6 +103,8 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         AuroraLogoParser.ConfiguracaoCorContext configuracaoCor = null;
         
         if ( ctx instanceof AuroraLogoParser.TrocarCorPincelContext ) {
+            configuracaoCor = ( (AuroraLogoParser.TrocarCorPincelContext) ctx ).configuracaoCor();
+        } else if ( ctx instanceof AuroraLogoParser.TrocarCorPincelContext ) {
             configuracaoCor = ( (AuroraLogoParser.TrocarCorPincelContext) ctx ).configuracaoCor();
         } else if ( ctx instanceof AuroraLogoParser.TrocarCorFundoContext ) {
             configuracaoCor = ( (AuroraLogoParser.TrocarCorFundoContext) ctx ).configuracaoCor();
@@ -1273,13 +1281,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                     case AuroraLogoParser.DIVA:
                         if ( valor.isInteiro() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( valor.valorInteiro() / fv.valorInteiro() );
+                                valor = novoInteiro( valor.valorInteiro() / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
                             } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorInteiro() / fv.valorDecimal() );
+                                valor = novoDecimal( valor.valorInteiro() / fv.valorDecimal() );                                       // divisão por zero "permitida"
                             } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( valor.valorInteiro() / fv.valorCaractere() );
+                                valor = novoInteiro( valor.valorInteiro() / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
                             } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( valor.valorInteiro() / ( fv.valorBooleano() ? 1 : 0 ) );
+                                valor = novoInteiro( valor.valorInteiro() );                                                           // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
                             } else {
@@ -1287,13 +1295,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             }
                         } else if ( valor.isDecimal() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoDecimal( valor.valorDecimal() / fv.valorInteiro() );
+                                valor = novoDecimal( valor.valorDecimal() / fv.valorInteiro() );               // divisão por zero "permitida"
                             } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorDecimal() / fv.valorDecimal() );
+                                valor = novoDecimal( valor.valorDecimal() / fv.valorDecimal() );               // divisão por zero "permitida"
                             } else if ( fv.isCaractere() ) {
-                                valor = novoDecimal( valor.valorDecimal() / fv.valorCaractere() );
+                                valor = novoDecimal( valor.valorDecimal() / fv.valorCaractere() );             // divisão por zero "permitida"
                             } else if ( fv.isBooleano() ) {
-                                valor = novoDecimal( valor.valorDecimal() / ( fv.valorBooleano() ? 1 : 0 ) );
+                                valor = novoDecimal( valor.valorDecimal() / ( fv.valorBooleano() ? 1 : 0 ) );  // divisão por zero "permitida"
                             } else if ( fv.isString() ) {
                                 // ignora strings
                             } else {
@@ -1301,13 +1309,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             }
                         } else if ( valor.isCaractere() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( valor.valorCaractere() / fv.valorInteiro() );
+                                valor = novoInteiro( valor.valorCaractere() / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
                             } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorCaractere() / fv.valorDecimal() );
+                                valor = novoDecimal( valor.valorCaractere() / fv.valorDecimal() );                                       // divisão por zero "permitida"
                             } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( valor.valorCaractere() / fv.valorCaractere() );
+                                valor = novoInteiro( valor.valorCaractere() / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
                             } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( valor.valorCaractere() / ( fv.valorBooleano() ? 1 : 0 ) );
+                                valor = novoInteiro( (int) valor.valorCaractere() );                                                     // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
                             } else {
@@ -1315,13 +1323,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             }
                         } else if ( valor.isBooleano() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / fv.valorInteiro() );
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
                             } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( ( valor.valorBooleano() ? 1 : 0 ) / fv.valorDecimal() );
+                                valor = novoDecimal( ( valor.valorBooleano() ? 1 : 0 ) / fv.valorDecimal() );                                       // divisão por zero "permitida"
                             } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / fv.valorCaractere() );
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
                             } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / ( fv.valorBooleano() ? 1 : 0 ) );
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) );                                                           // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
                             } else {
@@ -1347,13 +1355,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                     case AuroraLogoParser.MODA:
                         if ( valor.isInteiro() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( valor.valorInteiro() % fv.valorInteiro() );
+                                valor = novoInteiro( valor.valorInteiro() % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
                             } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorInteiro() % fv.valorDecimal() );
+                                valor = novoDecimal( valor.valorInteiro() % fv.valorDecimal() );                                       // divisão por zero "permitida"
                             } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( valor.valorInteiro() % fv.valorCaractere() );
+                                valor = novoInteiro( valor.valorInteiro() % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
                             } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( valor.valorInteiro() % ( fv.valorBooleano() ? 1 : 0 ) );
+                                valor = novoInteiro( valor.valorInteiro() );                                                           // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
                             } else {
@@ -1361,13 +1369,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             }
                         } else if ( valor.isDecimal() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoDecimal( valor.valorDecimal() % fv.valorInteiro() );
+                                valor = novoDecimal( valor.valorDecimal() % fv.valorInteiro() );               // divisão por zero "permitida"
                             } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorDecimal() % fv.valorDecimal() );
+                                valor = novoDecimal( valor.valorDecimal() % fv.valorDecimal() );               // divisão por zero "permitida"
                             } else if ( fv.isCaractere() ) {
-                                valor = novoDecimal( valor.valorDecimal() % fv.valorCaractere() );
+                                valor = novoDecimal( valor.valorDecimal() % fv.valorCaractere() );             // divisão por zero "permitida"
                             } else if ( fv.isBooleano() ) {
-                                valor = novoDecimal( valor.valorDecimal() % ( fv.valorBooleano() ? 1 : 0 ) );
+                                valor = novoDecimal( valor.valorDecimal() % ( fv.valorBooleano() ? 1 : 0 ) );  // divisão por zero "permitida"
                             } else if ( fv.isString() ) {
                                 // ignora strings
                             } else {
@@ -1375,13 +1383,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             }
                         } else if ( valor.isCaractere() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( valor.valorCaractere() % fv.valorInteiro() );
+                                valor = novoInteiro( valor.valorCaractere() % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
                             } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorCaractere() % fv.valorDecimal() );
+                                valor = novoDecimal( valor.valorCaractere() % fv.valorDecimal() );                                       // divisão por zero "permitida"
                             } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( valor.valorCaractere() % fv.valorCaractere() );
+                                valor = novoInteiro( valor.valorCaractere() % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
                             } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( valor.valorCaractere() % ( fv.valorBooleano() ? 1 : 0 ) );
+                                valor = novoInteiro( (int) valor.valorCaractere() );                                                     // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
                             } else {
@@ -1389,13 +1397,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             }
                         } else if ( valor.isBooleano() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % fv.valorInteiro() );
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
                             } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( ( valor.valorBooleano() ? 1 : 0 ) % fv.valorDecimal() );
+                                valor = novoDecimal( ( valor.valorBooleano() ? 1 : 0 ) % fv.valorDecimal() );                                       // divisão por zero "permitida"
                             } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % fv.valorCaractere() );
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
                             } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % ( fv.valorBooleano() ? 1 : 0 ) );
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) );                                                           // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
                             } else {
@@ -1417,7 +1425,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             }
                         }
                         break;
+                        
                 }
+                
             }
             
         }
@@ -1526,13 +1536,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                         
                         if ( c.ains().parar() != null ) {
                             r = visit( c.ains().parar() );
-                            retorno = r; // sinaliza para o chamador
-                            break;       // para o for de instruções do se
                         } else {
                             r = visit( c.ains().continuar() );
-                            retorno = r; // sinaliza para o chamador
-                            break;       // continua o for de instruções do se 
                         }
+                        
+                        retorno = r; // sinaliza para o chamador
+                        break;       // para o for de instruções do se
                         
                     } else {
                         visit( c );
@@ -1551,11 +1560,15 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 }
                 
             }
+            
         } else if ( ctx.seSenaoSe().children != null ) {
             
             for ( AuroraLogoParser.SeSenaoSePContext sssp : ctx.seSenaoSe().seSenaoSeP() ) {
+                
                 if ( visit( sssp.exprBool() ).isVerdadeiro() ) {
+                    
                     entrouEmAlgumSenaoSe = true;
+                    
                     for ( AuroraLogoParser.InstContext c : sssp.inst() ) {
                         
                         if ( c.ains() != null ) { 
@@ -1568,13 +1581,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
                                 if ( c.ains().parar() != null ) {
                                     r = visit( c.ains().parar() );
-                                    retorno = r; // sinaliza para o chamador
-                                    break;       // para o for de instruções do se
                                 } else {
                                     r = visit( c.ains().continuar() );
-                                    retorno = r; // sinaliza para o chamador
-                                    break;       // continua o for de instruções do se 
                                 }
+                                
+                                retorno = r; // sinaliza para o chamador
+                                break;       // para o for de instruções do se
 
                             } else {
                                 visit( c );
@@ -1593,13 +1605,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                         }
                         
                     }
+                    
                     break;
+                    
                 }
+                
             }
             
         }
         
         if ( ctx.seSenao().children != null && !entrouNoSe && !entrouEmAlgumSenaoSe ) {
+            
             for ( AuroraLogoParser.InstContext c : ctx.seSenao().inst() ) {
                 
                 if ( c.ains() != null ) { 
@@ -1612,13 +1628,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                         
                         if ( c.ains().parar() != null ) {
                             r = visit( c.ains().parar() );
-                            retorno = r; // sinaliza para o chamador
-                            break;       // para o for de instruções do se
                         } else {
                             r = visit( c.ains().continuar() );
-                            retorno = r; // sinaliza para o chamador
-                            break;       // continua o for de instruções do se 
                         }
+                        
+                        retorno = r; // sinaliza para o chamador
+                        break;       // para o for de instruções do se
                         
                     } else {
                         visit( c );
@@ -1795,6 +1810,36 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                         }
 
                     }
+                    
+                    String idP = ctx.ID().getText();
+                    ValorVariavel vIdP = tartaruga.lerMemoria( idP );
+                    if ( vIdP.isNulo() ) {
+                        vIdP = novoInteiro( 0 );
+                    }
+                    
+                    ValorVariavel vP = null;
+                    if ( ctx.expr() != null ) {
+                        vP = visit( ctx.expr() );
+                    } else {
+                        vP = UM_INTEIRO;
+                    }
+                    
+                    if ( ctx.INCM() != null ) {
+                        vIdP.somar( vP );
+                    } else if ( ctx.DCMM() != null ) {
+                        vIdP.subtrair( vP );
+                    } else if ( ctx.SOMM() != null ) {
+                        vIdP.somar( vP );
+                    } else if ( ctx.SUBM() != null ) {
+                        vIdP.subtrair( vP );
+                    } else if ( ctx.MULM() != null ) {
+                        vIdP.multiplicar( vP );
+                    } else if ( ctx.DIVM() != null ) {
+                        vIdP.dividir( vP );
+                    }
+                    
+                    tartaruga.inserirOuAtualizarMemoria( idP, vIdP );
+                    
                 
                 } else {
                     break;

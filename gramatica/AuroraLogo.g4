@@ -20,6 +20,7 @@ ains : movimentar
      | engrossar
      | desengrossar
      | trocarGrossura
+     | instrucaoGeometrica
      | escrever
      | ler
      | atribuir
@@ -49,7 +50,7 @@ exprSimp : opNeg=( ADI | ADIA
          ;
 
 termo    : fator ( ( MUL | VEZS
-                   | DIV | DIVA POR
+                   | DIV | DIVA
                    | MOD | MODA      ) fator )*
          ;
 
@@ -57,7 +58,7 @@ fator    : ( NAO | NAOT ) fator      # fatorNao
          | INT                       # fatorInt
          | DEC                       # fatorDec
          | PI                        # fatorPi
-         | ( bool | ID )             # fatorId          // atenção, literais booleanos aqui!
+         | ( bool | ID )             # fatorId                // atenção, literais booleanos aqui!
          | CHAR                      # fatorChar
          | STRING                    # fatorString
          | funcaoMatematica          # fatorFuncaoMatematica
@@ -94,9 +95,11 @@ repetir      : REP expr ( VEZ | VEZS ) '{' inst+ '}'
 // enquanto --- repetir
 repetirEnquanto   : ( ENQ exprBool )? REP
                     ( 
-                      ( INCM | DCMM ) ID ( EM expr )?
-                      |
-                      ( SOMM | SUBM | MULM | DIVM ) ID EM expr 
+                        ( INCM | DCMM ) ID ( EM expr )?
+                      | SOMM ID COM expr
+                      | MULM ID POR expr
+                      | DIVM ID POR expr
+                      | SUBM expr DE ID
                     )?
                     '{' inst+ '}'
                   ;
@@ -112,21 +115,22 @@ movimentar   : VA PARA ( DIR | ESQ | CIM | BAI ) ( EM expr )?   # movimentarDire
              | VA PARA '(' expr ',' expr ')'                    # movimentarPonto
              ;
 
-trocarCor    : TROC COR PARA        configuracaoCor # trocarCorPincel
-             | TROC COR DO FUN PARA configuracaoCor # trocarCorFundo
+trocarCor    : TROC COR DO PINC PARA configuracaoCor  # trocarCorPincel
+             | TROC COR DO PREE PARA configuracaoCor  # trocarCorPreenchimento
+             | TROC COR DO FUN  PARA configuracaoCor  # trocarCorFundo
              ;
 
 configuracaoCor : ( HEX | cor=( PRETO
-                                         | AZUL
-                                         | CIANO
-                                         | CINZA
-                                         | VERDE
-                                         | MAGENTA
-                                         | LARANJA
-                                         | ROSA 
-                                         | VERMELHO
-                                         | BRANCO
-                                         | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
+                              | AZUL
+                              | CIANO
+                              | CINZA
+                              | VERDE
+                              | MAGENTA
+                              | LARANJA
+                              | ROSA 
+                              | VERMELHO
+                              | BRANCO
+                              | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
                 ;
 
 girar        : GIR ( EM expr GRA )?
@@ -164,6 +168,7 @@ levantar     : LEV PINC
 limpar       : LIM
              ;
 
+// funções matemáticas
 funcaoMatematica : F_VABS '(' expr ')'                            # funcaoAbsoluto
                  | F_RAIQ '(' expr ')'                            # funcaoRaizQuadrada
                  | F_RAIC '(' expr ')'                            # funcaoRaizCubica
@@ -194,6 +199,33 @@ funcaoMatematica : F_VABS '(' expr ')'                            # funcaoAbsolu
                  | F_DCM  '(' ID ')'                              # funcaoDecrementar
                  ;
 
+// funções geométricas
+instrucaoGeometrica : desenhar 
+                    | criarCaminho
+                    ;
+
+desenhar            : DESE funcaoGeometrica
+                    ;
+
+funcaoGeometrica    : FG_LIN '(' expr ')'     # funcaoDesenharLinha
+                    | FG_QUA '(' expr ')'     # funcaoDesenharQuadrado
+                    | FG_RET '(' expr ')'     # funcaoDesenharRetangulo
+                    | FG_CIC '(' expr ')'     # funcaoDesenharCirculo
+                    | FG_ELI '(' expr ')'     # funcaoDesenharElipse
+                    | FG_POR '(' expr ')'     # funcaoDesenharPoligonoRegular
+                    | FG_EST '(' expr ')'     # funcaoDesenharEstrela
+                    | FG_POL '(' expr ')'     # funcaoDesenharPoligono
+                    | FG_CQD '(' expr ')'     # funcaoDesenharCurvaQudratica
+                    | FG_CCU '(' expr ')'     # funcaoDesenharCurvaCubica
+                    ;
+
+criarCaminho        : FG_PHI '()'             # funcaoCCIniciarCaminho
+                    | FG_PHM '(' expr ')'     # funcaoCCMoverAte
+                    | FG_PHL '(' expr ')'     # funcaoCCLinhaAte
+                    | FG_PHQ '(' expr ')'     # funcaoCCCurvaQuadraticaAte
+                    | FG_PHC '(' expr ')'     # funcaoCCCurvaCubicaAte
+                    | FG_PHF '(' expr ')'     # funcaoCCFecharCaminho
+                    ;
 
 fragment
 LET : [a-zA-Z] ;
@@ -225,6 +257,7 @@ BAI  : 'baixo'                    ;
 TROC : 'trocar'                   ;
 COR  : 'cor'                      ;
 DO   : 'do'                       ;
+DESE : 'desenhar'                 ;
 FUN  : 'fundo'                    ;
 GIR  : 'girar'                    ;
 GRA  : 'graus'                    ;
@@ -236,6 +269,7 @@ LER  : 'ler'                      ;
 ABA  : 'abaixar'                  ;
 LEV  : 'levantar'                 ;
 PINC : 'pincel'                   ;
+PREE : 'preenchimento'            ;
 LIM  : 'limpar'                   ;
 SE   : 'se'                       ;
 ENT  : 'ent\u00E3o'               ;
@@ -252,6 +286,9 @@ SOMM : 'somando'                  ;
 SUBM : 'subtraindo'               ;
 MULM : 'multiplicando'            ;
 DIVM : 'dividindo'                ;
+POR  : 'por'                      ;
+DE   : 'de'                       ; 
+COM  : 'com'                      ;
 PI   : 'PI'                       ;
 VER  : 'VERDADEIRO'               ;
 FAL  : 'FALSO'                    ;
@@ -310,6 +347,31 @@ F_INC  : 'incrementar'                  ;
 F_DCM  : 'decrementar'                  ;
 
 
+// funções geométricas
+// á = \u00E1
+// â = \u00E2
+// é = \u00E9
+// í = \u00ED
+// ú = \u00FA
+FG_LIN : 'linha'                        ;
+FG_QUA : 'quadrado'                     ;
+FG_RET : 'ret\u00E2ngulo'               ;
+FG_CIC : 'c\u00EDrculo'                 ;
+FG_ELI : 'elipse'                       ;
+FG_POR : 'pol\u00EDgonoRegular'         ;
+FG_EST : 'estrela'                      ;
+FG_POL : 'pol\u00EDgono'                ;
+FG_CQD : 'curvaQuadr\u00E1tica'         ;
+FG_CCU : 'curvaC\u00FAbica'             ;
+// caminho
+FG_PHI : 'iniciarCaminho'               ;
+FG_PHM : 'moverAt\u00E9'                ;
+FG_PHL : 'linhaAt\u00E9'                ;
+FG_PHQ : 'curvaQuadr\u00E1ticaAt\u00E9' ;
+FG_PHC : 'curvaC\u00FAbicaAt\u00E9'     ;
+FG_PHF : 'fecharCaminho'                ;
+
+
 // operadores de atribuição
 ATR  : '='    ;
 ATRA : '<-'   ;
@@ -336,8 +398,7 @@ MUL  : '*'               ;
 //MULA : 'vezes'         ;
 
 DIV  : '/'               ;
-DIVA : 'dividido'    ;
-POR  : 'por'             ;
+DIVA : 'dividido por'    ;
 
 MOD  : '%'               ;
 MODA : 'resto'           ;

@@ -35,16 +35,18 @@ public class Tartaruga {
         BasicStroke contorno;
         String texto;
         Color corPincel;
+        Color corPreenchimento;
         Color corFundo;
         boolean desenhando;
         Map<String, ValorVariavel> memoria;
         
-        public Estado( double x, double y, double angulo, double grossura, Color corPincel, Color corFundo, boolean desenhando ) {
+        public Estado( double x, double y, double angulo, double grossura, Color corPincel, Color corPreenchimento, Color corFundo, boolean desenhando ) {
             this.x = x;
             this.y = y;
             this.angulo = angulo;
             this.contorno = new BasicStroke( (float) grossura, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL );
             this.corPincel = corPincel;
+            this.corPreenchimento = corPreenchimento;
             this.corFundo = corFundo;
             this.desenhando = desenhando;
             this.memoria = new LinkedHashMap<>();
@@ -60,6 +62,7 @@ public class Tartaruga {
             e.contorno = new BasicStroke( e.contorno.getLineWidth(), e.contorno.getEndCap(), e.contorno.getLineJoin() );
             e.texto = null;
             e.corPincel = corPincel;
+            e.corPreenchimento = corPreenchimento;
             e.corFundo = corFundo;
             e.desenhando = desenhando;
             e.memoria = new LinkedHashMap<>();
@@ -83,8 +86,9 @@ public class Tartaruga {
         "            y: ",
         "       ângulo: ",
         "     grossura: ",
-        "cor do pincel: ",
-        " cor do fundo: ",
+        "       pincel: ",
+        "preenchimento: ",
+        "        fundo: ",
         "   desenhando: ",
         "               ",
         "variáveis:"
@@ -103,11 +107,15 @@ public class Tartaruga {
     private boolean depuradorAtivo;
     private boolean gradeAtiva;
     
-    public Tartaruga( double x, double y, double angulo, double grossura, Color corPincel, Color corFundo, boolean desenhando, PainelDesenho painelDesenho, Font fonteDepurador ) {
+    public Tartaruga( 
+            double x, double y, double angulo, 
+            double grossura, Color corPincel, Color corPreenchimento, 
+            Color corFundo, boolean desenhando, 
+            PainelDesenho painelDesenho, Font fonteDepurador ) {
         
         estados = new ArrayList<>();
         
-        Estado e = new Estado( x, y, angulo, grossura, corPincel, corFundo, desenhando );
+        Estado e = new Estado( x, y, angulo, grossura, corPincel, corPreenchimento, corFundo, desenhando );
         estados.add( e );
         
         this.painelDesenho = painelDesenho;
@@ -205,6 +213,12 @@ public class Tartaruga {
     public void trocarCorPincel( Color corPincel ) {
         Estado e = clonarUltimoEstado();
         e.corPincel = corPincel;
+        estados.add( e );
+    }
+    
+    public void trocarCorPreenchimento( Color corPreenchimento ) {
+        Estado e = clonarUltimoEstado();
+        e.corPreenchimento = corPreenchimento;
         estados.add( e );
     }
     
@@ -429,6 +443,7 @@ public class Tartaruga {
             String.format( Locale.US, "%.4f", atu.angulo ) + "º",
             String.format( Locale.US, "%.4f", atu.contorno.getLineWidth() ),
             atu.corPincel,
+            atu.corPreenchimento,
             atu.corFundo,
             atu.desenhando ? "sim" : "não",
             "",

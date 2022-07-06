@@ -102,7 +102,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private File arquivoAtual;
     private FileNameExtensionFilter filtroExtensao;
 
-    private boolean pararPassoAPasso;
     private boolean pararPassoAPassoAutomatico;
     private boolean deveAtualizarComponentesExecutarPassoAPasso;
 
@@ -136,6 +135,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 painelDesenho.getHeight() / 2,
                 0, 1,
                 Color.BLACK,
+                Color.WHITE,
                 Color.WHITE,
                 true,
                 painelDesenho,
@@ -1073,8 +1073,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
             btnPararPassoAPassoAutomatico.setEnabled( false );
 
-            pararPassoAPasso = true;
-
         }
 
     }//GEN-LAST:event_formComponentResized
@@ -1563,7 +1561,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testes", true );
+            carregarTemplate( "testesGrande", true );
         }
 
     }

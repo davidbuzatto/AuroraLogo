@@ -270,9 +270,9 @@ public class ValorVariavel {
         
         if ( this.isNumero() && valor.isNumero() ) {
             if ( isInteiro() ) {
-                this.valor = ( (Integer) this.valor ) / valor.valorInteiro();
+                this.valor = ( (Integer) this.valor ) / ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() );  // possível divisão por zero
             } else {
-                this.valor = ( (Double) this.valor ) / valor.valorDecimal();
+                this.valor = ( (Double) this.valor ) / valor.valorDecimal();                                       // divisão por zero "permitida"
             }
         }
         
@@ -282,9 +282,9 @@ public class ValorVariavel {
         
         if ( this.isNumero() && valor.isNumero() ) {
             if ( isInteiro() ) {
-                this.valor = ( (Integer) this.valor ) % valor.valorInteiro();
+                this.valor = ( (Integer) this.valor ) % ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() );  // possível divisão por zero
             } else {
-                this.valor = ( (Double) this.valor ) % valor.valorDecimal();
+                this.valor = ( (Double) this.valor ) % valor.valorDecimal();                                       // divisão por zero "permitida"
             }
         }
         

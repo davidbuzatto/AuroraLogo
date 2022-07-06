@@ -1,31 +1,10 @@
 Limpar os cabeçalhos e padronizar.
 
-operadores compostos de atribuição;
-função incrementar
-função decrementar
+-> Instruções geométricas; -> todas definidas. implementar agora no visitor e na tartaruga
 
-divisão por zero em inteiros
-enquanto i < 10 repetir incrementando i
-enquanto i < 10 repetir decrementando i
-
-amarrar execução no editor???
-
--> Instruções geométricas;
-    configuração de cor de preenchimento
-    linha
-    quadrado
-    retângulo
-    círculo
-    elipse
-    polígono
-    estrela
-    curvas -> quadráticas e cúbicas
-    caminhos
-
-Outras estruturas de repetição (seguir CPRL);
-Implementação do "break" e do "continue"; (quase pronto, verificar outra estrutura de repetição)
 Lidar com loops infinitos;
 
+amarrar execução no editor???
 Arrays;
 Não permitir variáveis com o nome de palavras chave?
 

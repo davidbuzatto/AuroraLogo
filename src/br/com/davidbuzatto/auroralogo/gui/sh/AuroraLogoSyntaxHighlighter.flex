@@ -246,11 +246,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 <YYINITIAL> {
 
 	/* Keywords */
-	") " | 
-")" | 
-", " | 
-"," | 
-"FALSO " | 
+	"FALSO " | 
 "FALSO" | 
 "PI " | 
 "PI" | 
@@ -258,24 +254,36 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "VERDADEIRO" | 
 "abaixar " | 
 "abaixar" | 
+"amarelo " | 
+"amarelo" | 
 "azul " | 
 "azul" | 
 "baixo " | 
 "baixo" | 
+"branco " | 
+"branco" | 
 "ciano " | 
 "ciano" | 
 "cima " | 
 "cima" | 
 "cinza " | 
 "cinza" | 
+"claro " | 
+"claro" | 
+"com " | 
+"com" | 
 "continuar " | 
 "continuar" | 
 "cor " | 
 "cor" | 
+"de " | 
+"de" | 
 "decrementando " | 
 "decrementando" | 
 "desengrossar " | 
 "desengrossar" | 
+"desenhar " | 
+"desenhar" | 
 "direita " | 
 "direita" | 
 "dividindo " | 
@@ -292,6 +300,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "ent\u00E3o" | 
 "escrever " | 
 "escrever" | 
+"escuro " | 
+"escuro" | 
 "esquerda " | 
 "esquerda" | 
 "fundo " | 
@@ -304,12 +314,16 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "grossura" | 
 "incrementando " | 
 "incrementando" | 
+"laranja " | 
+"laranja" | 
 "ler " | 
 "ler" | 
 "levantar " | 
 "levantar" | 
 "limpar " | 
 "limpar" | 
+"magenta " | 
+"magenta" | 
 "multiplicando " | 
 "multiplicando" | 
 "na " | 
@@ -320,10 +334,16 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "parar" | 
 "pincel " | 
 "pincel" | 
+"por " | 
+"por" | 
+"preenchimento " | 
+"preenchimento" | 
 "preto " | 
 "preto" | 
 "repetir " | 
 "repetir" | 
+"rosa " | 
+"rosa" | 
 "sa\u00EDda " | 
 "sa\u00EDda" | 
 "se " | 
@@ -340,14 +360,12 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "v\u00E1" | 
 "verde " | 
 "verde" | 
+"vermelho " | 
+"vermelho" | 
 "vez " | 
 "vez" | 
 "vezes " | 
-"vezes" | 
-"{ " | 
-"{" | 
-"} " | 
-"}"		{ addToken(Token.RESERVED_WORD); }
+"vezes"		{ addToken(Token.RESERVED_WORD); }
 
 	/* Keywords 2 (just an optional set of keywords colored differently) */
 	/* No keywords 2 */
@@ -356,11 +374,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	/* No data types */
 
 	/* Functions */
-	"amarelo " | 
-"amarelo" | 
-"amarelo( " | 
-"amarelo() " | 
-"arcoCosseno " | 
+	"arcoCosseno " | 
 "arcoCosseno" | 
 "arcoCosseno( " | 
 "arcoCosseno() " | 
@@ -376,10 +390,10 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "arredondar" | 
 "arredondar( " | 
 "arredondar() " | 
-"branco " | 
-"branco" | 
-"branco( " | 
-"branco() " | 
+"c\u00EDrculo " | 
+"c\u00EDrculo" | 
+"c\u00EDrculo( " | 
+"c\u00EDrculo() " | 
 "cartesianoParaPolar " | 
 "cartesianoParaPolar" | 
 "cartesianoParaPolar( " | 
@@ -388,30 +402,78 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "ch\u00E3o" | 
 "ch\u00E3o( " | 
 "ch\u00E3o() " | 
-"claro " | 
-"claro" | 
-"claro( " | 
-"claro() " | 
 "cosseno " | 
 "cosseno" | 
 "cosseno( " | 
 "cosseno() " | 
+"cossenoHiperb\u00F3lico " | 
+"cossenoHiperb\u00F3lico" | 
+"cossenoHiperb\u00F3lico( " | 
+"cossenoHiperb\u00F3lico() " | 
+"curvaC\u00FAbica " | 
+"curvaC\u00FAbica" | 
+"curvaC\u00FAbica( " | 
+"curvaC\u00FAbica() " | 
+"curvaC\u00FAbicaAt\u00E9 " | 
+"curvaC\u00FAbicaAt\u00E9" | 
+"curvaC\u00FAbicaAt\u00E9( " | 
+"curvaC\u00FAbicaAt\u00E9() " | 
+"curvaQuadr\u00E1tica " | 
+"curvaQuadr\u00E1tica" | 
+"curvaQuadr\u00E1tica( " | 
+"curvaQuadr\u00E1tica() " | 
+"curvaQuadr\u00E1ticaAt\u00E9 " | 
+"curvaQuadr\u00E1ticaAt\u00E9" | 
+"curvaQuadr\u00E1ticaAt\u00E9( " | 
+"curvaQuadr\u00E1ticaAt\u00E9() " | 
+"decrementar " | 
+"decrementar" | 
+"decrementar( " | 
+"decrementar() " | 
 "definirSementeAleat\u00F3ria " | 
 "definirSementeAleat\u00F3ria" | 
 "definirSementeAleat\u00F3ria( " | 
 "definirSementeAleat\u00F3ria() " | 
-"escuro " | 
-"escuro" | 
-"escuro( " | 
-"escuro() " | 
+"elipse " | 
+"elipse" | 
+"elipse( " | 
+"elipse() " | 
+"estrela " | 
+"estrela" | 
+"estrela( " | 
+"estrela() " | 
+"fecharCaminho " | 
+"fecharCaminho" | 
+"fecharCaminho( " | 
+"fecharCaminho() " | 
+"grausParaRadianos " | 
+"grausParaRadianos" | 
+"grausParaRadianos( " | 
+"grausParaRadianos() " | 
 "hipotenusa " | 
 "hipotenusa" | 
 "hipotenusa( " | 
 "hipotenusa() " | 
-"laranja " | 
-"laranja" | 
-"laranja( " | 
-"laranja() " | 
+"incrementar " | 
+"incrementar" | 
+"incrementar( " | 
+"incrementar() " | 
+"iniciarCaminho " | 
+"iniciarCaminho" | 
+"iniciarCaminho( " | 
+"iniciarCaminho() " | 
+"linha " | 
+"linha" | 
+"linha( " | 
+"linha() " | 
+"linhaAt\u00E9 " | 
+"linhaAt\u00E9" | 
+"linhaAt\u00E9( " | 
+"linhaAt\u00E9() " | 
+"logar\u00EDtmo " | 
+"logar\u00EDtmo" | 
+"logar\u00EDtmo( " | 
+"logar\u00EDtmo() " | 
 "m\u00E1ximo " | 
 "m\u00E1ximo" | 
 "m\u00E1ximo( " | 
@@ -420,18 +482,34 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "m\u00EDnimo" | 
 "m\u00EDnimo( " | 
 "m\u00EDnimo() " | 
-"magenta " | 
-"magenta" | 
-"magenta( " | 
-"magenta() " | 
+"moverAt\u00E9 " | 
+"moverAt\u00E9" | 
+"moverAt\u00E9( " | 
+"moverAt\u00E9() " | 
 "n\u00FAmeroAleat\u00F3rio " | 
 "n\u00FAmeroAleat\u00F3rio" | 
 "n\u00FAmeroAleat\u00F3rio( " | 
 "n\u00FAmeroAleat\u00F3rio() " | 
+"pol\u00EDgono " | 
+"pol\u00EDgono" | 
+"pol\u00EDgono( " | 
+"pol\u00EDgono() " | 
+"pol\u00EDgonoRegular " | 
+"pol\u00EDgonoRegular" | 
+"pol\u00EDgonoRegular( " | 
+"pol\u00EDgonoRegular() " | 
 "pot\u00EAncia " | 
 "pot\u00EAncia" | 
 "pot\u00EAncia( " | 
 "pot\u00EAncia() " | 
+"quadrado " | 
+"quadrado" | 
+"quadrado( " | 
+"quadrado() " | 
+"radianosParaGraus " | 
+"radianosParaGraus" | 
+"radianosParaGraus( " | 
+"radianosParaGraus() " | 
 "raiz " | 
 "raiz" | 
 "raiz( " | 
@@ -444,18 +522,26 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "raizQuadrada" | 
 "raizQuadrada( " | 
 "raizQuadrada() " | 
-"rosa " | 
-"rosa" | 
-"rosa( " | 
-"rosa() " | 
+"ret\u00E2ngulo " | 
+"ret\u00E2ngulo" | 
+"ret\u00E2ngulo( " | 
+"ret\u00E2ngulo() " | 
 "seno " | 
 "seno" | 
 "seno( " | 
 "seno() " | 
+"senoHiperb\u00F3lico " | 
+"senoHiperb\u00F3lico" | 
+"senoHiperb\u00F3lico( " | 
+"senoHiperb\u00F3lico() " | 
 "tangente " | 
 "tangente" | 
 "tangente( " | 
 "tangente() " | 
+"tangenteHiperb\u00F3lica " | 
+"tangenteHiperb\u00F3lica" | 
+"tangenteHiperb\u00F3lica( " | 
+"tangenteHiperb\u00F3lica() " | 
 "teto " | 
 "teto" | 
 "teto( " | 
@@ -463,11 +549,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "valorAbsoluto " | 
 "valorAbsoluto" | 
 "valorAbsoluto( " | 
-"valorAbsoluto() " | 
-"vermelho " | 
-"vermelho" | 
-"vermelho( " | 
-"vermelho() "		{ addToken(Token.FUNCTION); }
+"valorAbsoluto() "		{ addToken(Token.FUNCTION); }
 
 	
 
@@ -495,6 +577,10 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	{Separator2}					{ addToken(Token.IDENTIFIER); }
 
 	/* Operators. */
+" ." | 
+" ." | 
+"! " | 
+"!" | 
 "!= " | 
 "!=" | 
 "% " | 
@@ -503,6 +589,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "%<-" | 
 "%= " | 
 "%=" | 
+"&& " | 
+"&&" | 
 "* " | 
 "*" | 
 "*<- " | 
@@ -541,6 +629,12 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 ">" | 
 ">= " | 
 ">=" | 
+"E " | 
+"E" | 
+"N\u00C3O " | 
+"N\u00C3O" | 
+"OU " | 
+"OU" | 
 "\u00E9 diferente de " | 
 "\u00E9 diferente de" | 
 "\u00E9 igual a " | 
@@ -553,18 +647,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "\u00E9 menor ou igual a" | 
 "\u00E9 menor que " | 
 "\u00E9 menor que" | 
-"cossenoHiperb\u00F3lico " | 
-"cossenoHiperb\u00F3lico" | 
-"decrementar " | 
-"decrementar" | 
-"dividido " | 
-"dividido" | 
-"grausParaRadianos " | 
-"grausParaRadianos" | 
-"incrementar " | 
-"incrementar" | 
-"logar\u00EDtmo " | 
-"logar\u00EDtmo" | 
+"dividido por " | 
+"dividido por" | 
 "mais " | 
 "mais" | 
 "menos " | 
@@ -579,16 +663,12 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "n\u00E3o \u00E9 maior que" | 
 "n\u00E3o \u00E9 menor ou igual a " | 
 "n\u00E3o \u00E9 menor ou igual a" | 
-"por " | 
-"por" | 
-"radianosParaGraus " | 
-"radianosParaGraus" | 
+"n\u00E3o \u00E9 menor que " | 
+"n\u00E3o \u00E9 menor que" | 
 "resto " | 
 "resto" | 
-"senoHiperb\u00F3lico " | 
-"senoHiperb\u00F3lico" | 
-"tangenteHiperb\u00F3lica " | 
-"tangenteHiperb\u00F3lica"		{ addToken(Token.OPERATOR); }
+"|| " | 
+"||"		{ addToken(Token.OPERATOR); }
 
 	/* Numbers */
 	{IntegerLiteral}				{ addToken(Token.LITERAL_NUMBER_DECIMAL_INT); }

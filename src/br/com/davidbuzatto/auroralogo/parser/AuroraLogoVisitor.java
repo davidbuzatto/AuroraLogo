@@ -203,6 +203,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTrocarCorPincel(AuroraLogoParser.TrocarCorPincelContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code trocarCorPreenchimento}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrocarCorPreenchimento(AuroraLogoParser.TrocarCorPreenchimentoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code trocarCorFundo}
 	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
 	 * @param ctx the parse tree
@@ -507,4 +514,128 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFuncaoDecrementar(AuroraLogoParser.FuncaoDecrementarContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#instrucaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstrucaoGeometrica(AuroraLogoParser.InstrucaoGeometricaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#desenhar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDesenhar(AuroraLogoParser.DesenharContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharLinha}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharLinha(AuroraLogoParser.FuncaoDesenharLinhaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharQuadrado}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharQuadrado(AuroraLogoParser.FuncaoDesenharQuadradoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharRetangulo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharRetangulo(AuroraLogoParser.FuncaoDesenharRetanguloContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharCirculo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharCirculo(AuroraLogoParser.FuncaoDesenharCirculoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharElipse}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharElipse(AuroraLogoParser.FuncaoDesenharElipseContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharPoligonoRegular}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharPoligonoRegular(AuroraLogoParser.FuncaoDesenharPoligonoRegularContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharEstrela}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharEstrela(AuroraLogoParser.FuncaoDesenharEstrelaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharPoligono}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharPoligono(AuroraLogoParser.FuncaoDesenharPoligonoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharCurvaQudratica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharCurvaQudratica(AuroraLogoParser.FuncaoDesenharCurvaQudraticaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharCurvaCubica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharCurvaCubica(AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCCIniciarCaminho}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCCIniciarCaminho(AuroraLogoParser.FuncaoCCIniciarCaminhoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCCMoverAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCCMoverAte(AuroraLogoParser.FuncaoCCMoverAteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCCLinhaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCCLinhaAte(AuroraLogoParser.FuncaoCCLinhaAteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCCCurvaQuadraticaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCCCurvaQuadraticaAte(AuroraLogoParser.FuncaoCCCurvaQuadraticaAteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCCCurvaCubicaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCCCurvaCubicaAte(AuroraLogoParser.FuncaoCCCurvaCubicaAteContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code funcaoCCFecharCaminho}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoCCFecharCaminho(AuroraLogoParser.FuncaoCCFecharCaminhoContext ctx);
 }

@@ -332,6 +332,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitTrocarCorPincel(AuroraLogoParser.TrocarCorPincelContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code trocarCorPreenchimento}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
+	 * @param ctx the parse tree
+	 */
+	void enterTrocarCorPreenchimento(AuroraLogoParser.TrocarCorPreenchimentoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code trocarCorPreenchimento}
+	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
+	 * @param ctx the parse tree
+	 */
+	void exitTrocarCorPreenchimento(AuroraLogoParser.TrocarCorPreenchimentoContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code trocarCorFundo}
 	 * labeled alternative in {@link AuroraLogoParser#trocarCor}.
 	 * @param ctx the parse tree
@@ -851,4 +863,216 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFuncaoDecrementar(AuroraLogoParser.FuncaoDecrementarContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#instrucaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstrucaoGeometrica(AuroraLogoParser.InstrucaoGeometricaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#instrucaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstrucaoGeometrica(AuroraLogoParser.InstrucaoGeometricaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#desenhar}.
+	 * @param ctx the parse tree
+	 */
+	void enterDesenhar(AuroraLogoParser.DesenharContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#desenhar}.
+	 * @param ctx the parse tree
+	 */
+	void exitDesenhar(AuroraLogoParser.DesenharContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharLinha}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharLinha(AuroraLogoParser.FuncaoDesenharLinhaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharLinha}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharLinha(AuroraLogoParser.FuncaoDesenharLinhaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharQuadrado}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharQuadrado(AuroraLogoParser.FuncaoDesenharQuadradoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharQuadrado}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharQuadrado(AuroraLogoParser.FuncaoDesenharQuadradoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharRetangulo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharRetangulo(AuroraLogoParser.FuncaoDesenharRetanguloContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharRetangulo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharRetangulo(AuroraLogoParser.FuncaoDesenharRetanguloContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharCirculo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharCirculo(AuroraLogoParser.FuncaoDesenharCirculoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharCirculo}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharCirculo(AuroraLogoParser.FuncaoDesenharCirculoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharElipse}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharElipse(AuroraLogoParser.FuncaoDesenharElipseContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharElipse}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharElipse(AuroraLogoParser.FuncaoDesenharElipseContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharPoligonoRegular}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharPoligonoRegular(AuroraLogoParser.FuncaoDesenharPoligonoRegularContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharPoligonoRegular}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharPoligonoRegular(AuroraLogoParser.FuncaoDesenharPoligonoRegularContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharEstrela}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharEstrela(AuroraLogoParser.FuncaoDesenharEstrelaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharEstrela}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharEstrela(AuroraLogoParser.FuncaoDesenharEstrelaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharPoligono}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharPoligono(AuroraLogoParser.FuncaoDesenharPoligonoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharPoligono}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharPoligono(AuroraLogoParser.FuncaoDesenharPoligonoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharCurvaQudratica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharCurvaQudratica(AuroraLogoParser.FuncaoDesenharCurvaQudraticaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharCurvaQudratica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharCurvaQudratica(AuroraLogoParser.FuncaoDesenharCurvaQudraticaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharCurvaCubica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharCurvaCubica(AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharCurvaCubica}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharCurvaCubica(AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCCIniciarCaminho}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCCIniciarCaminho(AuroraLogoParser.FuncaoCCIniciarCaminhoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCCIniciarCaminho}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCCIniciarCaminho(AuroraLogoParser.FuncaoCCIniciarCaminhoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCCMoverAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCCMoverAte(AuroraLogoParser.FuncaoCCMoverAteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCCMoverAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCCMoverAte(AuroraLogoParser.FuncaoCCMoverAteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCCLinhaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCCLinhaAte(AuroraLogoParser.FuncaoCCLinhaAteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCCLinhaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCCLinhaAte(AuroraLogoParser.FuncaoCCLinhaAteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCCCurvaQuadraticaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCCCurvaQuadraticaAte(AuroraLogoParser.FuncaoCCCurvaQuadraticaAteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCCCurvaQuadraticaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCCCurvaQuadraticaAte(AuroraLogoParser.FuncaoCCCurvaQuadraticaAteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCCCurvaCubicaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCCCurvaCubicaAte(AuroraLogoParser.FuncaoCCCurvaCubicaAteContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCCCurvaCubicaAte}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCCCurvaCubicaAte(AuroraLogoParser.FuncaoCCCurvaCubicaAteContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code funcaoCCFecharCaminho}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoCCFecharCaminho(AuroraLogoParser.FuncaoCCFecharCaminhoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoCCFecharCaminho}
+	 * labeled alternative in {@link AuroraLogoParser#criarCaminho}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoCCFecharCaminho(AuroraLogoParser.FuncaoCCFecharCaminhoContext ctx);
 }
