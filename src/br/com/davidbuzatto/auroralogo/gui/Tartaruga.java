@@ -98,6 +98,18 @@ public class Tartaruga {
             this.memoria = new LinkedHashMap<>();
         }
 
+        public double getX() {
+            return x;
+        }
+
+        public double getY() {
+            return y;
+        }
+
+        public double getAngulo() {
+            return angulo;
+        }
+
         @Override
         public Object clone() throws CloneNotSupportedException {
             
@@ -263,7 +275,7 @@ public class Tartaruga {
             e.y = y;
             estados.add( e );
         } else {
-            Estado e = estados.get( estados.size() - 1 );
+            Estado e = getEstadoFinal();
             e.x = x;
             e.y = y;
         }
@@ -366,7 +378,7 @@ public class Tartaruga {
             e.desenhando = true;
             estados.add( e );
         } else {
-            estados.get( estados.size() - 1 ).desenhando = true;
+            getEstadoFinal().desenhando = true;
         }
         
     }
@@ -384,7 +396,7 @@ public class Tartaruga {
             e.desenhando = false;
             estados.add( e );
         } else {
-            estados.get( estados.size() - 1 ).desenhando = false;
+            getEstadoFinal().desenhando = false;
         }
         
     }
@@ -407,15 +419,15 @@ public class Tartaruga {
     }
     
     public ValorVariavel lerMemoria( String id ) {
-        Estado eAtual = estados.get( estados.size() - 1 );
-        return eAtual.memoria.getOrDefault( id, ValorVariavel.NULO );
+        Estado e = getEstadoFinal();
+        return e.memoria.getOrDefault( id, ValorVariavel.NULO );
     }
     
     public void desenhar( Graphics2D g2d ) {
         
         g2d = (Graphics2D) g2d.create();
         
-        Estado estadoFinal = estados.get( estados.size() - 1 );
+        Estado estadoFinal = getEstadoFinal();
         g2d.setColor( estadoFinal.corFundo );
         g2d.fillRect( 0, 0, painelDesenho.getWidth(), painelDesenho.getHeight() );
         
@@ -646,10 +658,6 @@ public class Tartaruga {
         return estadoAtual == estados.size() - 1;
     }
     
-    public int getUltimoEstado() {
-        return estados.size() - 1;
-    }
-    
     public void atualizarPosicaoEstadoInicial( double x, double y ) {
         Estado e = estados.get( 0 );
         e.x = x;
@@ -659,7 +667,7 @@ public class Tartaruga {
     private Estado clonarUltimoEstado() {
         
         try {
-            return (Estado) estados.get( estados.size() - 1 ).clone();
+            return (Estado) getEstadoFinal().clone();
         } catch ( CloneNotSupportedException exc ) {
         }
         
@@ -671,12 +679,48 @@ public class Tartaruga {
         this.passoAPasso = passoAPasso;
     }
 
-    public void setEstadoAtual( int estadoAtual ) {
+    public void setPosicaoEstadoAtual( int estadoAtual ) {
         this.estadoAtual = estadoAtual;
     }
     
-    public int getEstadoAtual() {
+    public int getPosicaoEstadoAtual() {
         return estadoAtual;
+    }
+    
+    public int getPosicaoUltimoEstado() {
+        return estados.size() - 1;
+    }
+    
+    public Estado getEstadoAtual() {
+        return estados.get( estadoAtual );
+    }
+    
+    public Estado getEstadoInicial() {
+        return estados.get( 0 );
+    }
+    
+    public Estado getEstadoFinal() {
+        return estados.get( estados.size() - 1 );
+    }
+    
+    public Estado getEstado( int posicao ) {
+        if ( posicao >= 0 && posicao < estados.size() ) {
+            return estados.get( posicao );
+        } else {
+            return null;
+        }
+    }
+    
+    public double getAnguloEstadoFinal() {
+        return getEstadoFinal().angulo;
+    }
+    
+    public double getXEstadoFinal() {
+        return getEstadoFinal().x;
+    }
+    
+    public double getYEstadoFinal() {
+        return getEstadoFinal().y;
     }
     
     public void irParaEstadoInicial() {
@@ -716,7 +760,7 @@ public class Tartaruga {
     }
     
     public boolean isDesenhando() {
-        return estados.get( estados.size() - 1 ).desenhando;
+        return getEstadoFinal().desenhando;
     }
     
     // funções geométricas

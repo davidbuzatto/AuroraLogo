@@ -122,6 +122,13 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitFatorParenteses(AuroraLogoParser.FatorParentesesContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -172,6 +179,20 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitSeSenao(AuroraLogoParser.SeSenaoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitUsando(AuroraLogoParser.UsandoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitEscolha(AuroraLogoParser.EscolhaContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -669,4 +690,11 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitInstrucaoCaminhoFecharCaminho(AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
+	@Override public T visitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx) { return visitChildren(ctx); }
 }

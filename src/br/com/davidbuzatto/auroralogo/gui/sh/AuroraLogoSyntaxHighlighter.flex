@@ -312,6 +312,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "enquanto" | 
 "ent\u00E3o " | 
 "ent\u00E3o" | 
+"escolha " | 
+"escolha" | 
 "escrever " | 
 "escrever" | 
 "escuro " | 
@@ -350,6 +352,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "multiplicando" | 
 "na " | 
 "na" | 
+"padr\u00E3o " | 
+"padr\u00E3o" | 
 "para " | 
 "para" | 
 "parar " | 
@@ -382,10 +386,14 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "somando" | 
 "subtraindo " | 
 "subtraindo" | 
+"tartaruga " | 
+"tartaruga" | 
 "terminar " | 
 "terminar" | 
 "trocar " | 
 "trocar" | 
+"usando " | 
+"usando" | 
 "v\u00E1 " | 
 "v\u00E1" | 
 "verde " | 

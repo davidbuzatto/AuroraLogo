@@ -1,0 +1,21 @@
+i = 3 .
+
+usando i {
+
+    escolha 0:
+        escrever "zero" na saída .
+        parar .
+    escolha 1:
+        escrever "um" na saída .
+        parar .
+    escolha 2: 
+        escrever "dois" na saída .
+        parar .
+    escolha 3:
+        escrever "três" na saída .
+        parar .
+    padrão:
+        escrever "outro" na saída .
+        parar .
+
+}

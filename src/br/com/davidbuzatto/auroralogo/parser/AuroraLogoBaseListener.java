@@ -196,6 +196,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorParenteses(AuroraLogoParser.FatorParentesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -287,6 +299,30 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitSeSenao(AuroraLogoParser.SeSenaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterUsando(AuroraLogoParser.UsandoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitUsando(AuroraLogoParser.UsandoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterEscolha(AuroraLogoParser.EscolhaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitEscolha(AuroraLogoParser.EscolhaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1139,6 +1175,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInstrucaoCaminhoFecharCaminho(AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

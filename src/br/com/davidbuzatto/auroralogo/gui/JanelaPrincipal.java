@@ -1127,28 +1127,28 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private void btnInicioPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnInicioPassoAPassoActionPerformed
         tartaruga.irParaEstadoInicial();
         atualizarComponentesExecutarPassoAPasso();
-        sliderEstadoAtual.setValue( tartaruga.getEstadoAtual() );
+        sliderEstadoAtual.setValue( tartaruga.getPosicaoEstadoAtual() );
         painelDesenho.repaint();
     }//GEN-LAST:event_btnInicioPassoAPassoActionPerformed
 
     private void btnAnteriorPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAnteriorPassoAPassoActionPerformed
         tartaruga.irParaEstadoAnterior();
         atualizarComponentesExecutarPassoAPasso();
-        sliderEstadoAtual.setValue( tartaruga.getEstadoAtual() );
+        sliderEstadoAtual.setValue( tartaruga.getPosicaoEstadoAtual() );
         painelDesenho.repaint();
     }//GEN-LAST:event_btnAnteriorPassoAPassoActionPerformed
 
     private void btnProximoPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProximoPassoAPassoActionPerformed
         tartaruga.irParaProximoEstado();
         atualizarComponentesExecutarPassoAPasso();
-        sliderEstadoAtual.setValue( tartaruga.getEstadoAtual() );
+        sliderEstadoAtual.setValue( tartaruga.getPosicaoEstadoAtual() );
         painelDesenho.repaint();
     }//GEN-LAST:event_btnProximoPassoAPassoActionPerformed
 
     private void btnFinalPassoAPassoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalPassoAPassoActionPerformed
         tartaruga.irParaEstadoFinal();
         atualizarComponentesExecutarPassoAPasso();
-        sliderEstadoAtual.setValue( tartaruga.getEstadoAtual() );
+        sliderEstadoAtual.setValue( tartaruga.getPosicaoEstadoAtual() );
         painelDesenho.repaint();
     }//GEN-LAST:event_btnFinalPassoAPassoActionPerformed
 
@@ -1304,7 +1304,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void sliderEstadoAtualStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_sliderEstadoAtualStateChanged
 
-        tartaruga.setEstadoAtual( sliderEstadoAtual.getValue() );
+        tartaruga.setPosicaoEstadoAtual( sliderEstadoAtual.getValue() );
 
         if ( deveAtualizarComponentesExecutarPassoAPasso ) {
             atualizarComponentesExecutarPassoAPasso();
@@ -1561,7 +1561,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testesGeometria", true );
+            carregarTemplate( "testesUsando", true );
         }
 
     }
@@ -1829,7 +1829,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
             sliderEstadoAtual.setEnabled( true );
             sliderEstadoAtual.setValue( 0 );
-            sliderEstadoAtual.setMaximum( tartaruga.getUltimoEstado() );
+            sliderEstadoAtual.setMaximum( tartaruga.getPosicaoUltimoEstado() );
 
             tartaruga.irParaEstadoInicial();
             atualizarComponentesExecutarPassoAPasso();

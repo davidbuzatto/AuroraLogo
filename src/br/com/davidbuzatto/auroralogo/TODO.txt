@@ -1,6 +1,6 @@
 Implementação:
-    - Consultar os dados da tartaruga!
-    - Implementar case;
+    - Implementar case -> falta ifs dentro igual ao repetir
+    = Rotação das formas geométricas;
     - Arrays;
     - Lidar com loops infinitos;
     - Sobre e ajuda;

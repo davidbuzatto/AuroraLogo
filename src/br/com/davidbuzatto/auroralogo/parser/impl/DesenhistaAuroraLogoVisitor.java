@@ -14,6 +14,8 @@ import static br.com.davidbuzatto.auroralogo.parser.impl.ValorVariavel.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.awt.geom.Arc2D;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 import javax.swing.JOptionPane;
@@ -33,7 +35,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     private Random gerador;
     
     // id das instruções condicionais e de repetição
-    private int idInstrucaoRepeticao;
+    private int idInstrucaoParavel;
     
     public DesenhistaAuroraLogoVisitor( 
             Tartaruga tartaruga, 
@@ -89,13 +91,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     
     @Override
     public ValorVariavel visitTrocarCorPreenchimento( AuroraLogoParser.TrocarCorPreenchimentoContext ctx ) {
-        try {
-        System.out.println( "a" );
         tartaruga.trocarCorPreenchimento( obterCor( Color.WHITE, ctx ) );
-        System.out.println( "b" );
-        } catch ( Exception exc ) {
-            exc.printStackTrace();
-        }
         return NULO;
     }
     
@@ -1668,9 +1664,89 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
+    public ValorVariavel visitUsando( AuroraLogoParser.UsandoContext ctx ) {
+        
+        int id = ++idInstrucaoParavel;
+        String idT = ctx.ID().getText();
+        ValorVariavel vId = tartaruga.lerMemoria( idT );
+        
+        if ( !vId.isNulo() ) {
+            
+            int pMatch = -1;
+            List<AuroraLogoParser.InstContext> coletaInstrucoes = new ArrayList<>();
+            
+            for ( int i = 0; i < ctx.escolha().size(); i++ ) {
+                
+                AuroraLogoParser.EscolhaContext ectx = ctx.escolha( i );
+                
+                if ( vId.isInteiro() ) {
+                    if ( ectx.INT() != null && vId.valorInteiro().equals( Integer.valueOf( ectx.INT().getText() ) )  ) {
+                        pMatch = i;
+                        break;
+                    }
+                } else if ( vId.isDecimal() ) {
+                    if ( ectx.DEC() != null && vId.valorDecimal().equals( Double.valueOf( ectx.DEC().getText() ) )  ) {
+                        pMatch = i;
+                        break;
+                    }
+                } else if ( vId.isCaractere() ) {
+                    if ( ectx.CHAR() != null && vId.valorCaractere().equals( ectx.CHAR().getText().charAt( 1 ) ) ) {
+                        pMatch = i;
+                        break;
+                    }
+                } else if ( vId.isString() ) {
+                    if ( ectx.STRING() != null && ( "\"" + vId.valorString() + "\"" ).equals( ectx.STRING().getText() ) ) {
+                        pMatch = i;
+                        break;
+                    }
+                }
+                
+            }
+            
+            // coleta
+            if ( pMatch != -1 ) {
+                for ( int i = pMatch; i < ctx.escolha().size(); i++ ) {
+                    if ( ctx.escolha( i ) != null ) {
+                        coletaInstrucoes.addAll( ctx.escolha( i ).inst() );
+                    }
+                }
+            }
+            
+            // se tiver instruções padrão
+            if ( ctx.PADR() != null ) {
+                coletaInstrucoes.addAll( ctx.inst() );
+            }
+            
+            int ate = 0;
+            
+            // pesquisa até achar o primeiro parar e remove o restante
+            for ( int i = 0; i < coletaInstrucoes.size(); i++ ) {
+                if ( coletaInstrucoes.get( i ).ains() != null && coletaInstrucoes.get( i ).ains().parar() != null ) {
+                    break;
+                }
+                ate = i;
+            }
+            
+            if ( !coletaInstrucoes.isEmpty() ) {
+                
+                coletaInstrucoes = coletaInstrucoes.subList( 0, ate + 1 );
+
+                for ( AuroraLogoParser.InstContext inst : coletaInstrucoes ) {
+                    visit( inst );
+                }
+                
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+    
+    @Override
     public ValorVariavel visitRepetir( AuroraLogoParser.RepetirContext ctx ) {
         
-        int id = ++idInstrucaoRepeticao;
+        int id = ++idInstrucaoParavel;
         int quantidade = visit( ctx.expr() ).valorInteiro();
         boolean breakExt = false;
         
@@ -1750,7 +1826,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     @Override
     public ValorVariavel visitRepetirEnquanto( AuroraLogoParser.RepetirEnquantoContext ctx ) {
         
-        int id = ++idInstrucaoRepeticao;
+        int id = ++idInstrucaoParavel;
         boolean breakExt = false;
         
         if ( ctx.ENQ() != null ) {
@@ -1943,12 +2019,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
     @Override
     public ValorVariavel visitParar( AuroraLogoParser.PararContext ctx ) {
-        return novoParar( idInstrucaoRepeticao );
+        return novoParar( idInstrucaoParavel );
     }
     
     @Override
     public ValorVariavel visitContinuar( AuroraLogoParser.ContinuarContext ctx ) {
-        return novoContinuar( idInstrucaoRepeticao );
+        return novoContinuar( idInstrucaoParavel );
     }
     
     @Override
@@ -2892,6 +2968,21 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         }
         
         return NULO;
+        
+    }
+
+    @Override
+    public ValorVariavel visitConsultarTartaruga( AuroraLogoParser.ConsultarTartarugaContext ctx ) {
+        
+        if ( ctx.PX() != null ) {
+            return novoDecimal( tartaruga.getXEstadoFinal() );
+        } else if ( ctx.PY() != null ) {
+            return novoDecimal( tartaruga.getYEstadoFinal() );
+        } else if ( ctx.PA() != null ) {
+            return novoDecimal( tartaruga.getAnguloEstadoFinal() );
+        }
+        
+        return ZERO_DECIMAL;
         
     }
     

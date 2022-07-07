@@ -109,6 +109,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorFuncaoMatematica(AuroraLogoParser.FatorFuncaoMatematicaContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code fatorConsultarTartaruga}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -157,6 +164,18 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitSeSenao(AuroraLogoParser.SeSenaoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#usando}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitUsando(AuroraLogoParser.UsandoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#escolha}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEscolha(AuroraLogoParser.EscolhaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#repetir}.
 	 * @param ctx the parse tree
@@ -638,4 +657,10 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitInstrucaoCaminhoFecharCaminho(AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#consultarTartaruga}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx);
 }
