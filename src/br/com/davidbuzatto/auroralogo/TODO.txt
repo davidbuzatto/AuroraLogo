@@ -1,6 +1,8 @@
 Implementação:
-    - Implementar case -> falta ifs dentro igual ao repetir
-    = Rotação das formas geométricas;
+    - Permitir acesso ao contador do passo na instrução "repetir ... vezes";
+    - Escrever como printf?
+    - Escrever em diálogo.
+    - Rotação das formas geométricas;
     - Arrays;
     - Lidar com loops infinitos;
     - Sobre e ajuda;
@@ -13,6 +15,7 @@ Gerenciamento:
     - Limpar os cabeçalhos e padronizar.
 
 Questionamentos:
+    - Fazer com que uma cor seja um tipo primitivo?
     - Não permitir variáveis com o nome de palavras chave?
     - Autocomplete para as funções geométricas e matemáticas?
     - Amarrar execução no editor?

@@ -280,18 +280,6 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterSeSenaoSeP(AuroraLogoParser.SeSenaoSePContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitSeSenaoSeP(AuroraLogoParser.SeSenaoSePContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
 	@Override public void enterSeSenao(AuroraLogoParser.SeSenaoContext ctx) { }
 	/**
 	 * {@inheritDoc}

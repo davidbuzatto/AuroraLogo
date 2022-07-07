@@ -10,7 +10,7 @@ import java.util.Locale;
  *
  * @author David
  */
-public class ValorVariavel {
+public class Valor {
     
     public static enum TipoVariavel {
     
@@ -25,31 +25,37 @@ public class ValorVariavel {
 
     }
     
-    public static ValorVariavel ZERO_INTEIRO = new ValorVariavel( TipoVariavel.INTEIRO, 0 );
-    public static ValorVariavel UM_INTEIRO = new ValorVariavel( TipoVariavel.INTEIRO, 1 );
-    public static ValorVariavel MAIOR_INTEIRO = new ValorVariavel( TipoVariavel.INTEIRO, Integer.MAX_VALUE );
-    public static ValorVariavel MENOR_INTEIRO = new ValorVariavel( TipoVariavel.INTEIRO, Integer.MIN_VALUE );
+    public static Valor ZERO_INTEIRO = new Valor( TipoVariavel.INTEIRO, 0, true );
+    public static Valor UM_INTEIRO = new Valor( TipoVariavel.INTEIRO, 1, true );
+    public static Valor MAIOR_INTEIRO = new Valor( TipoVariavel.INTEIRO, Integer.MAX_VALUE, true );
+    public static Valor MENOR_INTEIRO = new Valor( TipoVariavel.INTEIRO, Integer.MIN_VALUE, true );
     
-    public static ValorVariavel ZERO_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, 0.0 );
-    public static ValorVariavel UM_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, 1.0 );
-    public static ValorVariavel PI_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, Math.PI );
-    public static ValorVariavel MAIOR_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, Double.MAX_VALUE );
-    public static ValorVariavel MENOR_DECIMAL = new ValorVariavel( TipoVariavel.DECIMAL, Double.MIN_VALUE );
-    public static ValorVariavel INFINITO_POSITIVO = new ValorVariavel( TipoVariavel.DECIMAL, Double.POSITIVE_INFINITY );
-    public static ValorVariavel INFINITO_NEGATIVO = new ValorVariavel( TipoVariavel.DECIMAL, Double.NEGATIVE_INFINITY );
-    public static ValorVariavel NAO_NUMERO = new ValorVariavel( TipoVariavel.DECIMAL, Double.NaN );
+    public static Valor ZERO_DECIMAL = new Valor( TipoVariavel.DECIMAL, 0.0, true );
+    public static Valor UM_DECIMAL = new Valor( TipoVariavel.DECIMAL, 1.0, true );
+    public static Valor PI_DECIMAL = new Valor( TipoVariavel.DECIMAL, Math.PI, true );
+    public static Valor MAIOR_DECIMAL = new Valor( TipoVariavel.DECIMAL, Double.MAX_VALUE, true );
+    public static Valor MENOR_DECIMAL = new Valor( TipoVariavel.DECIMAL, Double.MIN_VALUE, true );
+    public static Valor INFINITO_POSITIVO = new Valor( TipoVariavel.DECIMAL, Double.POSITIVE_INFINITY, true );
+    public static Valor INFINITO_NEGATIVO = new Valor( TipoVariavel.DECIMAL, Double.NEGATIVE_INFINITY, true );
+    public static Valor NAO_NUMERO = new Valor( TipoVariavel.DECIMAL, Double.NaN, true );
     
-    public static ValorVariavel CARACTERE_NULO = new ValorVariavel( TipoVariavel.CARACTERE, '\0' );
-    public static ValorVariavel FALSO = new ValorVariavel( TipoVariavel.BOOLEANO, false );
-    public static ValorVariavel VERDADEIRO = new ValorVariavel( TipoVariavel.BOOLEANO, true );
-    public static ValorVariavel NULO = new ValorVariavel( TipoVariavel.NULO, null );
+    public static Valor CARACTERE_NULO = new Valor( TipoVariavel.CARACTERE, '\0', true );
+    public static Valor FALSO = new Valor( TipoVariavel.BOOLEANO, false, true );
+    public static Valor VERDADEIRO = new Valor( TipoVariavel.BOOLEANO, true, true );
+    public static Valor NULO = new Valor( TipoVariavel.NULO, null, true );
     
     private TipoVariavel tipo;
     private Object valor;
+    private boolean constante;
 
-    private ValorVariavel( TipoVariavel tipo, Object valor ) {
+    private Valor( TipoVariavel tipo, Object valor ) {
+        this( tipo, valor, false );
+    }
+    
+    private Valor( TipoVariavel tipo, Object valor, boolean constante ) {
         this.tipo = tipo;
         this.valor = valor;
+        this.constante = constante;
     }
     
     public TipoVariavel getTipo() {
@@ -150,6 +156,10 @@ public class ValorVariavel {
         return tipo == TipoVariavel.CONTINUAR;
     }
 
+    public boolean isConstante() {
+        return constante;
+    }
+    
     public Integer valorInteiro() {
         
         if ( tipo == TipoVariavel.INTEIRO ) {
@@ -208,7 +218,7 @@ public class ValorVariavel {
     
     public void incrementar() {
         
-        if ( isNumero() ) {
+        if ( isNumero() && !constante ) {
             if ( isInteiro() ) {
                 valor = (Integer) valor + 1;
             } else {
@@ -216,11 +226,15 @@ public class ValorVariavel {
             }
         }
         
+        if ( constante ) {
+            System.out.println( "tentativa de alteração de constante!" );
+        }
+        
     }
     
     public void decrementar() {
         
-        if ( isNumero() ) {
+        if ( isNumero() && !constante ) {
             if ( isInteiro() ) {
                 valor = (Integer) valor - 1;
             } else {
@@ -228,11 +242,15 @@ public class ValorVariavel {
             }
         }
         
+        if ( constante ) {
+            System.out.println( "tentativa de alteração de constante!" );
+        }
+        
     }
     
-    public void somar( ValorVariavel valor ) {
+    public void somar( Valor valor ) {
         
-        if ( this.isNumero() && valor.isNumero() ) {
+        if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
                 this.valor = ( (Integer) this.valor ) + valor.valorInteiro();
             } else {
@@ -240,11 +258,15 @@ public class ValorVariavel {
             }
         }
         
+        if ( constante ) {
+            System.out.println( "tentativa de alteração de constante!" );
+        }
+        
     }
     
-    public void subtrair( ValorVariavel valor ) {
+    public void subtrair( Valor valor ) {
         
-        if ( this.isNumero() && valor.isNumero() ) {
+        if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
                 this.valor = ( (Integer) this.valor ) - valor.valorInteiro();
             } else {
@@ -252,11 +274,15 @@ public class ValorVariavel {
             }
         }
         
+        if ( constante ) {
+            System.out.println( "tentativa de alteração de constante!" );
+        }
+        
     }
     
-    public void multiplicar( ValorVariavel valor ) {
+    public void multiplicar( Valor valor ) {
         
-        if ( this.isNumero() && valor.isNumero() ) {
+        if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
                 this.valor = ( (Integer) this.valor ) * valor.valorInteiro();
             } else {
@@ -264,11 +290,15 @@ public class ValorVariavel {
             }
         }
         
+        if ( constante ) {
+            System.out.println( "tentativa de alteração de constante!" );
+        }
+        
     }
     
-    public void dividir( ValorVariavel valor ) {
+    public void dividir( Valor valor ) {
         
-        if ( this.isNumero() && valor.isNumero() ) {
+        if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
                 this.valor = ( (Integer) this.valor ) / ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() );  // possível divisão por zero
             } else {
@@ -276,16 +306,24 @@ public class ValorVariavel {
             }
         }
         
+        if ( constante ) {
+            System.out.println( "tentativa de alteração de constante!" );
+        }
+        
     }
     
-    public void resto( ValorVariavel valor ) {
+    public void resto( Valor valor ) {
         
-        if ( this.isNumero() && valor.isNumero() ) {
+        if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
                 this.valor = ( (Integer) this.valor ) % ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() );  // possível divisão por zero
             } else {
                 this.valor = ( (Double) this.valor ) % valor.valorDecimal();                                       // divisão por zero "permitida"
             }
+        }
+        
+        if ( constante ) {
+            System.out.println( "tentativa de alteração de constante!" );
         }
         
     }
@@ -317,58 +355,58 @@ public class ValorVariavel {
     }
     
     
-    public static ValorVariavel novoInteiro( Integer valor ) {
-        return new ValorVariavel( TipoVariavel.INTEIRO, valor );
+    public static Valor novoInteiro( Integer valor ) {
+        return new Valor( TipoVariavel.INTEIRO, valor );
     }
     
-    public static ValorVariavel novoInteiro( String valor ) {
-        return new ValorVariavel( TipoVariavel.INTEIRO, Integer.valueOf( valor ) );
+    public static Valor novoInteiro( String valor ) {
+        return new Valor( TipoVariavel.INTEIRO, Integer.valueOf( valor ) );
     }
     
-    public static ValorVariavel novoDecimal( Double valor ) {
+    public static Valor novoDecimal( Double valor ) {
         if ( valor.isNaN() ) {
             return NAO_NUMERO;
         }
-        return new ValorVariavel( TipoVariavel.DECIMAL, valor );
+        return new Valor( TipoVariavel.DECIMAL, valor );
     }
     
-    public static ValorVariavel novoDecimal( String valor ) {
-        return new ValorVariavel( TipoVariavel.DECIMAL, Double.parseDouble( valor ) );
+    public static Valor novoDecimal( String valor ) {
+        return new Valor( TipoVariavel.DECIMAL, Double.parseDouble( valor ) );
     }
     
-    public static ValorVariavel novoBooleano( Boolean valor ) {
+    public static Valor novoBooleano( Boolean valor ) {
         if ( valor ) {
-            return VERDADEIRO;
+            return new Valor( TipoVariavel.BOOLEANO, true );
         }
-        return FALSO;
+        return new Valor( TipoVariavel.BOOLEANO, false );
     }
     
-    public static ValorVariavel novoBooleano( String valor ) {
+    public static Valor novoBooleano( String valor ) {
         switch ( valor ) {
             case "true":
             case "VERDADEIRO":
-                return VERDADEIRO;
+                return new Valor( TipoVariavel.BOOLEANO, true );
             case "false":
             case "FALSO":
-                return FALSO;
+                return new Valor( TipoVariavel.BOOLEANO, false );
         }
         return NULO;
     }
     
-    public static ValorVariavel novoCaractere( Character valor ) {
-        return new ValorVariavel( TipoVariavel.CARACTERE, valor );
+    public static Valor novoCaractere( Character valor ) {
+        return new Valor( TipoVariavel.CARACTERE, valor );
     }
     
-    public static ValorVariavel novaString( String valor ) {
-        return new ValorVariavel( TipoVariavel.STRING, valor );
+    public static Valor novaString( String valor ) {
+        return new Valor( TipoVariavel.STRING, valor );
     }
     
-    public static ValorVariavel novoParar( int id ) {
-        return new ValorVariavel( TipoVariavel.PARAR, id );
+    public static Valor novoParar( int id ) {
+        return new Valor( TipoVariavel.PARAR, id );
     }
     
-    public static ValorVariavel novoContinuar( int id ) {
-        return new ValorVariavel( TipoVariavel.CONTINUAR, id );
+    public static Valor novoContinuar( int id ) {
+        return new Valor( TipoVariavel.CONTINUAR, id );
     }
     
 }

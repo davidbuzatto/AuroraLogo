@@ -4,7 +4,7 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
-import br.com.davidbuzatto.auroralogo.parser.impl.ValorVariavel;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -34,13 +34,13 @@ import javax.imageio.ImageIO;
  */
 public class Tartaruga {
     
-    private class Forma implements Cloneable {
+    private class ContainerForma implements Cloneable {
         
         Shape forma;
         boolean preenchida;
         String nome;
 
-        public Forma( Shape forma, boolean preenchida, String nome ) {
+        public ContainerForma( Shape forma, boolean preenchida, String nome ) {
             this.forma = forma;
             this.preenchida = preenchida;
             this.nome = nome;
@@ -51,7 +51,7 @@ public class Tartaruga {
             
             if ( forma instanceof Path2D.Double ) {
                 
-                Forma f = (Forma) super.clone();
+                ContainerForma f = (ContainerForma) super.clone();
                 f.forma = (Path2D.Double) ( (Path2D.Double) forma ).clone();
                 f.preenchida = preenchida;
                 f.nome = nome;
@@ -82,8 +82,8 @@ public class Tartaruga {
         Color corPreenchimento;
         Color corFundo;
         boolean desenhando;
-        Forma forma;
-        Map<String, ValorVariavel> memoria;
+        ContainerForma containerForma;
+        Map<String, Valor> memoria;
         
         public Estado( double x, double y, double angulo, double grossura, Color corPincel, Color corPreenchimento, Color corFundo, boolean desenhando ) {
             this.x = x;
@@ -94,7 +94,7 @@ public class Tartaruga {
             this.corPreenchimento = corPreenchimento;
             this.corFundo = corFundo;
             this.desenhando = desenhando;
-            this.forma = null;
+            this.containerForma = null;
             this.memoria = new LinkedHashMap<>();
         }
 
@@ -123,10 +123,10 @@ public class Tartaruga {
             e.corPreenchimento = corPreenchimento;
             e.corFundo = corFundo;
             e.desenhando = desenhando;
-            e.forma = null;
+            e.containerForma = null;
             e.memoria = new LinkedHashMap<>();
             
-            for ( Entry<String, ValorVariavel> en : memoria.entrySet() ) {
+            for ( Entry<String, Valor> en : memoria.entrySet() ) {
                 e.memoria.put( en.getKey(), en.getValue() );
             }
             
@@ -161,7 +161,7 @@ public class Tartaruga {
     private PainelDesenho painelDesenho;
     private Font fonteDepurador;
     private Color cor;
-    private Forma caminho;
+    private ContainerForma caminho;
     
     private boolean passoAPasso;
     private int estadoAtual;
@@ -412,15 +412,15 @@ public class Tartaruga {
         estadoAtual = 0;
     }
     
-    public void inserirOuAtualizarMemoria( String id, ValorVariavel valor ) {
+    public void inserirOuAtualizarMemoria( String id, Valor valor ) {
         Estado e = clonarUltimoEstado();
         e.memoria.put( id, valor );
         estados.add( e );
     }
     
-    public ValorVariavel lerMemoria( String id ) {
+    public Valor lerMemoria( String id ) {
         Estado e = getEstadoFinal();
-        return e.memoria.getOrDefault( id, ValorVariavel.NULO );
+        return e.memoria.getOrDefault(id, Valor.NULO );
     }
     
     public void desenhar( Graphics2D g2d ) {
@@ -454,15 +454,15 @@ public class Tartaruga {
                 g2d.setColor( atu.corPincel );
                 g2d.setStroke( atu.contorno );
 
-                if ( atu.forma != null ) {
+                if ( atu.containerForma != null ) {
                     
-                    if ( atu.forma.preenchida ) {
+                    if ( atu.containerForma.preenchida ) {
                         g2d.setColor( atu.corPreenchimento );
-                        g2d.fill( atu.forma.forma );
+                        g2d.fill( atu.containerForma.forma );
                     }
                     
                     g2d.setColor( atu.corPincel );
-                    g2d.draw( atu.forma.forma );
+                    g2d.draw( atu.containerForma.forma );
                     
                 } else if ( ant.desenhando ) {
                     if ( atu.texto != null ) {
@@ -547,7 +547,7 @@ public class Tartaruga {
             String.format( Locale.US, "%.4f", atu.y ),
             String.format( Locale.US, "%.4f", atu.angulo ) + "º",
             String.format( Locale.US, "%.4f", atu.contorno.getLineWidth() ),
-            atu.forma == null ? "não há" : atu.forma,
+            atu.containerForma == null ? "não há" : atu.containerForma,
             atu.corPincel,
             atu.corPreenchimento,
             atu.corFundo,
@@ -594,7 +594,7 @@ public class Tartaruga {
         }
         
         int c = 0;
-        for ( Entry<String, ValorVariavel> e : atu.memoria.entrySet() ) {
+        for ( Entry<String, Valor> e : atu.memoria.entrySet() ) {
             
             String nome = e.getKey();
             if ( nome.length() > 10 ) {
@@ -767,7 +767,7 @@ public class Tartaruga {
 
     public void criarSegmento( double x1, double y1, double x2, double y2 ) {
         Estado e = clonarUltimoEstado();
-        e.forma = new Forma( 
+        e.containerForma = new ContainerForma( 
                 new Line2D.Double( x1, y1, x2, y2 ), 
                 false, "segmento" );
         estados.add( e );
@@ -775,7 +775,7 @@ public class Tartaruga {
 
     public void criarQuadrado( double xCentro, double yCentro, double lado, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
-        e.forma = new Forma( 
+        e.containerForma = new ContainerForma( 
                 new Rectangle2D.Double( 
                         xCentro - lado / 2, yCentro - lado / 2, 
                         lado, lado ), 
@@ -785,7 +785,7 @@ public class Tartaruga {
 
     public void criarRetangulo( double xCentro, double yCentro, double largura, double altura, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
-        e.forma = new Forma( 
+        e.containerForma = new ContainerForma( 
                 new Rectangle2D.Double( 
                         xCentro - largura / 2, yCentro - altura / 2, 
                         largura, altura ), 
@@ -795,7 +795,7 @@ public class Tartaruga {
 
     public void criarCirculo( double xCentro, double yCentro, double raio, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
-        e.forma = new Forma( 
+        e.containerForma = new ContainerForma( 
                 new Ellipse2D.Double( 
                         xCentro - raio, yCentro - raio, 
                         raio * 2, raio * 2 ), 
@@ -805,7 +805,7 @@ public class Tartaruga {
 
     public void criarElipse( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
-        e.forma = new Forma( 
+        e.containerForma = new ContainerForma( 
                 new Ellipse2D.Double( xCentro - eixoHorizontal / 2, yCentro - eixoVertical / 2, 
                         eixoHorizontal, eixoVertical ), 
                 preenchida, "elipse" );
@@ -814,7 +814,7 @@ public class Tartaruga {
 
     public void criarArco( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, double anguloInicio, double anguloFim, int tipo, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
-        e.forma = new Forma( 
+        e.containerForma = new ContainerForma( 
                 new Arc2D.Double( xCentro - eixoHorizontal / 2, yCentro - eixoVertical / 2, 
                         eixoHorizontal, eixoVertical, 
                         anguloInicio, anguloFim, tipo ), 
@@ -841,7 +841,7 @@ public class Tartaruga {
 
             poligono.closePath();
             
-            e.forma = new Forma( poligono, preenchido, "polígono reg." );
+            e.containerForma = new ContainerForma( poligono, preenchido, "polígono reg." );
             estados.add( e );
             
         }
@@ -883,7 +883,7 @@ public class Tartaruga {
 
             estrela.closePath();
             
-            e.forma = new Forma( estrela, preenchida, "estrela" );
+            e.containerForma = new ContainerForma( estrela, preenchida, "estrela" );
             estados.add( e );
             
         }
@@ -907,7 +907,7 @@ public class Tartaruga {
             
             poligono.closePath();
             
-            e.forma = new Forma( poligono, preenchido, "polígono" );
+            e.containerForma = new ContainerForma( poligono, preenchido, "polígono" );
             estados.add( e );
         
         }
@@ -916,7 +916,7 @@ public class Tartaruga {
 
     public void criarCurvaQuadratica( double x1, double y1, double xControle, double yControle, double x2, double y2, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
-        e.forma = new Forma( 
+        e.containerForma = new ContainerForma( 
                 new QuadCurve2D.Double( x1, y1, xControle, yControle, x2, y2 ), 
                 preenchida, "curva quad." );
         estados.add( e );
@@ -924,7 +924,7 @@ public class Tartaruga {
 
     public void criarCurvaCubica( double x1, double y1, double xControle1, double yControle1, double xControle2, double yControle2, double x2, double y2, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
-        e.forma = new Forma( 
+        e.containerForma = new ContainerForma( 
                 new CubicCurve2D.Double( x1, y1, xControle1, yControle1, 
                         xControle2, yControle2, x2, y2 ), 
                 preenchida, "curva cúbica" );
@@ -934,8 +934,8 @@ public class Tartaruga {
     public void iniciarCaminho( boolean preenchido ) {
         Estado e = clonarUltimoEstado();
         caminho = null;
-        caminho = new Forma( new Path2D.Double(), preenchido, "caminho" );
-        e.forma = caminho;
+        caminho = new ContainerForma( new Path2D.Double(), preenchido, "caminho" );
+        e.containerForma = caminho;
         estados.add( e );
     }
 
@@ -945,9 +945,9 @@ public class Tartaruga {
             
             try { 
                 Estado e = clonarUltimoEstado();
-                caminho = (Forma) caminho.clone();
+                caminho = (ContainerForma) caminho.clone();
                 ( (Path2D.Double) caminho.forma ).moveTo( x, y );
-                e.forma = caminho;
+                e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
                 exc.printStackTrace();
@@ -963,9 +963,9 @@ public class Tartaruga {
             
             try { 
                 Estado e = clonarUltimoEstado();
-                caminho = (Forma) caminho.clone();
+                caminho = (ContainerForma) caminho.clone();
                 ( (Path2D.Double) caminho.forma ).lineTo( x, y );
-                e.forma = caminho;
+                e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
                 exc.printStackTrace();
@@ -981,9 +981,9 @@ public class Tartaruga {
             
             try { 
                 Estado e = clonarUltimoEstado();
-                caminho = (Forma) caminho.clone();
+                caminho = (ContainerForma) caminho.clone();
                 ( (Path2D.Double) caminho.forma ).quadTo( xControle, yControle, x, y );
-                e.forma = caminho;
+                e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
                 exc.printStackTrace();
@@ -999,9 +999,9 @@ public class Tartaruga {
             
             try { 
                 Estado e = clonarUltimoEstado();
-                caminho = (Forma) caminho.clone();
+                caminho = (ContainerForma) caminho.clone();
                 ( (Path2D.Double) caminho.forma ).curveTo( xControle1, yControle1, xControle2, yControle2, x, y );
-                e.forma = caminho;
+                e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
                 exc.printStackTrace();
@@ -1017,9 +1017,9 @@ public class Tartaruga {
             
             try { 
                 Estado e = clonarUltimoEstado();
-                caminho = (Forma) caminho.clone();
+                caminho = (ContainerForma) caminho.clone();
                 ( (Path2D.Double) caminho.forma ).closePath();
-                e.forma = caminho;
+                e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
                 exc.printStackTrace();

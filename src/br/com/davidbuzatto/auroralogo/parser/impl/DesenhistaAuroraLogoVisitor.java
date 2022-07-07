@@ -10,7 +10,7 @@ import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoBaseVisitor;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.InstCaminhoContext;
-import static br.com.davidbuzatto.auroralogo.parser.impl.ValorVariavel.*;
+import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.awt.geom.Arc2D;
@@ -27,14 +27,16 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  *
  * @author David
  */
-public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVariavel> {
+public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
 
     private Tartaruga tartaruga;
     private JanelaPrincipal janelaPrincipal;
     private JTextPane textPaneSaida;
     private Random gerador;
     
-    // id das instruções condicionais e de repetição
+    // identificador das instruções de repetição (repetir ... vezes, 
+    // enquanto ... repetir) e condicionais (usando .. escolha) usado pela
+    // instruçã "parar" para sinalizar quem deve ser interrompido.
     private int idInstrucaoParavel;
     
     public DesenhistaAuroraLogoVisitor( 
@@ -49,9 +51,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitMovimentarDirecao( AuroraLogoParser.MovimentarDirecaoContext ctx ) {
+    public Valor visitMovimentarDirecao( AuroraLogoParser.MovimentarDirecaoContext ctx ) {
         
-        ValorVariavel valor = UM_DECIMAL;
+        Valor valor = UM_DECIMAL;
         
         if ( ctx.expr() != null ) {
             valor = visit( ctx.expr() );
@@ -72,7 +74,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitMovimentarPonto( AuroraLogoParser.MovimentarPontoContext ctx ) {
+    public Valor visitMovimentarPonto( AuroraLogoParser.MovimentarPontoContext ctx ) {
         
         double x = visit( ctx.expr( 0 ) ).valorDecimal();
         double y = visit( ctx.expr( 1 ) ).valorDecimal();
@@ -84,19 +86,19 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitTrocarCorPincel( AuroraLogoParser.TrocarCorPincelContext ctx ) {
+    public Valor visitTrocarCorPincel( AuroraLogoParser.TrocarCorPincelContext ctx ) {
         tartaruga.trocarCorPincel( obterCor( Color.BLACK, ctx ) );
         return NULO;
     }
     
     @Override
-    public ValorVariavel visitTrocarCorPreenchimento( AuroraLogoParser.TrocarCorPreenchimentoContext ctx ) {
+    public Valor visitTrocarCorPreenchimento( AuroraLogoParser.TrocarCorPreenchimentoContext ctx ) {
         tartaruga.trocarCorPreenchimento( obterCor( Color.WHITE, ctx ) );
         return NULO;
     }
     
     @Override
-    public ValorVariavel visitTrocarCorFundo( AuroraLogoParser.TrocarCorFundoContext ctx ) {
+    public Valor visitTrocarCorFundo( AuroraLogoParser.TrocarCorFundoContext ctx ) {
         tartaruga.trocarCorFundo( obterCor( Color.WHITE, ctx ) );
         return NULO;
     }
@@ -186,7 +188,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitGirar( AuroraLogoParser.GirarContext ctx ) {
+    public Valor visitGirar( AuroraLogoParser.GirarContext ctx ) {
         
         double valor = 1;
         
@@ -201,7 +203,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitEngrossar( AuroraLogoParser.EngrossarContext ctx ) {
+    public Valor visitEngrossar( AuroraLogoParser.EngrossarContext ctx ) {
         
         double valor = 1;
         
@@ -216,7 +218,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitDesengrossar( AuroraLogoParser.DesengrossarContext ctx ) {
+    public Valor visitDesengrossar( AuroraLogoParser.DesengrossarContext ctx ) {
         
         double valor = 1;
         
@@ -231,17 +233,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitTrocarGrossura( AuroraLogoParser.TrocarGrossuraContext ctx ) {
+    public Valor visitTrocarGrossura( AuroraLogoParser.TrocarGrossuraContext ctx ) {
         tartaruga.setGrossura( visit( ctx.expr() ).valorDecimal() );
         return NULO;
     }
 
     @Override
-    public ValorVariavel visitEscrever( AuroraLogoParser.EscreverContext ctx ) {
+    public Valor visitEscrever( AuroraLogoParser.EscreverContext ctx ) {
         
         String valor;
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         if ( v.isBooleano() ) {
             valor = String.valueOf( v );
         } else {
@@ -260,10 +262,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitLer( AuroraLogoParser.LerContext ctx ) {
+    public Valor visitLer( AuroraLogoParser.LerContext ctx ) {
         
         String id = ctx.ID().getText();
-        ValorVariavel valor = NULO;
+        Valor valor = NULO;
         
         String v = JOptionPane.showInputDialog( 
                        janelaPrincipal, String.format( "Entre com um valor para \"%s\":", id ) );
@@ -317,29 +319,29 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitAbaixar( AuroraLogoParser.AbaixarContext ctx ) {
+    public Valor visitAbaixar( AuroraLogoParser.AbaixarContext ctx ) {
         tartaruga.abaixarPincel();
         return NULO;
     }
 
     @Override
-    public ValorVariavel visitLevantar( AuroraLogoParser.LevantarContext ctx ) {
+    public Valor visitLevantar( AuroraLogoParser.LevantarContext ctx ) {
         tartaruga.levantarPincel();
         return NULO;
     }
 
     @Override
-    public ValorVariavel visitLimpar( AuroraLogoParser.LimparContext ctx ) {
+    public Valor visitLimpar( AuroraLogoParser.LimparContext ctx ) {
         tartaruga.limpar();
         return NULO;
     }
     
     @Override
-    public ValorVariavel visitAtribuirPadrao( AuroraLogoParser.AtribuirPadraoContext ctx ) {
+    public Valor visitAtribuirPadrao( AuroraLogoParser.AtribuirPadraoContext ctx ) {
         
         String id = ctx.ID().getText();
         
-        ValorVariavel valor = visit( ctx.expr() );
+        Valor valor = visit( ctx.expr() );
         tartaruga.inserirOuAtualizarMemoria( id, valor );
         
         return valor;
@@ -347,12 +349,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitAtribuirAdicao( AuroraLogoParser.AtribuirAdicaoContext ctx ) {
+    public Valor visitAtribuirAdicao( AuroraLogoParser.AtribuirAdicaoContext ctx ) {
         
         String id = ctx.ID().getText();
-        ValorVariavel valor = visit( ctx.expr() );
+        Valor valor = visit( ctx.expr() );
         
-        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        Valor vMemoria = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
@@ -360,11 +362,11 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
-                    ValorVariavel vN = novoInteiro( 0 );
+                    Valor vN = novoInteiro( 0 );
                     vN.somar( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
-                    ValorVariavel vN = novoDecimal( 0.0 );
+                    Valor vN = novoDecimal( 0.0 );
                     vN.somar( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
@@ -376,12 +378,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitAtribuirSubtracao( AuroraLogoParser.AtribuirSubtracaoContext ctx ) {
+    public Valor visitAtribuirSubtracao( AuroraLogoParser.AtribuirSubtracaoContext ctx ) {
         
         String id = ctx.ID().getText();
-        ValorVariavel valor = visit( ctx.expr() );
+        Valor valor = visit( ctx.expr() );
         
-        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        Valor vMemoria = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
@@ -389,11 +391,11 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
-                    ValorVariavel vN = novoInteiro( 0 );
+                    Valor vN = novoInteiro( 0 );
                     vN.subtrair( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
-                    ValorVariavel vN = novoDecimal( 0.0 );
+                    Valor vN = novoDecimal( 0.0 );
                     vN.subtrair( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
@@ -405,12 +407,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitAtribuirMultiplicacao( AuroraLogoParser.AtribuirMultiplicacaoContext ctx ) {
+    public Valor visitAtribuirMultiplicacao( AuroraLogoParser.AtribuirMultiplicacaoContext ctx ) {
         
         String id = ctx.ID().getText();
-        ValorVariavel valor = visit( ctx.expr() );
+        Valor valor = visit( ctx.expr() );
         
-        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        Valor vMemoria = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
@@ -418,11 +420,11 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
-                    ValorVariavel vN = novoInteiro( 0 );
+                    Valor vN = novoInteiro( 0 );
                     vN.multiplicar( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
-                    ValorVariavel vN = novoDecimal( 0.0 );
+                    Valor vN = novoDecimal( 0.0 );
                     vN.multiplicar( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
@@ -434,12 +436,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitAtribuirDivisao( AuroraLogoParser.AtribuirDivisaoContext ctx ) {
+    public Valor visitAtribuirDivisao( AuroraLogoParser.AtribuirDivisaoContext ctx ) {
         
         String id = ctx.ID().getText();
-        ValorVariavel valor = visit( ctx.expr() );
+        Valor valor = visit( ctx.expr() );
         
-        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        Valor vMemoria = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
@@ -447,11 +449,11 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
-                    ValorVariavel vN = novoInteiro( 0 );
+                    Valor vN = novoInteiro( 0 );
                     vN.dividir( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
-                    ValorVariavel vN = novoDecimal( 0.0 );
+                    Valor vN = novoDecimal( 0.0 );
                     vN.dividir( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
@@ -463,12 +465,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitAtribuirResto( AuroraLogoParser.AtribuirRestoContext ctx ) {
+    public Valor visitAtribuirResto( AuroraLogoParser.AtribuirRestoContext ctx ) {
         
         String id = ctx.ID().getText();
-        ValorVariavel valor = visit( ctx.expr() );
+        Valor valor = visit( ctx.expr() );
         
-        ValorVariavel vMemoria = tartaruga.lerMemoria( id );
+        Valor vMemoria = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
@@ -476,11 +478,11 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
-                    ValorVariavel vN = novoInteiro( 0 );
+                    Valor vN = novoInteiro( 0 );
                     vN.resto( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
-                    ValorVariavel vN = novoDecimal( 0.0 );
+                    Valor vN = novoDecimal( 0.0 );
                     vN.resto( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
@@ -492,9 +494,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitExpr( AuroraLogoParser.ExprContext ctx ) {
+    public Valor visitExpr( AuroraLogoParser.ExprContext ctx ) {
         
-        ValorVariavel valor = ZERO_INTEIRO;
+        Valor valor = ZERO_INTEIRO;
         
         for ( int i = 0; i < ctx.getChildCount(); i += 2 ) {
             
@@ -503,7 +505,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
             } else {
                 
                 int op = ( (TerminalNode) ctx.getChild( i-1 ) ).getSymbol().getType();
-                ValorVariavel rv = visit( ctx.getChild( i ) );
+                Valor rv = visit( ctx.getChild( i ) );
                 
                 switch ( op ) {
                     case AuroraLogoParser.ELG:
@@ -525,13 +527,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitRelacao( AuroraLogoParser.RelacaoContext ctx ) {
+    public Valor visitRelacao( AuroraLogoParser.RelacaoContext ctx ) {
         
-        ValorVariavel valor = visit( ctx.exprSimp( 0 ) );
+        Valor valor = visit( ctx.exprSimp( 0 ) );
         
         if ( ctx.opRel != null ) {
             
-            ValorVariavel rv = visit( ctx.exprSimp( 1 ) );
+            Valor rv = visit( ctx.exprSimp( 1 ) );
             boolean res = false;
             
             switch ( ctx.opRel.getType() ) {
@@ -1008,10 +1010,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitExprSimp( AuroraLogoParser.ExprSimpContext ctx ) {
+    public Valor visitExprSimp( AuroraLogoParser.ExprSimpContext ctx ) {
         
-        ValorVariavel valor = ZERO_INTEIRO;
-        ValorVariavel mult = UM_INTEIRO;
+        Valor valor = ZERO_INTEIRO;
+        Valor mult = UM_INTEIRO;
         int ini = 0;
         
         if ( ctx.opNeg != null && ctx.opNeg.getType() == AuroraLogoParser.SUB ) {
@@ -1026,7 +1028,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
             } else {
                 
                 int op = ( (TerminalNode) ctx.getChild( i-1 ) ).getSymbol().getType();
-                ValorVariavel tv = visit( ctx.getChild( i ) );
+                Valor tv = visit( ctx.getChild( i ) );
                 
                 switch ( op ) {
                     case AuroraLogoParser.ADI:
@@ -1193,9 +1195,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitTermo( AuroraLogoParser.TermoContext ctx ) {
+    public Valor visitTermo( AuroraLogoParser.TermoContext ctx ) {
         
-        ValorVariavel valor = ZERO_INTEIRO;
+        Valor valor = ZERO_INTEIRO;
         
         for ( int i = 0; i < ctx.getChildCount(); i += 2 ) {
             
@@ -1204,7 +1206,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
             } else {
                 
                 int op = ( (TerminalNode) ctx.getChild( i-1 ) ).getSymbol().getType();
-                ValorVariavel fv = visit( ctx.getChild( i ) );
+                Valor fv = visit( ctx.getChild( i ) );
                 
                 switch ( op ) {
                     case AuroraLogoParser.MUL:
@@ -1446,9 +1448,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }*/
     
     @Override
-    public ValorVariavel visitFatorNao( AuroraLogoParser.FatorNaoContext ctx ) {
+    public Valor visitFatorNao( AuroraLogoParser.FatorNaoContext ctx ) {
         
-        ValorVariavel valor = visit( ctx.fator() );
+        Valor valor = visit( ctx.fator() );
             
         if ( ctx.NAO() != null || ctx.NAOT() != null ) {
             if ( valor.isFalso() ) {
@@ -1464,22 +1466,22 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFatorInt( AuroraLogoParser.FatorIntContext ctx ) {
-        return ValorVariavel.novoInteiro( ctx.INT().getText() );
+    public Valor visitFatorInt( AuroraLogoParser.FatorIntContext ctx ) {
+        return Valor.novoInteiro( ctx.INT().getText() );
     }
     
     @Override
-    public ValorVariavel visitFatorDec( AuroraLogoParser.FatorDecContext ctx ) {
-        return ValorVariavel.novoDecimal( ctx.DEC().getText() );
+    public Valor visitFatorDec( AuroraLogoParser.FatorDecContext ctx ) {
+        return Valor.novoDecimal( ctx.DEC().getText() );
     }
 
     @Override
-    public ValorVariavel visitFatorPi( AuroraLogoParser.FatorPiContext ctx ) {
+    public Valor visitFatorPi( AuroraLogoParser.FatorPiContext ctx ) {
         return PI_DECIMAL;
     }
 
     @Override
-    public ValorVariavel visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
+    public Valor visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
         
         if ( ctx.bool() != null ) {
             return visit( ctx.bool() );
@@ -1491,7 +1493,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitBool( AuroraLogoParser.BoolContext ctx ) {
+    public Valor visitBool( AuroraLogoParser.BoolContext ctx ) {
         if ( ctx.VER() != null ) {
             return VERDADEIRO;
         }
@@ -1499,35 +1501,37 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFatorChar( AuroraLogoParser.FatorCharContext ctx ) {
+    public Valor visitFatorChar( AuroraLogoParser.FatorCharContext ctx ) {
         return novoCaractere( ctx.getText().substring( 1, ctx.getText().length() - 1 ).charAt( 0 ) );
     }
 
     @Override
-    public ValorVariavel visitFatorString( AuroraLogoParser.FatorStringContext ctx ) {
+    public Valor visitFatorString( AuroraLogoParser.FatorStringContext ctx ) {
         return novaString( ctx.getText().substring( 1, ctx.getText().length() - 1 ) );
     }
     
     @Override
-    public ValorVariavel visitFatorParenteses( AuroraLogoParser.FatorParentesesContext ctx ) {
+    public Valor visitFatorParenteses( AuroraLogoParser.FatorParentesesContext ctx ) {
         return visit( ctx.expr() );
     }
 
     @Override
-    public ValorVariavel visitExprBool( AuroraLogoParser.ExprBoolContext ctx ) {
+    public Valor visitExprBool( AuroraLogoParser.ExprBoolContext ctx ) {
         return visit( ctx.expr() );
     }
 
     @Override
-    public ValorVariavel visitSe( AuroraLogoParser.SeContext ctx ) {
+    public Valor visitSe( AuroraLogoParser.SeContext ctx ) {
         
         boolean entrouNoSe = false;
         boolean entrouEmAlgumSenaoSe = false;
         
-        ValorVariavel retorno = NULO;
+        Valor retorno = NULO;
         
         if ( visit( ctx.seSe().exprBool() ).isVerdadeiro() ) {
+            
             entrouNoSe = true;
+            
             for ( AuroraLogoParser.InstContext c : ctx.seSe().inst() ) {
                 
                 if ( c.ains() != null ) { 
@@ -1536,7 +1540,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                     if ( c.ains().parar() != null ||
                          c.ains().continuar() != null ) {
                         
-                        ValorVariavel r;
+                        Valor r;
                         
                         if ( c.ains().parar() != null ) {
                             r = visit( c.ains().parar() );
@@ -1553,7 +1557,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                     
                 } else {
                     
-                    ValorVariavel v = visit( c );
+                    Valor v = visit( c );
                     
                     // captura retorno de outros ses
                     if ( v != null && ( v.isParar() || v.isContinuar() ) ) {
@@ -1565,9 +1569,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 
             }
             
-        } else if ( ctx.seSenaoSe().children != null ) {
+        } else if ( ctx.seSenaoSe() != null ) {
             
-            for ( AuroraLogoParser.SeSenaoSePContext sssp : ctx.seSenaoSe().seSenaoSeP() ) {
+            for ( AuroraLogoParser.SeSenaoSeContext sssp : ctx.seSenaoSe() ) {
                 
                 if ( visit( sssp.exprBool() ).isVerdadeiro() ) {
                     
@@ -1581,7 +1585,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             if ( c.ains().parar() != null ||
                                  c.ains().continuar() != null ) {
 
-                                ValorVariavel r;
+                                Valor r;
 
                                 if ( c.ains().parar() != null ) {
                                     r = visit( c.ains().parar() );
@@ -1598,7 +1602,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
                         } else {
 
-                            ValorVariavel v = visit( c );
+                            Valor v = visit( c );
 
                             // captura retorno de outros ses
                             if ( v != null && ( v.isParar() || v.isContinuar() ) ) {
@@ -1618,7 +1622,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
             
         }
         
-        if ( ctx.seSenao().children != null && !entrouNoSe && !entrouEmAlgumSenaoSe ) {
+        if ( ctx.seSenao() != null && !entrouNoSe && !entrouEmAlgumSenaoSe ) {
             
             for ( AuroraLogoParser.InstContext c : ctx.seSenao().inst() ) {
                 
@@ -1628,7 +1632,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                     if ( c.ains().parar() != null ||
                          c.ains().continuar() != null ) {
                         
-                        ValorVariavel r;
+                        Valor r;
                         
                         if ( c.ains().parar() != null ) {
                             r = visit( c.ains().parar() );
@@ -1645,7 +1649,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                     
                 } else {
                     
-                    ValorVariavel v = visit( c );
+                    Valor v = visit( c );
                     
                     // captura retorno de outros ses
                     if ( v != null && ( v.isParar() || v.isContinuar() ) ) {
@@ -1664,11 +1668,11 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitUsando( AuroraLogoParser.UsandoContext ctx ) {
+    public Valor visitUsando( AuroraLogoParser.UsandoContext ctx ) {
         
         int id = ++idInstrucaoParavel;
         String idT = ctx.ID().getText();
-        ValorVariavel vId = tartaruga.lerMemoria( idT );
+        Valor vId = tartaruga.lerMemoria( idT );
         
         if ( !vId.isNulo() ) {
             
@@ -1719,7 +1723,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
             
             int ate = 0;
             
-            // pesquisa até achar o primeiro parar e remove o restante
+            // pesquisa até achar o primeiro parar para realizar o primeiro corte
             for ( int i = 0; i < coletaInstrucoes.size(); i++ ) {
                 if ( coletaInstrucoes.get( i ).ains() != null && coletaInstrucoes.get( i ).ains().parar() != null ) {
                     break;
@@ -1727,12 +1731,32 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                 ate = i;
             }
             
+            // remove o restante
             if ( !coletaInstrucoes.isEmpty() ) {
                 
                 coletaInstrucoes = coletaInstrucoes.subList( 0, ate + 1 );
+                
+                // visita as instruções que sobraram
+                for ( int i = 0; i < coletaInstrucoes.size(); i++ ) {
+                    
+                    AuroraLogoParser.InstContext c = coletaInstrucoes.get( i );
+                    
+                    Valor v = visit( c );
+                    
+                    if ( v != null ) { 
+                            
+                        // se for um parar indireto, propagado de um se
+                        if ( v.isParar() ) {
 
-                for ( AuroraLogoParser.InstContext inst : coletaInstrucoes ) {
-                    visit( inst );
+                            // se o id bater, para essa instrução
+                            if ( v.valorIdParar() == id ) {
+                                break;
+                            }
+
+                        }
+
+                    }
+                    
                 }
                 
             }
@@ -1744,7 +1768,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitRepetir( AuroraLogoParser.RepetirContext ctx ) {
+    public Valor visitRepetir( AuroraLogoParser.RepetirContext ctx ) {
         
         int id = ++idInstrucaoParavel;
         int quantidade = visit( ctx.expr() ).valorInteiro();
@@ -1761,7 +1785,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                         if ( c.ains().parar() != null  ) {
                         
                             // se for um parar do corpo da instrução
-                            ValorVariavel p = visit( c.ains().parar() );
+                            Valor p = visit( c.ains().parar() );
 
                             // se o id bater, para essa instrução
                             if ( p.valorIdParar() == id ) {
@@ -1772,7 +1796,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                         } else if ( c.ains().continuar() != null  ) {
                             
                             // se for um continuar do corpo da instrução
-                            ValorVariavel con = visit( c.ains().continuar() );
+                            Valor con = visit( c.ains().continuar() );
                             
                             // se o id bater, continua essa instrução matando o for interno
                             if ( con.valorIdContinuar() == id ) {
@@ -1785,7 +1809,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                         
                     } else {
                         
-                        ValorVariavel v = visit( c );
+                        Valor v = visit( c );
                         
                         if ( v != null ) { 
                             
@@ -1824,7 +1848,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitRepetirEnquanto( AuroraLogoParser.RepetirEnquantoContext ctx ) {
+    public Valor visitRepetirEnquanto( AuroraLogoParser.RepetirEnquantoContext ctx ) {
         
         int id = ++idInstrucaoParavel;
         boolean breakExt = false;
@@ -1843,7 +1867,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             if ( c.ains().parar() != null  ) {
 
                                 // se for um parar do corpo da instrução
-                                ValorVariavel p = visit( c.ains().parar() );
+                                Valor p = visit( c.ains().parar() );
 
                                 // se o id bater, para essa instrução
                                 if ( p.valorIdParar() == id ) {
@@ -1854,7 +1878,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                             } else if ( c.ains().continuar() != null  ) {
 
                                 // se for um continuar do corpo da instrução
-                                ValorVariavel con = visit( c.ains().continuar() );
+                                Valor con = visit( c.ains().continuar() );
 
                                 // se o id bater, continua essa instrução matando o for interno
                                 if ( con.valorIdContinuar() == id ) {
@@ -1867,7 +1891,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
                         } else {
 
-                            ValorVariavel v = visit( c );
+                            Valor v = visit( c );
 
                             if ( v != null ) { 
 
@@ -1896,12 +1920,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                     }
                     
                     String idP = ctx.ID().getText();
-                    ValorVariavel vIdP = tartaruga.lerMemoria( idP );
+                    Valor vIdP = tartaruga.lerMemoria( idP );
                     if ( vIdP.isNulo() ) {
                         vIdP = novoInteiro( 0 );
                     }
                     
-                    ValorVariavel vP = null;
+                    Valor vP = null;
                     if ( ctx.expr() != null ) {
                         vP = visit( ctx.expr() );
                     } else {
@@ -1949,7 +1973,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                                 if ( c.ains().parar() != null  ) {
 
                                     // se for um parar do corpo da instrução
-                                    ValorVariavel p = visit( c.ains().parar() );
+                                    Valor p = visit( c.ains().parar() );
 
                                     // se o id bater, para essa instrução
                                     if ( p.valorIdParar() == id ) {
@@ -1960,7 +1984,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
                                 } else if ( c.ains().continuar() != null  ) {
 
                                     // se for um continuar do corpo da instrução
-                                    ValorVariavel con = visit( c.ains().continuar() );
+                                    Valor con = visit( c.ains().continuar() );
 
                                     // se o id bater, continua essa instrução matando o for interno
                                     if ( con.valorIdContinuar() == id ) {
@@ -1973,7 +1997,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
 
                             } else {
 
-                                ValorVariavel v = visit( c );
+                                Valor v = visit( c );
 
                                 if ( v != null ) { 
 
@@ -2018,17 +2042,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitParar( AuroraLogoParser.PararContext ctx ) {
+    public Valor visitParar( AuroraLogoParser.PararContext ctx ) {
         return novoParar( idInstrucaoParavel );
     }
     
     @Override
-    public ValorVariavel visitContinuar( AuroraLogoParser.ContinuarContext ctx ) {
+    public Valor visitContinuar( AuroraLogoParser.ContinuarContext ctx ) {
         return novoContinuar( idInstrucaoParavel );
     }
     
     @Override
-    public ValorVariavel visitErrorNode( ErrorNode node ) {
+    public Valor visitErrorNode( ErrorNode node ) {
         System.out.println( node );
         return NULO;
     }
@@ -2037,9 +2061,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     // funções matemáticas
     
     @Override
-    public ValorVariavel visitFuncaoAbsoluto( AuroraLogoParser.FuncaoAbsolutoContext ctx ) {
+    public Valor visitFuncaoAbsoluto( AuroraLogoParser.FuncaoAbsolutoContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isInteiro() ) {
             return novoInteiro( Math.abs( v.valorInteiro() ) );
@@ -2052,9 +2076,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoRaizQuadrada( AuroraLogoParser.FuncaoRaizQuadradaContext ctx ) {
+    public Valor visitFuncaoRaizQuadrada( AuroraLogoParser.FuncaoRaizQuadradaContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isInteiro() ) {
             if ( v.isPositivo() ) {
@@ -2071,9 +2095,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoRaizCubica( AuroraLogoParser.FuncaoRaizCubicaContext ctx ) {
+    public Valor visitFuncaoRaizCubica( AuroraLogoParser.FuncaoRaizCubicaContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isInteiro() ) {
             return novoDecimal( Math.cbrt( v.valorInteiro() ) );
@@ -2086,10 +2110,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoRaiz( AuroraLogoParser.FuncaoRaizContext ctx ) {
+    public Valor visitFuncaoRaiz( AuroraLogoParser.FuncaoRaizContext ctx ) {
         
-        ValorVariavel vRad = visit( ctx.expr( 0 ) );
-        ValorVariavel vInd = visit( ctx.expr( 1 ) );
+        Valor vRad = visit( ctx.expr( 0 ) );
+        Valor vInd = visit( ctx.expr( 1 ) );
         
         if ( vRad.isNumero() && vInd.isNumero() ) {
             return novoDecimal( Math.pow( vRad.valorDecimal(), 1.0 / vInd.valorDecimal() ) );
@@ -2100,10 +2124,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoPotencia( AuroraLogoParser.FuncaoPotenciaContext ctx ) {
+    public Valor visitFuncaoPotencia( AuroraLogoParser.FuncaoPotenciaContext ctx ) {
         
-        ValorVariavel vBase = visit( ctx.expr( 0 ) );
-        ValorVariavel vExp = visit( ctx.expr( 1 ) );
+        Valor vBase = visit( ctx.expr( 0 ) );
+        Valor vExp = visit( ctx.expr( 1 ) );
         
         if ( vBase.isNumero() && vExp.isNumero() ) {
             return novoDecimal( Math.pow( vBase.valorDecimal(), vExp.valorDecimal() ) );
@@ -2114,10 +2138,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoHipotenusa( AuroraLogoParser.FuncaoHipotenusaContext ctx ) {
+    public Valor visitFuncaoHipotenusa( AuroraLogoParser.FuncaoHipotenusaContext ctx ) {
         
-        ValorVariavel lado1 = visit( ctx.expr( 0 ) );
-        ValorVariavel lado2 = visit( ctx.expr( 1 ) );
+        Valor lado1 = visit( ctx.expr( 0 ) );
+        Valor lado2 = visit( ctx.expr( 1 ) );
         
         if ( lado1.isNumero() && lado2.isNumero() ) {
             return novoDecimal( Math.hypot( lado1.valorDecimal(), lado2.valorDecimal() ) );
@@ -2128,9 +2152,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoChao( AuroraLogoParser.FuncaoChaoContext ctx ) {
+    public Valor visitFuncaoChao( AuroraLogoParser.FuncaoChaoContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isNumero() ) {
             return novoDecimal( Math.floor( v.valorDecimal() ) );
@@ -2141,9 +2165,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoTeto( AuroraLogoParser.FuncaoTetoContext ctx ) {
+    public Valor visitFuncaoTeto( AuroraLogoParser.FuncaoTetoContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isNumero() ) {
             return novoDecimal( Math.ceil( v.valorDecimal() ) );
@@ -2154,11 +2178,11 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoArredondar( AuroraLogoParser.FuncaoArredondarContext ctx ) {
+    public Valor visitFuncaoArredondar( AuroraLogoParser.FuncaoArredondarContext ctx ) {
         
         if ( ctx.expr( 1 ) == null ) {
             
-            ValorVariavel v = visit( ctx.expr( 0 ) );
+            Valor v = visit( ctx.expr( 0 ) );
         
             if ( v.isNumero() ) {
                 return novoInteiro( (int) Math.round( v.valorDecimal() ) );
@@ -2166,8 +2190,8 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
         
         } else {
             
-            ValorVariavel v = visit( ctx.expr( 0 ) );
-            ValorVariavel casas = visit( ctx.expr( 1 ) );
+            Valor v = visit( ctx.expr( 0 ) );
+            Valor casas = visit( ctx.expr( 1 ) );
             try {
             if ( v.isNumero() && casas.isNumero() ) {
                 String vs = String.format( Locale.US, "%." + casas.valorInteiro() + "f", v.valorDecimal() );
@@ -2184,10 +2208,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoMinimo( AuroraLogoParser.FuncaoMinimoContext ctx ) {
+    public Valor visitFuncaoMinimo( AuroraLogoParser.FuncaoMinimoContext ctx ) {
         
-        ValorVariavel n1 = visit( ctx.expr( 0 ) );
-        ValorVariavel n2 = visit( ctx.expr( 1 ) );
+        Valor n1 = visit( ctx.expr( 0 ) );
+        Valor n2 = visit( ctx.expr( 1 ) );
         
         if ( n1.isNumero() && n2.isNumero() ) {
             if ( n1.isInteiro() && n2.isInteiro() ) {
@@ -2201,10 +2225,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoMaximo( AuroraLogoParser.FuncaoMaximoContext ctx ) {
+    public Valor visitFuncaoMaximo( AuroraLogoParser.FuncaoMaximoContext ctx ) {
         
-        ValorVariavel n1 = visit( ctx.expr( 0 ) );
-        ValorVariavel n2 = visit( ctx.expr( 1 ) );
+        Valor n1 = visit( ctx.expr( 0 ) );
+        Valor n2 = visit( ctx.expr( 1 ) );
         
         if ( n1.isNumero() && n2.isNumero() ) {
             if ( n1.isInteiro() && n2.isInteiro() ) {
@@ -2218,13 +2242,13 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoNumeroAleatorio( AuroraLogoParser.FuncaoNumeroAleatorioContext ctx ) {
+    public Valor visitFuncaoNumeroAleatorio( AuroraLogoParser.FuncaoNumeroAleatorioContext ctx ) {
         
         if ( ctx.expr( 0 ) == null ) {
             return novoDecimal( gerador.nextDouble() );
         } else if ( ctx.expr( 1 ) == null ) {
             
-            ValorVariavel limite = visit( ctx.expr( 0 ) );
+            Valor limite = visit( ctx.expr( 0 ) );
             
             if ( limite.isInteiro() ) {
                 return novoInteiro( gerador.nextInt( limite.valorInteiro() ) );
@@ -2236,8 +2260,8 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
             
         } else {
             
-            ValorVariavel origem = visit( ctx.expr( 0 ) );
-            ValorVariavel limite = visit( ctx.expr( 1 ) );
+            Valor origem = visit( ctx.expr( 0 ) );
+            Valor limite = visit( ctx.expr( 1 ) );
             
             if ( origem.isNumero() && limite.isNumero() ) {
                 
@@ -2256,9 +2280,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoDefinirSementeAleatoria( AuroraLogoParser.FuncaoDefinirSementeAleatoriaContext ctx ) {
+    public Valor visitFuncaoDefinirSementeAleatoria( AuroraLogoParser.FuncaoDefinirSementeAleatoriaContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isNumero() ) {
             gerador = new Random( v.valorInteiro() );
@@ -2270,9 +2294,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     
 
     @Override
-    public ValorVariavel visitFuncaoSeno( AuroraLogoParser.FuncaoSenoContext ctx ) {
+    public Valor visitFuncaoSeno( AuroraLogoParser.FuncaoSenoContext ctx ) {
         
-        ValorVariavel a = visit( ctx.expr() );
+        Valor a = visit( ctx.expr() );
         
         if ( a.isNumero() ) {
             double rad = Math.toRadians( a.valorDecimal() );
@@ -2284,9 +2308,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoSenoHiperbolico( AuroraLogoParser.FuncaoSenoHiperbolicoContext ctx ) {
+    public Valor visitFuncaoSenoHiperbolico( AuroraLogoParser.FuncaoSenoHiperbolicoContext ctx ) {
         
-        ValorVariavel a = visit( ctx.expr() );
+        Valor a = visit( ctx.expr() );
         
         if ( a.isNumero() ) {
             return novoDecimal( Math.sinh( a.valorDecimal() ) );
@@ -2297,9 +2321,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoArcoSeno( AuroraLogoParser.FuncaoArcoSenoContext ctx ) {
+    public Valor visitFuncaoArcoSeno( AuroraLogoParser.FuncaoArcoSenoContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isNumero() ) {
             return novoDecimal( Math.toDegrees( Math.asin( v.valorDecimal() ) ) );
@@ -2310,9 +2334,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoCosseno( AuroraLogoParser.FuncaoCossenoContext ctx ) {
+    public Valor visitFuncaoCosseno( AuroraLogoParser.FuncaoCossenoContext ctx ) {
         
-        ValorVariavel a = visit( ctx.expr() );
+        Valor a = visit( ctx.expr() );
         
         if ( a.isNumero() ) {
             double rad = Math.toRadians( a.valorDecimal() );
@@ -2324,9 +2348,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoCossenoHiperbolico( AuroraLogoParser.FuncaoCossenoHiperbolicoContext ctx ) {
+    public Valor visitFuncaoCossenoHiperbolico( AuroraLogoParser.FuncaoCossenoHiperbolicoContext ctx ) {
         
-        ValorVariavel a = visit( ctx.expr() );
+        Valor a = visit( ctx.expr() );
         
         if ( a.isNumero() ) {
             return novoDecimal( Math.cosh( a.valorDecimal() ) );
@@ -2337,9 +2361,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoArcoCosseno( AuroraLogoParser.FuncaoArcoCossenoContext ctx ) {
+    public Valor visitFuncaoArcoCosseno( AuroraLogoParser.FuncaoArcoCossenoContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isNumero() ) {
             return novoDecimal( Math.toDegrees( Math.acos( v.valorDecimal() ) ) );
@@ -2350,9 +2374,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoTangente( AuroraLogoParser.FuncaoTangenteContext ctx ) {
+    public Valor visitFuncaoTangente( AuroraLogoParser.FuncaoTangenteContext ctx ) {
         
-        ValorVariavel a = visit( ctx.expr() );
+        Valor a = visit( ctx.expr() );
         
         if ( a.isNumero() ) {
             double rad = Math.toRadians( a.valorDecimal() );
@@ -2364,9 +2388,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoTangenteHiperbolica( AuroraLogoParser.FuncaoTangenteHiperbolicaContext ctx ) {
+    public Valor visitFuncaoTangenteHiperbolica( AuroraLogoParser.FuncaoTangenteHiperbolicaContext ctx ) {
         
-        ValorVariavel a = visit( ctx.expr() );
+        Valor a = visit( ctx.expr() );
         
         if ( a.isNumero() ) {
             return novoDecimal( Math.tanh( a.valorDecimal() ) );
@@ -2377,9 +2401,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoArcoTangente( AuroraLogoParser.FuncaoArcoTangenteContext ctx ) {
+    public Valor visitFuncaoArcoTangente( AuroraLogoParser.FuncaoArcoTangenteContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr() );
+        Valor v = visit( ctx.expr() );
         
         if ( v.isNumero() ) {
             return novoDecimal( Math.toDegrees( Math.atan( v.valorDecimal() ) ) );
@@ -2390,10 +2414,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoCartesianoParaPolar( AuroraLogoParser.FuncaoCartesianoParaPolarContext ctx ) {
+    public Valor visitFuncaoCartesianoParaPolar( AuroraLogoParser.FuncaoCartesianoParaPolarContext ctx ) {
         
-        ValorVariavel y = visit( ctx.expr( 0 ) );
-        ValorVariavel x = visit( ctx.expr( 1 ) );
+        Valor y = visit( ctx.expr( 0 ) );
+        Valor x = visit( ctx.expr( 1 ) );
         
         if ( y.isNumero() && x.isNumero() ) {
             return novoDecimal( Math.toDegrees( Math.atan2( y.valorDecimal(), x.valorDecimal() ) ) );
@@ -2404,9 +2428,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoLogaritmo( AuroraLogoParser.FuncaoLogaritmoContext ctx ) {
+    public Valor visitFuncaoLogaritmo( AuroraLogoParser.FuncaoLogaritmoContext ctx ) {
         
-        ValorVariavel v = visit( ctx.expr( 0 ) );
+        Valor v = visit( ctx.expr( 0 ) );
         
         if ( ctx.expr( 1 ) == null ) {    
             if ( v.isNumero() ) {
@@ -2414,7 +2438,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
             }
         } else {
             
-            ValorVariavel base = visit( ctx.expr( 1 ) );
+            Valor base = visit( ctx.expr( 1 ) );
             
             if ( v.isNumero() && base.isNumero() ) {
                 
@@ -2432,9 +2456,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoGrausParaRadianos( AuroraLogoParser.FuncaoGrausParaRadianosContext ctx ) {
+    public Valor visitFuncaoGrausParaRadianos( AuroraLogoParser.FuncaoGrausParaRadianosContext ctx ) {
         
-        ValorVariavel g = visit( ctx.expr() );
+        Valor g = visit( ctx.expr() );
         
         if ( g.isNumero() ) {
             return novoDecimal( Math.toRadians( g.valorDecimal() ) );
@@ -2445,9 +2469,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoRadianosParaGraus( AuroraLogoParser.FuncaoRadianosParaGrausContext ctx ) {
+    public Valor visitFuncaoRadianosParaGraus( AuroraLogoParser.FuncaoRadianosParaGrausContext ctx ) {
         
-        ValorVariavel r = visit( ctx.expr() );
+        Valor r = visit( ctx.expr() );
         
         if ( r.isNumero() ) {
             return novoDecimal( Math.toDegrees( r.valorDecimal() ) );
@@ -2458,10 +2482,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoIncrementar( AuroraLogoParser.FuncaoIncrementarContext ctx ) {
+    public Valor visitFuncaoIncrementar( AuroraLogoParser.FuncaoIncrementarContext ctx ) {
         
         String id = ctx.ID().getText();
-        ValorVariavel valor = tartaruga.lerMemoria( id );
+        Valor valor = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
             valor.incrementar();
@@ -2473,10 +2497,10 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
     
     @Override
-    public ValorVariavel visitFuncaoDecrementar( AuroraLogoParser.FuncaoDecrementarContext ctx ) {
+    public Valor visitFuncaoDecrementar( AuroraLogoParser.FuncaoDecrementarContext ctx ) {
         
         String id = ctx.ID().getText();
-        ValorVariavel valor = tartaruga.lerMemoria( id );
+        Valor valor = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
             valor.decrementar();
@@ -2491,7 +2515,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     // funções geométricas
 
     @Override
-    public ValorVariavel visitFuncaoDesenharSegmento( AuroraLogoParser.FuncaoDesenharSegmentoContext ctx ) {
+    public Valor visitFuncaoDesenharSegmento( AuroraLogoParser.FuncaoDesenharSegmentoContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2518,7 +2542,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharQuadrado( AuroraLogoParser.FuncaoDesenharQuadradoContext ctx ) {
+    public Valor visitFuncaoDesenharQuadrado( AuroraLogoParser.FuncaoDesenharQuadradoContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2543,7 +2567,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharRetangulo( AuroraLogoParser.FuncaoDesenharRetanguloContext ctx ) {
+    public Valor visitFuncaoDesenharRetangulo( AuroraLogoParser.FuncaoDesenharRetanguloContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2569,7 +2593,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharCirculo( AuroraLogoParser.FuncaoDesenharCirculoContext ctx ) {
+    public Valor visitFuncaoDesenharCirculo( AuroraLogoParser.FuncaoDesenharCirculoContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2594,7 +2618,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharElipse( AuroraLogoParser.FuncaoDesenharElipseContext ctx ) {
+    public Valor visitFuncaoDesenharElipse( AuroraLogoParser.FuncaoDesenharElipseContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2620,7 +2644,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharArco( AuroraLogoParser.FuncaoDesenharArcoContext ctx ) {
+    public Valor visitFuncaoDesenharArco( AuroraLogoParser.FuncaoDesenharArcoContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2657,7 +2681,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharPoligonoRegular( AuroraLogoParser.FuncaoDesenharPoligonoRegularContext ctx ) {
+    public Valor visitFuncaoDesenharPoligonoRegular( AuroraLogoParser.FuncaoDesenharPoligonoRegularContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2688,7 +2712,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharEstrela( AuroraLogoParser.FuncaoDesenharEstrelaContext ctx ) {
+    public Valor visitFuncaoDesenharEstrela( AuroraLogoParser.FuncaoDesenharEstrelaContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2719,7 +2743,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharPoligono( AuroraLogoParser.FuncaoDesenharPoligonoContext ctx ) {
+    public Valor visitFuncaoDesenharPoligono( AuroraLogoParser.FuncaoDesenharPoligonoContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2785,7 +2809,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharCurvaQuadratica( AuroraLogoParser.FuncaoDesenharCurvaQuadraticaContext ctx ) {
+    public Valor visitFuncaoDesenharCurvaQuadratica( AuroraLogoParser.FuncaoDesenharCurvaQuadraticaContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2813,7 +2837,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitFuncaoDesenharCurvaCubica( AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx ) {
+    public Valor visitFuncaoDesenharCurvaCubica( AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2843,7 +2867,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitDesenharCaminho( AuroraLogoParser.DesenharCaminhoContext ctx ) {
+    public Valor visitDesenharCaminho( AuroraLogoParser.DesenharCaminhoContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
             
@@ -2869,7 +2893,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitInstrucaoCaminhoMoverAte( AuroraLogoParser.InstrucaoCaminhoMoverAteContext ctx ) {
+    public Valor visitInstrucaoCaminhoMoverAte( AuroraLogoParser.InstrucaoCaminhoMoverAteContext ctx ) {
             
         double x = visit( ctx.expr( 0 ) ).valorDecimal();
         double y = visit( ctx.expr( 1 ) ).valorDecimal();
@@ -2889,7 +2913,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitInstrucaoCaminhoLinhaAte( AuroraLogoParser.InstrucaoCaminhoLinhaAteContext ctx ) {
+    public Valor visitInstrucaoCaminhoLinhaAte( AuroraLogoParser.InstrucaoCaminhoLinhaAteContext ctx ) {
         
         double x = visit( ctx.expr( 0 ) ).valorDecimal();
         double y = visit( ctx.expr( 1 ) ).valorDecimal();
@@ -2909,7 +2933,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitInstrucaoCaminhoCurvaQuadraticaAte( AuroraLogoParser.InstrucaoCaminhoCurvaQuadraticaAteContext ctx ) {
+    public Valor visitInstrucaoCaminhoCurvaQuadraticaAte( AuroraLogoParser.InstrucaoCaminhoCurvaQuadraticaAteContext ctx ) {
         
         double xControle = visit( ctx.expr( 0 ) ).valorDecimal();
         double yControle = visit( ctx.expr( 1 ) ).valorDecimal();
@@ -2931,7 +2955,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitInstrucaoCaminhoCurvaCubicaAte( AuroraLogoParser.InstrucaoCaminhoCurvaCubicaAteContext ctx ) {
+    public Valor visitInstrucaoCaminhoCurvaCubicaAte( AuroraLogoParser.InstrucaoCaminhoCurvaCubicaAteContext ctx ) {
             
         double xControle1 = visit( ctx.expr( 0 ) ).valorDecimal();
         double yControle1 = visit( ctx.expr( 1 ) ).valorDecimal();
@@ -2955,7 +2979,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitInstrucaoCaminhoFecharCaminho( AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx ) {
+    public Valor visitInstrucaoCaminhoFecharCaminho( AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx ) {
         
         boolean d = tartaruga.isDesenhando();
 
@@ -2972,7 +2996,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<ValorVari
     }
 
     @Override
-    public ValorVariavel visitConsultarTartaruga( AuroraLogoParser.ConsultarTartarugaContext ctx ) {
+    public Valor visitConsultarTartaruga( AuroraLogoParser.ConsultarTartarugaContext ctx ) {
         
         if ( ctx.PX() != null ) {
             return novoDecimal( tartaruga.getXEstadoFinal() );

@@ -153,12 +153,6 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitSeSenaoSe(AuroraLogoParser.SeSenaoSeContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#seSenaoSeP}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitSeSenaoSeP(AuroraLogoParser.SeSenaoSePContext ctx);
-	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#seSenao}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

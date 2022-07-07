@@ -75,40 +75,34 @@ bool     : VER | FAL
          ;
 
 // regras para os construtos da linguagem
-// se .. senão se .. senão
-se           : seSe seSenaoSe seSenao
+// se ... senão se ... senão (if ... else if ... else)
+se           : seSe seSenaoSe* seSenao?
              ;
 
 seSe         : SE  exprBool ENT '{' inst+ '}'
              ;
 
-seSenaoSe    : seSenaoSeP*
+seSenaoSe    : SEN SE exprBool ENT '{' inst+ '}'
              ;
 
-seSenaoSeP   : SEN SE exprBool ENT '{' inst+ '}'
+seSenao      : SEN '{' inst+ '}'
              ;
 
-seSenao      : ( SEN              '{' inst+ '}' )?
-             ;
-
-// usando caso (switch)
-usando       : USA ID '{' 
-                          escolha+ 
-                          ( PADR ':' inst+ )?
-                      '}'
+// usando ... escolha (switch ... case)
+usando       : USA ID '{' escolha+  ( PADR ':' inst+ )? '}'
              ;
 
 escolha      : ESCO ( INT | DEC | CHAR | STRING ) ':' inst+
              ;
 
-// repetir vezes
+// repetir ... vezes
 repetir      : REP expr ( VEZ | VEZS ) '{' inst+ '}'
              ;
 
-// enquanto --- repetir
+// enquanto ... repetir
 repetirEnquanto   : ( ENQ exprBool )? REP
                     ( 
-                        ( INCM | DCMM ) ID ( EM expr )?
+                      ( INCM | DCMM ) ID ( EM expr )?
                       | SOMM ID COM expr
                       | MULM ID POR expr
                       | DIVM ID POR expr

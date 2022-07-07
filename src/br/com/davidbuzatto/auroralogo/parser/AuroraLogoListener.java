@@ -248,16 +248,6 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitSeSenaoSe(AuroraLogoParser.SeSenaoSeContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#seSenaoSeP}.
-	 * @param ctx the parse tree
-	 */
-	void enterSeSenaoSeP(AuroraLogoParser.SeSenaoSePContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#seSenaoSeP}.
-	 * @param ctx the parse tree
-	 */
-	void exitSeSenaoSeP(AuroraLogoParser.SeSenaoSePContext ctx);
-	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#seSenao}.
 	 * @param ctx the parse tree
 	 */
