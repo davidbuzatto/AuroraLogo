@@ -1,10 +1,3 @@
-i = 1 .
-enquanto i < 10 repetir somando i com 4 {
-    escrever i na saída .
+repetir 10 vezes {
+    escrever contador pulando linha na saída .
 }
-
-/*i = 0 .
-enquanto i < 10 repetir incrementando i {
-    escrever i na saída .
-    incrementar( i ) .
-}*/

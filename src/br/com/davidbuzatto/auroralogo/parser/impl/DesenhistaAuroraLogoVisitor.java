@@ -130,13 +130,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             configuracaoCor = ( (AuroraLogoParser.TrocarCorFundoContext) ctx ).configuracaoCor();
         }
         
-        if ( configuracaoCor.HEX() != null ) {
+        if ( configuracaoCor.CHEX() != null ) {
             
-            //cor = Color.decode( configuracaoCor.HEX().getText() );
-            cor = Color.decode( configuracaoCor.HEX().getText().substring( 0, 8 ) );
+            cor = Color.decode( configuracaoCor.CHEX().getText().substring( 0, 7 ) );
             
-            if ( configuracaoCor.HEX().getText().length() == 10 ) {
-                String alpha = configuracaoCor.HEX().getText().substring( 8 );
+            if ( configuracaoCor.CHEX().getText().length() == 9 ) {
+                String alpha = configuracaoCor.CHEX().getText().substring( 7 );
                 cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
             }
             
@@ -255,20 +254,29 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitEscrever( AuroraLogoParser.EscreverContext ctx ) {
         
-        String valor;
+        String textoSaida;
         
         Valor v = visit( ctx.expr() );
+        
         if ( v.isBooleano() ) {
-            valor = String.valueOf( v );
+            textoSaida = String.valueOf( v );
         } else {
-            valor = String.valueOf( v.getValor() );
+            textoSaida = String.valueOf( v.getValor() );
         }
         
+        if ( ctx.PUL() != null ) {
+            textoSaida += "\n";
+        }
         
         if ( ctx.NA() != null ) {
-            Utils.inserirMensagemEmitente( textPaneSaida, "tartaruga escreveu", valor + "\n", tartaruga.getCor() );
+            Utils.inserirMensagemEmitente( textPaneSaida, "tartaruga escreveu", textoSaida, tartaruga.getCor() );
+        } if ( ctx.NO() != null ) {
+            JTextPane tp = new JTextPane();
+            tp.setFont( textPaneSaida.getFont() );
+            Utils.inserirMensagemEmitente( tp, "tartaruga escreveu", textoSaida, tartaruga.getCor() );
+            JOptionPane.showMessageDialog( janelaPrincipal, tp, "Mensagem", JOptionPane.PLAIN_MESSAGE );
         } else {
-            tartaruga.setTexto( valor );
+            tartaruga.setTexto( textoSaida );
         }
         
         return NULO;
@@ -385,6 +393,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
             }
+        } else if ( vMemoria.isString() ) {
+            vMemoria.contatenar( valor );
+            tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
         }
         
         return vMemoria;

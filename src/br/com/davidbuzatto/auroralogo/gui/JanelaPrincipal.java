@@ -1575,7 +1575,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testesGrande", true );
+            carregarTemplate( "testes", true );
         }
 
     }

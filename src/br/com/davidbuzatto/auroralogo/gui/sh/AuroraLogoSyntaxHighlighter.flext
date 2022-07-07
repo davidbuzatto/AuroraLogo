@@ -216,7 +216,7 @@ DocCommentEnd		= "*/"
 LineCommentBegin			= "//"
 
 IntegerLiteral			= ({Digit}+)
-HexLiteral			= (0x{HexDigit}+)
+HexLiteral			= (#{HexDigit}+)
 FloatLiteral			= (({Digit}+)("."{Digit}+)?(e[+-]?{Digit}+)? | ({Digit}+)?("."{Digit}+)(e[+-]?{Digit}+)?)
 ErrorNumberFormat			= (({IntegerLiteral}|{HexLiteral}|{FloatLiteral}){NonSeparator}+)
 

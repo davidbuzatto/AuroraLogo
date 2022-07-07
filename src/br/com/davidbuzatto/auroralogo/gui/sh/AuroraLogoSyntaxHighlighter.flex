@@ -216,7 +216,7 @@ DocCommentEnd		= "*/"
 LineCommentBegin			= "//"
 
 IntegerLiteral			= ({Digit}+)
-HexLiteral			= (0x{HexDigit}+)
+HexLiteral			= (#{HexDigit}+)
 FloatLiteral			= (({Digit}+)("."{Digit}+)?(e[+-]?{Digit}+)? | ({Digit}+)?("."{Digit}+)(e[+-]?{Digit}+)?)
 ErrorNumberFormat			= (({IntegerLiteral}|{HexLiteral}|{FloatLiteral}){NonSeparator}+)
 
@@ -300,6 +300,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "desengrossar" | 
 "desenhar " | 
 "desenhar" | 
+"di\u00E1logo " | 
+"di\u00E1logo" | 
 "direita " | 
 "direita" | 
 "dividindo " | 
@@ -354,6 +356,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "multiplicando" | 
 "na " | 
 "na" | 
+"no " | 
+"no" | 
 "padr\u00E3o " | 
 "padr\u00E3o" | 
 "para " | 
@@ -372,6 +376,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "preenchimento" | 
 "preto " | 
 "preto" | 
+"pulando " | 
+"pulando" | 
 "quadr\u00E1tica " | 
 "quadr\u00E1tica" | 
 "repetir " | 

@@ -156,7 +156,7 @@ public class Utils {
     public static void inserirMensagemEmitente( JTextPane textPane, String quemDisse, String oQueDisse, Color corTexto ) {
         
         quemDisse += ":";
-        oQueDisse = " " + oQueDisse;
+        oQueDisse = " " + oQueDisse.replace( "\\n", "\n" );
         
         if ( corTexto == null ) {
             
@@ -236,7 +236,7 @@ public class Utils {
     
     public static String colorParaHexa( Color cor ) {
         
-        return "0x" 
+        return "#" 
                 + String.format( "%02X", cor.getRed() )
                 + String.format( "%02X", cor.getGreen() )
                 + String.format( "%02X", cor.getBlue() )

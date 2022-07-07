@@ -1,7 +1,7 @@
 Implementação:
-    - Permitir acesso ao contador do passo na instrução "repetir ... vezes";
-    - Escrever como printf?
-    - Escrever em diálogo.
+    - Escrever como printf? Função built-in "formatarTexto"
+    - Consertar redimensionamento automático da área de código fonte!
+    - Atalho duplicar linha cima baixo.
     - Ajustar colunas do parser de erros.
     - Rotação das formas geométricas;
     - Arrays;
@@ -18,7 +18,7 @@ Gerenciamento:
 Questionamentos:
     - Fazer com que uma cor seja um tipo primitivo?
     - Não permitir variáveis com o nome de palavras chave?
-    - Autocomplete para as funções geométricas e matemáticas?
+    - Autocomplete para as funções geométricas e matemáticas? Cores com #?
     - Amarrar execução no editor?
 
 - Registrar AuroraLogo;

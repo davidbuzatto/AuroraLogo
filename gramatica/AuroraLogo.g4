@@ -143,17 +143,17 @@ trocarCor    : TROC COR DO PINC PARA configuracaoCor  # trocarCorPincel
              | TROC COR DO FUN  PARA configuracaoCor  # trocarCorFundo
              ;
 
-configuracaoCor : ( HEX | cor=( PRETO
-                              | AZUL
-                              | CIANO
-                              | CINZA
-                              | VERDE
-                              | MAGENTA
-                              | LARANJA
-                              | ROSA 
-                              | VERMELHO
-                              | BRANCO
-                              | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
+configuracaoCor : ( CHEX | cor=( PRETO
+                               | AZUL
+                               | CIANO
+                               | CINZA
+                               | VERDE
+                               | MAGENTA
+                               | LARANJA
+                               | ROSA 
+                               | VERMELHO
+                               | BRANCO
+                               | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
                 ;
 
 girar        : GIR ( EM expr GRA )?
@@ -168,7 +168,9 @@ desengrossar : DES ( EM expr )?
 trocarGrossura  : TROC GROS PARA expr
                 ;
 
-escrever     : ESC expr ( NA SAI )?
+escrever     : ESC expr ( ( PUL LIN )? NA SAI 
+                        | ( PUL LIN )? NO DIAG
+                        )?
              ;
 
 ler          : LER ID
@@ -310,6 +312,7 @@ DCMM : 'decrementando'   ;
 DE   : 'de'              ; 
 DES  : 'desengrossar'    ;
 DESE : 'desenhar'        ;
+DIAG : 'di\u00E1logo'    ;
 DIR  : 'direita'         ;
 DIVM : 'dividindo'       ;
 DO   : 'do'              ;
@@ -335,6 +338,7 @@ LIN  : 'linha'           ;
 MOV  : 'mover'           ;
 MULM : 'multiplicando'   ;
 NA   : 'na'              ;
+NO   : 'no'              ;
 PADR : 'padr\u00E3o'     ;
 PARA : 'para'            ;
 PARR : 'parar'           ;
@@ -345,6 +349,7 @@ POR  : 'por'             ;
 PREA : 'preenchida'      ;
 PREE : 'preenchimento'   ;
 PREO : 'preenchido'      ;
+PUL  : 'pulando'         ;
 QUAD : 'quadr\u00E1tica' ;
 REP  : 'repetir'         ;
 SAI  : 'sa\u00EDda'      ;
@@ -509,12 +514,14 @@ NAOT : 'N\u00C3O' ;  // NÃO
 DOT  : '.' ;
 
 // identificadores
-ID   : LET(LET|DIG)* ;
+ID   : ( LET | [_$] ) ( LET | DIG | [_$] )* ;
 
 // literais
+// Obs: CHEX (cor hexa) usa um predicado semântico, 
+//      forçando o formato em #000000 ou #00000000.
 INT    : DIG+ ;
 DEC    : DIG+ '.' DIG+ ;
-HEX    : '0x' DHX+ {getText().length() == 8 || getText().length() == 10}?; // predicado semântico, força formato em 0x000000 ou 0x00000000
+CHEX   : [#] DHX+ {getText().length() == 7 || getText().length() == 9}?; 
 CHAR   : '\'' ( ESCC | ~["\\] ) '\'' ;
 STRING : '"' ( ESCC | ~["\\] )* '"' ;
 

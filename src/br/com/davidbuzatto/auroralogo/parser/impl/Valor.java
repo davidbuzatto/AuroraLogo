@@ -262,6 +262,24 @@ public class Valor {
         
     }
     
+    public void contatenar( Valor valor ) {
+        
+        if ( this.isString() && !constante ) {
+            
+            String novo = String.valueOf( this.valor );
+            String concat = String.valueOf( valor );
+            
+            if ( valor.isString() || valor.isCaractere() ) {
+                novo += concat.substring( 1, concat.length() - 1 );
+            } else {
+                novo += concat;
+            }
+            
+            this.valor = novo; 
+        }
+        
+    }
+    
     public void somar( Valor valor ) {
         
         if ( this.isNumero() && valor.isNumero() && !constante ) {

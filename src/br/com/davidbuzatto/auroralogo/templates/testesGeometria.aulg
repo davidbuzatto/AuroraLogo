@@ -1,4 +1,4 @@
-trocar cor do preenchimento para 0x0000ff .
+trocar cor do preenchimento para #0000ff .
 
 desenhar segmento( 300, 150, 320, 150 ) .
 
