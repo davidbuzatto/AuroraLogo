@@ -1,10 +1,18 @@
 /*
- * 09/20/2013
+ * Copyright (C) 2022 Prof. Dr. David Buzatto
  *
- * SearchUtil - Utility methods for this package.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
- * This library is distributed under a modified BSD license.  See the included
- * RSTAUI.license.txt file for details.
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package br.com.davidbuzatto.auroralogo.gui.custom;
 
@@ -15,6 +23,7 @@ import org.fife.rsta.ui.search.FindReplaceButtonsEnableResult;
  *
  * @author Robert Futrell
  * @version 1.0
+ * Modificado por Prof. Dr. David Buzatto
  */
 final class SearchUtil {
 

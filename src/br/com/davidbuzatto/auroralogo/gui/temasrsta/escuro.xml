@@ -61,7 +61,6 @@
         <style token="SEPARATOR" fg="F0F0F0"/>
         <style token="VARIABLE" fg="FD971F" bold="false"/>
         <style token="WHITESPACE" fg="F9F9F9"/>
-
         <style token="ERROR_IDENTIFIER" fg="F9F9F9" bg="d82323"/>
         <style token="ERROR_NUMBER_FORMAT" fg="F9F9F9" bg="d82323"/>
         <style token="ERROR_STRING_DOUBLE" fg="F9F9F9" bg="d82323"/>

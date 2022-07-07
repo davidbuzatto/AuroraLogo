@@ -1,17 +1,29 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ * Copyright (C) 2022 Prof. Dr. David Buzatto
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
 import br.com.davidbuzatto.auroralogo.gui.custom.CustomFindToolBar;
 import br.com.davidbuzatto.auroralogo.gui.custom.CustomReplaceToolBar;
 import br.com.davidbuzatto.auroralogo.gui.sh.ErroEmLinhaParser;
-import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.DesenhistaAuroraLogoVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoErrorListener;
+import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import java.awt.BorderLayout;
@@ -85,8 +97,10 @@ import org.fife.ui.rtextarea.SearchEngine;
 import org.fife.ui.rtextarea.SearchResult;
 
 /**
- *
- * @author David
+ * Janela Principal do ambiente de desenvolvimento da linhaguagem de programação
+ * AuroraLogo.
+ * 
+ * @author Prof. Dr. David Buzatto
  */
 public class JanelaPrincipal extends javax.swing.JFrame implements SearchListener {
 
@@ -1561,7 +1575,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testesUsando", true );
+            carregarTemplate( "testesGrande", true );
         }
 
     }
@@ -1643,14 +1657,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         try {
 
             String codigo = textAreaCodigo.getText().trim();
-            AuroraLogoErrorListener errorListener = new AuroraLogoErrorListener(
-                    textAreaCodigo,
-                    errorStrip,
-                    erroLinhaParser,
-                    textPaneSaida,
-                    this,
-                    painelDesenho,
-                    tartaruga );
+            AuroraLogoErrorListener errorListener = new AuroraLogoErrorListener( erroLinhaParser );
 
             textPaneSaida.setText( "" );
             

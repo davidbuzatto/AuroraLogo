@@ -2,6 +2,7 @@ Implementação:
     - Permitir acesso ao contador do passo na instrução "repetir ... vezes";
     - Escrever como printf?
     - Escrever em diálogo.
+    - Ajustar colunas do parser de erros.
     - Rotação das formas geométricas;
     - Arrays;
     - Lidar com loops infinitos;

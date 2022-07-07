@@ -258,6 +258,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "PIZZA" | 
 "VERDADEIRO " | 
 "VERDADEIRO" | 
+"\u00E2ngulo " | 
+"\u00E2ngulo" | 
 "abaixar " | 
 "abaixar" | 
 "amarelo " | 
