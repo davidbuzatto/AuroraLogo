@@ -1,5 +1,3 @@
-c = 'k' .
-a = "abc" .
-i = 10 .
-j = 1.5 .
-escrever formatarTexto( "%d %s %.2f %c", i, a, j, c ) na saída .
+i = #FF0000 .
+trocar cor do pincel para #ff0000 10 vezes claro .
+vá para direita em 100 .

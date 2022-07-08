@@ -20,13 +20,13 @@ import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoBaseVisitor;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.CorContext;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.InstCaminhoContext;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Locale;
@@ -132,18 +132,21 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             configuracaoCor = ( (AuroraLogoParser.TrocarCorFundoContext) ctx ).configuracaoCor();
         }
         
-        if ( configuracaoCor.CHEX() != null ) {
+        if ( configuracaoCor.cor() != null ) {
             
-            cor = Color.decode( configuracaoCor.CHEX().getText().substring( 0, 7 ) );
+            Valor c = visit( configuracaoCor.cor() );
+            cor = c.valorCor();
             
-            if ( configuracaoCor.CHEX().getText().length() == 9 ) {
-                String alpha = configuracaoCor.CHEX().getText().substring( 7 );
-                cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
+        } else if ( configuracaoCor.expr() != null ) {
+            
+            Valor c = visit( configuracaoCor.expr( 0 ) );
+            if ( c.isCor() ) {
+                cor = c.valorCor();
             }
             
         } else {
             
-            switch ( configuracaoCor.cor.getType() ) {
+            switch ( configuracaoCor.corEx.getType() ) {
                 case AuroraLogoParser.PRETO:
                     cor = Color.BLACK;
                     break;
@@ -181,12 +184,12 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             
         }
         
-        int vezes = 1;
+        int vezes = 0;
         
-        if ( configuracaoCor.expr() != null ) {
-            vezes = visit( configuracaoCor.expr() ).valorInteiro();
-            if ( vezes <= 0 ) {
-                vezes = 1;
+        if ( configuracaoCor.VEZ() != null || configuracaoCor.VEZS() != null ) {
+            vezes = visit( configuracaoCor.expr().get( configuracaoCor.expr().size() -1 ) ).valorInteiro();
+            if ( vezes < 0 ) {
+                vezes = 0;
             }
         }
         
@@ -199,6 +202,20 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
         }
         
         return cor;
+        
+    }
+
+    @Override
+    public Valor visitCor( AuroraLogoParser.CorContext ctx ) {
+        
+        Color cor = Color.decode( ctx.CHEX().getText().substring( 0, 7 ) );
+            
+        if ( ctx.CHEX().getText().length() == 9 ) {
+            String alpha = ctx.CHEX().getText().substring( 7 );
+            cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
+        }
+        
+        return novaCor( cor );
         
     }
     
@@ -1535,6 +1552,21 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitFatorString( AuroraLogoParser.FatorStringContext ctx ) {
         return novaString( ctx.getText().substring( 1, ctx.getText().length() - 1 ) );
+    }
+    
+    @Override
+    public Valor visitFatorCor( AuroraLogoParser.FatorCorContext ctx ) {
+        
+        String strCor = ctx.cor().CHEX().getText();
+        Color cor = Color.decode( strCor.substring( 0, 7 ) );
+            
+        if ( strCor.length() == 9 ) {
+            String alpha = strCor.substring( 7 );
+            cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
+        }
+        
+        return novaCor( cor );
+        
     }
     
     @Override

@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.auroralogo.parser.impl;
 
+import java.awt.Color;
 import java.util.Locale;
 
 /**
@@ -33,6 +34,7 @@ public class Valor {
         CARACTERE,
         BOOLEANO,
         STRING,
+        COR,
         NULO,
         PARAR,
         CONTINUAR
@@ -102,6 +104,10 @@ public class Valor {
     
     public boolean isString() {
         return tipo == TipoVariavel.STRING;
+    }
+    
+    public boolean isCor() {
+        return tipo == TipoVariavel.COR;
     }
     
     public boolean isZero() {
@@ -208,6 +214,10 @@ public class Valor {
     
     public String valorString() {
         return tipo == TipoVariavel.STRING && valor != null ? (String) valor : "" ;
+    }
+    
+    public Color valorCor() {
+        return tipo == TipoVariavel.COR && valor != null ? (Color) valor : Color.BLACK ;
     }
     
     public int valorIdParar() {
@@ -431,6 +441,10 @@ public class Valor {
     
     public static Valor novaString( String valor ) {
         return new Valor( TipoVariavel.STRING, valor );
+    }
+    
+    public static Valor novaCor( Color valor ) {
+        return new Valor( TipoVariavel.COR, valor );
     }
     
     public static Valor novoParar( int id ) {

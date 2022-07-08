@@ -184,6 +184,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorCor(AuroraLogoParser.FatorCorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorCor(AuroraLogoParser.FatorCorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorFuncaoMatematica(AuroraLogoParser.FatorFuncaoMatematicaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -443,6 +455,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConfiguracaoCor(AuroraLogoParser.ConfiguracaoCorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCor(AuroraLogoParser.CorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCor(AuroraLogoParser.CorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

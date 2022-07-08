@@ -1,4 +1,5 @@
 Implementação:
+    - Cores como tipos primitivos -> verificar opreações
     - Rotação das formas geométricas;
     - Arrays;
     - Lidar com loops infinitos;
@@ -9,7 +10,6 @@ Implementação:
       comparando com a linha errada;
 
 Questionamentos:
-    - Fazer com que uma cor seja um tipo primitivo?
     - Não permitir variáveis com o nome de palavras chave?
     - Autocomplete para as funções geométricas e matemáticas? Cores com #?
     - Amarrar execução no editor?

@@ -78,7 +78,8 @@ fator    : ( NAO | NAOT ) fator      # fatorNao
          | PI                        # fatorPi
          | ( bool | ID )             # fatorId                // atenção, literais booleanos aqui!
          | CHAR                      # fatorChar
-         | STRING                    # fatorString
+         | STRING                    # fatorString 
+         | cor                       # fatorCor
          | funcaoMatematica          # fatorFuncaoMatematica
          | consultarTartaruga        # fatorConsultarTartaruga
          | formatarTexto             # fatorFormatarTexto
@@ -144,18 +145,21 @@ trocarCor    : TROC COR DO PINC PARA configuracaoCor  # trocarCorPincel
              | TROC COR DO FUN  PARA configuracaoCor  # trocarCorFundo
              ;
 
-configuracaoCor : ( CHEX | cor=( PRETO
-                               | AZUL
-                               | CIANO
-                               | CINZA
-                               | VERDE
-                               | MAGENTA
-                               | LARANJA
-                               | ROSA 
-                               | VERMELHO
-                               | BRANCO
-                               | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
+configuracaoCor : ( ( cor | expr ) | corEx=( PRETO
+                                           | AZUL
+                                           | CIANO
+                                           | CINZA
+                                           | VERDE
+                                           | MAGENTA
+                                           | LARANJA
+                                           | ROSA 
+                                           | VERMELHO
+                                           | BRANCO
+                                           | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
                 ;
+
+cor          : CHEX
+             ;
 
 girar        : GIR ( EM expr GRA )?
              ;
@@ -524,11 +528,14 @@ ID   : ( LET | [_$] ) ( LET | DIG | [_$] )* ;
 // literais
 // Obs: CHEX (cor hexa) usa um predicado semântico, 
 //      forçando o formato em #000000 ou #00000000.
-INT    : DIG+ ;
-DEC    : DIG+ '.' DIG+ ;
-CHEX   : [#] DHX+ {getText().length() == 7 || getText().length() == 9}?; 
-CHAR   : '\'' ( ESCC | ~["\\] ) '\'' ;
-STRING : '"' ( ESCC | ~["\\] )* '"' ;
+//      CHEXSTR (cor hexa como String) usa um predicado semântico, 
+//      forçando o formato em "#000000" ou "#00000000".
+INT     : DIG+ ;
+DEC     : DIG+ '.' DIG+ ;
+CHEX    : [#] DHX+ {getText().length() == 7 || getText().length() == 9}?; 
+//CHEXSTR : '"' CHEX '"' {getText().length() == 9 || getText().length() == 11}?; 
+CHAR    : '\'' ( ESCC | ~["\\] ) '\'' ;
+STRING  : '"' ( ESCC | ~["\\] )* '"' ;
 
 // comentários
 COMENTARIO       : '/*' .*? '*/' -> skip ;
