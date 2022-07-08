@@ -232,15 +232,15 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitExprBool(AuroraLogoParser.ExprBoolContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#bool}.
+	 * Enter a parse tree produced by {@link AuroraLogoParser#fatorBool}.
 	 * @param ctx the parse tree
 	 */
-	void enterBool(AuroraLogoParser.BoolContext ctx);
+	void enterFatorBool(AuroraLogoParser.FatorBoolContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#bool}.
+	 * Exit a parse tree produced by {@link AuroraLogoParser#fatorBool}.
 	 * @param ctx the parse tree
 	 */
-	void exitBool(AuroraLogoParser.BoolContext ctx);
+	void exitFatorBool(AuroraLogoParser.FatorBoolContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#se}.
 	 * @param ctx the parse tree

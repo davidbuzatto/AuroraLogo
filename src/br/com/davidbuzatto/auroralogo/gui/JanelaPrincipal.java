@@ -16,13 +16,12 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
-import br.com.davidbuzatto.auroralogo.gui.custom.CustomFindToolBar;
-import br.com.davidbuzatto.auroralogo.gui.custom.CustomReplaceToolBar;
 import br.com.davidbuzatto.auroralogo.gui.sh.ErroEmLinhaParser;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
-import br.com.davidbuzatto.auroralogo.parser.impl.DesenhistaAuroraLogoVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoErrorListener;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -75,10 +74,12 @@ import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
 import javax.swing.UIManager;
+import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultCaret;
 import org.fife.rsta.ui.CollapsibleSectionPanel;
 import org.fife.rsta.ui.GoToDialog;
+import org.fife.rsta.ui.SizeGripIcon;
 import org.fife.rsta.ui.search.FindDialog;
 import org.fife.rsta.ui.search.ReplaceDialog;
 import org.fife.rsta.ui.search.SearchEvent;
@@ -104,6 +105,23 @@ import org.fife.ui.rtextarea.SearchResult;
  */
 public class JanelaPrincipal extends javax.swing.JFrame implements SearchListener {
 
+    private static class BarraDeStatus extends JPanel {
+
+        JLabel label;
+
+        BarraDeStatus() {
+            label = new JLabel( "Pronto" );
+            setLayout( new BorderLayout() );
+            add( label, BorderLayout.LINE_START );
+            add( new JLabel( new SizeGripIcon() ), BorderLayout.LINE_END );
+        }
+
+        void setLabel( String label ) {
+            this.label.setText( label );
+        }
+
+    }
+    
     public static final String VERSAO = "v0.1";
     private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
@@ -121,13 +139,13 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private RSyntaxTextArea textAreaCodigo;
     private ErrorStrip errorStrip;
-    private StatusBar statusBar;
+    private BarraDeStatus statusBar;
     private RTextScrollPane scrollPaneCodigo;
 
-    private FindDialog findDialog;
-    private ReplaceDialog replaceDialog;
-    private CustomFindToolBar findToolBar;
-    private CustomReplaceToolBar replaceToolBar;
+    private FindDialog dialogoProcurar;
+    private ReplaceDialog dialogoSubstituir;
+    private BarraDeFerramentaProcurar barraProcurar;
+    private BarraDeFerramentaSubstituir barraSubstituir;
     private CollapsibleSectionPanel csp;
     
     private ErroEmLinhaParser erroLinhaParser;
@@ -1285,14 +1303,17 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void menuItemRTemaClaroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaClaroActionPerformed
         configurarTemaClaro();
+        configurarCorJTextPaneSaida();
     }//GEN-LAST:event_menuItemRTemaClaroActionPerformed
 
     private void menuItemRTemaEscuroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaEscuroActionPerformed
         configurarTemaEscuro();
+        configurarCorJTextPaneSaida();
     }//GEN-LAST:event_menuItemRTemaEscuroActionPerformed
 
     private void menuItemRTemaNimbusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemRTemaNimbusActionPerformed
         configurarTemaNimbus();
+        configurarCorJTextPaneSaida();
     }//GEN-LAST:event_menuItemRTemaNimbusActionPerformed
 
     private void btnGradeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGradeActionPerformed
@@ -1332,27 +1353,27 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     }//GEN-LAST:event_sliderEstadoAtualStateChanged
 
     private void menuItemProcurarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemProcurarActionPerformed
-        if ( replaceDialog.isVisible() ) {
-            replaceDialog.setVisible( false );
+        if ( dialogoSubstituir.isVisible() ) {
+            dialogoSubstituir.setVisible( false );
         }
-        findDialog.setVisible( true );
+        dialogoProcurar.setVisible( true );
     }//GEN-LAST:event_menuItemProcurarActionPerformed
 
     private void menuItemSubstituirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSubstituirActionPerformed
-        if ( findDialog.isVisible() ) {
-            findDialog.setVisible( false );
+        if ( dialogoProcurar.isVisible() ) {
+            dialogoProcurar.setVisible( false );
         }
-        replaceDialog.setVisible( true );
+        dialogoSubstituir.setVisible( true );
     }//GEN-LAST:event_menuItemSubstituirActionPerformed
 
     private void menuItemIrParaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemIrParaActionPerformed
 
-        if ( findDialog.isVisible() ) {
-            findDialog.setVisible( false );
+        if ( dialogoProcurar.isVisible() ) {
+            dialogoProcurar.setVisible( false );
         }
         
-        if ( replaceDialog.isVisible() ) {
-            replaceDialog.setVisible( false );
+        if ( dialogoSubstituir.isVisible() ) {
+            dialogoSubstituir.setVisible( false );
         }
         
         GoToDialog dialogo = new GoToDialog( JanelaPrincipal.this );
@@ -1399,6 +1420,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void menuItemTartarugaArcoIrisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemTartarugaArcoIrisActionPerformed
         tartaruga.setCor( null );
+        configurarCorJTextPaneSaida();
         setIntPref( PREF_COR_TARTARUGA, Integer.MAX_VALUE );
         painelDesenho.repaint();
     }//GEN-LAST:event_menuItemTartarugaArcoIrisActionPerformed
@@ -1409,6 +1431,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         
         if ( c != null ) {
             tartaruga.setCor( c );
+            configurarCorJTextPaneSaida();
             setIntPref( PREF_COR_TARTARUGA, tartaruga.getCor() == null ? Integer.MAX_VALUE : tartaruga.getCor().getRGB() );
             painelDesenho.repaint();    
         }
@@ -1582,7 +1605,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         errorStrip = new ErrorStrip( textAreaCodigo );
         errorStrip.setLevelThreshold( ParserNotice.Level.ERROR );
         scrollPaneCodigo = new RTextScrollPane( textAreaCodigo, true );
-        statusBar = new StatusBar();
+        statusBar = new BarraDeStatus();
         
         csp = new CollapsibleSectionPanel();
         csp.add( scrollPaneCodigo );
@@ -1594,30 +1617,30 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testesGeometriaR", true );
+            carregarTemplate( "testes", true );
         }
 
     }
 
     private void configurarDialogosDeBusca() {
 
-        findDialog = new FindDialog( this, this );
-        replaceDialog = new ReplaceDialog( this, this );
+        dialogoProcurar = new FindDialog( this, this );
+        dialogoSubstituir = new ReplaceDialog( this, this );
         
-        SearchContext context = findDialog.getSearchContext();
-        replaceDialog.setSearchContext( context );
+        SearchContext context = dialogoProcurar.getSearchContext();
+        dialogoSubstituir.setSearchContext( context );
 
-        findToolBar = new CustomFindToolBar( this );
-        findToolBar.setSearchContext( context );
-        replaceToolBar = new CustomReplaceToolBar( this );
-        replaceToolBar.setSearchContext( context );
+        barraProcurar = new BarraDeFerramentaProcurar( this );
+        barraProcurar.setSearchContext( context );
+        barraSubstituir = new BarraDeFerramentaSubstituir( this );
+        barraSubstituir.setSearchContext( context );
         
         KeyStroke ks = KeyStroke.getKeyStroke( KeyEvent.VK_F, KeyEvent.CTRL_DOWN_MASK );
-        Action a = csp.addBottomComponent( ks, findToolBar );
+        Action a = csp.addBottomComponent( ks, barraProcurar );
         a.putValue( Action.NAME, "Mostrar Barra Localizar" );
         
         ks = KeyStroke.getKeyStroke(KeyEvent.VK_H, KeyEvent.CTRL_DOWN_MASK );
-        a = csp.addBottomComponent( ks, replaceToolBar );
+        a = csp.addBottomComponent( ks, barraSubstituir );
         a.putValue( Action.NAME, "Mostrar Barra Substituir" );
 
     }
@@ -1697,7 +1720,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 textAreaCodigo.forceReparsing( erroLinhaParser );
                 
                 if ( !errorListener.houveErro() ) {
-                    DesenhistaAuroraLogoVisitor visitor = new DesenhistaAuroraLogoVisitor( tartaruga, this, textPaneSaida );
+                    AuroraLogoDesenhistaVisitor visitor = new AuroraLogoDesenhistaVisitor( tartaruga, this, textPaneSaida );
                     visitor.visit( tree );
                 }
 
@@ -1995,8 +2018,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/claro.xml" ) );
             t.apply( textAreaCodigo );
             setPref( PREF_TEMA, "claro" );
-            findDialog.updateUI();
-            replaceDialog.updateUI();
+            dialogoProcurar.updateUI();
+            dialogoSubstituir.updateUI();
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
@@ -2011,8 +2034,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/escuro.xml" ) );
             t.apply( textAreaCodigo );
             setPref( PREF_TEMA, "escuro" );
-            findDialog.updateUI();
-            replaceDialog.updateUI();
+            dialogoProcurar.updateUI();
+            dialogoSubstituir.updateUI();
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
@@ -2043,8 +2066,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/nimbus.xml" ) );
             t.apply( textAreaCodigo );
             setPref( PREF_TEMA, "nimbus" );
-            findDialog.updateUI();
-            replaceDialog.updateUI();
+            dialogoProcurar.updateUI();
+            dialogoSubstituir.updateUI();
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
@@ -2173,67 +2196,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         
     }
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main( String args[] ) {
-
-        EventQueue.invokeLater( new Runnable() {
-            public void run() {
-
-                prepararPreferences( false );
-                JanelaPrincipal janela = new JanelaPrincipal();
-
-                switch ( getPref( PREF_TEMA ) ) {
-                    case "claro":
-                        janela.configurarTemaClaro();
-                        janela.menuItemRTemaClaro.setSelected( true );
-                        break;
-                    case "escuro":
-                        janela.configurarTemaEscuro();
-                        janela.menuItemRTemaEscuro.setSelected( true );
-                        break;
-                    case "nimbus":
-                        janela.configurarTemaNimbus();
-                        janela.menuItemRTemaNimbus.setSelected( true );
-                        break;
-                }
-
-                
-                int corT = getIntPref( PREF_COR_TARTARUGA );
-                if ( corT != Integer.MAX_VALUE ) {
-                    janela.tartaruga.setCor( new Color( corT ) );
-                } else {
-                    janela.tartaruga.setCor( null );
-                }
-
-                if ( getBooleanPref( PREF_JANELA_PRINCIPAL_MAXIMIZADA ) ) {
-                    janela.setExtendedState( MAXIMIZED_BOTH );
-                }
-                
-                boolean depuradorAtivo = getBooleanPref( PREF_DEPURADOR_ATIVO );
-                boolean gradeAtiva = getBooleanPref( PREF_GRADE_ATIVA );
-
-                janela.btnDepurador.setSelected( depuradorAtivo );
-                janela.menuItemCBDepurador.setSelected( depuradorAtivo );
-                janela.tartaruga.setDepuradorAtivo( depuradorAtivo );
-                janela.menuItemCBDepurador.setText( depuradorAtivo ? "Esconder Depurador" : "Mostrar Depurador" );
-
-                janela.btnGrade.setSelected( gradeAtiva );
-                janela.menuItemCBGrade.setSelected( gradeAtiva );
-                janela.tartaruga.setGradeAtiva( gradeAtiva );
-                janela.menuItemCBGrade.setText( gradeAtiva ? "Esconder Grade" : "Mostrar Grade" );
-
-                janela.sliderQuadrosPorSegundo.setValue( getIntPref( PREF_VALOR_SLIDER_PASSO_AUTOMATICO ) );
-                
-                updateSplashScreen( 6000 );
-                janela.setVisible( true );
-
-            }
-        } );
-
+    private void configurarCorJTextPaneSaida() {
+        textPaneSaida.setBackground( Utils.gerarComponenteGradiente( tartaruga.getCor(), Color.WHITE, 0.9 ) );
+        textPaneSaida.setBorder( new LineBorder( Utils.gerarComponenteGradiente( tartaruga.getCor(), Color.BLACK, 0.5 ) ) );
     }
-
+    
     @Override
     public void searchEvent( SearchEvent e ) {
 
@@ -2287,21 +2254,66 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     public String getSelectedText() {
         return textAreaCodigo.getSelectedText();
     }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main( String args[] ) {
 
-    private static class StatusBar extends JPanel {
+        EventQueue.invokeLater( new Runnable() {
+            public void run() {
 
-        private JLabel label;
+                prepararPreferences( false );
+                JanelaPrincipal janela = new JanelaPrincipal();
 
-        StatusBar() {
-            label = new JLabel( "Pronto" );
-            setLayout( new BorderLayout() );
-            add( label, BorderLayout.LINE_START );
-            //add( new JLabel( new SizeGripIcon() ), BorderLayout.LINE_END );
-        }
+                switch ( getPref( PREF_TEMA ) ) {
+                    case "claro":
+                        janela.configurarTemaClaro();
+                        janela.menuItemRTemaClaro.setSelected( true );
+                        break;
+                    case "escuro":
+                        janela.configurarTemaEscuro();
+                        janela.menuItemRTemaEscuro.setSelected( true );
+                        break;
+                    case "nimbus":
+                        janela.configurarTemaNimbus();
+                        janela.menuItemRTemaNimbus.setSelected( true );
+                        break;
+                }
 
-        void setLabel( String label ) {
-            this.label.setText( label );
-        }
+                
+                int corT = getIntPref( PREF_COR_TARTARUGA );
+                if ( corT != Integer.MAX_VALUE ) {
+                    janela.tartaruga.setCor( new Color( corT ) );
+                } else {
+                    janela.tartaruga.setCor( null );
+                }
+                janela.configurarCorJTextPaneSaida();
+
+                if ( getBooleanPref( PREF_JANELA_PRINCIPAL_MAXIMIZADA ) ) {
+                    janela.setExtendedState( MAXIMIZED_BOTH );
+                }
+                
+                boolean depuradorAtivo = getBooleanPref( PREF_DEPURADOR_ATIVO );
+                boolean gradeAtiva = getBooleanPref( PREF_GRADE_ATIVA );
+
+                janela.btnDepurador.setSelected( depuradorAtivo );
+                janela.menuItemCBDepurador.setSelected( depuradorAtivo );
+                janela.tartaruga.setDepuradorAtivo( depuradorAtivo );
+                janela.menuItemCBDepurador.setText( depuradorAtivo ? "Esconder Depurador" : "Mostrar Depurador" );
+
+                janela.btnGrade.setSelected( gradeAtiva );
+                janela.menuItemCBGrade.setSelected( gradeAtiva );
+                janela.tartaruga.setGradeAtiva( gradeAtiva );
+                janela.menuItemCBGrade.setText( gradeAtiva ? "Esconder Grade" : "Mostrar Grade" );
+
+                janela.sliderQuadrosPorSegundo.setValue( getIntPref( PREF_VALOR_SLIDER_PASSO_AUTOMATICO ) );
+                
+                updateSplashScreen( 6000 );
+                janela.setVisible( true );
+
+            }
+        } );
 
     }
 

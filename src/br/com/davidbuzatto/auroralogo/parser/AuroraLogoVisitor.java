@@ -143,11 +143,11 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExprBool(AuroraLogoParser.ExprBoolContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#bool}.
+	 * Visit a parse tree produced by {@link AuroraLogoParser#fatorBool}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitBool(AuroraLogoParser.BoolContext ctx);
+	T visitFatorBool(AuroraLogoParser.FatorBoolContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#se}.
 	 * @param ctx the parse tree

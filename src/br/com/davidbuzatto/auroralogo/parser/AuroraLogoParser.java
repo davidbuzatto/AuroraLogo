@@ -45,25 +45,26 @@ public class AuroraLogoParser extends Parser {
 	public static final int
 		RULE_prog = 0, RULE_inst = 1, RULE_ains = 2, RULE_expr = 3, RULE_relacao = 4, 
 		RULE_exprSimp = 5, RULE_termo = 6, RULE_fator = 7, RULE_exprBool = 8, 
-		RULE_bool = 9, RULE_se = 10, RULE_seSe = 11, RULE_seSenaoSe = 12, RULE_seSenao = 13, 
-		RULE_usando = 14, RULE_escolha = 15, RULE_repetir = 16, RULE_repetirEnquanto = 17, 
-		RULE_parar = 18, RULE_continuar = 19, RULE_movimentar = 20, RULE_trocarCor = 21, 
-		RULE_configuracaoCor = 22, RULE_cor = 23, RULE_girar = 24, RULE_engrossar = 25, 
-		RULE_desengrossar = 26, RULE_trocarGrossura = 27, RULE_escrever = 28, 
-		RULE_ler = 29, RULE_atribuir = 30, RULE_abaixar = 31, RULE_levantar = 32, 
-		RULE_limpar = 33, RULE_funcaoMatematica = 34, RULE_instrucaoGeometrica = 35, 
+		RULE_fatorBool = 9, RULE_se = 10, RULE_seSe = 11, RULE_seSenaoSe = 12, 
+		RULE_seSenao = 13, RULE_usando = 14, RULE_escolha = 15, RULE_repetir = 16, 
+		RULE_repetirEnquanto = 17, RULE_parar = 18, RULE_continuar = 19, RULE_movimentar = 20, 
+		RULE_trocarCor = 21, RULE_configuracaoCor = 22, RULE_cor = 23, RULE_girar = 24, 
+		RULE_engrossar = 25, RULE_desengrossar = 26, RULE_trocarGrossura = 27, 
+		RULE_escrever = 28, RULE_ler = 29, RULE_atribuir = 30, RULE_abaixar = 31, 
+		RULE_levantar = 32, RULE_limpar = 33, RULE_funcaoMatematica = 34, RULE_instrucaoGeometrica = 35, 
 		RULE_funcaoGeometrica = 36, RULE_opcaoFGeomO = 37, RULE_opcaoFGeomA = 38, 
 		RULE_desenharCaminho = 39, RULE_instCaminho = 40, RULE_consultarTartaruga = 41, 
 		RULE_formatarTexto = 42;
 	private static String[] makeRuleNames() {
 		return new String[] {
 			"prog", "inst", "ains", "expr", "relacao", "exprSimp", "termo", "fator", 
-			"exprBool", "bool", "se", "seSe", "seSenaoSe", "seSenao", "usando", "escolha", 
-			"repetir", "repetirEnquanto", "parar", "continuar", "movimentar", "trocarCor", 
-			"configuracaoCor", "cor", "girar", "engrossar", "desengrossar", "trocarGrossura", 
-			"escrever", "ler", "atribuir", "abaixar", "levantar", "limpar", "funcaoMatematica", 
-			"instrucaoGeometrica", "funcaoGeometrica", "opcaoFGeomO", "opcaoFGeomA", 
-			"desenharCaminho", "instCaminho", "consultarTartaruga", "formatarTexto"
+			"exprBool", "fatorBool", "se", "seSe", "seSenaoSe", "seSenao", "usando", 
+			"escolha", "repetir", "repetirEnquanto", "parar", "continuar", "movimentar", 
+			"trocarCor", "configuracaoCor", "cor", "girar", "engrossar", "desengrossar", 
+			"trocarGrossura", "escrever", "ler", "atribuir", "abaixar", "levantar", 
+			"limpar", "funcaoMatematica", "instrucaoGeometrica", "funcaoGeometrica", 
+			"opcaoFGeomO", "opcaoFGeomA", "desenharCaminho", "instCaminho", "consultarTartaruga", 
+			"formatarTexto"
 		};
 	}
 	public static final String[] ruleNames = makeRuleNames();
@@ -358,6 +359,15 @@ public class AuroraLogoParser extends Parser {
 		public GirarContext girar() {
 			return getRuleContext(GirarContext.class,0);
 		}
+		public AbaixarContext abaixar() {
+			return getRuleContext(AbaixarContext.class,0);
+		}
+		public LevantarContext levantar() {
+			return getRuleContext(LevantarContext.class,0);
+		}
+		public LimparContext limpar() {
+			return getRuleContext(LimparContext.class,0);
+		}
 		public EngrossarContext engrossar() {
 			return getRuleContext(EngrossarContext.class,0);
 		}
@@ -366,9 +376,6 @@ public class AuroraLogoParser extends Parser {
 		}
 		public TrocarGrossuraContext trocarGrossura() {
 			return getRuleContext(TrocarGrossuraContext.class,0);
-		}
-		public InstrucaoGeometricaContext instrucaoGeometrica() {
-			return getRuleContext(InstrucaoGeometricaContext.class,0);
 		}
 		public EscreverContext escrever() {
 			return getRuleContext(EscreverContext.class,0);
@@ -379,23 +386,17 @@ public class AuroraLogoParser extends Parser {
 		public AtribuirContext atribuir() {
 			return getRuleContext(AtribuirContext.class,0);
 		}
-		public AbaixarContext abaixar() {
-			return getRuleContext(AbaixarContext.class,0);
-		}
-		public LevantarContext levantar() {
-			return getRuleContext(LevantarContext.class,0);
-		}
-		public LimparContext limpar() {
-			return getRuleContext(LimparContext.class,0);
-		}
-		public ExprContext expr() {
-			return getRuleContext(ExprContext.class,0);
-		}
 		public PararContext parar() {
 			return getRuleContext(PararContext.class,0);
 		}
 		public ContinuarContext continuar() {
 			return getRuleContext(ContinuarContext.class,0);
+		}
+		public InstrucaoGeometricaContext instrucaoGeometrica() {
+			return getRuleContext(InstrucaoGeometricaContext.class,0);
+		}
+		public ExprContext expr() {
+			return getRuleContext(ExprContext.class,0);
 		}
 		public AinsContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -448,91 +449,91 @@ public class AuroraLogoParser extends Parser {
 				enterOuterAlt(_localctx, 4);
 				{
 				setState(104);
-				engrossar();
+				abaixar();
 				}
 				break;
 			case 5:
 				enterOuterAlt(_localctx, 5);
 				{
 				setState(105);
-				desengrossar();
+				levantar();
 				}
 				break;
 			case 6:
 				enterOuterAlt(_localctx, 6);
 				{
 				setState(106);
-				trocarGrossura();
+				limpar();
 				}
 				break;
 			case 7:
 				enterOuterAlt(_localctx, 7);
 				{
 				setState(107);
-				instrucaoGeometrica();
+				engrossar();
 				}
 				break;
 			case 8:
 				enterOuterAlt(_localctx, 8);
 				{
 				setState(108);
-				escrever();
+				desengrossar();
 				}
 				break;
 			case 9:
 				enterOuterAlt(_localctx, 9);
 				{
 				setState(109);
-				ler();
+				trocarGrossura();
 				}
 				break;
 			case 10:
 				enterOuterAlt(_localctx, 10);
 				{
 				setState(110);
-				atribuir();
+				escrever();
 				}
 				break;
 			case 11:
 				enterOuterAlt(_localctx, 11);
 				{
 				setState(111);
-				abaixar();
+				ler();
 				}
 				break;
 			case 12:
 				enterOuterAlt(_localctx, 12);
 				{
 				setState(112);
-				levantar();
+				atribuir();
 				}
 				break;
 			case 13:
 				enterOuterAlt(_localctx, 13);
 				{
 				setState(113);
-				limpar();
+				parar();
 				}
 				break;
 			case 14:
 				enterOuterAlt(_localctx, 14);
 				{
 				setState(114);
-				expr();
+				continuar();
 				}
 				break;
 			case 15:
 				enterOuterAlt(_localctx, 15);
 				{
 				setState(115);
-				parar();
+				instrucaoGeometrica();
 				}
 				break;
 			case 16:
 				enterOuterAlt(_localctx, 16);
 				{
 				setState(116);
-				continuar();
+				expr();
 				}
 				break;
 			}
@@ -1147,8 +1148,8 @@ public class AuroraLogoParser extends Parser {
 		}
 	}
 	public static class FatorIdContext extends FatorContext {
-		public BoolContext bool() {
-			return getRuleContext(BoolContext.class,0);
+		public FatorBoolContext fatorBool() {
+			return getRuleContext(FatorBoolContext.class,0);
 		}
 		public TerminalNode ID() { return getToken(AuroraLogoParser.ID, 0); }
 		public FatorIdContext(FatorContext ctx) { copyFrom(ctx); }
@@ -1231,7 +1232,7 @@ public class AuroraLogoParser extends Parser {
 				case VER:
 					{
 					setState(156);
-					bool();
+					fatorBool();
 					}
 					break;
 				case ID:
@@ -1391,31 +1392,31 @@ public class AuroraLogoParser extends Parser {
 		return _localctx;
 	}
 
-	public static class BoolContext extends ParserRuleContext {
+	public static class FatorBoolContext extends ParserRuleContext {
 		public TerminalNode VER() { return getToken(AuroraLogoParser.VER, 0); }
 		public TerminalNode FAL() { return getToken(AuroraLogoParser.FAL, 0); }
-		public BoolContext(ParserRuleContext parent, int invokingState) {
+		public FatorBoolContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
 		}
-		@Override public int getRuleIndex() { return RULE_bool; }
+		@Override public int getRuleIndex() { return RULE_fatorBool; }
 		@Override
 		public void enterRule(ParseTreeListener listener) {
-			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterBool(this);
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).enterFatorBool(this);
 		}
 		@Override
 		public void exitRule(ParseTreeListener listener) {
-			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitBool(this);
+			if ( listener instanceof AuroraLogoListener ) ((AuroraLogoListener)listener).exitFatorBool(this);
 		}
 		@Override
 		public <T> T accept(ParseTreeVisitor<? extends T> visitor) {
-			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitBool(this);
+			if ( visitor instanceof AuroraLogoVisitor ) return ((AuroraLogoVisitor<? extends T>)visitor).visitFatorBool(this);
 			else return visitor.visitChildren(this);
 		}
 	}
 
-	public final BoolContext bool() throws RecognitionException {
-		BoolContext _localctx = new BoolContext(_ctx, getState());
-		enterRule(_localctx, 18, RULE_bool);
+	public final FatorBoolContext fatorBool() throws RecognitionException {
+		FatorBoolContext _localctx = new FatorBoolContext(_ctx, getState());
+		enterRule(_localctx, 18, RULE_fatorBool);
 		int _la;
 		try {
 			enterOuterAlt(_localctx, 1);
@@ -6337,10 +6338,10 @@ public class AuroraLogoParser extends Parser {
 		"\u0000\u0000c_\u0001\u0000\u0000\u0000c`\u0001\u0000\u0000\u0000ca\u0001"+
 		"\u0000\u0000\u0000cb\u0001\u0000\u0000\u0000d\u0003\u0001\u0000\u0000"+
 		"\u0000ev\u0003(\u0014\u0000fv\u0003*\u0015\u0000gv\u00030\u0018\u0000"+
-		"hv\u00032\u0019\u0000iv\u00034\u001a\u0000jv\u00036\u001b\u0000kv\u0003"+
-		"F#\u0000lv\u00038\u001c\u0000mv\u0003:\u001d\u0000nv\u0003<\u001e\u0000"+
-		"ov\u0003>\u001f\u0000pv\u0003@ \u0000qv\u0003B!\u0000rv\u0003\u0006\u0003"+
-		"\u0000sv\u0003$\u0012\u0000tv\u0003&\u0013\u0000ue\u0001\u0000\u0000\u0000"+
+		"hv\u0003>\u001f\u0000iv\u0003@ \u0000jv\u0003B!\u0000kv\u00032\u0019\u0000"+
+		"lv\u00034\u001a\u0000mv\u00036\u001b\u0000nv\u00038\u001c\u0000ov\u0003"+
+		":\u001d\u0000pv\u0003<\u001e\u0000qv\u0003$\u0012\u0000rv\u0003&\u0013"+
+		"\u0000sv\u0003F#\u0000tv\u0003\u0006\u0003\u0000ue\u0001\u0000\u0000\u0000"+
 		"uf\u0001\u0000\u0000\u0000ug\u0001\u0000\u0000\u0000uh\u0001\u0000\u0000"+
 		"\u0000ui\u0001\u0000\u0000\u0000uj\u0001\u0000\u0000\u0000uk\u0001\u0000"+
 		"\u0000\u0000ul\u0001\u0000\u0000\u0000um\u0001\u0000\u0000\u0000un\u0001"+

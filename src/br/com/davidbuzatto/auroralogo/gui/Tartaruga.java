@@ -21,6 +21,7 @@ import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Shape;
 import java.awt.geom.Arc2D;
@@ -564,6 +565,7 @@ public class Tartaruga {
         
         g2d.setStroke( new BasicStroke( 1, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL ) );
         g2d.setFont( fonteDepurador );
+        FontMetrics fm = g2d.getFontMetrics();
         
         g2d.setColor( corFundo );
         g2d.fillRect( xIni, yIni, larg, alt );
@@ -586,7 +588,6 @@ public class Tartaruga {
             "",
         };
         
-        
         int xIniStrings = 10;
         int yIniStrings = 20;
         int passoY = 15;
@@ -604,10 +605,10 @@ public class Tartaruga {
                 g2d.drawString( PROPRIEDADES_DEPURADOR[i], xIniStrings, yAtual );
                 
                 g2d.setColor( (Color) valores[i] );
-                g2d.fillRect( 115, yAtual - 10, 10, 10 );
+                g2d.fillRect( 115, yAtual - 9, 10, 10 );
 
                 g2d.setColor( corTexto );
-                g2d.drawRect( 115, yAtual - 10, 10, 10 );
+                g2d.drawRect( 115, yAtual - 9, 10, 10 );
                 
                 g2d.drawString( "(" + Utils.colorParaHexa( (Color) valores[i] )+ ")", 130, yAtual );
         
@@ -626,31 +627,47 @@ public class Tartaruga {
         int c = 0;
         for ( Entry<String, Valor> e : atu.memoria.entrySet() ) {
             
+            yAtual = yIniStrings + passoY * i++;
+            
             String nome = e.getKey();
             if ( nome.length() > 10 ) {
                 nome = nome.substring( 0, 6 ) + "..." + nome.charAt( nome.length() - 1 );
             }
             
-            String completo = nome + ": " + e.getValue();
-            if ( completo.length() > 22 ) {
+            String completo = nome + ": ";
+            if ( e.getValue().isCor() ) {
+                completo += "  (" + Utils.colorParaHexa( e.getValue().valorCor() )+ ")";
+            } else {
+                completo += e.getValue();
+            }
+
+            if ( completo.length() > 25 ) {
                 completo = completo.substring( 0, 19 ) + "...";
             }
             
-            yAtual = yIniStrings + passoY * i++;
-            
-            if ( c == atu.memoria.size() - 1 ) {
-                completo = "\u2502 \u2514\u2500 " + completo;
-            } else {
-                completo = "\u2502 \u251e\u2500 " + completo;
-            }
-            
+            completo = "\u251e\u2500" + completo;
+
             String complemento = "";
             for ( int j = 0; j < 27 - completo.length(); j++ ) {
                 complemento += " ";
             }
             complemento += "\u2502";
+            completo += complemento;
             
-            g2d.drawString( completo + complemento, xIniStrings, yAtual );
+            g2d.drawString( completo, xIniStrings, yAtual );
+            
+            if ( e.getValue().isCor() ) {
+                
+                int largVar = fm.stringWidth( completo.substring( 0, completo.indexOf( ":" ) + 1 ) );
+                
+                
+                g2d.setColor( e.getValue().valorCor() );
+                g2d.fillRect( xIniStrings + largVar + 7, yAtual - 9, 10, 10 );
+
+                g2d.setColor( corTexto );
+                g2d.drawRect( xIniStrings + largVar + 7, yAtual - 9, 10, 10 );
+                
+            }
             
             c++;
         }

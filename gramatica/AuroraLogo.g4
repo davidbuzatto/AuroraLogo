@@ -35,19 +35,19 @@ inst : ains DOT
 ains : movimentar
      | trocarCor
      | girar
-     | engrossar
-     | desengrossar
-     | trocarGrossura
-     | instrucaoGeometrica
-     | escrever
-     | ler
-     | atribuir
      | abaixar
      | levantar
      | limpar
-     | expr
+     | engrossar
+     | desengrossar
+     | trocarGrossura
+     | escrever
+     | ler
+     | atribuir
      | parar
      | continuar
+     | instrucaoGeometrica
+     | expr
      ;
 
 // regras para construção de expressões aritméticas, relacionais e lógicas
@@ -76,7 +76,7 @@ fator    : ( NAO | NAOT ) fator      # fatorNao
          | INT                       # fatorInt
          | DEC                       # fatorDec
          | PI                        # fatorPi
-         | ( bool | ID )             # fatorId                // atenção, literais booleanos aqui!
+         | ( fatorBool | ID )        # fatorId                // atenção, literais booleanos aqui!
          | CHAR                      # fatorChar
          | STRING                    # fatorString 
          | cor                       # fatorCor
@@ -89,8 +89,8 @@ fator    : ( NAO | NAOT ) fator      # fatorNao
 exprBool : expr
          ;
 
-bool     : VER | FAL
-         ;
+fatorBool : VER | FAL
+          ;
 
 // regras para os construtos da linguagem
 // se ... senão se ... senão (if ... else if ... else)

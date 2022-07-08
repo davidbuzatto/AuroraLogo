@@ -1,7 +1,6 @@
 Implementação:
     - Cores como tipos primitivos -> verificar operações
     - Arrays;
-    - Lidar com loops infinitos;
     - Sobre e ajuda;
     - Exemplos de código;
     - Funções definidas pelo usuário;

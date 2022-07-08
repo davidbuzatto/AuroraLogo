@@ -43,6 +43,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.fife.rsta.ui.search.FindReplaceButtonsEnableResult;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
 /**
@@ -294,9 +295,17 @@ public class Utils {
     
     public static Color gerarComponenteGradiente( Color corEsquerda, Color corDireita, double posicao, int alpha ) {
         
-        int r = (int) ( corEsquerda.getRed() * posicao + corDireita.getRed() * ( 1 - posicao ) );
-        int g = (int) ( corEsquerda.getGreen() * posicao + corDireita.getGreen() * ( 1 - posicao ) );
-        int b = (int) ( corEsquerda.getBlue() * posicao + corDireita.getBlue() * ( 1 - posicao ) );
+        if ( corEsquerda == null ) {
+            corEsquerda = Color.WHITE;
+        }
+        
+        if ( corDireita == null ) {
+            corDireita = Color.BLACK;
+        }
+        
+        int r = (int) ( corDireita.getRed() * posicao + corEsquerda.getRed() * ( 1 - posicao ) );
+        int g = (int) ( corDireita.getGreen() * posicao + corEsquerda.getGreen() * ( 1 - posicao ) );
+        int b = (int) ( corDireita.getBlue() * posicao + corEsquerda.getBlue() * ( 1 - posicao ) );
         
         return new Color( r, g, b, alpha );
         
@@ -347,6 +356,19 @@ public class Utils {
             ys[i] = yCentro + Math.sin( Math.toRadians( angulo ) ) * raio;
             angulo += incrementoAngulo;
         }
+        
+    }
+    
+    public static String getToolTip( FindReplaceButtonsEnableResult res ) {
+        
+        String tooltip = res.getError();
+        
+        if ( tooltip != null && tooltip.indexOf( '\n' ) > -1 ) {
+            tooltip = tooltip.replaceFirst( "\\\n", "</b><br><pre>" );
+            tooltip = "<html><b>" + tooltip;
+        }
+        
+        return tooltip;
         
     }
     

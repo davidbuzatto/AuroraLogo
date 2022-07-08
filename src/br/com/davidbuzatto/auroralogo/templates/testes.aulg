@@ -1,3 +1,4 @@
-i = #FF0000 .
-trocar cor do pincel para #ff0000 10 vezes claro .
-vá para direita em 100 .
+i = 0 .
+enquanto i < 10 repetir incrementando i {
+	escrever i na saída .
+}

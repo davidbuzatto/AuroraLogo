@@ -256,13 +256,13 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBool(AuroraLogoParser.BoolContext ctx) { }
+	@Override public void enterFatorBool(AuroraLogoParser.FatorBoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBool(AuroraLogoParser.BoolContext ctx) { }
+	@Override public void exitFatorBool(AuroraLogoParser.FatorBoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
