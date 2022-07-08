@@ -1132,6 +1132,30 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDesenharCaminho(AuroraLogoParser.DesenharCaminhoContext ctx) { }
 	/**
 	 * {@inheritDoc}

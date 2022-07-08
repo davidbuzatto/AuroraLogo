@@ -1,0 +1,92 @@
+trocar cor do preenchimento para #0000ff .
+
+//girar em 45 graus .
+desenhar segmento( tartaruga.x, tartaruga.y, tartaruga.x + 40, tartaruga.y ) .
+
+girar em 45 graus .
+vá para cima em 100 .
+desenhar quadrado( tartaruga.x, tartaruga.y, 40 ) preenchido .
+
+girar em 45 graus .
+vá para cima em 100 .
+desenhar retângulo( tartaruga.x, tartaruga.y, 100, 40 ) preenchido .
+
+girar em 45 graus .
+vá para cima em 100 .
+desenhar círculo( tartaruga.x, tartaruga.y, 20 ) preenchido .
+
+girar em 45 graus .
+vá para cima em 100 .
+desenhar elipse( tartaruga.x, tartaruga.y, 100, 40 ) preenchida .
+
+girar em 45 graus .
+vá para cima em 100 .
+desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 90 ) preenchido .
+
+vá para cima em 50 .
+desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 120, ABERTO ) preenchido .
+
+vá para cima em 50 .
+desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 150, CORDA ) preenchido .
+
+vá para cima em 50 .
+desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 210, PIZZA ) preenchido .
+
+girar em 45 graus .
+vá para cima em 100 .
+desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 3 ) preenchido .
+
+vá para cima em 50 .
+desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 4 ) preenchido .
+
+vá para cima em 50 .
+desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 5 ) preenchido .
+
+vá para cima em 50 .
+desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 6 ) preenchido .
+
+girar em 90 graus .
+vá para cima em 100 .
+desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 3 ) preenchida .
+
+vá para cima em 50 .
+desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 4 ) preenchida .
+
+vá para cima em 50 .
+desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 5 ) preenchida .
+
+vá para cima em 50 .
+desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 6 ) preenchida .
+
+girar em 45 graus .
+vá para cima em 100 .
+desenhar polígono( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y, tartaruga.x+25, tartaruga.y+25 ) preenchido .
+
+vá para cima em 50 .
+desenhar polígono( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y, tartaruga.x+40, tartaruga.y+25, tartaruga.x+10, tartaruga.y+25 ) preenchido .
+
+girar em -45 graus .
+vá para cima em 100 .
+desenhar curvaQuadrática( tartaruga.x, tartaruga.y, tartaruga.x+100, tartaruga.y-30, tartaruga.x+200, tartaruga.y ) preenchida .
+
+girar em -60 graus .
+vá para cima em 200 .
+desenhar curvaCúbica( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y-30, tartaruga.x+150, tartaruga.y+30, tartaruga.x+200, tartaruga.y ) preenchida .
+
+vá para cima em 200 .
+i = tartaruga.x .
+j = tartaruga.y .
+repetir 10 vezes {
+    desenhar caminho {
+        mover até ( i, j ) .
+        linha até ( i+50, j ) . 
+        linha até ( i+50, j-30 ) .
+        linha até ( i+100, j ) .
+        curva quadrática até ( i+125, j-30, i+150, j+30 ) .
+        curva cúbica até ( i+160, j+20, i+190, j+40, i+200, j+30 ) . 
+        linha até ( i+210, j+50 ) . 
+        linha até ( i+50, j+50 ) . 
+        //fechar .
+    }
+    i += 50 .
+}

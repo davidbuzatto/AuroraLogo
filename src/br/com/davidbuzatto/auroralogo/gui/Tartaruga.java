@@ -51,11 +51,13 @@ public class Tartaruga {
     private class ContainerForma implements Cloneable {
         
         Shape forma;
+        boolean contornada;
         boolean preenchida;
         String nome;
 
-        public ContainerForma( Shape forma, boolean preenchida, String nome ) {
+        public ContainerForma( Shape forma, boolean contornada, boolean preenchida, String nome ) {
             this.forma = forma;
+            this.contornada = contornada;
             this.preenchida = preenchida;
             this.nome = nome;
         }
@@ -67,6 +69,7 @@ public class Tartaruga {
                 
                 ContainerForma f = (ContainerForma) super.clone();
                 f.forma = (Path2D.Double) ( (Path2D.Double) forma ).clone();
+                f.contornada = contornada;
                 f.preenchida = preenchida;
                 f.nome = nome;
 
@@ -470,13 +473,26 @@ public class Tartaruga {
 
                 if ( atu.containerForma != null ) {
                     
-                    if ( atu.containerForma.preenchida ) {
-                        g2d.setColor( atu.corPreenchimento );
-                        g2d.fill( atu.containerForma.forma );
+                    Graphics2D g2dr = (Graphics2D) g2d.create();
+                    
+                    if ( !( 
+                            atu.containerForma.forma instanceof Line2D ||
+                            atu.containerForma.forma instanceof QuadCurve2D ||
+                            atu.containerForma.forma instanceof CubicCurve2D ||
+                            atu.containerForma.nome.equals( "polígono" ) ||
+                            atu.containerForma.nome.equals( "caminho" ) ) ) {
+                        g2dr.rotate( Math.toRadians( atu.angulo ), atu.x, atu.y );
                     }
                     
-                    g2d.setColor( atu.corPincel );
-                    g2d.draw( atu.containerForma.forma );
+                    if ( atu.containerForma.preenchida ) {
+                        g2dr.setColor( atu.corPreenchimento );
+                        g2dr.fill( atu.containerForma.forma );
+                    }
+                    
+                    if ( atu.containerForma.contornada ) {
+                        g2dr.setColor( atu.corPincel );
+                        g2dr.draw( atu.containerForma.forma );
+                    }
                     
                 } else if ( ant.desenhando ) {
                     if ( atu.texto != null ) {
@@ -783,60 +799,60 @@ public class Tartaruga {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Line2D.Double( x1, y1, x2, y2 ), 
-                false, "segmento" );
+                false, false, "segmento" );
         estados.add( e );
     }
 
-    public void criarQuadrado( double xCentro, double yCentro, double lado, boolean preenchido ) {
+    public void criarQuadrado( double xCentro, double yCentro, double lado, boolean contornado, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Rectangle2D.Double( 
                         xCentro - lado / 2, yCentro - lado / 2, 
                         lado, lado ), 
-                preenchido, "quadrado" );
+                contornado, preenchido, "quadrado" );
         estados.add( e );
     }
 
-    public void criarRetangulo( double xCentro, double yCentro, double largura, double altura, boolean preenchido ) {
+    public void criarRetangulo( double xCentro, double yCentro, double largura, double altura, boolean contornado, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Rectangle2D.Double( 
                         xCentro - largura / 2, yCentro - altura / 2, 
                         largura, altura ), 
-                preenchido, "retângulo" );
+                contornado, preenchido, "retângulo" );
         estados.add( e );
     }
 
-    public void criarCirculo( double xCentro, double yCentro, double raio, boolean preenchido ) {
+    public void criarCirculo( double xCentro, double yCentro, double raio, boolean contornado, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Ellipse2D.Double( 
                         xCentro - raio, yCentro - raio, 
                         raio * 2, raio * 2 ), 
-                preenchido, "círculo" );
+                contornado, preenchido, "círculo" );
         estados.add( e );
     }
 
-    public void criarElipse( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, boolean preenchida ) {
+    public void criarElipse( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, boolean contornada, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Ellipse2D.Double( xCentro - eixoHorizontal / 2, yCentro - eixoVertical / 2, 
                         eixoHorizontal, eixoVertical ), 
-                preenchida, "elipse" );
+                contornada, preenchida, "elipse" );
         estados.add( e );
     }
 
-    public void criarArco( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, double anguloInicio, double anguloFim, int tipo, boolean preenchido ) {
+    public void criarArco( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, double anguloInicio, double anguloFim, int tipo, boolean contornado, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Arc2D.Double( xCentro - eixoHorizontal / 2, yCentro - eixoVertical / 2, 
                         eixoHorizontal, eixoVertical, 
                         anguloInicio, anguloFim, tipo ), 
-                preenchido, "arco" );
+                contornado, preenchido, "arco" );
         estados.add( e );
     }
 
-    public void criarPoligonoRegular( double xCentro, double yCentro, double raio, double angulo, int quantidadeLados, boolean preenchido ) {
+    public void criarPoligonoRegular( double xCentro, double yCentro, double raio, double angulo, int quantidadeLados, boolean contornado, boolean preenchido ) {
         
         if ( quantidadeLados >= 3 ) {
             
@@ -845,7 +861,7 @@ public class Tartaruga {
             
             double[] xs = new double[quantidadeLados];
             double[] ys = new double[quantidadeLados];
-            Utils.gerarCoordenadasPoligono( xCentro, yCentro, raio, angulo, xs, ys );
+            Utils.gerarCoordenadasPoligonoRegular( xCentro, yCentro, raio, angulo, xs, ys );
             
             poligono.moveTo( xs[0], ys[0] );
         
@@ -855,14 +871,14 @@ public class Tartaruga {
 
             poligono.closePath();
             
-            e.containerForma = new ContainerForma( poligono, preenchido, "polígono reg." );
+            e.containerForma = new ContainerForma( poligono, contornado, preenchido, "polígono reg." );
             estados.add( e );
             
         }
         
     }
 
-    public void criarEstrela( double xCentro, double yCentro, double raio, double angulo, int quantidadePontas, boolean preenchida ) {
+    public void criarEstrela( double xCentro, double yCentro, double raio, double angulo, int quantidadePontas, boolean contornada, boolean preenchida ) {
         
         if ( quantidadePontas >= 3 ) {
             
@@ -871,7 +887,7 @@ public class Tartaruga {
             
             double[] xs = new double[quantidadePontas];
             double[] ys = new double[quantidadePontas];
-            Utils.gerarCoordenadasPoligono( xCentro, yCentro, raio, angulo, xs, ys );
+            Utils.gerarCoordenadasPoligonoRegular( xCentro, yCentro, raio, angulo, xs, ys );
             
             estrela.moveTo( xs[0], ys[0] );
         
@@ -897,14 +913,14 @@ public class Tartaruga {
 
             estrela.closePath();
             
-            e.containerForma = new ContainerForma( estrela, preenchida, "estrela" );
+            e.containerForma = new ContainerForma( estrela, contornada, preenchida, "estrela" );
             estados.add( e );
             
         }
         
     }
 
-    public void criarPoligono( double x1, double y1, double x2, double y2, double x3, double y3, boolean preenchido, double... xyn ) {
+    public void criarPoligono( double x1, double y1, double x2, double y2, double x3, double y3, boolean contornado, boolean preenchido, double... xyn ) {
         
         if ( xyn.length % 2 == 0 ) {
             
@@ -921,34 +937,34 @@ public class Tartaruga {
             
             poligono.closePath();
             
-            e.containerForma = new ContainerForma( poligono, preenchido, "polígono" );
+            e.containerForma = new ContainerForma( poligono, contornado, preenchido, "polígono" );
             estados.add( e );
         
         }
         
     }
 
-    public void criarCurvaQuadratica( double x1, double y1, double xControle, double yControle, double x2, double y2, boolean preenchida ) {
+    public void criarCurvaQuadratica( double x1, double y1, double xControle, double yControle, double x2, double y2, boolean contornada, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new QuadCurve2D.Double( x1, y1, xControle, yControle, x2, y2 ), 
-                preenchida, "curva quad." );
+                contornada, preenchida, "curva quad." );
         estados.add( e );
     }
 
-    public void criarCurvaCubica( double x1, double y1, double xControle1, double yControle1, double xControle2, double yControle2, double x2, double y2, boolean preenchida ) {
+    public void criarCurvaCubica( double x1, double y1, double xControle1, double yControle1, double xControle2, double yControle2, double x2, double y2, boolean contornada, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new CubicCurve2D.Double( x1, y1, xControle1, yControle1, 
                         xControle2, yControle2, x2, y2 ), 
-                preenchida, "curva cúbica" );
+                contornada, preenchida, "curva cúbica" );
         estados.add( e );
     }
 
-    public void iniciarCaminho( boolean preenchido ) {
+    public void iniciarCaminho( boolean contornado, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
         caminho = null;
-        caminho = new ContainerForma( new Path2D.Double(), preenchido, "caminho" );
+        caminho = new ContainerForma( new Path2D.Double(), contornado, preenchido, "caminho" );
         e.containerForma = caminho;
         estados.add( e );
     }

@@ -2610,10 +2610,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             double lado = visit( ctx.expr( 2 ) ).valorDecimal();
 
             boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = false;
+            
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREO() != null;
+            }
             
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( xCentro, yCentro );
-            tartaruga.criarQuadrado( xCentro, yCentro, lado, ctx.PREO() != null );
+            tartaruga.criarQuadrado( xCentro, yCentro, lado, contorno, preenchimento );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );
@@ -2636,10 +2643,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             double altura = visit( ctx.expr( 3 ) ).valorDecimal();
 
             boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = false;
+            
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREO() != null;
+            }
             
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( xCentro, yCentro );
-            tartaruga.criarRetangulo( xCentro, yCentro, largura, altura, ctx.PREO() != null );
+            tartaruga.criarRetangulo( xCentro, yCentro, largura, altura, contorno, preenchimento );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );
@@ -2661,10 +2675,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             double raio = visit( ctx.expr( 2 ) ).valorDecimal();
 
             boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = false;
+            
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREO() != null;
+            }
             
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( xCentro, yCentro );
-            tartaruga.criarCirculo( xCentro, yCentro, raio, ctx.PREO() != null );
+            tartaruga.criarCirculo( xCentro, yCentro, raio, contorno, preenchimento );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );
@@ -2687,10 +2708,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             double eixoVertical = visit( ctx.expr( 3 ) ).valorDecimal();
 
             boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = false;
+            
+            if ( ctx.opcaoFGeomA() != null ) {
+                contorno = ctx.opcaoFGeomA().CON() == null;
+                preenchimento = ctx.opcaoFGeomA().PREA() != null;
+            }
             
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( xCentro, yCentro );
-            tartaruga.criarElipse( xCentro, yCentro, eixoHorizontal, eixoVertical, ctx.PREA() != null );
+            tartaruga.criarElipse( xCentro, yCentro, eixoHorizontal, eixoVertical, contorno, preenchimento );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );
@@ -2724,10 +2752,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             }
             
             boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = false;
+            
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREO() != null;
+            }
             
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( xCentro, yCentro );
-            tartaruga.criarArco( xCentro, yCentro, eixoHorizontal, eixoVertical, anguloInicio, anguloFim, tipo, ctx.PREO() != null );
+            tartaruga.criarArco( xCentro, yCentro, eixoHorizontal, eixoVertical, anguloInicio, anguloFim, tipo, contorno, preenchimento );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );
@@ -2753,10 +2788,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             if ( quantidadeLados >= 3 ) {
                 
                 boolean d = tartaruga.isDesenhando();
+                boolean contorno = true;
+                boolean preenchimento = false;
 
+                if ( ctx.opcaoFGeomO() != null ) {
+                    contorno = ctx.opcaoFGeomO().CON() == null;
+                    preenchimento = ctx.opcaoFGeomO().PREO() != null;
+                }
+                
                 tartaruga.levantarPincel( false );
                 tartaruga.moverPara( xCentro, yCentro );
-                tartaruga.criarPoligonoRegular( xCentro, yCentro, raio, angulo, quantidadeLados, ctx.PREO() != null );
+                tartaruga.criarPoligonoRegular( xCentro, yCentro, raio, angulo, quantidadeLados, contorno, preenchimento );
 
                 if ( d ) {
                     tartaruga.abaixarPincel( false );
@@ -2784,10 +2826,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             if ( quantidadePontas >= 3 ) {
                 
                 boolean d = tartaruga.isDesenhando();
+                boolean contorno = true;
+                boolean preenchimento = false;
 
+                if ( ctx.opcaoFGeomA() != null ) {
+                    contorno = ctx.opcaoFGeomA().CON() == null;
+                    preenchimento = ctx.opcaoFGeomA().PREA() != null;
+                }
+                
                 tartaruga.levantarPincel( false );
                 tartaruga.moverPara( xCentro, yCentro );
-                tartaruga.criarEstrela( xCentro, yCentro, raio, angulo, quantidadePontas, ctx.PREA() != null );
+                tartaruga.criarEstrela( xCentro, yCentro, raio, angulo, quantidadePontas, contorno, preenchimento );
 
                 if ( d ) {
                     tartaruga.abaixarPincel( false );
@@ -2839,7 +2888,14 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
                 }
 
                 boolean d = tartaruga.isDesenhando();
+                boolean contorno = true;
+                boolean preenchimento = false;
 
+                if ( ctx.opcaoFGeomO() != null ) {
+                    contorno = ctx.opcaoFGeomO().CON() == null;
+                    preenchimento = ctx.opcaoFGeomO().PREO() != null;
+                }
+                
                 tartaruga.levantarPincel( false );
                 tartaruga.moverPara( ( xMin + xMax ) / 2, ( yMin + yMax ) / 2 );
                 
@@ -2848,9 +2904,9 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
                     for ( int i = 0; i < res.length; i++ ) {
                         res[i] = xys[6+i];
                     }
-                    tartaruga.criarPoligono( xys[0], xys[1], xys[2], xys[3], xys[4], xys[5], ctx.PREO() != null, res );
+                    tartaruga.criarPoligono( xys[0], xys[1], xys[2], xys[3], xys[4], xys[5], contorno, preenchimento, res );
                 } else {
-                    tartaruga.criarPoligono( xys[0], xys[1], xys[2], xys[3], xys[4], xys[5], ctx.PREO() != null );
+                    tartaruga.criarPoligono( xys[0], xys[1], xys[2], xys[3], xys[4], xys[5], contorno, preenchimento );
                 }
                 
                 
@@ -2880,10 +2936,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             double y2 = visit( ctx.expr( 5 ) ).valorDecimal();
             
             boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = false;
+            
+            if ( ctx.opcaoFGeomA() != null ) {
+                contorno = ctx.opcaoFGeomA().CON() == null;
+                preenchimento = ctx.opcaoFGeomA().PREA() != null;
+            }
             
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( x2, y2 );
-            tartaruga.criarCurvaQuadratica( x1, y1, xControle, yControle, x2, y2, ctx.PREA() != null );
+            tartaruga.criarCurvaQuadratica( x1, y1, xControle, yControle, x2, y2, contorno, preenchimento );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );
@@ -2910,10 +2973,17 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
             double y2 = visit( ctx.expr( 7 ) ).valorDecimal();
             
             boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = false;
+            
+            if ( ctx.opcaoFGeomA() != null ) {
+                contorno = ctx.opcaoFGeomA().CON() == null;
+                preenchimento = ctx.opcaoFGeomA().PREA() != null;
+            }
             
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( x2, y2 );
-            tartaruga.criarCurvaCubica( x1, y1, xControle1, yControle1, xControle2, yControle2, x2, y2, ctx.PREA() != null );
+            tartaruga.criarCurvaCubica( x1, y1, xControle1, yControle1, xControle2, yControle2, x2, y2, contorno, preenchimento );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );
@@ -2931,9 +3001,16 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
         if ( tartaruga.isDesenhando() ) {
             
             boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = false;
+            
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREO() != null;
+            }
             
             tartaruga.levantarPincel( false );
-            tartaruga.iniciarCaminho( ctx.PREO() != null );
+            tartaruga.iniciarCaminho( contorno, preenchimento );
             
             for ( InstCaminhoContext c : ctx.instCaminho() ) {
                 visit( c );

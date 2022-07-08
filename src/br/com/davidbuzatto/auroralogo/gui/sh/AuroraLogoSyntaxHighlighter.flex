@@ -288,6 +288,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "com" | 
 "continuar " | 
 "continuar" | 
+"contorno " | 
+"contorno" | 
 "cor " | 
 "cor" | 
 "curva " | 
@@ -308,6 +310,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "dividindo" | 
 "do " | 
 "do" | 
+"e " | 
+"e" | 
 "em " | 
 "em" | 
 "engrossar " | 
@@ -390,6 +394,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "sa\u00EDda" | 
 "se " | 
 "se" | 
+"sem " | 
+"sem" | 
 "sen\u00E3o " | 
 "sen\u00E3o" | 
 "somando " | 
@@ -413,7 +419,11 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "vez " | 
 "vez" | 
 "vezes " | 
-"vezes"		{ addToken(Token.RESERVED_WORD); }
+"vezes" | 
+"x " | 
+"x" | 
+"y " | 
+"y"		{ addToken(Token.RESERVED_WORD); }
 
 	/* Keywords 2 (just an optional set of keywords colored differently) */
 	/* No keywords 2 */

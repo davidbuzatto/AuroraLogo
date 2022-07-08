@@ -1,6 +1,5 @@
 Implementação:
-    - Cores como tipos primitivos -> verificar opreações
-    - Rotação das formas geométricas;
+    - Cores como tipos primitivos -> verificar operações
     - Arrays;
     - Lidar com loops infinitos;
     - Sobre e ajuda;

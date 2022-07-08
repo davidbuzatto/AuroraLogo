@@ -1062,6 +1062,26 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFuncaoDesenharCurvaCubica(AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#opcaoFGeomO}.
+	 * @param ctx the parse tree
+	 */
+	void enterOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#opcaoFGeomO}.
+	 * @param ctx the parse tree
+	 */
+	void exitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#opcaoFGeomA}.
+	 * @param ctx the parse tree
+	 */
+	void enterOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#opcaoFGeomA}.
+	 * @param ctx the parse tree
+	 */
+	void exitOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#desenharCaminho}.
 	 * @param ctx the parse tree
 	 */

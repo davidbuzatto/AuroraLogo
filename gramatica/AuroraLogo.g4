@@ -234,31 +234,36 @@ instrucaoGeometrica : DESE funcaoGeometrica
                     ;
 
                       //          x1       y1       x2       y2
-funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'                                                       # funcaoDesenharSegmento
+funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'                                                              # funcaoDesenharSegmento
                       //          xc       yc      lado
-                    | FG_QUA '(' expr ',' expr ',' expr ')' PREO?                                                          # funcaoDesenharQuadrado
+                    | FG_QUA '(' expr ',' expr ',' expr ')' opcaoFGeomO?                                                          # funcaoDesenharQuadrado
                       //          x        y       larg     alt
-                    | FG_RET '(' expr ',' expr ',' expr ',' expr ')' PREO?                                                 # funcaoDesenharRetangulo
+                    | FG_RET '(' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                                 # funcaoDesenharRetangulo
                       //          xc       yc      raio
-                    | FG_CIC '(' expr ',' expr ',' expr ')' PREO?                                                          # funcaoDesenharCirculo
+                    | FG_CIC '(' expr ',' expr ',' expr ')' opcaoFGeomO?                                                          # funcaoDesenharCirculo
                       //          xc       yc       eh       ev
-                    | FG_ELI '(' expr ',' expr ',' expr ',' expr ')' PREA?                                                 # funcaoDesenharElipse
+                    | FG_ELI '(' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?                                                 # funcaoDesenharElipse
                       //          xc       yc       eh       ev      aini     afim
-                    | FG_ARC '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' ( ABE | COD | PIZ ) )? ')' PREO?  # funcaoDesenharArco
+                    | FG_ARC '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' ( ABE | COD | PIZ ) )? ')' opcaoFGeomO?  # funcaoDesenharArco
                       //          xc       yc      raio     ang       ql
-                    | FG_POR '(' expr ',' expr ',' expr ',' expr ',' expr ')' PREO?                                        # funcaoDesenharPoligonoRegular
+                    | FG_POR '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                        # funcaoDesenharPoligonoRegular
                       //          xc       yc      raio     ang       qp
-                    | FG_EST '(' expr ',' expr ',' expr ',' expr ',' expr ')' PREA?                                        # funcaoDesenharEstrela
+                    | FG_EST '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?                                        # funcaoDesenharEstrela
                       //          x1       y1       x2       y2       x3       y3         xn       yn
-                    | FG_POL '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' expr ',' expr )* ')' PREO?        # funcaoDesenharPoligono
+                    | FG_POL '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' expr ',' expr )* ')' opcaoFGeomO?        # funcaoDesenharPoligono
                       //          x1       y1      ctx      cty       x2       y2
-                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' PREA?                               # funcaoDesenharCurvaQuadratica
+                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?                               # funcaoDesenharCurvaQuadratica
                       //          x1       y1      ct1x     ct1y     ct2x     ct2y      x2       y2
-                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' PREA?             # funcaoDesenharCurvaCubica
+                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?             # funcaoDesenharCurvaCubica
                     ;
 
+opcaoFGeomO         : PREO ( E SEM CON )? | SEM CON ( E PREO )? 
+                    ;
 
-desenharCaminho     : DESE CAM PREO? '{' ( instCaminho DOT )+ '}'
+opcaoFGeomA         : PREA ( E SEM CON )? | SEM CON ( E PREA )?
+                    ;
+
+desenharCaminho     : DESE CAM opcaoFGeomO? '{' ( instCaminho DOT )+ '}'
                     ;
 
                       //           x        y
@@ -294,8 +299,7 @@ ESCC : '\\' ( ["\\/bfnrt] | UNICODE ) ;
 fragment
 UNICODE : 'u' DHX DHX DHX DHX ;
 
-// terminais não tratados como identificadores
-// propriedades da tartaruga
+// terminais que são propriedades da tartaruga
 PX : 'x'           ;
 PY : 'y'           ;
 PA : '\u00E2ngulo' ;
@@ -313,6 +317,7 @@ CIM  : 'cima'            ;
 COD  : 'CORDA'           ;
 COM  : 'com'             ;
 CONT : 'continuar'       ;
+CON  : 'contorno'        ;
 COR  : 'cor'             ;
 CUBI : 'c\u00FAbica'     ;
 CUR  : 'curva'           ;
@@ -324,6 +329,7 @@ DIAG : 'di\u00E1logo'    ;
 DIR  : 'direita'         ;
 DIVM : 'dividindo'       ;
 DO   : 'do'              ;
+E    : 'e'               ;
 EM   : 'em'              ;
 ENG  : 'engrossar'       ;
 ENQ  : 'enquanto'        ;
@@ -364,6 +370,7 @@ REP  : 'repetir'         ;
 SAI  : 'sa\u00EDda'      ;
 SE   : 'se'              ;
 SEN  : 'sen\u00E3o'      ;
+SEM  : 'sem'             ;
 SOMM : 'somando'         ;
 SUBM : 'subtraindo'      ;
 TART : 'tartaruga'       ;

@@ -631,6 +631,18 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncaoDesenharCurvaCubica(AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#opcaoFGeomO}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#opcaoFGeomA}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#desenharCaminho}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

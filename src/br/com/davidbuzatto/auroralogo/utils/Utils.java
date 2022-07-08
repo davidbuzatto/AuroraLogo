@@ -337,7 +337,7 @@ public class Utils {
         
     }
     
-    public static void gerarCoordenadasPoligono( double xCentro, double yCentro, double raio, double angulo, double[] xs, double[] ys ) {
+    public static void gerarCoordenadasPoligonoRegular( double xCentro, double yCentro, double raio, double angulo, double[] xs, double[] ys ) {
         
         int quantidadeLados = xs.length;
         double incrementoAngulo = 360.0 / quantidadeLados;
