@@ -208,6 +208,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorParenteses(AuroraLogoParser.FatorParentesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1175,6 +1187,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFormatarTexto(AuroraLogoParser.FormatarTextoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFormatarTexto(AuroraLogoParser.FormatarTextoContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

@@ -1,8 +1,4 @@
 Implementação:
-    - Escrever como printf? Função built-in "formatarTexto"
-    - Consertar redimensionamento automático da área de código fonte!
-    - Atalho duplicar linha cima baixo.
-    - Ajustar colunas do parser de erros.
     - Rotação das formas geométricas;
     - Arrays;
     - Lidar com loops infinitos;
@@ -11,9 +7,6 @@ Implementação:
     - Funções definidas pelo usuário;
     - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
       comparando com a linha errada;
-
-Gerenciamento:
-    - Limpar os cabeçalhos e padronizar.
 
 Questionamentos:
     - Fazer com que uma cor seja um tipo primitivo?

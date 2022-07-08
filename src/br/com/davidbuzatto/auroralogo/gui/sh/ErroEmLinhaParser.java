@@ -103,19 +103,21 @@ public class ErroEmLinhaParser extends AbstractParser {
             
             int linha = erro.linha;
             int inicio = erro.inicio;
+            int ajuste = 0;
             int comprimento = erro.comprimento;
             
             try {
                 
                 if ( linha > 0 ) {
-                    inicio += textAreaCodigo.getLineEndOffset( linha - 1 );
+                    ajuste = textAreaCodigo.getLineEndOffset( linha - 1 );
+                    inicio += ajuste;
                 }
                 
             } catch ( BadLocationException exc ) {
                 exc.printStackTrace();
             }
             
-            String erroRazao = String.format( "erro em linha %d, colunha %d", linha + 1, inicio );
+            String erroRazao = String.format( "erro em linha %d, coluna %d", linha + 1, inicio - ajuste );
             if ( erro.offendingSymbol != null && erro.offendingSymbol instanceof Token ) {
                 Token t = (Token) erro.offendingSymbol;
                 erroRazao += ":\n    não entendi o que você quiz dizer com \"" + t.getText() + "\" :(";

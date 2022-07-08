@@ -1,3 +1,5 @@
-repetir 10 vezes {
-    escrever contador pulando linha na saída .
-}
+c = 'k' .
+a = "abc" .
+i = 10 .
+j = 1.5 .
+escrever formatarTexto( "%d %s %.2f %c", i, a, j, c ) na saída .

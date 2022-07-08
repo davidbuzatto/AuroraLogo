@@ -26,6 +26,8 @@ import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.awt.geom.Arc2D;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.IllegalFormatException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -270,7 +272,7 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
         
         if ( ctx.NA() != null ) {
             Utils.inserirMensagemEmitente( textPaneSaida, "tartaruga escreveu", textoSaida, tartaruga.getCor() );
-        } if ( ctx.NO() != null ) {
+        } else if ( ctx.NO() != null ) {
             JTextPane tp = new JTextPane();
             tp.setFont( textPaneSaida.getFont() );
             Utils.inserirMensagemEmitente( tp, "tartaruga escreveu", textoSaida, tartaruga.getCor() );
@@ -3032,6 +3034,42 @@ public class DesenhistaAuroraLogoVisitor extends AuroraLogoBaseVisitor<Valor> {
         }
         
         return ZERO_DECIMAL;
+        
+    }
+
+    @Override
+    public Valor visitFormatarTexto( AuroraLogoParser.FormatarTextoContext ctx ) {
+        
+        String textoFormatado = "";
+        String formato = ctx.STRING().getText();
+        formato = formato.substring( 1, formato.length() - 1 );
+        
+        List<Object> valores = new ArrayList<>();
+        
+        for ( AuroraLogoParser.ExprContext c : ctx.expr() ) {
+            Valor v = visit( c );
+            if ( v.isInteiro() ) {
+                valores.add( v.valorInteiro() );
+            } else if ( v.isDecimal() ) {
+                valores.add( v.valorDecimal() );
+            } else if ( v.isCaractere() ) {
+                valores.add( v.valorCaractere() );
+            } else if ( v.isBooleano() ) {
+                valores.add( v.valorBooleano() );
+            } else if ( v.isString() ) {
+                valores.add( v.valorString() );
+            } else {
+                valores.add( String.valueOf( v.getValor() ) );
+            }
+        }
+        
+        try {
+            textoFormatado = String.format( Locale.US, formato, valores.toArray() );
+        } catch ( IllegalFormatException exc ) {
+            textoFormatado = "formato inválido";
+        }
+        
+        return novaString( textoFormatado );
         
     }
     

@@ -592,6 +592,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         barraFerramentas.add(btnCorTartaruga);
 
         paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código Fonte"));
+        paineCodigoFonte.setMinimumSize(new java.awt.Dimension(570, 551));
+        paineCodigoFonte.setPreferredSize(new java.awt.Dimension(570, 551));
 
         painelTextAreaCodigo.setLayout(new java.awt.BorderLayout());
 
@@ -601,7 +603,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paineCodigoFonteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
                 .addContainerGap())
         );
         paineCodigoFonteLayout.setVerticalGroup(
@@ -613,6 +615,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         );
 
         painelSaida.setBorder(javax.swing.BorderFactory.createTitledBorder("Saída"));
+        painelSaida.setMinimumSize(new java.awt.Dimension(570, 180));
 
         scrollPaneSaida.setAutoscrolls(true);
 
@@ -1019,8 +1022,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(painelSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(painelSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(painelDesenhoContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -1035,7 +1038,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelSaida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(painelSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(painelDesenhoContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -1457,30 +1460,30 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         InputMap im = textAreaCodigo.getInputMap();
         ActionMap am = textAreaCodigo.getActionMap();
 
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK ), "decreaseFontSize" );
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK ), "decreaseFontSize" );
-        //am.put( "decreaseFontSize", new RSyntaxTextAreaEditorKit.DecreaseFontSizeAction() );
-        am.put( "decreaseFontSize", new AbstractAction() {
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK ), "diminuirTamanhoFonte" );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK ), "diminuirTamanhoFonte" );
+        //am.put( "diminuirTamanhoFonte", new RSyntaxTextAreaEditorKit.DecreaseFontSizeAction() );
+        am.put( "diminuirTamanhoFonte", new AbstractAction() {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 diminuirFonte();
             }
         } );
 
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK ), "increaseFontSize" );
-        //am.put( "increaseFontSize", new RSyntaxTextAreaEditorKit.IncreaseFontSizeAction() );
-        am.put( "increaseFontSize", new AbstractAction() {
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK ), "aumentarTamanhoFonte" );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK ), "aumentarTamanhoFonte" );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK ), "aumentarTamanhoFonte" );
+        //am.put( "aumentarTamanhoFonte", new RSyntaxTextAreaEditorKit.IncreaseFontSizeAction() );
+        am.put( "aumentarTamanhoFonte", new AbstractAction() {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 aumentarFonte();
             }
         } );
 
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_0, KeyEvent.CTRL_DOWN_MASK ), "fontSizeToDefault" );
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_NUMPAD0, KeyEvent.CTRL_DOWN_MASK ), "fontSizeToDefault" );
-        am.put( "fontSizeToDefault", new AbstractAction() {
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_0, KeyEvent.CTRL_DOWN_MASK ), "tamanhoFontePadrao" );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_NUMPAD0, KeyEvent.CTRL_DOWN_MASK ), "tamanhoFontePadrao" );
+        am.put( "tamanhoFontePadrao", new AbstractAction() {
             @Override
             public void actionPerformed( ActionEvent e ) {
                 retornarFontePadrao();
@@ -1497,8 +1500,24 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         
         
         int ctrlShift = InputEvent.CTRL_DOWN_MASK | InputEvent.SHIFT_DOWN_MASK;
-        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_C, ctrlShift ), "copyAsStyledText" );
-        am.put( "copyAsStyledText", new RSyntaxTextAreaEditorKit.CopyCutAsStyledTextAction( false ) );
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_C, ctrlShift ), "copiarComoTextoEstilizado" );
+        am.put( "copiarComoTextoEstilizado", new RSyntaxTextAreaEditorKit.CopyCutAsStyledTextAction( false ) );
+        
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_UP, ctrlShift ), "copiarLinhasParaCima" );
+        am.put( "copiarLinhasParaCima", new AbstractAction() {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                copiarSelecao( false );
+            }
+        });
+        
+        im.put( KeyStroke.getKeyStroke( KeyEvent.VK_DOWN, ctrlShift ), "copiarLinhasParaBaixo" );
+        am.put( "copiarLinhasParaBaixo", new AbstractAction() {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                copiarSelecao( true );
+            }
+        });
 
         JPopupMenu pMenu = textAreaCodigo.getPopupMenu();
         JMenuItem menuItemCor = new JMenuItem( "Inserir Cor" );
@@ -1575,7 +1594,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testes", true );
+            carregarTemplate( "testesErros", true );
         }
 
     }
@@ -2106,6 +2125,54 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
 
+    private void copiarSelecao( boolean baixo ) {
+        
+        try {
+                    
+            String copia = "";
+            int liIni = textAreaCodigo.getLineOfOffset( textAreaCodigo.getSelectionStart() );
+            int liFim = textAreaCodigo.getLineOfOffset( textAreaCodigo.getSelectionEnd() );
+
+            int offIni = textAreaCodigo.getLineStartOffset( liIni );
+            int offFim = textAreaCodigo.getLineEndOffset( liFim );
+            int q = offFim - offIni;
+
+            copia = textAreaCodigo.getText( offIni, q );
+            int compStart = 0;
+            int compEnd = 0;
+            
+            if ( baixo ) {
+                
+                if ( !copia.endsWith( "\n" ) ) {
+                    copia = "\n" + copia;
+                    compStart = 1;
+                    compEnd = 2;
+                }
+
+                textAreaCodigo.insert( copia, offFim );
+                textAreaCodigo.setSelectionStart( offIni + q + compStart );
+                textAreaCodigo.setSelectionEnd( offIni + q + q - 1 + compEnd );
+            
+            } else {
+
+                if ( !copia.endsWith( "\n" ) ) {
+                    copia = copia + "\n";
+                    compEnd = 1;
+                }
+
+                textAreaCodigo.insert( copia, offIni );
+                textAreaCodigo.setSelectionStart( offIni );
+                textAreaCodigo.setSelectionEnd( offIni + q - 1 + compEnd );
+                
+            }
+
+            
+        } catch ( BadLocationException exc ) {
+            exc.printStackTrace();
+        }
+        
+    }
+    
     /**
      * @param args the command line arguments
      */

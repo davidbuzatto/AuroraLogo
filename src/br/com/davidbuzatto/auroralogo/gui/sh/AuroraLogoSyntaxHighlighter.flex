@@ -326,6 +326,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "esquerda" | 
 "fechar " | 
 "fechar" | 
+"formatarTexto " | 
+"formatarTexto" | 
 "fundo " | 
 "fundo" | 
 "girar " | 

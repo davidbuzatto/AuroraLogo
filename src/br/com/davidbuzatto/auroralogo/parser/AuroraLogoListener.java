@@ -186,6 +186,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code fatorFormatarTexto}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorFormatarTexto}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -1107,4 +1119,14 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#formatarTexto}.
+	 * @param ctx the parse tree
+	 */
+	void enterFormatarTexto(AuroraLogoParser.FormatarTextoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#formatarTexto}.
+	 * @param ctx the parse tree
+	 */
+	void exitFormatarTexto(AuroraLogoParser.FormatarTextoContext ctx);
 }

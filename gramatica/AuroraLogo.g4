@@ -81,6 +81,7 @@ fator    : ( NAO | NAOT ) fator      # fatorNao
          | STRING                    # fatorString
          | funcaoMatematica          # fatorFuncaoMatematica
          | consultarTartaruga        # fatorConsultarTartaruga
+         | formatarTexto             # fatorFormatarTexto
          | '(' expr ')'              # fatorParenteses
          ;
 
@@ -271,6 +272,9 @@ instCaminho         : MOV ATE '(' expr ',' expr ')'                             
 consultarTartaruga  : TART DOT ( PX | PY | PA )
                     ;
 
+formatarTexto       : FORM '(' STRING ( ',' expr )* ')'
+                    ;
+
 fragment
 LET : [a-zA-Z] ;
 
@@ -325,6 +329,7 @@ ESC  : 'escrever'        ;
 ESQ  : 'esquerda'        ;
 FAL  : 'FALSO'           ;
 FEC  : 'fechar'          ;
+FORM : 'formatarTexto'   ;
 FUN  : 'fundo'           ;
 GIR  : 'girar'           ;
 GRA  : 'graus'           ;

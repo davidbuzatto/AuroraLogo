@@ -116,6 +116,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code fatorFormatarTexto}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -657,4 +664,10 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#formatarTexto}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFormatarTexto(AuroraLogoParser.FormatarTextoContext ctx);
 }
