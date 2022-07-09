@@ -49,6 +49,7 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     ComponenteVisitorExpressaoRelacaoTermo cvExpressaoRelacaoTermo;
     ComponenteVisitorFatores cvFatores;
     ComponenteVisitorConstrutos cvConstrutos;
+    ComponenteVisitorArranjos cvArranjos;
     
     public AuroraLogoDesenhistaVisitor( 
             Tartaruga tartaruga, 
@@ -70,6 +71,7 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
         cvExpressaoRelacaoTermo = new ComponenteVisitorExpressaoRelacaoTermo( this );
         cvFatores = new ComponenteVisitorFatores( tartaruga, this );
         cvConstrutos = new ComponenteVisitorConstrutos( tartaruga, janelaPrincipal, textPaneSaida, this );
+        cvArranjos = new ComponenteVisitorArranjos( tartaruga, this );
         
     }
     
@@ -196,6 +198,16 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitAtribuirResto( AuroraLogoParser.AtribuirRestoContext ctx ) {
         return cvAtribuicao.visitAtribuirResto( ctx );
+    }
+
+    @Override
+    public Valor visitCriarArranjo( AuroraLogoParser.CriarArranjoContext ctx ) {
+        return cvArranjos.visitCriarArranjo( ctx );
+    }
+
+    @Override
+    public Valor visitCriarArranjoAssociativo( AuroraLogoParser.CriarArranjoAssociativoContext ctx ) {
+        return cvArranjos.visitCriarArranjoAssociativo( ctx );
     }
 
     

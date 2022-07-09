@@ -18,8 +18,11 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 
 import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.Color;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -55,11 +58,11 @@ public class ComponenteVisitorFatores {
     }
     
     public Valor visitFatorInt( AuroraLogoParser.FatorIntContext ctx ) {
-        return Valor.novoInteiro( ctx.INT().getText() );
+        return novoInteiro( ctx.INT().getText() );
     }
     
     public Valor visitFatorDec( AuroraLogoParser.FatorDecContext ctx ) {
-        return Valor.novoDecimal( ctx.DEC().getText() );
+        return novoDecimal( ctx.DEC().getText() );
     }
     
     public Valor visitFatorPi( AuroraLogoParser.FatorPiContext ctx ) {
@@ -73,7 +76,24 @@ public class ComponenteVisitorFatores {
         }
         
         String id = ctx.ID().getText();
-        return tartaruga.lerMemoria( id );
+        Valor v = tartaruga.lerMemoria( id );
+        
+        if ( v.isArranjo() ) {
+            
+            List<Integer> indices = new ArrayList<>();
+            
+            for ( ExprContext e : ctx.expr() ) {
+                Valor vIndice = visitor.visit( e );
+                indices.add( vIndice.valorInteiro() );
+            }
+            
+            Object valorP = v.valorArranjo( indices.toArray( Integer[]::new ) );
+            
+            v = novoValor( valorP );
+            
+        }
+        
+        return v;
         
     }
     

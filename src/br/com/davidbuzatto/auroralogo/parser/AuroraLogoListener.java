@@ -554,6 +554,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitAtribuirResto(AuroraLogoParser.AtribuirRestoContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#exprIndice}.
+	 * @param ctx the parse tree
+	 */
+	void enterExprIndice(AuroraLogoParser.ExprIndiceContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#exprIndice}.
+	 * @param ctx the parse tree
+	 */
+	void exitExprIndice(AuroraLogoParser.ExprIndiceContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#abaixar}.
 	 * @param ctx the parse tree
 	 */
@@ -1171,4 +1181,28 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFormatarTexto(AuroraLogoParser.FormatarTextoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code criarArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#criarArranjos}.
+	 * @param ctx the parse tree
+	 */
+	void enterCriarArranjo(AuroraLogoParser.CriarArranjoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code criarArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#criarArranjos}.
+	 * @param ctx the parse tree
+	 */
+	void exitCriarArranjo(AuroraLogoParser.CriarArranjoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code criarArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#criarArranjos}.
+	 * @param ctx the parse tree
+	 */
+	void enterCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code criarArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#criarArranjos}.
+	 * @param ctx the parse tree
+	 */
+	void exitCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx);
 }

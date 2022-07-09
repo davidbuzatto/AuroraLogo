@@ -72,18 +72,18 @@ termo    : fator ( ( MUL | VEZS
                    | MOD | MODA      ) fator )*
          ;
 
-fator    : ( NAO | NAOT ) fator      # fatorNao
-         | INT                       # fatorInt
-         | DEC                       # fatorDec
-         | PI                        # fatorPi
-         | ( fatorBool | ID )        # fatorId                // atenção, literais booleanos aqui!
-         | CHAR                      # fatorChar
-         | STRING                    # fatorString 
-         | cor                       # fatorCor
-         | funcaoMatematica          # fatorFuncaoMatematica
-         | consultarTartaruga        # fatorConsultarTartaruga
-         | formatarTexto             # fatorFormatarTexto
-         | '(' expr ')'              # fatorParenteses
+fator    : ( NAO | NAOT ) fator                  # fatorNao
+         | INT                                   # fatorInt
+         | DEC                                   # fatorDec
+         | PI                                    # fatorPi
+         | ( fatorBool | ID ( '[' expr ']' )* )  # fatorId                // atenção, literais booleanos aqui! *********** investigar
+         | CHAR                                  # fatorChar
+         | STRING                                # fatorString 
+         | cor                                   # fatorCor
+         | funcaoMatematica                      # fatorFuncaoMatematica
+         | consultarTartaruga                    # fatorConsultarTartaruga
+         | formatarTexto                         # fatorFormatarTexto
+         | '(' expr ')'                          # fatorParenteses
          ;
 
 exprBool : expr
@@ -181,12 +181,15 @@ escrever     : ESC expr ( ( PUL LIN )? NA SAI
 ler          : LER ID
              ;
 
-atribuir     : ID (  ATR | ATRA ) expr     # atribuirPadrao
-             | ID ( AC_A | AT_A ) expr     # atribuirAdicao
-             | ID ( AC_S | AT_S ) expr     # atribuirSubtracao
-             | ID ( AC_M | AT_M ) expr     # atribuirMultiplicacao
-             | ID ( AC_D | AT_D ) expr     # atribuirDivisao
-             | ID ( AC_R | AT_R ) expr     # atribuirResto
+atribuir     : ID ( '[' exprIndice ']' )* (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirPadrao
+             | ID ( AC_A | AT_A )   expr                    # atribuirAdicao
+             | ID ( AC_S | AT_S )   expr                    # atribuirSubtracao
+             | ID ( AC_M | AT_M )   expr                    # atribuirMultiplicacao
+             | ID ( AC_D | AT_D )   expr                    # atribuirDivisao
+             | ID ( AC_R | AT_R )   expr                    # atribuirResto
+             ;
+
+exprIndice   : expr
              ;
 
 abaixar      : ABA PINC
@@ -199,34 +202,34 @@ limpar       : LIM
              ;
 
 // funções matemáticas
-funcaoMatematica : F_VABS '(' expr ')'                            # funcaoAbsoluto
-                 | F_RAIQ '(' expr ')'                            # funcaoRaizQuadrada
-                 | F_RAIC '(' expr ')'                            # funcaoRaizCubica
-                 | F_RAIZ '(' expr ',' expr ')'                   # funcaoRaiz
-                 | F_POTE '(' expr ',' expr ')'                   # funcaoPotencia
-                 | F_HIPO '(' expr ',' expr ')'                   # funcaoHipotenusa
-                 | F_CHAO '(' expr ')'                            # funcaoChao
-                 | F_TETO '(' expr ')'                            # funcaoTeto
-                 | F_ARRE '(' ( expr | expr ',' expr ) ')'        # funcaoArredondar
-                 | F_MINI '(' expr ',' expr ')'                   # funcaoMinimo
-                 | F_MAXI '(' expr ',' expr ')'                   # funcaoMaximo
-                 | F_NUMA '(' ( expr | expr ',' expr )? ')'       # funcaoNumeroAleatorio
-                 | F_SEME '(' expr ')'                            # funcaoDefinirSementeAleatoria
-                 | F_SENO '(' expr ')'                            # funcaoSeno
-                 | F_COSS '(' expr ')'                            # funcaoCosseno
-                 | F_TANG '(' expr ')'                            # funcaoTangente
-                 | F_ASEN '(' expr ')'                            # funcaoArcoSeno
-                 | F_ACOS '(' expr ')'                            # funcaoArcoCosseno
-                 | F_ATAN '(' expr ')'                            # funcaoArcoTangente
-                 | F_CAPO '(' expr ',' expr ')'                   # funcaoCartesianoParaPolar
-                 | F_SENH '(' expr ')'                            # funcaoSenoHiperbolico
-                 | F_COSH '(' expr ')'                            # funcaoCossenoHiperbolico
-                 | F_TANH '(' expr ')'                            # funcaoTangenteHiperbolica
-                 | F_LOGA '(' ( expr | expr ',' expr ) ')'        # funcaoLogaritmo
-                 | F_GRRA '(' expr ')'                            # funcaoGrausParaRadianos
-                 | F_RAGR '(' expr ')'                            # funcaoRadianosParaGraus
-                 | F_INC  '(' ID ')'                              # funcaoIncrementar
-                 | F_DCM  '(' ID ')'                              # funcaoDecrementar
+funcaoMatematica : F_VABS '(' expr ')'                       # funcaoAbsoluto
+                 | F_RAIQ '(' expr ')'                       # funcaoRaizQuadrada
+                 | F_RAIC '(' expr ')'                       # funcaoRaizCubica
+                 | F_RAIZ '(' expr ',' expr ')'              # funcaoRaiz
+                 | F_POTE '(' expr ',' expr ')'              # funcaoPotencia
+                 | F_HIPO '(' expr ',' expr ')'              # funcaoHipotenusa
+                 | F_CHAO '(' expr ')'                       # funcaoChao
+                 | F_TETO '(' expr ')'                       # funcaoTeto
+                 | F_ARRE '(' ( expr | expr ',' expr ) ')'   # funcaoArredondar
+                 | F_MINI '(' expr ',' expr ')'              # funcaoMinimo
+                 | F_MAXI '(' expr ',' expr ')'              # funcaoMaximo
+                 | F_NUMA '(' ( expr | expr ',' expr )? ')'  # funcaoNumeroAleatorio
+                 | F_SEME '(' expr ')'                       # funcaoDefinirSementeAleatoria
+                 | F_SENO '(' expr ')'                       # funcaoSeno
+                 | F_COSS '(' expr ')'                       # funcaoCosseno
+                 | F_TANG '(' expr ')'                       # funcaoTangente
+                 | F_ASEN '(' expr ')'                       # funcaoArcoSeno
+                 | F_ACOS '(' expr ')'                       # funcaoArcoCosseno
+                 | F_ATAN '(' expr ')'                       # funcaoArcoTangente
+                 | F_CAPO '(' expr ',' expr ')'              # funcaoCartesianoParaPolar
+                 | F_SENH '(' expr ')'                       # funcaoSenoHiperbolico
+                 | F_COSH '(' expr ')'                       # funcaoCossenoHiperbolico
+                 | F_TANH '(' expr ')'                       # funcaoTangenteHiperbolica
+                 | F_LOGA '(' ( expr | expr ',' expr ) ')'   # funcaoLogaritmo
+                 | F_GRRA '(' expr ')'                       # funcaoGrausParaRadianos
+                 | F_RAGR '(' expr ')'                       # funcaoRadianosParaGraus
+                 | F_INC  '(' ID ')'                         # funcaoIncrementar
+                 | F_DCM  '(' ID ')'                         # funcaoDecrementar
                  ;
 
 // funções geométricas
@@ -284,6 +287,10 @@ consultarTartaruga  : TART DOT ( PX | PY | PA )
 formatarTexto       : FORM '(' STRING ( ',' expr )* ')'
                     ;
 
+criarArranjos       : ( CRA  | CRR  ) ( '[' expr ']' )+  # criarArranjo
+                    | ( CRAA | CRRA )   '[' ']'          # criarArranjoAssociativo
+                    ;
+
 fragment
 LET : [a-zA-Z] ;
 
@@ -308,79 +315,83 @@ PA : '\u00E2ngulo' ;
 // palavras chave
 // á = \u00E1
 // í = \u00ed
-ABA  : 'abaixar'         ;
-ABE  : 'ABERTO'          ;
-ATE  : 'at\u00E9'        ;
-BAI  : 'baixo'           ;
-CAM  : 'caminho'         ;
-CIM  : 'cima'            ;
-COD  : 'CORDA'           ;
-COM  : 'com'             ;
-CONT : 'continuar'       ;
-CON  : 'contorno'        ;
-COR  : 'cor'             ;
-CUBI : 'c\u00FAbica'     ;
-CUR  : 'curva'           ;
-DCMM : 'decrementando'   ;
-DE   : 'de'              ; 
-DES  : 'desengrossar'    ;
-DESE : 'desenhar'        ;
-DIAG : 'di\u00E1logo'    ;
-DIR  : 'direita'         ;
-DIVM : 'dividindo'       ;
-DO   : 'do'              ;
-E    : 'e'               ;
-EM   : 'em'              ;
-ENG  : 'engrossar'       ;
-ENQ  : 'enquanto'        ;
-ENT  : 'ent\u00E3o'      ;
-ESCO : 'escolha'         ;
-ESC  : 'escrever'        ;
-ESQ  : 'esquerda'        ;
-FAL  : 'FALSO'           ;
-FEC  : 'fechar'          ;
-FORM : 'formatarTexto'   ;
-FUN  : 'fundo'           ;
-GIR  : 'girar'           ;
-GRA  : 'graus'           ;
-GROS : 'grossura'        ;
-INCM : 'incrementando'   ;
-INI  : 'iniciar'         ;
-LER  : 'ler'             ;
-LEV  : 'levantar'        ;
-LIM  : 'limpar'          ;
-LIN  : 'linha'           ;
-MOV  : 'mover'           ;
-MULM : 'multiplicando'   ;
-NA   : 'na'              ;
-NO   : 'no'              ;
-PADR : 'padr\u00E3o'     ;
-PARA : 'para'            ;
-PARR : 'parar'           ;
-PI   : 'PI'              ;
-PINC : 'pincel'          ;
-PIZ  : 'PIZZA'           ;
-POR  : 'por'             ;
-PREA : 'preenchida'      ;
-PREE : 'preenchimento'   ;
-PREO : 'preenchido'      ;
-PUL  : 'pulando'         ;
-QUAD : 'quadr\u00E1tica' ;
-REP  : 'repetir'         ;
-SAI  : 'sa\u00EDda'      ;
-SE   : 'se'              ;
-SEN  : 'sen\u00E3o'      ;
-SEM  : 'sem'             ;
-SOMM : 'somando'         ;
-SUBM : 'subtraindo'      ;
-TART : 'tartaruga'       ;
-TER  : 'terminar'        ;
-TROC : 'trocar'          ;
-USA  : 'usando'          ;
-VA   : 'v\u00E1'         ;
-VER  : 'VERDADEIRO'      ;
-VEZ  : 'vez'             ;
-VEZS : 'vezes'           ;
+ABA  : 'abaixar'                ;
+ABE  : 'ABERTO'                 ;
+ATE  : 'at\u00E9'               ;
+BAI  : 'baixo'                  ;
+CAM  : 'caminho'                ;
+CIM  : 'cima'                   ;
+COD  : 'CORDA'                  ;
+COM  : 'com'                    ;
+CONT : 'continuar'              ;
+CON  : 'contorno'               ;
+COR  : 'cor'                    ;
+CUBI : 'c\u00FAbica'            ;
+CUR  : 'curva'                  ;
+CRA  : 'criarArranjo'           ;
+CRAA : 'criarArranjoAssocitivo' ;
+CRR  : 'criarArray'             ;
+CRRA : 'criarArrayAssociativo'  ;
+DCMM : 'decrementando'          ;
+DE   : 'de'                     ; 
+DES  : 'desengrossar'           ;
+DESE : 'desenhar'               ;
+DIAG : 'di\u00E1logo'           ;
+DIR  : 'direita'                ;
+DIVM : 'dividindo'              ;
+DO   : 'do'                     ;
+E    : 'e'                      ;
+EM   : 'em'                     ;
+ENG  : 'engrossar'              ;
+ENQ  : 'enquanto'               ;
+ENT  : 'ent\u00E3o'             ;
+ESCO : 'escolha'                ;
+ESC  : 'escrever'               ;
+ESQ  : 'esquerda'               ;
+FAL  : 'FALSO'                  ;
+FEC  : 'fechar'                 ;
+FORM : 'formatarTexto'          ;
+FUN  : 'fundo'                  ;
+GIR  : 'girar'                  ;
+GRA  : 'graus'                  ;
+GROS : 'grossura'               ;
+INCM : 'incrementando'          ;
+INI  : 'iniciar'                ;
+LER  : 'ler'                    ;
+LEV  : 'levantar'               ;
+LIM  : 'limpar'                 ;
+LIN  : 'linha'                  ;
+MOV  : 'mover'                  ;
+MULM : 'multiplicando'          ;
+NA   : 'na'                     ;
+NO   : 'no'                     ;
+PADR : 'padr\u00E3o'            ;
+PARA : 'para'                   ;
+PARR : 'parar'                  ;
+PI   : 'PI'                     ;
+PINC : 'pincel'                 ;
+PIZ  : 'PIZZA'                  ;
+POR  : 'por'                    ;
+PREA : 'preenchida'             ;
+PREE : 'preenchimento'          ;
+PREO : 'preenchido'             ;
+PUL  : 'pulando'                ;
+QUAD : 'quadr\u00E1tica'        ;
+REP  : 'repetir'                ;
+SAI  : 'sa\u00EDda'             ;
+SE   : 'se'                     ;
+SEN  : 'sen\u00E3o'             ;
+SEM  : 'sem'                    ;
+SOMM : 'somando'                ;
+SUBM : 'subtraindo'             ;
+TART : 'tartaruga'              ;
+TER  : 'terminar'               ;
+TROC : 'trocar'                 ;
+USA  : 'usando'                 ;
+VA   : 'v\u00E1'                ;
+VER  : 'VERDADEIRO'             ;
+VEZ  : 'vez'                    ;
+VEZS : 'vezes'                  ;
 
 
 // constantes para cores

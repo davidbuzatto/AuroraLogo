@@ -616,6 +616,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterExprIndice(AuroraLogoParser.ExprIndiceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExprIndice(AuroraLogoParser.ExprIndiceContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterAbaixar(AuroraLogoParser.AbaixarContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1247,6 +1259,30 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFormatarTexto(AuroraLogoParser.FormatarTextoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCriarArranjo(AuroraLogoParser.CriarArranjoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCriarArranjo(AuroraLogoParser.CriarArranjoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

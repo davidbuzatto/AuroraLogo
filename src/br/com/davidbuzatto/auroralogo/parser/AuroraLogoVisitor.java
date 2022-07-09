@@ -334,6 +334,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitAtribuirResto(AuroraLogoParser.AtribuirRestoContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#exprIndice}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExprIndice(AuroraLogoParser.ExprIndiceContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#abaixar}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -695,4 +701,18 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFormatarTexto(AuroraLogoParser.FormatarTextoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code criarArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#criarArranjos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCriarArranjo(AuroraLogoParser.CriarArranjoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code criarArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#criarArranjos}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx);
 }

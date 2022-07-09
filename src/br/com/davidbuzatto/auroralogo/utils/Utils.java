@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.utils;
 
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
+import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.novoInteiro;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -32,6 +33,7 @@ import java.awt.image.ColorConvertOp;
 import java.awt.image.WritableRaster;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.prefs.Preferences;
 import javax.swing.JTextPane;
@@ -308,6 +310,44 @@ public class Utils {
         int b = (int) ( corDireita.getBlue() * posicao + corEsquerda.getBlue() * ( 1 - posicao ) );
         
         return new Color( r, g, b, alpha );
+        
+    }
+    
+    /*
+     * Cria um array de dimensões especificada no vararg "dimensoes".
+     */
+    public static Object criarArrayNDimensional( Integer... dimensoes ) {
+        return criarArrayNDimensional( "", false, dimensoes );
+    }
+    
+    private static Object criarArrayNDimensional( String identacao, boolean tracar, Integer... dimensoes ) {
+        
+        if ( dimensoes.length >= 1 ) {
+            
+            List<Integer> listaIndices = new ArrayList<>( Arrays.<Integer>asList(dimensoes ) );
+            Integer tamanhoAtual = listaIndices.remove( 0 );
+            
+            if ( tamanhoAtual  <= 0 ) {
+                tamanhoAtual  = 1;
+            }
+            
+            Object[] novoSubArray = new Object[tamanhoAtual ];
+            
+            for ( int i = 0; i < tamanhoAtual ; i++ ) {
+                if ( tracar ) {
+                    System.out.println( identacao + i );
+                }
+                novoSubArray[i] = criarArrayNDimensional( 
+                        identacao + "  ", 
+                        tracar, 
+                        listaIndices.toArray( Integer[]::new ) );
+            }
+            
+            return novoSubArray;
+            
+        }
+        
+        return novoInteiro( 0 );
         
     }
     

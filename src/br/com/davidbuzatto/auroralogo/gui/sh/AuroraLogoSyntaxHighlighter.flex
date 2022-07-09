@@ -292,6 +292,14 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "contorno" | 
 "cor " | 
 "cor" | 
+"criarArranjo " | 
+"criarArranjo" | 
+"criarArranjoAssocitivo " | 
+"criarArranjoAssocitivo" | 
+"criarArray " | 
+"criarArray" | 
+"criarArrayAssociativo " | 
+"criarArrayAssociativo" | 
 "curva " | 
 "curva" | 
 "de " | 
