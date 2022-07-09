@@ -22,7 +22,8 @@ import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.geom.Arc2D;
 
 /**
- *
+ * Implementação dos métodos de visita para as instruções geométricas.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorInstrucoesGeometricas {

@@ -76,13 +76,15 @@ fator    : ( NAO | NAOT ) fator                  # fatorNao
          | INT                                   # fatorInt
          | DEC                                   # fatorDec
          | PI                                    # fatorPi
-         | ( fatorBool | ID ( '[' expr ']' )* )  # fatorId                // atenção, literais booleanos aqui! *********** investigar
+         | ( fatorBool | ID ( '[' expr ']' )* 
+           ( DOT COMP | DOT CHAV )? )            # fatorId                // atenção, literais booleanos aqui! *********** investigar
          | CHAR                                  # fatorChar
          | STRING                                # fatorString 
          | cor                                   # fatorCor
          | funcaoMatematica                      # fatorFuncaoMatematica
          | consultarTartaruga                    # fatorConsultarTartaruga
          | formatarTexto                         # fatorFormatarTexto
+         | repeticao                             # fatorRepeticao
          | '(' expr ')'                          # fatorParenteses
          ;
 
@@ -115,6 +117,9 @@ escolha      : ESCO ( INT | DEC | CHAR | STRING ) ':' inst+
 
 // repetir ... vezes
 repetir      : REP expr ( VEZ | VEZS ) '{' inst+ '}'
+             ;
+
+repeticao    : REPE 
              ;
 
 // enquanto ... repetir
@@ -182,11 +187,11 @@ ler          : LER ID
              ;
 
 atribuir     : ID ( '[' exprIndice ']' )* (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirPadrao
-             | ID ( AC_A | AT_A )   expr                    # atribuirAdicao
-             | ID ( AC_S | AT_S )   expr                    # atribuirSubtracao
-             | ID ( AC_M | AT_M )   expr                    # atribuirMultiplicacao
-             | ID ( AC_D | AT_D )   expr                    # atribuirDivisao
-             | ID ( AC_R | AT_R )   expr                    # atribuirResto
+             | ID ( AC_A | AT_A )   expr                                            # atribuirAdicao
+             | ID ( AC_S | AT_S )   expr                                            # atribuirSubtracao
+             | ID ( AC_M | AT_M )   expr                                            # atribuirMultiplicacao
+             | ID ( AC_D | AT_D )   expr                                            # atribuirDivisao
+             | ID ( AC_R | AT_R )   expr                                            # atribuirResto
              ;
 
 exprIndice   : expr
@@ -288,7 +293,7 @@ formatarTexto       : FORM '(' STRING ( ',' expr )* ')'
                     ;
 
 criarArranjos       : ( CRA  | CRR  ) ( '[' expr ']' )+  # criarArranjo
-                    | ( CRAA | CRRA )   '[' ']'          # criarArranjoAssociativo
+                    | ( CRAA | CRRA )   '{' '}'          # criarArranjoAssociativo
                     ;
 
 fragment
@@ -306,6 +311,19 @@ ESCC : '\\' ( ["\\/bfnrt] | UNICODE ) ;
 fragment
 UNICODE : 'u' DHX DHX DHX DHX ;
 
+// escape dos caracteres "especiais"
+// Ã = \u00C3
+// á = \u00E1
+// â = \u00E2
+// ã = \u00E3
+// ç = \u00E7
+// é = \u00E9
+// ê = \u00EA
+// í = \u00ED
+// ó = \u00F3
+// ú = \u00FA
+
+
 // terminais que são propriedades da tartaruga
 PX : 'x'           ;
 PY : 'y'           ;
@@ -313,85 +331,86 @@ PA : '\u00E2ngulo' ;
 
 
 // palavras chave
-// á = \u00E1
-// í = \u00ed
-ABA  : 'abaixar'                ;
-ABE  : 'ABERTO'                 ;
-ATE  : 'at\u00E9'               ;
-BAI  : 'baixo'                  ;
-CAM  : 'caminho'                ;
-CIM  : 'cima'                   ;
-COD  : 'CORDA'                  ;
-COM  : 'com'                    ;
-CONT : 'continuar'              ;
-CON  : 'contorno'               ;
-COR  : 'cor'                    ;
-CUBI : 'c\u00FAbica'            ;
-CUR  : 'curva'                  ;
-CRA  : 'criarArranjo'           ;
-CRAA : 'criarArranjoAssocitivo' ;
-CRR  : 'criarArray'             ;
-CRRA : 'criarArrayAssociativo'  ;
-DCMM : 'decrementando'          ;
-DE   : 'de'                     ; 
-DES  : 'desengrossar'           ;
-DESE : 'desenhar'               ;
-DIAG : 'di\u00E1logo'           ;
-DIR  : 'direita'                ;
-DIVM : 'dividindo'              ;
-DO   : 'do'                     ;
-E    : 'e'                      ;
-EM   : 'em'                     ;
-ENG  : 'engrossar'              ;
-ENQ  : 'enquanto'               ;
-ENT  : 'ent\u00E3o'             ;
-ESCO : 'escolha'                ;
-ESC  : 'escrever'               ;
-ESQ  : 'esquerda'               ;
-FAL  : 'FALSO'                  ;
-FEC  : 'fechar'                 ;
-FORM : 'formatarTexto'          ;
-FUN  : 'fundo'                  ;
-GIR  : 'girar'                  ;
-GRA  : 'graus'                  ;
-GROS : 'grossura'               ;
-INCM : 'incrementando'          ;
-INI  : 'iniciar'                ;
-LER  : 'ler'                    ;
-LEV  : 'levantar'               ;
-LIM  : 'limpar'                 ;
-LIN  : 'linha'                  ;
-MOV  : 'mover'                  ;
-MULM : 'multiplicando'          ;
-NA   : 'na'                     ;
-NO   : 'no'                     ;
-PADR : 'padr\u00E3o'            ;
-PARA : 'para'                   ;
-PARR : 'parar'                  ;
-PI   : 'PI'                     ;
-PINC : 'pincel'                 ;
-PIZ  : 'PIZZA'                  ;
-POR  : 'por'                    ;
-PREA : 'preenchida'             ;
-PREE : 'preenchimento'          ;
-PREO : 'preenchido'             ;
-PUL  : 'pulando'                ;
-QUAD : 'quadr\u00E1tica'        ;
-REP  : 'repetir'                ;
-SAI  : 'sa\u00EDda'             ;
-SE   : 'se'                     ;
-SEN  : 'sen\u00E3o'             ;
-SEM  : 'sem'                    ;
-SOMM : 'somando'                ;
-SUBM : 'subtraindo'             ;
-TART : 'tartaruga'              ;
-TER  : 'terminar'               ;
-TROC : 'trocar'                 ;
-USA  : 'usando'                 ;
-VA   : 'v\u00E1'                ;
-VER  : 'VERDADEIRO'             ;
-VEZ  : 'vez'                    ;
-VEZS : 'vezes'                  ;
+ABA  : 'abaixar'                 ;
+ABE  : 'ABERTO'                  ;
+ATE  : 'at\u00E9'                ;
+BAI  : 'baixo'                   ;
+CAM  : 'caminho'                 ;
+CHAV : 'chaves'                  ;
+CIM  : 'cima'                    ;
+COD  : 'CORDA'                   ;
+COM  : 'com'                     ;
+COMP : 'comprimento'             ;
+CONT : 'continuar'               ;
+CON  : 'contorno'                ;
+COR  : 'cor'                     ;
+CUBI : 'c\u00FAbica'             ;
+CUR  : 'curva'                   ;
+CRA  : 'criarArranjo'            ;
+CRAA : 'criarArranjoAssociativo' ;
+CRR  : 'criarArray'              ;
+CRRA : 'criarArrayAssociativo'   ;
+DCMM : 'decrementando'           ;
+DE   : 'de'                      ; 
+DES  : 'desengrossar'            ;
+DESE : 'desenhar'                ;
+DIAG : 'di\u00E1logo'            ;
+DIR  : 'direita'                 ;
+DIVM : 'dividindo'               ;
+DO   : 'do'                      ;
+E    : 'e'                       ;
+EM   : 'em'                      ;
+ENG  : 'engrossar'               ;
+ENQ  : 'enquanto'                ;
+ENT  : 'ent\u00E3o'              ;
+ESCO : 'escolha'                 ;
+ESC  : 'escrever'                ;
+ESQ  : 'esquerda'                ;
+FAL  : 'FALSO'                   ;
+FEC  : 'fechar'                  ;
+FORM : 'formatarTexto'           ;
+FUN  : 'fundo'                   ;
+GIR  : 'girar'                   ;
+GRA  : 'graus'                   ;
+GROS : 'grossura'                ;
+INCM : 'incrementando'           ;
+INI  : 'iniciar'                 ;
+LER  : 'ler'                     ;
+LEV  : 'levantar'                ;
+LIM  : 'limpar'                  ;
+LIN  : 'linha'                   ;
+MOV  : 'mover'                   ;
+MULM : 'multiplicando'           ;
+NA   : 'na'                      ;
+NO   : 'no'                      ;
+PADR : 'padr\u00E3o'             ;
+PARA : 'para'                    ;
+PARR : 'parar'                   ;
+PI   : 'PI'                      ;
+PINC : 'pincel'                  ;
+PIZ  : 'PIZZA'                   ;
+POR  : 'por'                     ;
+PREA : 'preenchida'              ;
+PREE : 'preenchimento'           ;
+PREO : 'preenchido'              ;
+PUL  : 'pulando'                 ;
+QUAD : 'quadr\u00E1tica'         ;
+REP  : 'repetir'                 ;
+REPE : 'repeti\u00E7\u00E3o'     ;
+SAI  : 'sa\u00EDda'              ;
+SE   : 'se'                      ;
+SEN  : 'sen\u00E3o'              ;
+SEM  : 'sem'                     ;
+SOMM : 'somando'                 ;
+SUBM : 'subtraindo'              ;
+TART : 'tartaruga'               ;
+TER  : 'terminar'                ;
+TROC : 'trocar'                  ;
+USA  : 'usando'                  ;
+VA   : 'v\u00E1'                 ;
+VER  : 'VERDADEIRO'              ;
+VEZ  : 'vez'                     ;
+VEZS : 'vezes'                   ;
 
 
 // constantes para cores
@@ -411,12 +430,6 @@ CLARO    : 'claro'    ;
 
 
 // funções
-// á = \u00E1
-// ã = \u00E3
-// í = \u00ED
-// ê = \u00EA
-// ó = \u00F3
-// ú = \u00FA
 F_ACOS : 'arcoCosseno'                  ;
 F_ARRE : 'arredondar'                   ;
 F_ASEN : 'arcoSeno'                     ;
@@ -448,11 +461,6 @@ F_VABS : 'valorAbsoluto'                ;
 
 
 // funções geométricas
-// á = \u00E1
-// â = \u00E2
-// é = \u00E9
-// í = \u00ED
-// ú = \u00FA
 FG_ARC : 'arco'                 ;
 FG_CCU : 'curvaC\u00FAbica'     ;
 FG_CIC : 'c\u00EDrculo'         ;
@@ -498,8 +506,6 @@ MODA : 'resto'        ;
 
 
 // operadores relacionais
-// ã = \u00E3
-// é = \u00E9
 IGU  : '=='                               ;
 IGUT : '\u00E9 igual a'                   ;  // é igual a
 IGUA : 'n\u00E3o \u00E9 diferente de'     ;  // não é diferente de
@@ -526,7 +532,6 @@ MAIA : 'n\u00E3o \u00E9 menor que'        ;  // não é menor que
 
 
 // operadores lógicos
-// Ã = \u00C3
 ELG  : '&&'       ;
 ELGT : 'E'        ;
 

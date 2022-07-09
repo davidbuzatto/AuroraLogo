@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Implementação dos métodos de visita para as instruções de atribuição.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorAtribuicao {
@@ -49,7 +50,7 @@ public class ComponenteVisitorAtribuicao {
             valor = visitor.visit( ctx.criarArranjos() );
         }
         
-        if ( ctx.exprIndice() != null && !ctx.exprIndice().isEmpty() ) {
+        if ( !ctx.exprIndice().isEmpty() ) {
             
             List<Integer> indices = new ArrayList<>();
             
@@ -57,18 +58,32 @@ public class ComponenteVisitorAtribuicao {
                 Valor vIndice = visitor.visit( e );
                 indices.add( vIndice.valorInteiro() );
             }
-            
+
             Integer[] ind = indices.toArray( Integer[]::new );
             
             Valor vMemoria = tartaruga.lerMemoria( id );
             if ( vMemoria == null ) {
                 vMemoria = novoArranjo( novoArranjo( ind ) );
             }
-            
-            vMemoria.setValorArranjo( valor, ind );
-            tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
-            
-            return vMemoria;
+                
+            if ( vMemoria.isArranjo() ) {
+                
+                vMemoria.setValorArranjo( valor, ind );
+                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+
+                return vMemoria;
+                
+            } else if ( vMemoria.isArranjoAssociativo() ) {
+                
+                String chave = visitor.visit( ctx.exprIndice( 0 ) ).valorString();
+                vMemoria.setValorArranjoAssociativo( chave, valor );
+                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+                
+                return vMemoria;
+                
+            } else {
+                return valor;
+            }
             
         } else {
             tartaruga.inserirOuAtualizarMemoria( id, valor );

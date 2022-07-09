@@ -1,0 +1,98 @@
+t = 5 .
+a = criarArranjo[t] .
+b = criarArranjo[t][t] .
+c = criarArranjo[t][t][t] .
+d = criarArranjoAssociativo[] .
+
+i = 0 .
+enquanto i < a.comprimento repetir incrementando i {
+	a[i] = ( i + 1 ) * 5 .
+}
+
+i = 0 .
+enquanto i < b.comprimento repetir incrementando i {
+	j = 0 .
+	enquanto j < b[i].comprimento repetir incrementando j {
+		se i é igual a j então {
+			b[i][j] = 1 .
+		} senão {
+			b[i][j] = 0 .
+		}
+	}
+}
+
+i = 0 .
+enquanto i < c.comprimento repetir incrementando i {
+	j = 0 .
+	enquanto j < c[i].comprimento repetir incrementando j {
+		k = 0 .
+		enquanto k < c[i][j].comprimento repetir incrementando k {
+			se i é igual a j E j é igual a k então {
+				c[i][j][k] = 1 .
+			} senão {
+				c[i][j][k] = 0 .
+			}
+		}
+	}
+}
+
+textoA = "" .
+i = 0 .
+enquanto i < a.comprimento repetir incrementando i {
+	se i é diferente de 0 então {
+		textoA += ", " .
+	}
+	textoA += a[i] .
+}
+
+textoB = "" .
+i = 0 .
+enquanto i < b.comprimento repetir incrementando i {
+	se i é diferente de 0 então {
+		textoB += "\n  " .
+	}
+	j = 0 .
+	t = "" .
+	enquanto j < b[i].comprimento repetir incrementando j {
+		se j é diferente de 0 então {
+			t += ", " .
+		}
+		t += b[i][j] .
+	}
+	textoB += "[ " + t + " ]" .
+}
+
+textoC = "" .
+i = 0 .
+enquanto i < c.comprimento repetir incrementando i {
+	j = 0 .
+	textoC += "    [" .
+	enquanto j < c[i].comprimento repetir incrementando j {	
+		se j é diferente de 0 então {
+			textoC += "\n" .
+		} senão {
+			textoC += "" .
+		}
+		k = 0 .
+		t = "" .
+		enquanto k < c[i][j].comprimento repetir incrementando k {
+			se k é diferente de 0 então {
+				t += ", " .
+			}
+			t += c[i][j][k] .
+		}
+		se j é diferente de 0 então {
+			textoC += "     " .
+		}
+		textoC += " [ " + t + " ] " .
+	}
+	textoC += "]" .
+	se i é diferente de d - 1 então {
+		textoC += "," .
+	}
+	textoC += "\n" .
+}
+
+escrever "[ " + textoA + " ]" pulando linha na saída .
+escrever "\n[ " + textoB + " ]" pulando linha na saída .
+escrever "\n[\n" + textoC + " ]" pulando linha na saída .

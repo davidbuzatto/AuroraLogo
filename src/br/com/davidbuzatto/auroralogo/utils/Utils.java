@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.utils;
 
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.novoInteiro;
 import java.awt.Color;
 import java.awt.Component;
@@ -34,7 +35,9 @@ import java.awt.image.WritableRaster;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.prefs.Preferences;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
@@ -54,6 +57,7 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
  * 
  * @author Prof. Dr. David Buzatto
  */
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class Utils {
     
     private static final String PREFERENCES_PATH = "br.com.davidbuzatto.auroralogo";
@@ -331,7 +335,7 @@ public class Utils {
                 tamanhoAtual  = 1;
             }
             
-            Object[] novoSubArray = new Object[tamanhoAtual ];
+            Object[] novoSubArray = new Object[tamanhoAtual];
             
             for ( int i = 0; i < tamanhoAtual ; i++ ) {
                 if ( tracar ) {
@@ -434,6 +438,104 @@ public class Utils {
         
     }
     
+    public static String toStringArranjo( Object[] arranjo ) {
+        StringBuilder sb = new StringBuilder();
+        toStringArranjo( arranjo, sb );
+        return sb.toString();
+    }
+    
+    private static void toStringArranjo( Object[] arranjo, StringBuilder sb ) {
+        
+        boolean primeiro = true;
+        sb.append( "[" );
+        
+        for ( Object o : arranjo ) {
+            if ( !primeiro ) {
+                sb.append( ", " );
+            }
+            if ( o instanceof Object[] ) {
+                toStringArranjo( (Object[]) o, sb );
+            } else {
+                if ( o instanceof String ) {
+                    sb.append( "\"" + o.toString() + "\"" );
+                } else if ( o instanceof Character ) {
+                    sb.append( "'" + o.toString() + "'" );
+                } else if ( o instanceof Valor ) {
+                    Valor v = (Valor) o;
+                    if ( v.isString() ) {
+                        sb.append( "\"" + v + "\"" );
+                    } else if ( v.isCaractere() ) {
+                        sb.append( "'" + v + "'" );
+                    } else if ( v.isArranjoAssociativo() ) {
+                        sb.append( toStringArranjoAssociativo( v ) );
+                    } else {
+                        sb.append( v.toString() );
+                    }
+                } else {
+                    sb.append( o.toString() );
+                }
+            }
+            primeiro = false;
+        }
+        
+        sb.append( "]" );
+        
+    }
+    
+    public static String toStringArranjoAssociativo( Valor v ) {
+        
+        StringBuilder sb = new StringBuilder();
+        
+        if ( v.isArranjoAssociativo() ) {
+            
+            LinkedHashMap<String, Object> mapa = (LinkedHashMap<String, Object>) v.getValor();
+            sb.append( "{" );
+            
+            boolean primeiro = true;
+            for ( Entry<String, Object> e : mapa.entrySet() ) {
+                
+                if ( !primeiro ) {
+                    sb.append( ", " );
+                }
+                
+                sb.append( "\"" + e.getKey() + "\"=" );
+                Object o = e.getValue();
+                
+                if ( o instanceof Object[] ) {
+                    toStringArranjo( (Object[]) o, sb );
+                } else {
+                    if ( o instanceof String ) {
+                        sb.append( "\"" + o.toString() + "\"" );
+                    } else if ( o instanceof Character ) {
+                        //sb.append( "'" + o.toString() + "'" );
+                    } else if ( o instanceof Valor ) {
+                        Valor vv = (Valor) o;
+                        if ( vv.isString() ) {
+                            sb.append( "\"" + vv + "\"" );
+                        } else if ( vv.isCaractere() ) {
+                            sb.append( "'" + vv + "'" );
+                        } else if ( vv.isArranjoAssociativo() ) {
+                            sb.append( toStringArranjoAssociativo( vv ) );
+                        } else {
+                            sb.append( vv.toString() );
+                        }
+                    } else {
+                        sb.append( o.toString() );
+                    }
+                }
+                
+                primeiro = false;
+            }
+            
+            sb.append( "}" );
+            
+        }
+        
+        System.out.println( sb );
+        return sb.toString();
+        
+    }
+    
     public static String getPref( String key ) {
         return PREFS.get( key, "" );
     }
@@ -483,7 +585,7 @@ public class Utils {
     }
     
     public static void main( String[] args ) {
-        System.out.println( toUnicodeScape( 'á' ) );
+        System.out.println( toUnicodeScape( 'ç' ) );
     }
     
 }

@@ -1,9 +1,14 @@
 Implementação:
-    - Cores como tipos primitivos -> verificar operações
-    - Arrays;
+    - Verificar os valores booleanos nas expressões (precisa ficar mesmo no ID?);
+    - Arrays: estrutura de repetição para percorrer array simples (tipo foreach);
+    - Depurador: permitir clicar nos valores grandes?
+    - Redimensionar painel de saída;
+    - Métodos simples para strings;
+    - Cores como tipos primitivos -> verificar operações;
     - Sobre e ajuda;
-    - Exemplos de código;
+    - TADs;
     - Funções definidas pelo usuário;
+    - Exemplos de código;
     - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
       comparando com a linha errada;
 

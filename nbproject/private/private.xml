@@ -4,15 +4,14 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/ComponenteVisitorAtribuicao.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/sh/Separador.java</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/TODO.txt</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testes.aulg</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/Tartaruga.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testesArranjosAssociativos.aulg</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/Valor.java</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/ComponenteVisitorFatores.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/AuroraLogoDesenhistaVisitor.java</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/gramatica/AuroraLogo.g4</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testesArranjos.aulg</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/utils/Utils.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/JanelaPrincipal.java</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/ComponenteVisitorArranjos.java</file>
         </group>
     </open-files>

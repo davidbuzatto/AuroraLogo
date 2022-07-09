@@ -22,12 +22,16 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 
 /**
- *
+ * Implementação dos métodos de visita para tratamento dos fatores.
+ * 
  * @author Prof. Dr. David Buzatto
  */
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ComponenteVisitorFatores {
     
     private Tartaruga tartaruga;
@@ -87,10 +91,83 @@ public class ComponenteVisitorFatores {
                 indices.add( vIndice.valorInteiro() );
             }
             
-            Object valorP = v.valorArranjo( indices.toArray( Integer[]::new ) );
+            Integer[] aInd = indices.toArray( Integer[]::new );
+            Object valorP = v.valorArranjo( aInd );
             
-            v = novoValor( valorP );
+            if ( ctx.COMP() != null ) {
+                if ( valorP instanceof Object[] ) {
+                    v = novoInteiro( ( (Object[]) valorP ).length );
+                } else {
+                    v = ZERO_INTEIRO;
+                }
+            } else {
+                v = novoValor( valorP );
+            }
             
+        } else if ( v.isArranjoAssociativo() ) {
+            
+            ExprContext e = ctx.expr( 0 );
+            
+            if ( e != null ) {
+                
+                String chave = visitor.visit( e ).valorString();
+                Object valorP = v.valorArranjoAssociativo( chave );
+                
+                if ( ctx.COMP() != null ) {
+                    
+                    if ( valorP instanceof Valor ) {
+                        Valor vo = (Valor) valorP;
+                        if ( vo.isArranjo() ) {
+                            v = novoInteiro( ( (Object[]) vo.getValor() ).length );
+                        } else {
+                            v = ZERO_INTEIRO;
+                        }
+                    } else {
+                        v = ZERO_INTEIRO;
+                    }
+                    
+                } else if ( ctx.CHAV() != null ) {
+                    
+                    
+                    
+                }else {
+                    v = novoValor( valorP );
+                }
+                
+            } else {
+                
+                if ( ctx.COMP() != null ) {
+                    v = novoInteiro( ( (LinkedHashMap<String, Object>) v.getValor() ).keySet().size() );
+                } else if ( ctx.CHAV() != null ) {
+                    
+                    /*List<String> chaves = new ArrayList<>();
+                    
+                    for ( String chave : ( (LinkedHashMap<String, Object>) v.getValor() ).keySet() ) {
+                        chaves.add( chave );
+                    }
+                    
+                    v = novoArranjo( chaves.toArray( String[]::new ) );*/
+                    
+                    Set<String> keySet = ( (LinkedHashMap<String, Object>) v.getValor() ).keySet();
+                    Valor[] chaves = new Valor[keySet.size()];
+                    
+                    int i = 0;
+                    for ( String chave : keySet ) {
+                        chaves[i++] = novaString( chave );
+                    }
+                    
+                    v = novoArranjo( chaves );
+                    
+                }
+                
+            }
+            
+        } else {
+            if ( ctx.COMP() != null ) {
+                v = ZERO_INTEIRO;
+            } else if ( ctx.CHAV() != null ) {
+                v = ZERO_INTEIRO;
+            }
         }
         
         return v;

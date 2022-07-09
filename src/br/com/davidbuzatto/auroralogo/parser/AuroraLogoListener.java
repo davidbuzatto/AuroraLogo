@@ -210,6 +210,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code fatorRepeticao}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorRepeticao}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -311,6 +323,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRepetir(AuroraLogoParser.RepetirContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#repeticao}.
+	 * @param ctx the parse tree
+	 */
+	void enterRepeticao(AuroraLogoParser.RepeticaoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#repeticao}.
+	 * @param ctx the parse tree
+	 */
+	void exitRepeticao(AuroraLogoParser.RepeticaoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#repetirEnquanto}.
 	 * @param ctx the parse tree

@@ -23,7 +23,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Implementação dos métodos de visita para os arranjos.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorArranjos {

@@ -31,7 +31,8 @@ import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
 
 /**
- *
+ * Implementação dos métodos de visita para lidar com entrada e saída.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorEntradaSaida {
@@ -58,11 +59,11 @@ public class ComponenteVisitorEntradaSaida {
         
         Valor v = visitor.visit( ctx.expr() );
         
-        if ( v.isBooleano() ) {
+        //if ( v.isBooleano() ) {
             textoSaida = String.valueOf( v );
-        } else {
-            textoSaida = String.valueOf( v.getValor() );
-        }
+        //} else {
+        //    textoSaida = String.valueOf( v.getValor() );
+        //}
         
         if ( ctx.PUL() != null ) {
             textoSaida += "\n";

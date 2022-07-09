@@ -23,7 +23,8 @@ import java.util.Locale;
 import java.util.Random;
 
 /**
- *
+ * Implementação dos métodos de visita para as funções matemáticas.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorFuncoesMatematicas {

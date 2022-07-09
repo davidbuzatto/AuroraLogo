@@ -1,0 +1,11 @@
+d = criarArranjoAssociativo{} .
+d["teste2"] = "x" .
+d["teste"] = criarArray[20] .
+
+
+c = d.chaves .
+
+i = 0 .
+enquanto i < c.comprimento repetir incrementando i {
+	escrever d[c[i]] na saída .
+}

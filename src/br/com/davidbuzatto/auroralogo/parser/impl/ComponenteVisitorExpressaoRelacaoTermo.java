@@ -21,7 +21,8 @@ import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- *
+ * Implementação dos métodos de visita para tratamento de expressões.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorExpressaoRelacaoTermo {

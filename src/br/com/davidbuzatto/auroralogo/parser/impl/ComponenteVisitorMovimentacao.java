@@ -21,7 +21,8 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 
 /**
- *
+ * Implementação dos métodos de visita para as instruções de movimentação.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorMovimentacao {

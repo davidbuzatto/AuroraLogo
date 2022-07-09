@@ -276,6 +276,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "c\u00FAbica" | 
 "caminho " | 
 "caminho" | 
+"chaves " | 
+"chaves" | 
 "ciano " | 
 "ciano" | 
 "cima " | 
@@ -286,6 +288,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "claro" | 
 "com " | 
 "com" | 
+"comprimento " | 
+"comprimento" | 
 "continuar " | 
 "continuar" | 
 "contorno " | 
@@ -294,8 +298,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "cor" | 
 "criarArranjo " | 
 "criarArranjo" | 
-"criarArranjoAssocitivo " | 
-"criarArranjoAssocitivo" | 
+"criarArranjoAssociativo " | 
+"criarArranjoAssociativo" | 
 "criarArray " | 
 "criarArray" | 
 "criarArrayAssociativo " | 
@@ -394,6 +398,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "pulando" | 
 "quadr\u00E1tica " | 
 "quadr\u00E1tica" | 
+"repeti\u00E7\u00E3o " | 
+"repeti\u00E7\u00E3o" | 
 "repetir " | 
 "repetir" | 
 "rosa " | 

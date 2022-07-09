@@ -26,11 +26,12 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
-import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 
 /**
- *
+ * Implementação dos métodos de visita para os construtor condicionais e de
+ * repetição.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorConstrutos {
@@ -313,6 +314,8 @@ public class ComponenteVisitorConstrutos {
         
         for ( int i = 0; i < quantidade; i++ ) {
             
+            tartaruga.inserirOuAtualizarMemoria( "repetição", novoInteiro( i + 1 ) );
+            
             if ( !breakExt ) {
             
                 for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
@@ -380,8 +383,14 @@ public class ComponenteVisitorConstrutos {
             
         }
         
+        tartaruga.removerDaMemoria( "repetição" );
+        
         return NULO;
         
+    }
+    
+    public Valor visitRepeticao( AuroraLogoParser.RepeticaoContext ctx ) {
+        return tartaruga.lerMemoria( "repetição" );
     }
     
     public Valor visitRepetirEnquanto( AuroraLogoParser.RepetirEnquantoContext ctx ) {

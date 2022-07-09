@@ -22,7 +22,8 @@ import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.Color;
 
 /**
- *
+ * Implementação dos métodos de visita para lidar com cores.
+ * 
  * @author Prof. Dr. David Buzatto
  */
 public class ComponenteVisitorCor {

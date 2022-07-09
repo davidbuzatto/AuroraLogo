@@ -233,7 +233,6 @@ public class Valor {
         return tipo == Tipo.COR && valor != null ? (Color) valor : Color.BLACK ;
     }
     
-    
     public Object valorArranjo( Integer... indices ) {
         
         Object v = valor;
@@ -349,11 +348,13 @@ public class Valor {
             String novo = String.valueOf( this.valor );
             String concat = String.valueOf( valor );
             
-            if ( valor.isString() || valor.isCaractere() ) {
+            /*if ( valor.isString() || valor.isCaractere() ) {
                 novo += concat.substring( 1, concat.length() - 1 );
             } else {
                 novo += concat;
-            }
+            }*/
+            
+            novo += concat;
             
             this.valor = novo; 
         }
@@ -442,11 +443,6 @@ public class Valor {
     
     public void setValorArranjo( Object valor, Integer... indices ) {
         
-        for ( int i : indices ) {
-            System.out.print( i + " ");
-        }
-        System.out.println( "-> " + valor );
-        
         Object v = this.valor;
         
         if ( tipo == Tipo.ARRANJO ) {
@@ -454,7 +450,6 @@ public class Valor {
             for ( int i = 0; i < indices.length - 1; i++ ) {
                 
                 int indice = indices[i];
-                System.out.println( "processando: " + indice );
                 
                 if ( v instanceof Object[] ) {
                     
@@ -483,28 +478,49 @@ public class Valor {
         
     }
     
+    public void setValorArranjoAssociativo( String chave, Object valor ) {
+        
+        if ( tipo == Tipo.ARRANJO_ASSOCIATIVO ) {
+            ( (LinkedHashMap<String, Object>) this.valor ).put( chave, valor );
+        }
+        
+    }
+    
     @Override
     public String toString() {
         
         switch ( tipo ) {
-            case BOOLEANO:
-                if ( (Boolean) valor ) {
-                    return "VERDADEIRO";
-                }
-                return "FALSO";
-            case CARACTERE:
-                return "'" + String.valueOf( valor ) + "'";
-            case STRING:
-                return "\"" + String.valueOf( valor ) + "\"";
-            case NULO:
-                return "NULO";
+            case INTEIRO:
+                return String.valueOf( valor );
             case DECIMAL:
                 if ( ( (Double) valor ).isNaN() ) {
                     return "NaN (Não-Número)";
                 }
                 return String.format( Locale.US, "%.3f", (Double) valor );
+            case BOOLEANO:
+                if ( (Boolean) valor ) {
+                    return "VERDADEIRO";
+                }
+                return "FALSO";
+            /*case CARACTERE:
+                return "'" + String.valueOf( valor ) + "'";
+            case STRING:
+                return "\"" + String.valueOf( valor ) + "\"";*/
+            case CARACTERE:
+                return String.valueOf( valor );
+            case STRING:
+                return String.valueOf( valor );
+            case COR:
+                return Utils.colorParaHexa( (Color) valor );
+            case ARRANJO:
+                return Utils.toStringArranjo( (Object[]) valor );
+            case ARRANJO_ASSOCIATIVO:
+                return Utils.toStringArranjoAssociativo( this );
+            case NULO:
+                return "NULO";
             default:
                 return String.valueOf( valor );
+                
         }
         
     }
@@ -578,8 +594,6 @@ public class Valor {
     
     // analisa o parâmetro e retorna o valor correto dependendo do tipo
     public static Valor novoValor( Object o ) {
-        
-        System.out.println( o );
         
         if ( o == null ) {
             return NULO;

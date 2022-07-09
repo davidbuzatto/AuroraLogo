@@ -1,98 +1,29 @@
-d = 5 .
+k = 10 .
+a = criarArranjo[10] .
+b = criarArranjo[10][5] .
+c = criarArranjo[10][5][7] .
 
-a = criarArranjo[d] .
-b = criarArranjo[d][d] .
-c = criarArranjo[d][d][d] .
+escrever "k:" pulando linha na saída .
+escrever k.comprimento pulando linha na saída .
+escrever "\n\n" na saída .
 
-i = 0 .
-enquanto i < d repetir incrementando i {
-	a[i] = ( i + 1 ) * 5 .
-}
+escrever "a:" pulando linha na saída .
+escrever a.comprimento pulando linha na saída .
+escrever a[0].comprimento pulando linha na saída .
+escrever a na saída pulando linha .
+escrever "\n\n" na saída .
 
-i = 0 .
-enquanto i < d repetir incrementando i {
-	j = 0 .
-	enquanto j < d repetir incrementando j {
-		se i é igual a j então {
-			b[i][j] = 1 .
-		} senão {
-			b[i][j] = 0 .
-		}
-	}
-}
+escrever "b:" pulando linha na saída .
+escrever b.comprimento pulando linha na saída .
+escrever b[0].comprimento pulando linha na saída .
+escrever b[0][0].comprimento pulando linha na saída .
+escrever b[0][0][0].comprimento pulando linha na saída .
+escrever "\n\n" na saída .
 
-i = 0 .
-enquanto i < d repetir incrementando i {
-	j = 0 .
-	enquanto j < d repetir incrementando j {
-		k = 0 .
-		enquanto k < d repetir incrementando k {
-			se i é igual a j E j é igual a k então {
-				c[i][j][k] = 1 .
-			} senão {
-				c[i][j][k] = 0 .
-			}
-		}
-	}
-}
-
-textoA = "" .
-i = 0 .
-enquanto i < d repetir incrementando i {
-	se i é diferente de 0 então {
-		textoA += ", " .
-	}
-	textoA += a[i] .
-}
-
-textoB = "" .
-i = 0 .
-enquanto i < d repetir incrementando i {
-	se i é diferente de 0 então {
-		textoB += "\n  " .
-	}
-	j = 0 .
-	t = "" .
-	enquanto j < d repetir incrementando j {
-		se j é diferente de 0 então {
-			t += ", " .
-		}
-		t += b[i][j] .
-	}
-	textoB += "[ " + t + " ]" .
-}
-
-textoC = "" .
-i = 0 .
-enquanto i < d repetir incrementando i {
-	j = 0 .
-	textoC += "    [" .
-	enquanto j < d repetir incrementando j {	
-		se j é diferente de 0 então {
-			textoC += "\n" .
-		} senão {
-			textoC += "" .
-		}
-		k = 0 .
-		t = "" .
-		enquanto k < d repetir incrementando k {
-			se k é diferente de 0 então {
-				t += ", " .
-			}
-			t += c[i][j][k] .
-		}
-		se j é diferente de 0 então {
-			textoC += "     " .
-		}
-		textoC += " [ " + t + " ] " .
-	}
-	textoC += "]" .
-	se i é diferente de d - 1 então {
-		textoC += "," .
-	}
-	textoC += "\n" .
-}
-
-escrever "[ " + textoA + " ]" pulando linha na saída .
-escrever "\n[ " + textoB + " ]" pulando linha na saída .
-escrever "\n[\n" + textoC + " ]" pulando linha na saída .
+escrever "c:" pulando linha na saída .
+escrever c.comprimento pulando linha na saída .
+escrever c[0].comprimento pulando linha na saída .
+escrever c[0][0].comprimento pulando linha na saída .
+escrever c[0][0][0].comprimento pulando linha na saída .
+escrever c[0][0][0][0].comprimento pulando linha na saída .
+escrever "\n\n" na saída .

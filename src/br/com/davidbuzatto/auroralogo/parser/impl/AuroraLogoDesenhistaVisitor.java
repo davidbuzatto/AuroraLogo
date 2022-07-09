@@ -313,10 +313,15 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     }
 
     @Override
+    public Valor visitRepeticao( AuroraLogoParser.RepeticaoContext ctx ) {
+        return cvConstrutos.visitRepeticao( ctx );
+    }
+    
+    @Override
     public Valor visitRepetirEnquanto( AuroraLogoParser.RepetirEnquantoContext ctx ) {
         return cvConstrutos.visitRepetirEnquanto( ctx );
     }
-
+    
     @Override
     public Valor visitParar( AuroraLogoParser.PararContext ctx ) {
         return cvConstrutos.visitParar( ctx );

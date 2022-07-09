@@ -232,6 +232,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorParenteses(AuroraLogoParser.FatorParentesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -347,6 +359,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRepetir(AuroraLogoParser.RepetirContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRepeticao(AuroraLogoParser.RepeticaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRepeticao(AuroraLogoParser.RepeticaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

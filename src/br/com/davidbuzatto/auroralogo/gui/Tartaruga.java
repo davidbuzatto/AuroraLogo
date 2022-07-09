@@ -438,7 +438,12 @@ public class Tartaruga {
     
     public Valor lerMemoria( String id ) {
         Estado e = getEstadoFinal();
-        return e.memoria.getOrDefault(id, Valor.NULO );
+        return e.memoria.getOrDefault( id, Valor.NULO );
+    }
+    
+    public Valor removerDaMemoria( String id ) {
+        Estado e = getEstadoFinal();
+        return e.memoria.remove( id );
     }
     
     public void desenhar( Graphics2D g2d ) {
@@ -610,7 +615,7 @@ public class Tartaruga {
                 g2d.setColor( corTexto );
                 g2d.drawRect( 115, yAtual - 9, 10, 10 );
                 
-                g2d.drawString( "(" + Utils.colorParaHexa( (Color) valores[i] )+ ")", 130, yAtual );
+                g2d.drawString( "(" + Utils.colorParaHexa( (Color) valores[i] ) + ")", 130, yAtual );
         
             } else {
                 
@@ -637,6 +642,10 @@ public class Tartaruga {
             String completo = nome + ": ";
             if ( e.getValue().isCor() ) {
                 completo += "  (" + Utils.colorParaHexa( e.getValue().valorCor() )+ ")";
+            } else if ( e.getValue().isString() ) {
+                completo += "\"" + e.getValue() + "\"";
+            } else if ( e.getValue().isCaractere() ) {
+                completo += "'" + e.getValue() + "'";
             } else {
                 completo += e.getValue();
             }
