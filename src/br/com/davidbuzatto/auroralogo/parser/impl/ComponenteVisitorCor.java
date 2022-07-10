@@ -19,6 +19,7 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 
 /**
@@ -140,16 +141,7 @@ public class ComponenteVisitorCor {
     }
 
     public Valor visitCor( AuroraLogoParser.CorContext ctx ) {
-        
-        Color cor = Color.decode( ctx.CHEX().getText().substring( 0, 7 ) );
-            
-        if ( ctx.CHEX().getText().length() == 9 ) {
-            String alpha = ctx.CHEX().getText().substring( 7 );
-            cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
-        }
-        
-        return novaCor( cor );
-        
+        return novaCor( Utils.decodificarCor( ctx.CHEX().getText() ) );
     }
     
 }

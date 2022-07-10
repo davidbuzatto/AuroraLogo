@@ -22,6 +22,7 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
 import java.util.List;
@@ -59,11 +60,7 @@ public class ComponenteVisitorEntradaSaida {
         
         Valor v = visitor.visit( ctx.expr() );
         
-        //if ( v.isBooleano() ) {
-            textoSaida = String.valueOf( v );
-        //} else {
-        //    textoSaida = String.valueOf( v.getValor() );
-        //}
+        textoSaida = String.valueOf( v );
         
         if ( ctx.PUL() != null ) {
             textoSaida += "\n";
@@ -74,6 +71,7 @@ public class ComponenteVisitorEntradaSaida {
         } else if ( ctx.NO() != null ) {
             
             JTextPane tp = new JTextPane();
+            tp.setFont( new Font( "Consolas", 0, 13 ) );
             tp.setEditable( false );
             tp.setBackground( Utils.gerarComponenteGradiente( tartaruga.getCor(), Color.WHITE, 0.9 ) );
             tp.setBorder( new LineBorder( Utils.gerarComponenteGradiente( tartaruga.getCor(), Color.BLACK, 0.5 ) ) );
@@ -126,7 +124,10 @@ public class ComponenteVisitorEntradaSaida {
                             valor = FALSO;
                             break;
                         default:
-                            if ( v.length() == 3 && v.startsWith( "'" ) && v.endsWith( "'" ) ) {
+                            if ( v.startsWith( "#" ) ) {
+                                valor = novaCor( Utils.decodificarCor( v ) );
+                                break;
+                            } else if ( v.length() == 3 && v.startsWith( "'" ) && v.endsWith( "'" ) ) {
                                 valor = novoCaractere( v.charAt( 1 ) );
                                 break;
                             }

@@ -102,6 +102,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorString(AuroraLogoParser.FatorStringContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code fatorBool}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorBool(AuroraLogoParser.FatorBoolContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code fatorCor}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -149,12 +156,6 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitExprBool(AuroraLogoParser.ExprBoolContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#fatorBool}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitFatorBool(AuroraLogoParser.FatorBoolContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#se}.
 	 * @param ctx the parse tree
@@ -209,6 +210,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitRepetirEnquanto(AuroraLogoParser.RepetirEnquantoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#paraCada}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitParaCada(AuroraLogoParser.ParaCadaContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#parar}.
 	 * @param ctx the parse tree

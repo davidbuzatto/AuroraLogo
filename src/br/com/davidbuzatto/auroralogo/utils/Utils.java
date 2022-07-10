@@ -317,6 +317,32 @@ public class Utils {
         
     }
     
+    public static Color decodificarCor( String strCor ) {
+        
+        try {
+            
+            if ( strCor.length() >= 7 ) {
+                
+                Color cor = Color.decode( strCor.substring( 0, 7 ) );
+
+                if ( strCor.length() == 9 ) {
+                    String alpha = strCor.substring( 7 );
+                    cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
+                }
+
+                return cor;
+                
+            }
+            
+            return Color.BLACK;
+            
+        } catch ( Exception exc )  {
+            exc.printStackTrace();
+            return Color.BLACK;
+        }
+        
+    }
+    
     /*
      * Cria um array de dimensões especificada no vararg "dimensoes".
      */
@@ -531,7 +557,6 @@ public class Utils {
             
         }
         
-        System.out.println( sb );
         return sb.toString();
         
     }

@@ -289,7 +289,7 @@ public class Valor {
         
     }
     
-    public int valorIdParar() {
+    public Integer valorIdParar() {
         
         if ( tipo == Tipo.PARAR ) {
             return (Integer) valor;
@@ -299,7 +299,7 @@ public class Valor {
         
     }
     
-    public int valorIdContinuar() {
+    public Integer valorIdContinuar() {
         
         if ( tipo == Tipo.CONTINUAR ) {
             return (Integer) valor;

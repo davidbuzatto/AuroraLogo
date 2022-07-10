@@ -20,6 +20,7 @@ import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -75,9 +76,9 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
         
-        if ( ctx.fatorBool() != null ) {
+        /*if ( ctx.fatorBool() != null ) {
             return visitor.visit( ctx.fatorBool() );
-        }
+        }*/
         
         String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
@@ -190,17 +191,7 @@ public class ComponenteVisitorFatores {
     }
     
     public Valor visitFatorCor( AuroraLogoParser.FatorCorContext ctx ) {
-        
-        String strCor = ctx.cor().CHEX().getText();
-        Color cor = Color.decode( strCor.substring( 0, 7 ) );
-            
-        if ( strCor.length() == 9 ) {
-            String alpha = strCor.substring( 7 );
-            cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
-        }
-        
-        return novaCor( cor );
-        
+        return novaCor( Utils.decodificarCor( ctx.cor().CHEX().getText() ) );
     }
     
     public Valor visitFatorParenteses( AuroraLogoParser.FatorParentesesContext ctx ) {

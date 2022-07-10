@@ -22,8 +22,11 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
+import java.awt.Font;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Set;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
@@ -584,6 +587,178 @@ public class ComponenteVisitorConstrutos {
         
     }
     
+    public Valor visitParaCada( AuroraLogoParser.ParaCadaContext ctx ) {
+        
+        int id = ++idInstrucaoParavel;
+        boolean breakExt = false;
+        
+        String idElemento = ctx.ID( 0 ).getText();
+        String idArranjo = ctx.ID( 1 ).getText();
+        
+        if ( !idElemento.equals( idArranjo ) ) {
+            
+            Valor arranjo = tartaruga.lerMemoria( idArranjo );
+            
+            if ( arranjo.isArranjo() ) {
+                
+                Object[] valores = (Object[]) arranjo.getValor();
+                
+                for ( Object valor : valores ) {
+                    
+                    if ( !breakExt ) {
+                        
+                        Valor valorElemento = novoValor( valor );
+                        tartaruga.inserirOuAtualizarMemoria( idElemento, valorElemento );
+
+                        for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
+                            
+                            if ( c.ains() != null ) { 
+                                
+                                if ( c.ains().parar() != null  ) {
+
+                                    // se for um parar do corpo da instrução
+                                    Valor p = visitor.visit( c.ains().parar() );
+
+                                    // se o id bater, para essa instrução
+                                    if ( p.valorIdParar() == id ) {
+                                        breakExt = true;
+                                        break;
+                                    }
+
+                                } else if ( c.ains().continuar() != null  ) {
+
+                                    // se for um continuar do corpo da instrução
+                                    Valor con = visitor.visit( c.ains().continuar() );
+
+                                    // se o id bater, continua essa instrução matando o for interno
+                                    if ( con.valorIdContinuar() == id ) {
+                                        break;
+                                    }
+
+                                } else {
+                                    visitor.visit( c );
+                                }
+
+                            } else {
+
+                                Valor v = visitor.visit( c );
+
+                                if ( v != null ) { 
+
+                                    // se for um parar indireto, propagado de um se
+                                    if ( v.isParar() ) {
+
+                                        // se o id bater, para essa instrução
+                                        if ( v.valorIdParar() == id ) {
+                                            breakExt = true;
+                                            break;
+                                        }
+
+                                    } else if ( v.isContinuar() ) {
+
+                                        // se o id bater, continua essa instrução matando o for interno
+                                        if ( v.valorIdContinuar() == id ) {
+                                            break;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+                            
+                        }
+                        
+                    } else {
+                        break;
+                    }
+                    
+                }
+                
+            } else if ( arranjo.isArranjoAssociativo() ) {
+                
+                Set<String> chaves = ( (LinkedHashMap<String, Object>) arranjo.getValor() ).keySet();
+                
+                for ( Object chave : chaves ) {
+                    
+                    if ( !breakExt ) {
+                        
+                        Valor chaveElemento = novoValor( chave );
+                        tartaruga.inserirOuAtualizarMemoria( idElemento, chaveElemento );
+
+                        for ( AuroraLogoParser.InstContext c : ctx.inst() ) {
+                            
+                            if ( c.ains() != null ) { 
+                                
+                                if ( c.ains().parar() != null  ) {
+
+                                    // se for um parar do corpo da instrução
+                                    Valor p = visitor.visit( c.ains().parar() );
+
+                                    // se o id bater, para essa instrução
+                                    if ( p.valorIdParar() == id ) {
+                                        breakExt = true;
+                                        break;
+                                    }
+
+                                } else if ( c.ains().continuar() != null  ) {
+
+                                    // se for um continuar do corpo da instrução
+                                    Valor con = visitor.visit( c.ains().continuar() );
+
+                                    // se o id bater, continua essa instrução matando o for interno
+                                    if ( con.valorIdContinuar() == id ) {
+                                        break;
+                                    }
+
+                                } else {
+                                    visitor.visit( c );
+                                }
+
+                            } else {
+
+                                Valor v = visitor.visit( c );
+
+                                if ( v != null ) { 
+
+                                    // se for um parar indireto, propagado de um se
+                                    if ( v.isParar() ) {
+
+                                        // se o id bater, para essa instrução
+                                        if ( v.valorIdParar() == id ) {
+                                            breakExt = true;
+                                            break;
+                                        }
+
+                                    } else if ( v.isContinuar() ) {
+
+                                        // se o id bater, continua essa instrução matando o for interno
+                                        if ( v.valorIdContinuar() == id ) {
+                                            break;
+                                        }
+
+                                    }
+
+                                }
+
+                            }
+                            
+                        }
+                        
+                    } else {
+                        break;
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+    
     public Valor visitParar( AuroraLogoParser.PararContext ctx ) {
         return novoParar( idInstrucaoParavel );
     }
@@ -635,6 +810,7 @@ public class ComponenteVisitorConstrutos {
         Color corTexto = Utils.gerarComponenteGradiente( tartaruga.getCor(), Color.BLACK, 0.5 );
         
         JTextPane tp = new JTextPane();
+        tp.setFont( new Font( "Consolas", 0, 13 ) );
         tp.setEditable( false );
         tp.setBackground( corFundo );
         tp.setBorder( new LineBorder( corTexto ) );

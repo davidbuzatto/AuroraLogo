@@ -29,6 +29,7 @@ inst : ains DOT
      | usando
      | repetir
      | repetirEnquanto
+     | paraCada
      | desenharCaminho
      ;
 
@@ -72,27 +73,24 @@ termo    : fator ( ( MUL | VEZS
                    | MOD | MODA      ) fator )*
          ;
 
-fator    : ( NAO | NAOT ) fator                  # fatorNao
-         | INT                                   # fatorInt
-         | DEC                                   # fatorDec
-         | PI                                    # fatorPi
-         | ( fatorBool | ID ( '[' expr ']' )* 
-           ( DOT COMP | DOT CHAV )? )            # fatorId                // atenção, literais booleanos aqui! *********** investigar
-         | CHAR                                  # fatorChar
-         | STRING                                # fatorString 
-         | cor                                   # fatorCor
-         | funcaoMatematica                      # fatorFuncaoMatematica
-         | consultarTartaruga                    # fatorConsultarTartaruga
-         | formatarTexto                         # fatorFormatarTexto
-         | repeticao                             # fatorRepeticao
-         | '(' expr ')'                          # fatorParenteses
+fator    : ( NAO | NAOT ) fator                           # fatorNao
+         | INT                                            # fatorInt
+         | DEC                                            # fatorDec
+         | PI                                             # fatorPi
+         | ID ( '[' expr ']' )* ( DOT COMP | DOT CHAV )?  # fatorId
+         | CHAR                                           # fatorChar
+         | STRING                                         # fatorString 
+         | ( VER | FAL )                                  # fatorBool
+         | cor                                            # fatorCor
+         | funcaoMatematica                               # fatorFuncaoMatematica
+         | consultarTartaruga                             # fatorConsultarTartaruga
+         | formatarTexto                                  # fatorFormatarTexto
+         | repeticao                                      # fatorRepeticao
+         | '(' expr ')'                                   # fatorParenteses
          ;
 
 exprBool : expr
          ;
-
-fatorBool : VER | FAL
-          ;
 
 // regras para os construtos da linguagem
 // se ... senão se ... senão (if ... else if ... else)
@@ -133,6 +131,10 @@ repetirEnquanto   : ( ENQ exprBool )? REP
                     )?
                     '{' inst+ '}'
                   ;
+
+// para cada
+paraCada     : PARA CADA ID EM ID REP '{' inst+ '}'
+             ;
 
 parar        : PARR
              ;
@@ -335,6 +337,7 @@ ABA  : 'abaixar'                 ;
 ABE  : 'ABERTO'                  ;
 ATE  : 'at\u00E9'                ;
 BAI  : 'baixo'                   ;
+CADA : 'cada'                    ;
 CAM  : 'caminho'                 ;
 CHAV : 'chaves'                  ;
 CIM  : 'cima'                    ;

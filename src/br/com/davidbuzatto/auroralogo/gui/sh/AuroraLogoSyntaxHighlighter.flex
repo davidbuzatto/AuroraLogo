@@ -274,6 +274,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "branco" | 
 "c\u00FAbica " | 
 "c\u00FAbica" | 
+"cada " | 
+"cada" | 
 "caminho " | 
 "caminho" | 
 "chaves " | 

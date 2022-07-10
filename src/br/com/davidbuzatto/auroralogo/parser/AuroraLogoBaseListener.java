@@ -184,6 +184,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorBool(AuroraLogoParser.FatorBoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorBool(AuroraLogoParser.FatorBoolContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorCor(AuroraLogoParser.FatorCorContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -263,18 +275,6 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitExprBool(AuroraLogoParser.ExprBoolContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterFatorBool(AuroraLogoParser.FatorBoolContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitFatorBool(AuroraLogoParser.FatorBoolContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -383,6 +383,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitRepetirEnquanto(AuroraLogoParser.RepetirEnquantoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParaCada(AuroraLogoParser.ParaCadaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParaCada(AuroraLogoParser.ParaCadaContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

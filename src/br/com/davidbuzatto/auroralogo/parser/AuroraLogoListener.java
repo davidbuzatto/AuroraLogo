@@ -162,6 +162,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFatorString(AuroraLogoParser.FatorStringContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code fatorBool}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorBool(AuroraLogoParser.FatorBoolContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorBool}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorBool(AuroraLogoParser.FatorBoolContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code fatorCor}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -243,16 +255,6 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitExprBool(AuroraLogoParser.ExprBoolContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#fatorBool}.
-	 * @param ctx the parse tree
-	 */
-	void enterFatorBool(AuroraLogoParser.FatorBoolContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#fatorBool}.
-	 * @param ctx the parse tree
-	 */
-	void exitFatorBool(AuroraLogoParser.FatorBoolContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#se}.
 	 * @param ctx the parse tree
@@ -343,6 +345,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitRepetirEnquanto(AuroraLogoParser.RepetirEnquantoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#paraCada}.
+	 * @param ctx the parse tree
+	 */
+	void enterParaCada(AuroraLogoParser.ParaCadaContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#paraCada}.
+	 * @param ctx the parse tree
+	 */
+	void exitParaCada(AuroraLogoParser.ParaCadaContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#parar}.
 	 * @param ctx the parse tree

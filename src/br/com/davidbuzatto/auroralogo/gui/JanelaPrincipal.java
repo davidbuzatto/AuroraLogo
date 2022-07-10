@@ -181,7 +181,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         atualizarQuadrosPorSegundo();
         
         fontePadrao = textAreaCodigo.getDefaultFont();
-        textPaneSaida.setFont( fontePadrao );
+        //textPaneSaida.setFont( fontePadrao );
 
         filtroExtensao = new FileNameExtensionFilter(
                 "Arquivo AuroraLogo", "aulg" );
@@ -238,6 +238,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         btnGrade = new javax.swing.JToggleButton();
         btnDepurador = new javax.swing.JToggleButton();
         btnCorTartaruga = new javax.swing.JButton();
+        painelSplitTotal = new javax.swing.JSplitPane();
+        painelSplitCodigoSaida = new javax.swing.JSplitPane();
         paineCodigoFonte = new javax.swing.JPanel();
         painelTextAreaCodigo = new javax.swing.JPanel();
         painelSaida = new javax.swing.JPanel();
@@ -277,7 +279,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         separadorMenuExecutar1 = new javax.swing.JPopupMenu.Separator();
         menuItemCBGrade = new javax.swing.JCheckBoxMenuItem();
         menuItemCBDepurador = new javax.swing.JCheckBoxMenuItem();
-        menuExemplos = new javax.swing.JMenu();
         menuTemas = new javax.swing.JMenu();
         menuItemRTemaClaro = new javax.swing.JRadioButtonMenuItem();
         menuItemRTemaEscuro = new javax.swing.JRadioButtonMenuItem();
@@ -286,6 +287,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuItemCorTartaruga = new javax.swing.JMenuItem();
         menuItemTartarugaArcoIris = new javax.swing.JMenuItem();
         menuAjuda = new javax.swing.JMenu();
+        menuExemplos = new javax.swing.JMenu();
+        separadorMenuAjuda1 = new javax.swing.JPopupMenu.Separator();
         menuItemSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
@@ -609,9 +612,12 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         });
         barraFerramentas.add(btnCorTartaruga);
 
+        painelSplitTotal.setDividerLocation(570);
+
+        painelSplitCodigoSaida.setDividerLocation(570);
+        painelSplitCodigoSaida.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
+
         paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código Fonte"));
-        paineCodigoFonte.setMinimumSize(new java.awt.Dimension(570, 551));
-        paineCodigoFonte.setPreferredSize(new java.awt.Dimension(570, 551));
 
         painelTextAreaCodigo.setLayout(new java.awt.BorderLayout());
 
@@ -628,15 +634,17 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paineCodigoFonteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
+                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 535, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
+        painelSplitCodigoSaida.setLeftComponent(paineCodigoFonte);
+
         painelSaida.setBorder(javax.swing.BorderFactory.createTitledBorder("Saída"));
-        painelSaida.setMinimumSize(new java.awt.Dimension(570, 180));
 
         scrollPaneSaida.setAutoscrolls(true);
 
+        textPaneSaida.setFont(new java.awt.Font("Consolas", 0, 13)); // NOI18N
         textPaneSaida.setFocusable(false);
         scrollPaneSaida.setViewportView(textPaneSaida);
 
@@ -653,9 +661,13 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             painelSaidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelSaidaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
+                .addComponent(scrollPaneSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 127, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        painelSplitCodigoSaida.setRightComponent(painelSaida);
+
+        painelSplitTotal.setLeftComponent(painelSplitCodigoSaida);
 
         painelDesenhoContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Desenho"));
 
@@ -663,7 +675,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         painelDesenho.setLayout(painelDesenhoLayout);
         painelDesenhoLayout.setHorizontalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 671, Short.MAX_VALUE)
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -686,6 +698,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 .addComponent(painelDesenho, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
+
+        painelSplitTotal.setRightComponent(painelDesenhoContainer);
 
         menuArquivo.setMnemonic('A');
         menuArquivo.setText("Arquivo");
@@ -951,10 +965,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         barraMenu.add(menuExecutar);
 
-        menuExemplos.setMnemonic('p');
-        menuExemplos.setText("Exemplos");
-        barraMenu.add(menuExemplos);
-
         menuTemas.setMnemonic('T');
         menuTemas.setText("Temas");
 
@@ -1018,6 +1028,12 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuAjuda.setMnemonic('j');
         menuAjuda.setText("Ajuda");
 
+        menuExemplos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/book.png"))); // NOI18N
+        menuExemplos.setMnemonic('E');
+        menuExemplos.setText("Exemplos");
+        menuAjuda.add(menuExemplos);
+        menuAjuda.add(separadorMenuAjuda1);
+
         menuItemSobre.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F1, 0));
         menuItemSobre.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/help.png"))); // NOI18N
         menuItemSobre.setMnemonic('S');
@@ -1037,27 +1053,18 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(barraFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(painelSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(painelDesenhoContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(painelSplitTotal)
                 .addContainerGap())
-            .addComponent(barraFerramentas, javax.swing.GroupLayout.DEFAULT_SIZE, 1280, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(barraFerramentas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(paineCodigoFonte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(painelSaida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(painelDesenhoContainer, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(painelSplitTotal)
                 .addContainerGap())
         );
 
@@ -1109,6 +1116,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             btnPararPassoAPassoAutomatico.setEnabled( false );
 
         }
+        
+        painelSplitCodigoSaida.setDividerLocation( 0.78 );
 
     }//GEN-LAST:event_formComponentResized
 
@@ -1617,7 +1626,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testesArranjosAssociativos", true );
+            carregarTemplate( "testesGrande", true );
         }
 
     }
@@ -2112,7 +2121,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             menuArquivo,
             menuEditar,
             menuExecutar,
-            menuExemplos,
             menuTemas,
             menuAjuda,
             btnNovo,
@@ -2381,6 +2389,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private br.com.davidbuzatto.auroralogo.gui.PainelDesenho painelDesenho;
     private javax.swing.JPanel painelDesenhoContainer;
     private javax.swing.JPanel painelSaida;
+    private javax.swing.JSplitPane painelSplitCodigoSaida;
+    private javax.swing.JSplitPane painelSplitTotal;
     private javax.swing.JPanel painelTextAreaCodigo;
     private javax.swing.Box.Filler preenchimento;
     private javax.swing.JScrollPane scrollPaneSaida;
@@ -2389,6 +2399,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JToolBar.Separator separador3;
     private javax.swing.JToolBar.Separator separador4;
     private javax.swing.JToolBar.Separator separador5;
+    private javax.swing.JPopupMenu.Separator separadorMenuAjuda1;
     private javax.swing.JPopupMenu.Separator separadorMenuArquivo1;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar1;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar2;

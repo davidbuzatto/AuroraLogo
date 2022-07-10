@@ -1,29 +1,4 @@
-k = 10 .
-a = criarArranjo[10] .
-b = criarArranjo[10][5] .
-c = criarArranjo[10][5][7] .
-
-escrever "k:" pulando linha na saída .
-escrever k.comprimento pulando linha na saída .
-escrever "\n\n" na saída .
-
-escrever "a:" pulando linha na saída .
-escrever a.comprimento pulando linha na saída .
-escrever a[0].comprimento pulando linha na saída .
-escrever a na saída pulando linha .
-escrever "\n\n" na saída .
-
-escrever "b:" pulando linha na saída .
-escrever b.comprimento pulando linha na saída .
-escrever b[0].comprimento pulando linha na saída .
-escrever b[0][0].comprimento pulando linha na saída .
-escrever b[0][0][0].comprimento pulando linha na saída .
-escrever "\n\n" na saída .
-
-escrever "c:" pulando linha na saída .
-escrever c.comprimento pulando linha na saída .
-escrever c[0].comprimento pulando linha na saída .
-escrever c[0][0].comprimento pulando linha na saída .
-escrever c[0][0][0].comprimento pulando linha na saída .
-escrever c[0][0][0][0].comprimento pulando linha na saída .
-escrever "\n\n" na saída .
+ler a .
+escrever a na saída .
+trocar cor do pincel para a .
+vá para direita em 100 .
