@@ -37,11 +37,12 @@ import javax.swing.border.LineBorder;
  * 
  * @author Prof. Dr. David Buzatto
  */
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ComponenteVisitorConstrutos {
     
     // identificador das instruções de repetição (repetir ... vezes, 
-    // enquanto ... repetir) e condicionais (usando .. escolha) usado pela
-    // instruçã "parar" para sinalizar quem deve ser interrompido.
+    // enquanto ... repetir, para cada) e condicionais (usando .. escolha)
+    // usado pela instrução "parar" para sinalizar quem deve ser interrompido.
     private int idInstrucaoParavel;
     
     private Tartaruga tartaruga;

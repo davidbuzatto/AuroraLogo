@@ -299,7 +299,22 @@ criarArranjos       : ( CRA  | CRR  ) ( '[' expr ']' )+  # criarArranjo
                     ;
 
 fragment
-LET : [a-zA-Z] ;
+LETmin  : [a-z];
+
+fragment
+LETmai  : [A-Z];
+
+fragment
+LET     : [a-zA-Z] ;
+
+fragment
+LETAmin : [\u00E1\u00E0\u00E2\u00E3\u00E9\u00EA\u00ED\u00F3\u00F4\u00F5\u00FA\u00FC\u00E7] ;
+
+fragment
+LETAmai : [\u00C1\u00C0\u00C2\u00C3\u00C9\u00CA\u00CD\u00D3\u00D4\u00D5\u00DA\u00DC\u00C7] ;
+
+fragment
+LETA    : [\u00E1\u00E0\u00E2\u00E3\u00E9\u00EA\u00ED\u00F3\u00F4\u00F5\u00FA\u00FC\u00E7\u00C1\u00C0\u00C2\u00C3\u00C9\u00CA\u00CD\u00D3\u00D4\u00D5\u00DA\u00DC\u00C7] ;
 
 fragment
 DIG : [0-9] ;
@@ -549,7 +564,7 @@ NAOT : 'N\u00C3O' ;  // NÃO
 DOT  : '.' ;
 
 // identificadores
-ID   : ( LET | [_$] ) ( LET | DIG | [_$] )* ;
+ID   : 'v' ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;
 
 // literais
 // Obs: CHEX (cor hexa) usa um predicado semântico, 

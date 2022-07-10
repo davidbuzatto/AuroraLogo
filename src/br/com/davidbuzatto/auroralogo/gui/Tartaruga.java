@@ -186,6 +186,10 @@ public class Tartaruga {
     
     private boolean depuradorAtivo;
     private boolean gradeAtiva;
+    private boolean eixosAtivos;
+    private boolean padraoCartesianoAtivo;
+    
+    private static final int ESPACAMENTO_GRADE = 20;
     
     public Tartaruga( 
             double x, double y, double angulo, 
@@ -207,6 +211,14 @@ public class Tartaruga {
         } catch ( IOException exc )  {
         }
         
+    }
+    
+    private int cx() {
+        return painelDesenho.getWidth() / 2;
+    }
+    
+    private int cy() {
+        return painelDesenho.getHeight() / 2;
     }
     
     public void setCor( Color cor ) {
@@ -420,14 +432,35 @@ public class Tartaruga {
     }
     
     public void limpar() {
+        
         Estado e = estados.get( 0 );
-        e.x = painelDesenho.getWidth() / 2;
-        e.y = painelDesenho.getHeight() / 2;
+        
+        if ( padraoCartesianoAtivo ) {
+            e.x = cx();
+            e.y = cy();
+        } else {
+            
+            int x = cx();
+            int y = cy();
+            
+            int kx = x % ESPACAMENTO_GRADE;
+            int ky = y % ESPACAMENTO_GRADE;
+            
+            x += ESPACAMENTO_GRADE - kx;
+            y += ESPACAMENTO_GRADE - ky;
+            
+            e.x = x;
+            e.y = y;
+            
+        }
+        
         e.memoria.clear();
         e.desenhando = true;
+        
         estados.clear();
         estados.add( e );
         estadoAtual = 0;
+        
     }
     
     public void inserirOuAtualizarMemoria( String id, Valor valor ) {
@@ -455,7 +488,7 @@ public class Tartaruga {
         g2d.fillRect( 0, 0, painelDesenho.getWidth(), painelDesenho.getHeight() );
         
         if ( gradeAtiva ) {
-            desenharGrade( g2d, 20 );
+            desenharGradesEEixos( g2d, ESPACAMENTO_GRADE );
         }
             
         if ( estados.size() == 1 || estadoAtual == 0 ) {
@@ -527,26 +560,137 @@ public class Tartaruga {
         
     }
     
-    private void desenharGrade( Graphics2D g2d, int espacamento ) {
+    private void desenharGradesEEixos( Graphics2D g2d, int espacamento ) {
         
         g2d = (Graphics2D) g2d.create();
         
-        g2d.setColor( COR_GRADE );
-        int c = 1;
+        g2d.setFont( fonteDepurador.deriveFont( Font.PLAIN, 10 ) );
         
-        int iniX = painelDesenho.getWidth() / 2;
-        int iniY = painelDesenho.getHeight()/ 2;
+        int iniX = cx();
+        int iniY = cy();
         
-        for ( int i = iniX; i < painelDesenho.getWidth(); i += espacamento ) {
-            g2d.drawLine( i, 0, i, painelDesenho.getHeight() );
-            g2d.drawLine( ( iniX - ( espacamento * c ) ), 0, ( iniX - ( espacamento * c ) ), painelDesenho.getHeight() );
-            c++;
+        double angulo = Math.toRadians( 45 );
+        
+        if ( padraoCartesianoAtivo ) {
+            desenharGradeEEixosPadraoCartesiano( g2d, espacamento, iniX, iniY, COR_GRADE, COR_GRADE.darker() );
+        } else {
+            desenharGradeEEixosPadraoGrafico( g2d, espacamento, angulo, COR_GRADE, COR_GRADE.darker() );
         }
         
+        g2d.dispose();
+        
+    }
+    
+    private void desenharGradeEEixosPadraoCartesiano( 
+            Graphics2D g2d, 
+            int espacamento, 
+            int iniX, int iniY, 
+            Color corGrade, Color corEixos ) {
+        
+        g2d = (Graphics2D) g2d.create();
+        
+        int c = 1;
+            
+        for ( int i = iniX; i < painelDesenho.getWidth(); i += espacamento ) {
+
+            g2d.setColor( corGrade );
+            g2d.drawLine( i, 0, i, painelDesenho.getHeight() );
+            g2d.drawLine( ( iniX - ( espacamento * c ) ), 0, ( iniX - ( espacamento * c ) ), painelDesenho.getHeight() );
+
+            if ( eixosAtivos ) {
+
+                g2d.setColor( corEixos );
+                g2d.drawString( String.valueOf( espacamento * ( c-1 ) ), i+2, iniY - ( c % 2 == 0 ? 3 : -10 ) );
+                g2d.drawLine( i, iniY, i, iniY - ( c % 2 == 0 ? 3 : -3 ) );
+                g2d.drawString( String.valueOf( - ( espacamento * c ) ), ( iniX - ( espacamento * c ) ), iniY - ( c % 2 == 1 ? 3 : -10 ) );
+                g2d.drawLine( ( iniX - ( espacamento * c ) ), iniY, ( iniX - ( espacamento * c ) ), iniY - ( c % 2 == 0 ?  -3 : 3 ) );
+
+            }
+
+            c++;
+
+        }
+
         c = 1;
-        for ( int i = painelDesenho.getHeight() / 2; i < painelDesenho.getHeight(); i += espacamento ) {
+        for ( int i = cy(); i < painelDesenho.getHeight(); i += espacamento ) {
+
+            g2d.setColor( corGrade );
             g2d.drawLine( 0, i, painelDesenho.getWidth(), i );
             g2d.drawLine( 0, ( iniY - ( espacamento * c ) ), painelDesenho.getWidth(), ( iniY - ( espacamento * c ) ) );
+
+            if ( eixosAtivos ) {
+
+                g2d.setColor( corEixos );
+
+                if ( i != iniY ) {
+                    g2d.drawString( String.valueOf( - espacamento * ( c-1 ) ), iniX + 5, i + 3 );
+                    g2d.drawLine( iniX, i, iniX - 3, i );
+                }
+                g2d.drawString( String.valueOf( espacamento * c ), iniX + 5, iniY - ( espacamento * c ) + 3 );
+                g2d.drawLine( iniX, ( iniY - ( espacamento * c ) ), iniX - 3 , ( iniY - ( espacamento * c ) ) );
+
+            }
+
+            c++;
+        }
+
+        if ( eixosAtivos ) {
+
+            g2d.setColor( corEixos );
+
+            g2d.drawLine( 0, iniY, painelDesenho.getWidth(), iniY );
+            g2d.drawLine( iniX, 0, iniX, painelDesenho.getHeight() );
+
+        }
+        
+        g2d.dispose();
+        
+    }
+    
+    private void desenharGradeEEixosPadraoGrafico( 
+            Graphics2D g2d, 
+            int espacamento, double angulo, 
+            Color corGrade, Color corEixos ) {
+        
+        g2d = (Graphics2D) g2d.create();
+        
+        int c = 1;
+            
+        for ( int i = 0; i < painelDesenho.getWidth(); i += espacamento ) {
+
+            g2d.setColor( corGrade );
+            g2d.drawLine( i, 0, i, painelDesenho.getHeight() );
+
+            if ( eixosAtivos ) {
+
+                g2d.setColor( corEixos );
+
+                g2d.rotate( angulo, i+2, 10 );
+                g2d.drawString( String.valueOf( i ), i+2, 10 );
+                g2d.rotate( -angulo, i+2, 10 );
+                g2d.drawLine( i, 0, i, 4 );
+
+            }
+
+            c++;
+
+        }
+
+        c = 1;
+        for ( int i = espacamento; i < painelDesenho.getHeight(); i += espacamento ) {
+
+            g2d.setColor( corGrade );
+            g2d.drawLine( 0, i, painelDesenho.getWidth(), i );
+
+            if ( eixosAtivos ) {
+
+                g2d.setColor( corEixos );
+
+                g2d.drawLine( 0, i, 4, i );
+                g2d.drawString( String.valueOf( i ), 8, i + 3 );
+
+            }
+
             c++;
         }
         
@@ -814,6 +958,22 @@ public class Tartaruga {
     public void setGradeAtiva( boolean gradeAtiva ) {
         this.gradeAtiva = gradeAtiva;
     }
+
+    public boolean isEixosAtivos() {
+        return eixosAtivos;
+    }
+
+    public void setEixosAtivos( boolean eixosAtivos ) {
+        this.eixosAtivos = eixosAtivos;
+    }
+
+    public boolean isPadraoCartesianoAtivo() {
+        return padraoCartesianoAtivo;
+    }
+
+    public void setPadraoCartesianoAtivo( boolean padraoCartesianoAtivo ) {
+        this.padraoCartesianoAtivo = padraoCartesianoAtivo;
+    }
     
     public boolean isDesenhando() {
         return getEstadoFinal().desenhando;
@@ -825,7 +985,7 @@ public class Tartaruga {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Line2D.Double( x1, y1, x2, y2 ), 
-                false, false, "segmento" );
+                true, false, "segmento" );
         estados.add( e );
     }
 

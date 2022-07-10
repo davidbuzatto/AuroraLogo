@@ -42,18 +42,18 @@ desenhar curvaQuadrática( 300, 600, 400, 570, 500, 600 ) preenchida .
 
 desenhar curvaCúbica( 300, 650, 350, 620, 450, 680, 500, 650 ) preenchida .
 
-i = 100 .
+vI = 100 .
 repetir 10 vezes {
     desenhar caminho {
-        mover até ( i, 700 ) .
-        linha até ( i+50, 700 ) . 
-        linha até ( i+50, 670 ) .
-        linha até ( i+100, 700 ) .
-        curva quadrática até ( i+125, 670, i+150, 730 ) .
-        curva cúbica até ( i+160, 720, i+190, 740, i+200, 730 ) . 
-        linha até ( i+210, 750 ) . 
-        linha até ( i+50, 750 ) . 
+        mover até ( vI, 700 ) .
+        linha até ( vI+50, 700 ) . 
+        linha até ( vI+50, 670 ) .
+        linha até ( vI+100, 700 ) .
+        curva quadrática até ( vI+125, 670, vI+150, 730 ) .
+        curva cúbica até ( vI+160, 720, vI+190, 740, vI+200, 730 ) . 
+        linha até ( vI+210, 750 ) . 
+        linha até ( vI+50, 750 ) . 
         //fechar .
     }
-    i += 50 .
+    vI += 50 .
 }

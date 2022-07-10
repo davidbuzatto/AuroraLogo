@@ -1,129 +1,129 @@
-k = 10 .
-a = criarArranjo[10] .
-b = criarArranjo[10][5] .
-c = criarArranjo[10][5][7] .
+vK = 10 .
+vA = criarArranjo[10] .
+vB = criarArranjo[10][5] .
+vC = criarArranjo[10][5][7] .
 
 escrever "k:" pulando linha na saída .
-escrever k.comprimento pulando linha na saída .
+escrever vK.comprimento pulando linha na saída .
 escrever "\n\n" na saída .
 
 escrever "a:" pulando linha na saída .
-escrever a.comprimento pulando linha na saída .
-escrever a[0].comprimento pulando linha na saída .
-escrever a na saída pulando linha .
+escrever vA.comprimento pulando linha na saída .
+escrever vA[0].comprimento pulando linha na saída .
+escrever vA pulando linha na saída .
 escrever "\n\n" na saída .
 
 escrever "b:" pulando linha na saída .
-escrever b.comprimento pulando linha na saída .
-escrever b[0].comprimento pulando linha na saída .
-escrever b[0][0].comprimento pulando linha na saída .
-escrever b[0][0][0].comprimento pulando linha na saída .
+escrever vB.comprimento pulando linha na saída .
+escrever vB[0].comprimento pulando linha na saída .
+escrever vB[0][0].comprimento pulando linha na saída .
+escrever vB[0][0][0].comprimento pulando linha na saída .
 escrever "\n\n" na saída .
 
 escrever "c:" pulando linha na saída .
-escrever c.comprimento pulando linha na saída .
-escrever c[0].comprimento pulando linha na saída .
-escrever c[0][0].comprimento pulando linha na saída .
-escrever c[0][0][0].comprimento pulando linha na saída .
-escrever c[0][0][0][0].comprimento pulando linha na saída .
+escrever vC.comprimento pulando linha na saída .
+escrever vC[0].comprimento pulando linha na saída .
+escrever vC[0][0].comprimento pulando linha na saída .
+escrever vC[0][0][0].comprimento pulando linha na saída .
+escrever vC[0][0][0][0].comprimento pulando linha na saída .
 escrever "\n\n" na saída .
 
 
-t = 5 .
-a = criarArranjo[t] .
-b = criarArranjo[t][t] .
-c = criarArranjo[t][t][t] .
-d = criarArranjoAssociativo[] .
+vT = 5 .
+vA = criarArranjo[vT] .
+vB = criarArranjo[vT][vT] .
+vC = criarArranjo[vT][vT][vT] .
+vD = criarArranjoAssociativo{} .
 
-i = 0 .
-enquanto i < a.comprimento repetir incrementando i {
-	a[i] = ( i + 1 ) * 5 .
+vI = 0 .
+enquanto vI < vA.comprimento repetir incrementando vI {
+	vA[vI] = ( vI + 1 ) * 5 .
 }
 
-i = 0 .
-enquanto i < b.comprimento repetir incrementando i {
-	j = 0 .
-	enquanto j < b[i].comprimento repetir incrementando j {
-		se i é igual a j então {
-			b[i][j] = 1 .
+vI = 0 .
+enquanto vI < vB.comprimento repetir incrementando vI {
+	vJ = 0 .
+	enquanto vJ < vB[vI].comprimento repetir incrementando vJ {
+		se vI é igual a vJ então {
+			vB[vI][vJ] = 1 .
 		} senão {
-			b[i][j] = 0 .
+			vB[vI][vJ] = 0 .
 		}
 	}
 }
 
-i = 0 .
-enquanto i < c.comprimento repetir incrementando i {
-	j = 0 .
-	enquanto j < c[i].comprimento repetir incrementando j {
-		k = 0 .
-		enquanto k < c[i][j].comprimento repetir incrementando k {
-			se i é igual a j E j é igual a k então {
-				c[i][j][k] = 1 .
+vI = 0 .
+enquanto vI < vC.comprimento repetir incrementando vI {
+	vJ = 0 .
+	enquanto vJ < vC[vI].comprimento repetir incrementando vJ {
+		vK = 0 .
+		enquanto vK < vC[vI][vJ].comprimento repetir incrementando vK {
+			se vI é igual a vJ E vJ é igual a vK então {
+				vC[vI][vJ][vK] = 1 .
 			} senão {
-				c[i][j][k] = 0 .
+				vC[vI][vJ][vK] = 0 .
 			}
 		}
 	}
 }
 
-textoA = "" .
-i = 0 .
-enquanto i < a.comprimento repetir incrementando i {
-	se i é diferente de 0 então {
-		textoA += ", " .
+vTextoA = "" .
+vI = 0 .
+enquanto vI < vA.comprimento repetir incrementando vI {
+	se vI é diferente de 0 então {
+		vTextoA += ", " .
 	}
-	textoA += a[i] .
+	vTextoA += vA[vI] .
 }
 
-textoB = "" .
-i = 0 .
-enquanto i < b.comprimento repetir incrementando i {
-	se i é diferente de 0 então {
-		textoB += "\n  " .
+vTextoB = "" .
+vI = 0 .
+enquanto vI < vB.comprimento repetir incrementando vI {
+	se vI é diferente de 0 então {
+		vTextoB += "\n  " .
 	}
-	j = 0 .
-	t = "" .
-	enquanto j < b[i].comprimento repetir incrementando j {
-		se j é diferente de 0 então {
-			t += ", " .
+	vJ = 0 .
+	vT = "" .
+	enquanto vJ < vB[vI].comprimento repetir incrementando vJ {
+		se vJ é diferente de 0 então {
+			vT += ", " .
 		}
-		t += b[i][j] .
+		vT += vB[vI][vJ] .
 	}
-	textoB += "[ " + t + " ]" .
+	vTextoB += "[ " + vT + " ]" .
 }
 
-textoC = "" .
-i = 0 .
-enquanto i < c.comprimento repetir incrementando i {
-	j = 0 .
-	textoC += "    [" .
-	enquanto j < c[i].comprimento repetir incrementando j {	
-		se j é diferente de 0 então {
-			textoC += "\n" .
+vTextoC = "" .
+vI = 0 .
+enquanto vI < vC.comprimento repetir incrementando vI {
+	vJ = 0 .
+	vTextoC += "    [" .
+	enquanto vJ < vC[vI].comprimento repetir incrementando vJ {	
+		se vJ é diferente de 0 então {
+			vTextoC += "\n" .
 		} senão {
-			textoC += "" .
+			vTextoC += "" .
 		}
-		k = 0 .
-		t = "" .
-		enquanto k < c[i][j].comprimento repetir incrementando k {
-			se k é diferente de 0 então {
-				t += ", " .
+		vK = 0 .
+		vT = "" .
+		enquanto vK < vC[vI][vJ].comprimento repetir incrementando vK {
+			se vK é diferente de 0 então {
+				vT += ", " .
 			}
-			t += c[i][j][k] .
+			vT += vC[vI][vJ][vK] .
 		}
-		se j é diferente de 0 então {
-			textoC += "     " .
+		se vJ é diferente de 0 então {
+			vTextoC += "     " .
 		}
-		textoC += " [ " + t + " ] " .
+		vTextoC += " [ " + vT + " ] " .
 	}
-	textoC += "]" .
-	se i é diferente de d - 1 então {
-		textoC += "," .
+	vTextoC += "]" .
+	se vI é diferente de vC.comprimento - 1 então {
+		vTextoC += "," .
 	}
-	textoC += "\n" .
+	vTextoC += "\n" .
 }
 
-escrever "[ " + textoA + " ]" pulando linha na saída .
-escrever "\n[ " + textoB + " ]" pulando linha na saída .
-escrever "\n[\n" + textoC + " ]" pulando linha na saída .
+escrever "[ " + vTextoA + " ]" pulando linha na saída .
+escrever "\n[ " + vTextoB + " ]" pulando linha na saída .
+escrever "\n[\n" + vTextoC + " ]" pulando linha na saída .

@@ -1,29 +1,29 @@
-i = 0 .
+vI = 0 .
 
-usando i {
+usando vI {
 
     escolha 0:
-        escrever "zero" na saída .
+        escrever "zero" pulando linha na saída .
         se ( 1 == 1 ) então {
-        	escrever "parando do if..." na saída .
+        	escrever "parando do if..." pulando linha na saída .
         	parar .
         } senão se 2 == 2 então {
         	se 1 == 1 então {
-        		escrever "parando do if mais adentro..." na saída .
+        		escrever "parando do if mais adentro..." pulando linha na saída .
         		parar .
         	}
         }
     escolha 1:
-        escrever "um" na saída .
+        escrever "um" pulando linha na saída .
         parar .
     escolha 2: 
-        escrever "dois" na saída .
+        escrever "dois" pulando linha na saída .
         parar .
     escolha 3:
-        escrever "três" na saída .
+        escrever "três" pulando linha na saída .
         parar .
     padrão:
-        escrever "outro" na saída .
+        escrever "outro" pulando linha na saída .
         parar .
 
 }

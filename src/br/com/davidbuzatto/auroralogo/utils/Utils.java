@@ -67,6 +67,8 @@ public class Utils {
     public static final String PREF_TEMA = "TEMA";
     public static final String PREF_DEPURADOR_ATIVO = "DEPURADOR_ATIVO";
     public static final String PREF_GRADE_ATIVA = "GRADE_ATIVA";
+    public static final String PREF_EIXOS_ATIVOS = "EIXOS_ATIVOS";
+    public static final String PREF_PADRAO_CARTESIANO_ATIVO = "PADRAO_CARTESIANO_ATIVO";
     public static final String PREF_VALOR_SLIDER_PASSO_AUTOMATICO = "VALOR_SLIDER_PASSO_AUTOMATICO";
     public static final String PREF_JANELA_PRINCIPAL_MAXIMIZADA = "JANELA_PRINCIPAL_MAXIMIZADA";
     public static final String PREF_COR_TARTARUGA = "COR_TARTARUGA";
@@ -449,6 +451,8 @@ public class Utils {
             PREFS.remove( PREF_TEMA );
             PREFS.remove( PREF_DEPURADOR_ATIVO );
             PREFS.remove( PREF_GRADE_ATIVA );
+            PREFS.remove( PREF_EIXOS_ATIVOS );
+            PREFS.remove( PREF_PADRAO_CARTESIANO_ATIVO );
             PREFS.remove( PREF_VALOR_SLIDER_PASSO_AUTOMATICO );
             PREFS.remove( PREF_JANELA_PRINCIPAL_MAXIMIZADA );
             PREFS.remove( PREF_COR_TARTARUGA );
@@ -458,6 +462,8 @@ public class Utils {
         PREFS.put( PREF_TEMA, PREFS.get( PREF_TEMA, "claro" ) );
         PREFS.putBoolean( PREF_DEPURADOR_ATIVO, PREFS.getBoolean( PREF_DEPURADOR_ATIVO, false ) );
         PREFS.putBoolean( PREF_GRADE_ATIVA, PREFS.getBoolean( PREF_GRADE_ATIVA, false ) );
+        PREFS.putBoolean( PREF_EIXOS_ATIVOS, PREFS.getBoolean( PREF_EIXOS_ATIVOS, false ) );
+        PREFS.putBoolean( PREF_PADRAO_CARTESIANO_ATIVO, PREFS.getBoolean( PREF_PADRAO_CARTESIANO_ATIVO, false ) );
         PREFS.putInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 ) );
         PREFS.putBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false ) );
         PREFS.putInt( PREF_COR_TARTARUGA, PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE ) );
@@ -610,7 +616,12 @@ public class Utils {
     }
     
     public static void main( String[] args ) {
-        System.out.println( toUnicodeScape( 'ç' ) );
+        //String s = "áàâãéêíóôõúüç";
+        String s = "ÁÀÂÃÉÊÍÓÔÕÚÜÇ";
+        for ( char c : s.toCharArray() ) {
+            System.out.print( toUnicodeScape( c ) );
+        }
+        
     }
     
 }

@@ -1,11 +1,11 @@
-d = criarArranjoAssociativo{} .
-d["teste2"] = "x" .
-d["teste"] = criarArray[20] .
+vD = criarArranjoAssociativo{} .
+vD["teste2"] = "x" .
+vD["teste"] = criarArray[20] .
 
 
-c = d.chaves .
+vC = vD.chaves .
 
-i = 0 .
-enquanto i < c.comprimento repetir incrementando i {
-	escrever d[c[i]] na saída .
+vI = 0 .
+enquanto vI < vC.comprimento repetir incrementando vI {
+	escrever vD[vC[vI]] na saída .
 }

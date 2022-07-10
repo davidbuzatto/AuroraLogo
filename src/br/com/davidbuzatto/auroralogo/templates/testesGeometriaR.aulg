@@ -74,19 +74,19 @@ vá para cima em 200 .
 desenhar curvaCúbica( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y-30, tartaruga.x+150, tartaruga.y+30, tartaruga.x+200, tartaruga.y ) preenchida .
 
 vá para cima em 200 .
-i = tartaruga.x .
-j = tartaruga.y .
+vI = tartaruga.x .
+vJ = tartaruga.y .
 repetir 10 vezes {
     desenhar caminho {
-        mover até ( i, j ) .
-        linha até ( i+50, j ) . 
-        linha até ( i+50, j-30 ) .
-        linha até ( i+100, j ) .
-        curva quadrática até ( i+125, j-30, i+150, j+30 ) .
-        curva cúbica até ( i+160, j+20, i+190, j+40, i+200, j+30 ) . 
-        linha até ( i+210, j+50 ) . 
-        linha até ( i+50, j+50 ) . 
+        mover até ( vI, vJ ) .
+        linha até ( vI+50, vJ ) . 
+        linha até ( vI+50, vJ-30 ) .
+        linha até ( vI+100, vJ ) .
+        curva quadrática até ( vI+125, vJ-30, vI+150, vJ+30 ) .
+        curva cúbica até ( vI+160, vJ+20, vI+190, vJ+40, vI+200, vJ+30 ) . 
+        linha até ( vI+210, vJ+50 ) . 
+        linha até ( vI+50, vJ+50 ) . 
         //fechar .
     }
-    i += 50 .
+    vI += 50 .
 }

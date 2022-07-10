@@ -1,11 +1,16 @@
 Implementação:
+    - Grade com medição e alteração do sistema de coordenadas -> desafio: tornar cartesiano padrão
+    - Elementos dos arrays associativos acessados via ponto também
+    - Cópia profunda de arrays e arrays associativos.
+    - Constantes com prefixo "c" obrigatório
     - Depurador: permitir clicar nos valores grandes?
     - Instruções simples para strings;
-    - Sobre e exemplos;
     - Funções definidas pelo usuário;
-    - Verificar todas as operações conferindo compatibilidade.
+    - Sobre e exemplos;
+    - Verificar todas as operações conferindo compatibilidade (testes de unidade).
     - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
       comparando com a linha errada;
+
 
 Questionamentos:
     - Não permitir variáveis com o nome de palavras chave?

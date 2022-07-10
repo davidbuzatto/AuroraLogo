@@ -1,20 +1,20 @@
-a = criarArray[10] .
-b = criarArranjoAssociativo{} .
+vA = criarArray[10] .
+vB = criarArranjoAssociativo{} .
 
-b["a"] = "123" .
-b["b"] = "456" .
-b["c"] = "789" .
+vB["a"] = "123" .
+vB["b"] = "456" .
+vB["c"] = "789" .
 
 
-i = 0 .
-enquanto i < a.comprimento repetir incrementando i {
-	a[i] = i * 2 .
+vI = 0 .
+enquanto vI < vA.comprimento repetir incrementando vI {
+	vA[vI] = vI * 2 .
 }
 
-para cada v em a repetir {
-    escrever v pulando linha na saída .
+para cada vV em vA repetir {
+    escrever vV pulando linha na saída .
 }
 
-para cada v em b repetir {
-    escrever v pulando linha na saída .
+para cada vV em vB repetir {
+    escrever vV pulando linha na saída .
 }

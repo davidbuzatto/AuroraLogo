@@ -2,37 +2,37 @@
  * Testes dos operadores relacionais com todos os tipos.
  */
 
-a = "abc" == "abc" .
-escrever a na saída .
+vA = "abc" == "abc" .
+escrever vA pulando linha na saída .
 
-a = "abc" != "abc" .
-escrever a na saída .
+vA = "abc" != "abc" .
+escrever vA pulando linha na saída .
 
-a = "abc" == "def" .
-escrever a na saída .
+vA = "abc" == "def" .
+escrever vA pulando linha na saída .
 
-a = "abc" != "def" .
-escrever a na saída .
+vA = "abc" != "def" .
+escrever vA pulando linha na saída .
 
-a = "abc" != 1 .
-escrever a na saída .
+vA = "abc" != 1 .
+escrever vA pulando linha na saída .
 
-a = 1 != "abc" .
-escrever a na saída .
+vA = 1 != "abc" .
+escrever vA pulando linha na saída .
 
-a = "1" != 1 .
-escrever a na saída .
+vA = "1" != 1 .
+escrever vA pulando linha na saída .
 
-a = 1 != "1" .
-escrever a na saída .
+vA = 1 != "1" .
+escrever vA pulando linha na saída .
 
-a = "maria" > "maria" .
-escrever a na saída .
+vA = "maria" > "maria" .
+escrever vA pulando linha na saída .
 
-a = "aurora" .
-b = "aurora" .
+vA = "aurora" .
+vB = "aurora" .
 
-se a é maior ou igual a b então {
+se vA é maior ou igual a vB então {
 	escrever "x" na saída .
 } senão {
 	escrever "y" na saída .

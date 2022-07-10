@@ -43,13 +43,7 @@ public class PainelDesenho extends JPanel {
                 RenderingHints.VALUE_ANTIALIAS_ON );
         
         if ( tartaruga != null ) {
-            
-            if ( tartaruga.isEstadoInicial() ) {
-                tartaruga.atualizarPosicaoEstadoInicial( getWidth() / 2.0, getHeight() / 2.0 );
-            }
-            
             tartaruga.desenhar( g2d );
-            
         }
         
         g2d.setColor( Color.BLACK );

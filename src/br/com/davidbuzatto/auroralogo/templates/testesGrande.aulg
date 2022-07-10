@@ -2,7 +2,7 @@
  * Exemplo de código fonte da linguagem AuroraLogo.
  *
  * Autor: Prof. Dr. David Buzatto
- * Data: <DATA>
+ * Data: 10/07/2022
  */
 
 // limpa a tela, reposiciona a tartaruga
@@ -10,7 +10,7 @@
 limpar .
 
 // variável abc
-abc = 5 .
+vAbc = 5 .
 
 // levanta o pincel de pintura
 levantar pincel .
@@ -62,7 +62,7 @@ vá para baixo em 115 .
 girar em -45 graus .
 
 // instrução de repetição
-repetir (abc*3) vezes {
+repetir (vAbc*3) vezes {
     trocar cor do pincel para #f59e42 .
     engrossar em 3 .
     vá para direita em 20 .
@@ -78,17 +78,17 @@ vá para cima em 400 .
 vá para direita em 150 .
 abaixar pincel .
 
-i = 1 .
+vI = 1 .
 repetir 36 vezes {
     girar em 10 graus .
     trocar cor do pincel para #eb34c0 .
-    vá para direita em 1 * i .
+    vá para direita em 1 * vI .
     trocar cor do pincel para #34e5eb .
-    vá para baixo em 1 * i .
-    i = i + 1 .
+    vá para baixo em 1 * vI .
+    vI = vI + 1 .
     engrossar .
     trocar cor do pincel para #000000 .
-    escrever "              espiral: " + (i-1) .
+    escrever "              espiral: " + (vI-1) .
 }
 
 girar em 180 graus .
@@ -111,51 +111,51 @@ levantar pincel .
 vá para esquerda em 840 .
 vá para cima em 260 .
 
-i = 0 .
-j = 0 .
-largura = 400 .
-altura = 40 .
+vI = 0 .
+vJ = 0 .
+vLargura = 400 .
+vAltura = 40 .
 engrossar em 2 .
 
 repetir 10 vezes {
 	trocar cor do pincel para #83eb34 .
 	abaixar pincel .
-    vá para direita em largura .
+    vá para direita em vLargura .
     levantar pincel .
-    vá para esquerda em largura .
-    j = 0 .
+    vá para esquerda em vLargura .
+    vJ = 0 .
     repetir (10) vezes {
     	trocar cor do pincel para #9c34eb .
     	abaixar pincel .
-    	vá para baixo em altura .
+    	vá para baixo em vAltura .
     	levantar pincel .
     	vá para cima em 4 .
     	vá para direita em 4 .
     	abaixar pincel .
-    	escrever i + "x" + j .
+    	escrever vI + "x" + vJ .
     	levantar pincel .
     	vá para esquerda em 4 .
-    	vá para cima em altura - 4 .
-    	vá para direita em altura .
-    	j = j + 1 .
+    	vá para cima em vAltura - 4 .
+    	vá para direita em vAltura .
+    	vJ = vJ + 1 .
     }
-    vá para esquerda em largura .
-    vá para baixo em altura .
-    i = i + 1 .
+    vá para esquerda em vLargura .
+    vá para baixo em vAltura .
+    vI = vI + 1 .
 }
 
 trocar cor do pincel para #83eb34 .
 abaixar pincel .
-vá para direita em largura .
+vá para direita em vLargura .
 levantar pincel .
-vá para esquerda em largura .
+vá para esquerda em vLargura .
 
-vá para cima em largura.
-vá para direita em largura .
+vá para cima em vLargura.
+vá para direita em vLargura .
 
 trocar cor do pincel para #9c34eb .
 abaixar pincel .
-vá para baixo em largura.
+vá para baixo em vLargura.
 levantar pincel .
-vá para cima em largura.
+vá para cima em vLargura.
 vá para direita em 50 .
