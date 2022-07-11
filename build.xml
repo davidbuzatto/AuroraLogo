@@ -113,7 +113,7 @@
             <arg value="../../${src.dir}/${saidaSH}/AuroraLogoSyntaxHighlighter.flex"/>
             <arg value="abaixar"/>
             <arg value="claro"/>
-            <arg value="x"/>
+            <arg value="\u00E2ngulo"/>
             <arg value="comprimento"/>
             <arg value="arcoCosseno"/>
             <arg value="segmento"/>

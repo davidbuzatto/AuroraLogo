@@ -90,6 +90,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorInteiro() != 0 ) == rv.valorBooleano();
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorInteiro() ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorInteiro() == rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -104,6 +110,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorDecimal() != 0.0 ) == rv.valorBooleano();
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorDecimal() ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorDecimal() == rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -118,6 +130,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorCaractere() != '\0' ) == rv.valorBooleano();
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorCaractere() ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCaractere() == rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -132,6 +150,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorBooleano().booleanValue() == rv.valorBooleano().booleanValue();
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = ( valor.valorBooleano() ? 1 : 0 ) == rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -146,6 +170,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorString().equals( String.valueOf( rv ) );
                         } else if ( rv.isString() ) {
                             res = valor.valorString().equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorString().equals( String.valueOf( rv ) );
+                        } else if ( rv.isArranjo() ) {
+                            res = valor.valorString().equals( String.valueOf( rv ) );
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = valor.valorString().equals( String.valueOf( rv ) );
                         } else {
                             res = false;
                         }
@@ -167,6 +197,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorInteiro() != 0 ) != rv.valorBooleano();
                         } else if ( rv.isString() ) {
                             res = !String.valueOf( valor.valorInteiro() ).equals( rv.valorString() );
+                        }  else if ( rv.isCor() ) {
+                            res = valor.valorInteiro() != rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -181,6 +217,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorDecimal() != 0.0 ) != rv.valorBooleano();
                         } else if ( rv.isString() ) {
                             res = !String.valueOf( valor.valorDecimal() ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorDecimal() != rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -195,6 +237,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorCaractere() != '\0' ) != rv.valorBooleano();
                         } else if ( rv.isString() ) {
                             res = !String.valueOf( valor.valorCaractere() ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCaractere() != rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -209,6 +257,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorBooleano().booleanValue() != rv.valorBooleano().booleanValue();
                         } else if ( rv.isString() ) {
                             res = !String.valueOf( valor ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = ( valor.valorBooleano() ? 1 : 0 ) != rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -223,6 +277,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = !valor.valorString().equals( String.valueOf( rv ) );
                         } else if ( rv.isString() ) {
                             res = !valor.valorString().equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = !valor.valorString().equals( String.valueOf( rv ) );
+                        } else if ( rv.isArranjo() ) {
+                            res = !valor.valorString().equals( String.valueOf( rv ) );
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = !valor.valorString().equals( String.valueOf( rv ) );
                         } else {
                             res = false;
                         }
@@ -244,6 +304,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorInteiro() < ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorInteiro() ).compareTo( rv.valorString() ) < 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorInteiro() < rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -258,6 +324,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorDecimal() < ( rv.valorBooleano() ? 1.0 : 0.0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorDecimal() ).compareTo( rv.valorString() ) < 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorDecimal() < rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -272,6 +344,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorCaractere() < ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorCaractere() ).compareTo( rv.valorString() ) < 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCaractere() < rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -286,6 +364,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorBooleano() ? 1 : 0 ) < ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor ).compareTo( rv.valorString() ) < 0;
+                        } else if ( rv.isCor() ) {
+                            res = ( valor.valorBooleano() ? 1 : 0 ) < rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -300,6 +384,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorString().compareTo( String.valueOf( rv ) ) < 0;
                         } else if ( rv.isString() ) {
                             res = valor.valorString().compareTo( rv.valorString() ) < 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) < 0;
+                        } else if ( rv.isArranjo() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) < 0;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) < 0;
                         } else {
                             res = false;
                         }
@@ -321,6 +411,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorInteiro() <= ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorInteiro() ).compareTo( rv.valorString() ) <= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorInteiro() <= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -335,6 +431,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorDecimal() <= ( rv.valorBooleano() ? 1.0 : 0.0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorDecimal() ).compareTo( rv.valorString() ) <= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorDecimal() <= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -349,6 +451,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorCaractere() <= ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorCaractere() ).compareTo( rv.valorString() ) <= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCaractere() <= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -363,6 +471,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorBooleano() ? 1 : 0 ) <= ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor ).compareTo( rv.valorString() ) <= 0;
+                        } else if ( rv.isCor() ) {
+                            res = ( valor.valorBooleano() ? 1 : 0 ) <= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -377,6 +491,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorString().compareTo( String.valueOf( rv ) ) <= 0;
                         } else if ( rv.isString() ) {
                             res = valor.valorString().compareTo( rv.valorString() ) <= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) <= 0;
+                        } else if ( rv.isArranjo() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) <= 0;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) <= 0;
                         } else {
                             res = false;
                         }
@@ -398,7 +518,13 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorInteiro() > ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorInteiro() ).compareTo( rv.valorString() ) > 0;
-                        } else {
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorInteiro() > rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        }  else {
                             res = false;
                         }
                     } else if ( valor.isDecimal() ) {
@@ -412,6 +538,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorDecimal() > ( rv.valorBooleano() ? 1.0 : 0.0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorDecimal() ).compareTo( rv.valorString() ) > 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorDecimal() > rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -426,6 +558,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorCaractere() > ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorCaractere() ).compareTo( rv.valorString() ) > 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCaractere() > rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -440,6 +578,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorBooleano() ? 1 : 0 ) > ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor ).compareTo( rv.valorString() ) > 0;
+                        } else if ( rv.isCor() ) {
+                            res = ( valor.valorBooleano() ? 1 : 0 ) > rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -454,6 +598,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorString().compareTo( String.valueOf( rv ) ) > 0;
                         } else if ( rv.isString() ) {
                             res = valor.valorString().compareTo( rv.valorString() ) > 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) > 0;
+                        } else if ( rv.isArranjo() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) > 0;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) > 0;
                         } else {
                             res = false;
                         }
@@ -475,6 +625,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorInteiro() >= ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorInteiro() ).compareTo( rv.valorString() ) >= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorInteiro() >= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -489,6 +645,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorDecimal() >= ( rv.valorBooleano() ? 1.0 : 0.0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorDecimal() ).compareTo( rv.valorString() ) >= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorDecimal() >= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -503,6 +665,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorCaractere() >= ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor.valorCaractere() ).compareTo( rv.valorString() ) >= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCaractere() >= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -517,6 +685,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = ( valor.valorBooleano() ? 1 : 0 ) >= ( rv.valorBooleano() ? 1 : 0 );
                         } else if ( rv.isString() ) {
                             res = String.valueOf( valor ).compareTo( rv.valorString() ) >= 0;
+                        } else if ( rv.isCor() ) {
+                            res = ( valor.valorBooleano() ? 1 : 0 ) >= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -531,6 +705,12 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorString().compareTo( String.valueOf( rv ) ) >= 0;
                         } else if ( rv.isString() ) {
                             res = valor.valorString().compareTo( rv.valorString() ) >= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) >= 0;
+                        } else if ( rv.isArranjo() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) >= 0;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = valor.valorString().compareTo( String.valueOf( rv ) ) >= 0;
                         } else {
                             res = false;
                         }
@@ -582,8 +762,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( valor.valorInteiro() + ( tv.valorBooleano() ? 1 : 0 ) );
                             } else if ( tv.isString() ) {
                                 valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isCor() ) {
+                                valor = novoInteiro( valor.valorInteiro() + tv.valorCor().getRGB() );
+                            } else if ( tv.isArranjo() ) {
+                                valor = novaString( valor + String.valueOf( tv ) );
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                valor = novaString( valor + String.valueOf( tv ) );
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isDecimal() ) {
                             if ( tv.isInteiro() ) {
@@ -596,8 +782,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoDecimal( valor.valorDecimal() + ( tv.valorBooleano() ? 1 : 0 ) );
                             } else if ( tv.isString() ) {
                                 valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isCor() ) {
+                                valor = novoDecimal( valor.valorDecimal() + tv.valorCor().getRGB() );
+                            } else if ( tv.isArranjo() ) {
+                                valor = novaString( valor.valorDecimal() + String.valueOf( tv ) );
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                valor = novaString( valor.valorDecimal() + String.valueOf( tv ) );
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isCaractere() ) {
                             if ( tv.isInteiro() ) {
@@ -610,8 +802,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( valor.valorCaractere() + ( tv.valorBooleano() ? 1 : 0 ) );
                             } else if ( tv.isString() ) {
                                 valor = novaString( valor.valorCaractere() + tv.valorString() );
+                            } else if ( tv.isCor() ) {
+                                valor = novoInteiro( valor.valorCaractere() + tv.valorCor().getRGB() );
+                            } else if ( tv.isArranjo() ) {
+                                valor = novaString( valor.valorCaractere() + String.valueOf( tv ) );
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                valor = novaString( valor.valorCaractere() + String.valueOf( tv ) );
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isBooleano() ) {
                             if ( tv.isInteiro() ) {
@@ -624,8 +822,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) + ( tv.valorBooleano() ? 1 : 0 ) );
                             } else if ( tv.isString() ) {
                                 valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isCor() ) {
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) + tv.valorCor().getRGB() );
+                            } else if ( tv.isArranjo() ) {
+                                valor = novaString( ( valor.valorBooleano() ? 1 : 0 ) + String.valueOf( tv ) );
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                valor = novaString( ( valor.valorBooleano() ? 1 : 0 ) + String.valueOf( tv ) );
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isString() ) {
                             if ( tv.isInteiro() ) {
@@ -638,8 +842,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novaString( valor.valorString() + tv );
                             } else if ( tv.isString() ) {
                                 valor = novaString( valor.valorString() + tv.valorString() );
+                            } else if ( tv.isCor() ) {
+                                valor = novaString( valor.valorString() + tv );
+                            } else if ( tv.isArranjo() ) {
+                                valor = novaString( valor.valorString() + tv );
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                valor = novaString( valor.valorString() + tv );
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         }
                         break;
@@ -656,8 +866,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( valor.valorInteiro() - ( tv.valorBooleano() ? 1 : 0 ) );
                             } else if ( tv.isString() ) {
                                 // ignora strings
+                            } else if ( tv.isCor() ) {
+                                valor = novoInteiro( valor.valorInteiro() - tv.valorCor().getRGB() );
+                            } else if ( tv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isDecimal() ) {
                             if ( tv.isInteiro() ) {
@@ -670,8 +886,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoDecimal( valor.valorDecimal() - ( tv.valorBooleano() ? 1 : 0 ) );
                             } else if ( tv.isString() ) {
                                 // ignora strings
+                            } else if ( tv.isCor() ) {
+                                valor = novoDecimal( valor.valorDecimal() - tv.valorCor().getRGB() );
+                            } else if ( tv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isCaractere() ) {
                             if ( tv.isInteiro() ) {
@@ -684,8 +906,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( valor.valorCaractere() - ( tv.valorBooleano() ? 1 : 0 ) );
                             } else if ( tv.isString() ) {
                                 // ignora strings
+                            } else if ( tv.isCor() ) {
+                                valor = novoInteiro( valor.valorCaractere() - tv.valorCor().getRGB() );
+                            } else if ( tv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isBooleano() ) {
                             if ( tv.isInteiro() ) {
@@ -698,8 +926,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) - ( tv.valorBooleano() ? 1 : 0 ) );
                             } else if ( tv.isString() ) {
                                 // ignora strings
+                            } else if ( tv.isCor() ) {
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) - tv.valorCor().getRGB() );
+                            } else if ( tv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isString() ) {  // ignora strings
                             if ( tv.isInteiro() ) {
@@ -712,8 +946,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoBooleano( tv.valorBooleano() );
                             } else if ( tv.isString() ) {
                                 // ignora strings
-                            } else {
+                            } else if ( tv.isCor() ) {
                                 // valor é o prório
+                            } else if ( tv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                // valor é o próprio
+                            } else {
+                                // valor é o próprio
                             }
                         }
                         break;
@@ -759,8 +999,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( valor.valorInteiro() * ( fv.valorBooleano() ? 1 : 0 ) );
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( valor.valorInteiro() * fv.valorCor().getRGB() );
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isDecimal() ) {
                             if ( fv.isInteiro() ) {
@@ -773,8 +1019,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoDecimal( valor.valorDecimal() * ( fv.valorBooleano() ? 1 : 0 ) );
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoDecimal( valor.valorDecimal() * fv.valorCor().getRGB() );
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isCaractere() ) {
                             if ( fv.isInteiro() ) {
@@ -787,8 +1039,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( valor.valorCaractere() * ( fv.valorBooleano() ? 1 : 0 ) );
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( valor.valorCaractere() * fv.valorCor().getRGB() );
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isBooleano() ) {
                             if ( fv.isInteiro() ) {
@@ -801,8 +1059,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) * ( fv.valorBooleano() ? 1 : 0 ) );
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) * fv.valorCor().getRGB() );
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isString() ) {  // ignora strings
                             if ( fv.isInteiro() ) {
@@ -815,8 +1079,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoBooleano( fv.valorBooleano() );
                             } else if ( fv.isString() ) {
                                 // ignora strings
-                            } else {
+                            } else if ( fv.isCor() ) {
                                 // valor é o prório
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
+                            } else {
+                                // valor é o próprio
                             }
                         }
                         break;
@@ -824,59 +1094,83 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                     case AuroraLogoParser.DIVA:
                         if ( valor.isInteiro() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( valor.valorInteiro() / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
-                            } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorInteiro() / fv.valorDecimal() );                                       // divisão por zero "permitida"
-                            } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( valor.valorInteiro() / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
-                            } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( valor.valorInteiro() );                                                           // possível divisão por zero
+                                valor = novoInteiro( valor.valorInteiro() / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );            // possível divisão por zero
+                            } else if ( fv.isDecimal() ) {      
+                                valor = novoDecimal( valor.valorInteiro() / fv.valorDecimal() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) {      
+                                valor = novoInteiro( valor.valorInteiro() / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );        // possível divisão por zero
+                            } else if ( fv.isBooleano() ) {      
+                                valor = novoInteiro( valor.valorInteiro() );                                                                 // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( valor.valorInteiro() / ( fv.valorCor().getRGB() == 0 ? 1 : fv.valorCor().getRGB() ) );  // possível divisão por zero
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
-                            }
+                                // valor é o próprio
+                            } 
                         } else if ( valor.isDecimal() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoDecimal( valor.valorDecimal() / fv.valorInteiro() );               // divisão por zero "permitida"
-                            } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorDecimal() / fv.valorDecimal() );               // divisão por zero "permitida"
-                            } else if ( fv.isCaractere() ) {
-                                valor = novoDecimal( valor.valorDecimal() / fv.valorCaractere() );             // divisão por zero "permitida"
-                            } else if ( fv.isBooleano() ) {
-                                valor = novoDecimal( valor.valorDecimal() / ( fv.valorBooleano() ? 1 : 0 ) );  // divisão por zero "permitida"
+                                valor = novoDecimal( valor.valorDecimal() / fv.valorInteiro() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isDecimal() ) {                              
+                                valor = novoDecimal( valor.valorDecimal() / fv.valorDecimal() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) {                              
+                                valor = novoDecimal( valor.valorDecimal() / fv.valorCaractere() );                                           // divisão por zero "permitida"
+                            } else if ( fv.isBooleano() ) {                              
+                                valor = novoDecimal( valor.valorDecimal() / ( fv.valorBooleano() ? 1 : 0 ) );                                // divisão por zero "permitida"
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoDecimal( valor.valorDecimal() / ( fv.valorCor().getRGB() == 0 ? 1 : fv.valorCor().getRGB() ) );  // possível divisão por zero
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isCaractere() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( valor.valorCaractere() / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
-                            } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorCaractere() / fv.valorDecimal() );                                       // divisão por zero "permitida"
-                            } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( valor.valorCaractere() / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
-                            } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( ( int ) valor.valorCaractere() );                                                     // possível divisão por zero
+                                valor = novoInteiro( valor.valorCaractere() / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );            // possível divisão por zero
+                            } else if ( fv.isDecimal() ) {      
+                                valor = novoDecimal( valor.valorCaractere() / fv.valorDecimal() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) {      
+                                valor = novoInteiro( valor.valorCaractere() / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );        // possível divisão por zero
+                            } else if ( fv.isBooleano() ) {    
+                                valor = novoInteiro( ( int ) valor.valorCaractere() );                                                         // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( valor.valorCaractere() / ( fv.valorCor().getRGB() == 0 ? 1 : fv.valorCor().getRGB() ) );  // possível divisão por zero
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isBooleano() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
-                            } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( ( valor.valorBooleano() ? 1 : 0 ) / fv.valorDecimal() );                                       // divisão por zero "permitida"
-                            } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );            // possível divisão por zero
+                            } else if ( fv.isDecimal() ) {      
+                                valor = novoDecimal( ( valor.valorBooleano() ? 1 : 0 ) / fv.valorDecimal() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) {      
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );        // possível divisão por zero
                             } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) );                                                           // possível divisão por zero
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) );                                                                 // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) / ( fv.valorCor().getRGB() == 0 ? 1 : fv.valorCor().getRGB() ) );  // possível divisão por zero
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isString() ) {  // ignora strings
                             if ( fv.isInteiro() ) {
@@ -889,8 +1183,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoBooleano( fv.valorBooleano() );
                             } else if ( fv.isString() ) {
                                 // ignora strings
-                            } else {
+                            } else if ( fv.isCor() ) {
                                 // valor é o prório
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
+                            } else {
+                                // valor é o próprio
                             }
                         }
                         break;
@@ -898,60 +1198,84 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                     case AuroraLogoParser.MODA:
                         if ( valor.isInteiro() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( valor.valorInteiro() % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
-                            } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorInteiro() % fv.valorDecimal() );                                       // divisão por zero "permitida"
-                            } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( valor.valorInteiro() % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
-                            } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( valor.valorInteiro() );                                                           // possível divisão por zero
+                                valor = novoInteiro( valor.valorInteiro() % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );            // possível divisão por zero
+                            } else if ( fv.isDecimal() ) {      
+                                valor = novoDecimal( valor.valorInteiro() % fv.valorDecimal() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) {      
+                                valor = novoInteiro( valor.valorInteiro() % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );        // possível divisão por zero
+                            } else if ( fv.isBooleano() ) {      
+                                valor = novoInteiro( valor.valorInteiro() );                                                                 // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( valor.valorInteiro() % ( fv.valorCor().getRGB() == 0 ? 1 : fv.valorCor().getRGB() ) );  // possível divisão por zero
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
-                            }
+                                // valor é o próprio
+                            } 
                         } else if ( valor.isDecimal() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoDecimal( valor.valorDecimal() % fv.valorInteiro() );               // divisão por zero "permitida"
-                            } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorDecimal() % fv.valorDecimal() );               // divisão por zero "permitida"
-                            } else if ( fv.isCaractere() ) {
-                                valor = novoDecimal( valor.valorDecimal() % fv.valorCaractere() );             // divisão por zero "permitida"
-                            } else if ( fv.isBooleano() ) {
-                                valor = novoDecimal( valor.valorDecimal() % ( fv.valorBooleano() ? 1 : 0 ) );  // divisão por zero "permitida"
+                                valor = novoDecimal( valor.valorDecimal() % fv.valorInteiro() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isDecimal() ) {                              
+                                valor = novoDecimal( valor.valorDecimal() % fv.valorDecimal() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) {                              
+                                valor = novoDecimal( valor.valorDecimal() % fv.valorCaractere() );                                           // divisão por zero "permitida"
+                            } else if ( fv.isBooleano() ) {                              
+                                valor = novoDecimal( valor.valorDecimal() % ( fv.valorBooleano() ? 1 : 0 ) );                                // divisão por zero "permitida"
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoDecimal( valor.valorDecimal() % ( fv.valorCor().getRGB() == 0 ? 1 : fv.valorCor().getRGB() ) );  // possível divisão por zero
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isCaractere() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( valor.valorCaractere() % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
-                            } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( valor.valorCaractere() % fv.valorDecimal() );                                       // divisão por zero "permitida"
-                            } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( valor.valorCaractere() % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
-                            } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( ( int ) valor.valorCaractere() );                                                     // possível divisão por zero
+                                valor = novoInteiro( valor.valorCaractere() % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );            // possível divisão por zero
+                            } else if ( fv.isDecimal() ) {      
+                                valor = novoDecimal( valor.valorCaractere() % fv.valorDecimal() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) {      
+                                valor = novoInteiro( valor.valorCaractere() % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );        // possível divisão por zero
+                            } else if ( fv.isBooleano() ) {    
+                                valor = novoInteiro( ( int ) valor.valorCaractere() );                                                         // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( valor.valorCaractere() % ( fv.valorCor().getRGB() == 0 ? 1 : fv.valorCor().getRGB() ) );  // possível divisão por zero
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
+                                // valor é o próprio
                             }
                         } else if ( valor.isBooleano() ) {
                             if ( fv.isInteiro() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
-                            } else if ( fv.isDecimal() ) {
-                                valor = novoDecimal( ( valor.valorBooleano() ? 1 : 0 ) % fv.valorDecimal() );                                       // divisão por zero "permitida"
-                            } else if ( fv.isCaractere() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
-                            } else if ( fv.isBooleano() ) {
-                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) );                                                           // possível divisão por zero
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );            // possível divisão por zero
+                            } else if ( fv.isDecimal() ) {      
+                                valor = novoDecimal( ( valor.valorBooleano() ? 1 : 0 ) % fv.valorDecimal() );                                             // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) {      
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );        // possível divisão por zero
+                            } else if ( fv.isBooleano() ) {      
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) );                                                                 // possível divisão por zero
                             } else if ( fv.isString() ) {
                                 // ignora strings
+                            } else if ( fv.isCor() ) {
+                                valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) % ( fv.valorCor().getRGB() == 0 ? 1 : fv.valorCor().getRGB() ) );  // possível divisão por zero
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
                             } else {
-                                // valor é o prório
-                            }
+                                // valor é o próprio
+                            } 
                         } else if ( valor.isString() ) {  // ignora strings
                             if ( fv.isInteiro() ) {
                                 valor = novoInteiro( fv.valorInteiro() );
@@ -963,8 +1287,14 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                                 valor = novoBooleano( fv.valorBooleano() );
                             } else if ( fv.isString() ) {
                                 // ignora strings
-                            } else {
+                            } else if ( fv.isCor() ) {
                                 // valor é o prório
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
+                            } else {
+                                // valor é o próprio
                             }
                         }
                         break;

@@ -160,6 +160,42 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorIdArranjo(AuroraLogoParser.FatorIdArranjoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorIdArranjo(AuroraLogoParser.FatorIdArranjoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFatorIdArranjoAssociativo(AuroraLogoParser.FatorIdArranjoAssociativoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorIdArranjoAssociativo(AuroraLogoParser.FatorIdArranjoAssociativoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFatorIdIdAtributo(AuroraLogoParser.FatorIdIdAtributoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorIdIdAtributo(AuroraLogoParser.FatorIdIdAtributoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorChar(AuroraLogoParser.FatorCharContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -587,6 +623,30 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitAtribuirPadrao(AuroraLogoParser.AtribuirPadraoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtribuirArranjo(AuroraLogoParser.AtribuirArranjoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtribuirArranjo(AuroraLogoParser.AtribuirArranjoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAtribuirArranjoAssociativo(AuroraLogoParser.AtribuirArranjoAssociativoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAtribuirArranjoAssociativo(AuroraLogoParser.AtribuirArranjoAssociativoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

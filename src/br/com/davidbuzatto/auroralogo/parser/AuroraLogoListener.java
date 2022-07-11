@@ -138,6 +138,42 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFatorId(AuroraLogoParser.FatorIdContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code fatorIdArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorIdArranjo(AuroraLogoParser.FatorIdArranjoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorIdArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorIdArranjo(AuroraLogoParser.FatorIdArranjoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code fatorIdArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorIdArranjoAssociativo(AuroraLogoParser.FatorIdArranjoAssociativoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorIdArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorIdArranjoAssociativo(AuroraLogoParser.FatorIdArranjoAssociativoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code fatorIdIdAtributo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorIdIdAtributo(AuroraLogoParser.FatorIdIdAtributoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorIdIdAtributo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorIdIdAtributo(AuroraLogoParser.FatorIdIdAtributoContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code fatorChar}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -527,6 +563,30 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitAtribuirPadrao(AuroraLogoParser.AtribuirPadraoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code atribuirArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtribuirArranjo(AuroraLogoParser.AtribuirArranjoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code atribuirArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtribuirArranjo(AuroraLogoParser.AtribuirArranjoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code atribuirArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void enterAtribuirArranjoAssociativo(AuroraLogoParser.AtribuirArranjoAssociativoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code atribuirArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 */
+	void exitAtribuirArranjoAssociativo(AuroraLogoParser.AtribuirArranjoAssociativoContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code atribuirAdicao}
 	 * labeled alternative in {@link AuroraLogoParser#atribuir}.

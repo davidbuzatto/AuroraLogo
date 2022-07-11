@@ -77,7 +77,10 @@ fator    : ( NAO | NAOT ) fator                           # fatorNao
          | INT                                            # fatorInt
          | DEC                                            # fatorDec
          | PI                                             # fatorPi
-         | ID ( '[' expr ']' )* ( DOT COMP | DOT CHAV )?  # fatorId
+         | ID                   ( DOT COMP | DOT CHAV )?  # fatorId
+         | ID ( '[' expr ']' )+ ( DOT COMP | DOT CHAV )?  # fatorIdArranjo
+         | ID   '{' expr '}'    ( DOT COMP | DOT CHAV )?  # fatorIdArranjoAssociativo
+         | ID ( DOT IDA )+                                # fatorIdIdAtributo
          | CHAR                                           # fatorChar
          | STRING                                         # fatorString 
          | ( VER | FAL )                                  # fatorBool
@@ -133,7 +136,7 @@ repetirEnquanto   : ( ENQ exprBool )? REP
                   ;
 
 // para cada
-paraCada     : PARA CADA ID EM ID REP '{' inst+ '}'
+paraCada     : PARA CADA ID EM expr REP '{' inst+ '}'
              ;
 
 parar        : PARR
@@ -188,7 +191,9 @@ escrever     : ESC expr ( ( PUL LIN )? NA SAI
 ler          : LER ID
              ;
 
-atribuir     : ID ( '[' exprIndice ']' )* (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirPadrao
+atribuir     : ID                         (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirPadrao
+             | ID ( '[' exprIndice ']' )+ (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirArranjo
+             | ID ( '{' exprIndice '}' )  (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirArranjoAssociativo
              | ID ( AC_A | AT_A )   expr                                            # atribuirAdicao
              | ID ( AC_S | AT_S )   expr                                            # atribuirSubtracao
              | ID ( AC_M | AT_M )   expr                                            # atribuirMultiplicacao
@@ -348,7 +353,6 @@ ATE  : 'at\u00E9'                ;
 BAI  : 'baixo'                   ;
 CADA : 'cada'                    ;
 CAM  : 'caminho'                 ;
-CHAV : 'chaves'                  ;
 CIM  : 'cima'                    ;
 COD  : 'CORDA'                   ;
 COM  : 'com'                     ;
@@ -441,11 +445,12 @@ CLARO    : 'claro'    ;
 
 
 // terminais que são propriedades da tartaruga
+PA : '\u00E2ngulo' ;
 PX : 'x'           ;
 PY : 'y'           ;
-PA : '\u00E2ngulo' ;
 
 // terminais que são proprieades dos arranjos e strings
+CHAV : 'chaves'      ;
 COMP : 'comprimento' ;
 
 
@@ -566,7 +571,9 @@ NAOT : 'N\u00C3O' ;  // NÃO
 DOT  : '.' ;
 
 // identificadores
-ID   : 'v' ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;
+ID   : 'v'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de variáveis
+IDC  : 'c'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de constantes
+IDA  : ( 'a' | 'p' ) ( LET    | LETA    | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de atributos/propriedades
 
 // literais
 // Obs: CHEX (cor hexa) usa um predicado semântico, 

@@ -276,8 +276,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "cada" | 
 "caminho " | 
 "caminho" | 
-"chaves " | 
-"chaves" | 
 "ciano " | 
 "ciano" | 
 "cima " | 
@@ -437,6 +435,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	/* No keywords 2 */
         "\u00E2ngulo " | 
 "\u00E2ngulo" | 
+"chaves " | 
+"chaves" | 
 "comprimento " | 
 "comprimento" | 
 "x " | 

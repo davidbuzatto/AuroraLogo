@@ -33,11 +33,14 @@ vT = 5 .
 vA = criarArranjo[vT] .
 vB = criarArranjo[vT][vT] .
 vC = criarArranjo[vT][vT][vT] .
-vD = criarArranjoAssociativo{} .
 
 vI = 0 .
 enquanto vI < vA.comprimento repetir incrementando vI {
 	vA[vI] = ( vI + 1 ) * 5 .
+}
+
+para cada vE em vA repetir {
+	escrever "para cada: " + vE pulando linha na saída .
 }
 
 vI = 0 .

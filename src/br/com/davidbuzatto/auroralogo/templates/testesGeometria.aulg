@@ -1,6 +1,6 @@
 trocar cor do preenchimento para #0000ff .
 
-desenhar segmento( 300, 150, 320, 150 ) .
+desenhar segmento( 300, 160, 320, 160 ) .
 
 desenhar quadrado( 300, 200, 40 ) preenchido .
 
@@ -45,14 +45,14 @@ desenhar curvaCúbica( 300, 650, 350, 620, 450, 680, 500, 650 ) preenchida .
 vI = 100 .
 repetir 10 vezes {
     desenhar caminho {
-        mover até ( vI, 700 ) .
-        linha até ( vI+50, 700 ) . 
-        linha até ( vI+50, 670 ) .
-        linha até ( vI+100, 700 ) .
-        curva quadrática até ( vI+125, 670, vI+150, 730 ) .
-        curva cúbica até ( vI+160, 720, vI+190, 740, vI+200, 730 ) . 
-        linha até ( vI+210, 750 ) . 
-        linha até ( vI+50, 750 ) . 
+        mover até ( vI, 100 ) .
+        linha até ( vI+50, 100 ) . 
+        linha até ( vI+50, 70 ) .
+        linha até ( vI+100, 100 ) .
+        curva quadrática até ( vI+125, 70, vI+150, 130 ) .
+        curva cúbica até ( vI+160, 120, vI+190, 140, vI+200, 130 ) . 
+        linha até ( vI+210, 150 ) . 
+        linha até ( vI+50, 150 ) . 
         //fechar .
     }
     vI += 50 .

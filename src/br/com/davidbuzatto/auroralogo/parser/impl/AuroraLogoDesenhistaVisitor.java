@@ -174,6 +174,16 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     public Valor visitAtribuirPadrao( AuroraLogoParser.AtribuirPadraoContext ctx ) {
         return cvAtribuicao.visitAtribuirPadrao( ctx );
     }
+
+    @Override
+    public Valor visitAtribuirArranjo( AuroraLogoParser.AtribuirArranjoContext ctx ) {
+        return cvAtribuicao.visitAtribuirArranjo( ctx );
+    }
+
+    @Override
+    public Valor visitAtribuirArranjoAssociativo( AuroraLogoParser.AtribuirArranjoAssociativoContext ctx ) {
+        return cvAtribuicao.visitAtribuirArranjoAssociativo( ctx );
+    }
     
     @Override
     public Valor visitAtribuirAdicao( AuroraLogoParser.AtribuirAdicaoContext ctx ) {
@@ -259,6 +269,21 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
         return cvFatores.visitFatorId( ctx );
+    }
+
+    @Override
+    public Valor visitFatorIdArranjo( AuroraLogoParser.FatorIdArranjoContext ctx ) {
+        return cvFatores.visitFatorIdArranjo( ctx );
+    }
+
+    @Override
+    public Valor visitFatorIdArranjoAssociativo( AuroraLogoParser.FatorIdArranjoAssociativoContext ctx ) {
+        return cvFatores.visitFatorIdArranjoAssociativo( ctx );
+    }
+
+    @Override
+    public Valor visitFatorIdIdAtributo( AuroraLogoParser.FatorIdIdAtributoContext ctx ) {
+        return cvFatores.visitFatorIdIdAtributo( ctx );
     }
 
     @Override

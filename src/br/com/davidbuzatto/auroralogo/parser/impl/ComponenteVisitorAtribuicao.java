@@ -50,43 +50,90 @@ public class ComponenteVisitorAtribuicao {
             valor = visitor.visit( ctx.criarArranjos() );
         }
         
-        if ( !ctx.exprIndice().isEmpty() ) {
-            
-            List<Integer> indices = new ArrayList<>();
-            
-            for ( AuroraLogoParser.ExprIndiceContext e : ctx.exprIndice() ) {
-                Valor vIndice = visitor.visit( e );
-                indices.add( vIndice.valorInteiro() );
-            }
+        tartaruga.inserirOuAtualizarMemoria( id, valor );
+        
+        return valor;
+        
+    }
+    
+    public Valor visitAtribuirArranjo( AuroraLogoParser.AtribuirArranjoContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        Valor valor = null;
+        
+        if ( ctx.expr() != null ) {
+            valor = visitor.visit( ctx.expr() );
+        } else if ( ctx.criarArranjos() != null ) {
+            valor = visitor.visit( ctx.criarArranjos() );
+        }
+        
+        List<Integer> indices = new ArrayList<>();
 
-            Integer[] ind = indices.toArray( Integer[]::new );
-            
-            Valor vMemoria = tartaruga.lerMemoria( id );
-            if ( vMemoria == null ) {
-                vMemoria = novoArranjo( novoArranjo( ind ) );
-            }
-                
-            if ( vMemoria.isArranjo() ) {
-                
-                vMemoria.setValorArranjo( valor, ind );
-                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+        for ( AuroraLogoParser.ExprIndiceContext e : ctx.exprIndice() ) {
+            Valor vIndice = visitor.visit( e );
+            indices.add( vIndice.valorInteiro() );
+        }
 
-                return vMemoria;
-                
-            } else if ( vMemoria.isArranjoAssociativo() ) {
-                
-                String chave = visitor.visit( ctx.exprIndice( 0 ) ).valorString();
-                vMemoria.setValorArranjoAssociativo( chave, valor );
-                tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
-                
-                return vMemoria;
-                
-            } else {
-                return valor;
-            }
-            
+        Integer[] ind = indices.toArray( Integer[]::new );
+
+        Valor vMemoria = tartaruga.lerMemoria( id );
+        if ( vMemoria == null ) {
+            vMemoria = novoArranjo( novoArranjo( ind ) );
+        }
+
+        if ( vMemoria.isArranjo() ) {
+
+            vMemoria.setValorArranjo( valor, ind );
+            tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+
+            return vMemoria;
+
+        } else if ( vMemoria.isArranjoAssociativo() ) {
+
+            String chave = visitor.visit( ctx.exprIndice( 0 ) ).valorString();
+            vMemoria.setValorArranjoAssociativo( chave, valor );
+            tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+
+            return vMemoria;
+
         } else {
-            tartaruga.inserirOuAtualizarMemoria( id, valor );
+            return valor;
+        }
+        
+    }
+
+    public Valor visitAtribuirArranjoAssociativo( AuroraLogoParser.AtribuirArranjoAssociativoContext ctx ) {
+        
+        String id = ctx.ID().getText();
+        Valor valor = null;
+        
+        if ( ctx.expr() != null ) {
+            valor = visitor.visit( ctx.expr() );
+        } else if ( ctx.criarArranjos() != null ) {
+            valor = visitor.visit( ctx.criarArranjos() );
+        }
+
+        Valor vMemoria = tartaruga.lerMemoria( id );
+        if ( vMemoria == null ) {
+            vMemoria = novoArranjoAssociativo();
+        }
+
+        if ( vMemoria.isArranjo() ) {
+            
+            vMemoria.setValorArranjo( valor, 0 );
+            tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+
+            return vMemoria;
+
+        } else if ( vMemoria.isArranjoAssociativo() ) {
+            
+            String chave = visitor.visit( ctx.exprIndice() ).valorString();
+            vMemoria.setValorArranjoAssociativo( chave, valor );
+            tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
+
+            return vMemoria;
+
+        } else {
             return valor;
         }
         
@@ -100,7 +147,7 @@ public class ComponenteVisitorAtribuicao {
         Valor vMemoria = tartaruga.lerMemoria( id );
         
         if ( vMemoria.isString() ) {
-            vMemoria = vMemoria.contatenar( valor );
+            vMemoria = vMemoria.concatenar( valor );
             tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
         } else if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {

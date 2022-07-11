@@ -12,14 +12,10 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/sh/Separador.java</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/TODO.txt</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/temasrsta/nimbus.xml</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/sh/AuroraLogoSyntaxHighlighter.flex</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/temasrsta/escuro.xml</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/build.xml</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/temasrsta/claro.xml</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/sh/AuroraLogoSyntaxHighlighter.flext</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testes.aulg</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/ComponenteVisitorFatores.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/gramatica/AuroraLogo.g4</file>
         </group>
     </open-files>
 </project-private>

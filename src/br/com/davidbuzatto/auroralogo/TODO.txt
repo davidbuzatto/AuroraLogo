@@ -1,19 +1,21 @@
 Implementação:
-    - Escurecer depurador no tema escuro?
-    - Elementos dos arrays associativos acessados via ponto também
+    - Atenção: atualizar expr/rel/term para os tipos cor, arranjo e arranjo associativo.
+    -          atualizar atribuições compostas.
+    - obtenção de chaves na estrutura "para cada" (olhar na enquanto)
+    - instrução para trocar a cor da tartaruga!
     - Cópia profunda de arrays e arrays associativos.
-    - Depurador: permitir clicar nos valores grandes?
+    - Depurador: permitir clicar nos valores grandes.
     - Instruções simples para strings -> comprimento, caractere e substring
     - Colorir as propriedades das strings e dos arrays com outra cor (usa keyword 2 ).
     - Funções definidas pelo usuário;
     - Sobre e exemplos;
+    - Pode-se estender os arrays associativos para gerar TADs -> funções como tipos primitivos
     - Verificar todas as operações conferindo compatibilidade (testes de unidade).
     - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
       comparando com a linha errada;
 
 
 Questionamentos:
-    - Não permitir variáveis com o nome de palavras chave?
     - Autocomplete para as funções geométricas e matemáticas? Cores com #?
     - Amarrar execução no editor?
 

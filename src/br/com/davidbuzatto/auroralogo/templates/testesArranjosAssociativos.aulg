@@ -1,11 +1,19 @@
 vD = criarArranjoAssociativo{} .
-vD["teste2"] = "x" .
-vD["teste"] = criarArray[20] .
+vD{"teste1"} = "x" .
+vD{"teste2"} = criarArray[20] .
 
+
+vX = criarArrayAssociativo{} .
+vX["a"] = "a" .
+vX["b"] = "b" .
+vX["c"] = "c" .
+vD{"teste3"} = vX .
 
 vC = vD.chaves .
 
 vI = 0 .
 enquanto vI < vC.comprimento repetir incrementando vI {
-	escrever vD[vC[vI]] na saída .
+	escrever vC[vI] + ": " + vD{vC[vI]} pulando linha na saída .
+	escrever vC[vI] + ": " + vD{vC[vI]}.comprimento pulando linha na saída .
+	escrever vC[vI] + ": " + vD{vC[vI]}.chaves pulando linha na saída .
 }

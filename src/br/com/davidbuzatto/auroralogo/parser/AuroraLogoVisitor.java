@@ -88,6 +88,27 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorId(AuroraLogoParser.FatorIdContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code fatorIdArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorIdArranjo(AuroraLogoParser.FatorIdArranjoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code fatorIdArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorIdArranjoAssociativo(AuroraLogoParser.FatorIdArranjoAssociativoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code fatorIdIdAtributo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorIdIdAtributo(AuroraLogoParser.FatorIdIdAtributoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code fatorChar}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -318,6 +339,20 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitAtribuirPadrao(AuroraLogoParser.AtribuirPadraoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code atribuirArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtribuirArranjo(AuroraLogoParser.AtribuirArranjoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code atribuirArranjoAssociativo}
+	 * labeled alternative in {@link AuroraLogoParser#atribuir}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAtribuirArranjoAssociativo(AuroraLogoParser.AtribuirArranjoAssociativoContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code atribuirAdicao}
 	 * labeled alternative in {@link AuroraLogoParser#atribuir}.

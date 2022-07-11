@@ -750,7 +750,10 @@ public class Tartaruga {
         
         g2d = (Graphics2D) g2d.create();
         
-        Color corFundo = COR_FUNDO_DEPURADOR;
+        //Color corFundo = COR_FUNDO_DEPURADOR;
+        Color cPD = painelDesenho.getBackground();
+        Color cD = new Color( cPD.getRed(), cPD.getGreen(), cPD.getBlue(), 100 );
+        Color corFundo = cD;
         Color corTexto = COR_TEXTO_DEPURADOR;
         
         Estado atu = estados.get( this.estadoAtual );

@@ -357,7 +357,7 @@ public class Valor {
         
     }
     
-    public Valor contatenar( Valor valor ) {
+    public Valor concatenar( Valor valor ) {
         
         if ( this.isString() && !constante ) {
             
