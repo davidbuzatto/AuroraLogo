@@ -258,8 +258,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "PIZZA" | 
 "VERDADEIRO " | 
 "VERDADEIRO" | 
-"\u00E2ngulo " | 
-"\u00E2ngulo" | 
 "abaixar " | 
 "abaixar" | 
 "amarelo " | 
@@ -290,8 +288,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "claro" | 
 "com " | 
 "com" | 
-"comprimento " | 
-"comprimento" | 
 "continuar " | 
 "continuar" | 
 "contorno " | 
@@ -435,14 +431,18 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "vez " | 
 "vez" | 
 "vezes " | 
-"vezes" | 
-"x " | 
-"x" | 
-"y " | 
-"y"		{ addToken(Token.RESERVED_WORD); }
+"vezes"		{ addToken(Token.RESERVED_WORD); }
 
 	/* Keywords 2 (just an optional set of keywords colored differently) */
 	/* No keywords 2 */
+        "\u00E2ngulo " | 
+"\u00E2ngulo" | 
+"comprimento " | 
+"comprimento" | 
+"x " | 
+"x" | 
+"y " | 
+"y"               { addToken(Token.RESERVED_WORD_2); }
 
 	/* Data types */
 	/* No data types */

@@ -786,17 +786,17 @@ public class ComponenteVisitorConstrutos {
             }
 
             if ( ctx.INCM() != null ) {
-                vIdP.somar( vP );
+                vIdP = vIdP.somar( vP );
             } else if ( ctx.DCMM() != null ) {
-                vIdP.subtrair( vP );
+                vIdP = vIdP.subtrair( vP );
             } else if ( ctx.SOMM() != null ) {
-                vIdP.somar( vP );
+                vIdP = vIdP.somar( vP );
             } else if ( ctx.SUBM() != null ) {
-                vIdP.subtrair( vP );
+                vIdP = vIdP.subtrair( vP );
             } else if ( ctx.MULM() != null ) {
-                vIdP.multiplicar( vP );
+                vIdP = vIdP.multiplicar( vP );
             } else if ( ctx.DIVM() != null ) {
-                vIdP.dividir( vP );
+                vIdP = vIdP.dividir( vP );
             }
 
             tartaruga.inserirOuAtualizarMemoria( idP, vIdP );

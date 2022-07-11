@@ -221,6 +221,26 @@ public class Tartaruga {
         return painelDesenho.getHeight() / 2;
     }
     
+    private int sx() {
+        return padraoCartesianoAtivo ? cx() : 0;
+    }
+    
+    private int sy() {
+        return padraoCartesianoAtivo ? cy() : 0;
+    }
+    
+    private double tx( double x ) {
+        return x + sx();
+    }
+    
+    private double ty( double y ) {
+        if ( padraoCartesianoAtivo ) {
+            return sy() - y;
+        } else {
+            return y + sy();
+        }
+    }
+    
     public void setCor( Color cor ) {
         
         this.cor = cor;
@@ -248,8 +268,15 @@ public class Tartaruga {
         }
         
         Estado e = clonarUltimoEstado();
-        e.x += Math.cos( Math.toRadians( e.angulo ) ) * quantidade;
-        e.y += Math.sin( Math.toRadians( e.angulo ) ) * quantidade;
+        
+        if ( padraoCartesianoAtivo ) {
+            e.x += Math.cos( Math.toRadians( e.angulo ) ) * quantidade;
+            e.y += -Math.sin( Math.toRadians( e.angulo ) ) * quantidade;
+        } else {
+            e.x += Math.cos( Math.toRadians( e.angulo ) ) * quantidade;
+            e.y += Math.sin( Math.toRadians( e.angulo ) ) * quantidade;
+        }
+        
         estados.add( e );
         
     }
@@ -261,8 +288,15 @@ public class Tartaruga {
         }
         
         Estado e = clonarUltimoEstado();
-        e.x -= Math.cos( Math.toRadians( e.angulo ) ) * quantidade;
-        e.y -= Math.sin( Math.toRadians( e.angulo ) ) * quantidade;
+        
+        if ( padraoCartesianoAtivo ) {
+            e.x -= Math.cos( Math.toRadians( e.angulo ) ) * quantidade;
+            e.y -= -Math.sin( Math.toRadians( e.angulo ) ) * quantidade;
+        } else {
+            e.x -= Math.cos( Math.toRadians( e.angulo ) ) * quantidade;
+            e.y -= Math.sin( Math.toRadians( e.angulo ) ) * quantidade;
+        }
+        
         estados.add( e );
         
     }
@@ -274,8 +308,15 @@ public class Tartaruga {
         }
         
         Estado e = clonarUltimoEstado();
-        e.x -= Math.cos( Math.toRadians( e.angulo + 90 ) ) * quantidade;
-        e.y -= Math.sin( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+        
+        if ( padraoCartesianoAtivo ) {
+            e.x -= Math.cos( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+            e.y -= -Math.sin( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+        } else {
+            e.x -= Math.cos( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+            e.y -= Math.sin( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+        }
+        
         estados.add( e );
         
     }
@@ -287,8 +328,15 @@ public class Tartaruga {
         }
         
         Estado e = clonarUltimoEstado();
-        e.x += Math.cos( Math.toRadians( e.angulo + 90 ) ) * quantidade;
-        e.y += Math.sin( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+        
+        if ( padraoCartesianoAtivo ) {
+            e.x += Math.cos( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+            e.y += -Math.sin( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+        } else {
+            e.x += Math.cos( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+            e.y += Math.sin( Math.toRadians( e.angulo + 90 ) ) * quantidade;
+        }
+        
         estados.add( e );
         
     }
@@ -436,8 +484,8 @@ public class Tartaruga {
         Estado e = estados.get( 0 );
         
         if ( padraoCartesianoAtivo ) {
-            e.x = cx();
-            e.y = cy();
+            e.x = 0;
+            e.y = 0;
         } else {
             
             int x = cx();
@@ -520,7 +568,7 @@ public class Tartaruga {
                             atu.containerForma.forma instanceof CubicCurve2D ||
                             atu.containerForma.nome.equals( "polígono" ) ||
                             atu.containerForma.nome.equals( "caminho" ) ) ) {
-                        g2dr.rotate( Math.toRadians( atu.angulo ), atu.x, atu.y );
+                        g2dr.rotate( Math.toRadians( atu.angulo ), tx( atu.x ), ty( atu.y ) );
                     }
                     
                     if ( atu.containerForma.preenchida ) {
@@ -536,11 +584,11 @@ public class Tartaruga {
                 } else if ( ant.desenhando ) {
                     if ( atu.texto != null ) {
                         Graphics2D g2ds = (Graphics2D) g2d.create();
-                        g2ds.rotate( Math.toRadians( atu.angulo ), atu.x, atu.y );
-                        g2ds.drawString( atu.texto, (int) atu.x, (int) atu.y );
+                        g2ds.rotate( Math.toRadians( atu.angulo ), tx( atu.x ), ty( atu.y ) );
+                        g2ds.drawString( atu.texto, (int) tx( atu.x ), (int) ty( atu.y ) );
                         g2ds.dispose();
-                    } else {
-                        g2d.draw( new Line2D.Double( ant.x, ant.y, atu.x, atu.y ) );
+                    } else {                        
+                        g2d.draw( new Line2D.Double( tx( ant.x ), ty( ant.y ), tx( atu.x ), ty( atu.y ) ) );
                     }
                 }
                 
@@ -838,12 +886,15 @@ public class Tartaruga {
         
         g2d = (Graphics2D) g2d.create();
         
-        g2d.rotate( Math.toRadians( e.angulo ), e.x, e.y );
+        double x = tx( e.x );
+        double y = ty( e.y );
+        
+        g2d.rotate( Math.toRadians( e.angulo ), x, y );
         
         g2d.drawImage( 
                 imgTartaruga, 
-                (int) e.x - imgTartaruga.getWidth() / 2, 
-                (int) e.y - imgTartaruga.getHeight() + 2, 
+                (int) x - imgTartaruga.getWidth() / 2, 
+                (int) y - imgTartaruga.getHeight() + 2, 
                 null );
         
         g2d.dispose();
@@ -984,7 +1035,7 @@ public class Tartaruga {
     public void criarSegmento( double x1, double y1, double x2, double y2 ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
-                new Line2D.Double( x1, y1, x2, y2 ), 
+                new Line2D.Double( tx( x1 ), ty( y1 ), tx( x2 ), ty( y2 ) ), 
                 true, false, "segmento" );
         estados.add( e );
     }
@@ -993,7 +1044,7 @@ public class Tartaruga {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Rectangle2D.Double( 
-                        xCentro - lado / 2, yCentro - lado / 2, 
+                        tx( xCentro ) - lado / 2, ty( yCentro ) - lado / 2, 
                         lado, lado ), 
                 contornado, preenchido, "quadrado" );
         estados.add( e );
@@ -1003,7 +1054,7 @@ public class Tartaruga {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Rectangle2D.Double( 
-                        xCentro - largura / 2, yCentro - altura / 2, 
+                        tx( xCentro ) - largura / 2, ty( yCentro ) - altura / 2, 
                         largura, altura ), 
                 contornado, preenchido, "retângulo" );
         estados.add( e );
@@ -1013,7 +1064,7 @@ public class Tartaruga {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new Ellipse2D.Double( 
-                        xCentro - raio, yCentro - raio, 
+                        tx( xCentro ) - raio, ty( yCentro ) - raio, 
                         raio * 2, raio * 2 ), 
                 contornado, preenchido, "círculo" );
         estados.add( e );
@@ -1022,7 +1073,8 @@ public class Tartaruga {
     public void criarElipse( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, boolean contornada, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
-                new Ellipse2D.Double( xCentro - eixoHorizontal / 2, yCentro - eixoVertical / 2, 
+                new Ellipse2D.Double( 
+                        tx( xCentro ) - eixoHorizontal / 2, ty( yCentro ) - eixoVertical / 2, 
                         eixoHorizontal, eixoVertical ), 
                 contornada, preenchida, "elipse" );
         estados.add( e );
@@ -1031,7 +1083,8 @@ public class Tartaruga {
     public void criarArco( double xCentro, double yCentro, double eixoHorizontal, double eixoVertical, double anguloInicio, double anguloFim, int tipo, boolean contornado, boolean preenchido ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
-                new Arc2D.Double( xCentro - eixoHorizontal / 2, yCentro - eixoVertical / 2, 
+                new Arc2D.Double( 
+                        tx( xCentro ) - eixoHorizontal / 2, ty( yCentro ) - eixoVertical / 2, 
                         eixoHorizontal, eixoVertical, 
                         anguloInicio, anguloFim, tipo ), 
                 contornado, preenchido, "arco" );
@@ -1047,7 +1100,7 @@ public class Tartaruga {
             
             double[] xs = new double[quantidadeLados];
             double[] ys = new double[quantidadeLados];
-            Utils.gerarCoordenadasPoligonoRegular( xCentro, yCentro, raio, angulo, xs, ys );
+            Utils.gerarCoordenadasPoligonoRegular( tx( xCentro ), ty( yCentro ), raio, angulo, xs, ys );
             
             poligono.moveTo( xs[0], ys[0] );
         
@@ -1073,7 +1126,7 @@ public class Tartaruga {
             
             double[] xs = new double[quantidadePontas];
             double[] ys = new double[quantidadePontas];
-            Utils.gerarCoordenadasPoligonoRegular( xCentro, yCentro, raio, angulo, xs, ys );
+            Utils.gerarCoordenadasPoligonoRegular( tx( xCentro ), ty( yCentro ), raio, angulo, xs, ys );
             
             estrela.moveTo( xs[0], ys[0] );
         
@@ -1113,12 +1166,12 @@ public class Tartaruga {
             Estado e = clonarUltimoEstado();
             
             Path2D.Double poligono = new Path2D.Double();
-            poligono.moveTo( x1, y1 );
-            poligono.lineTo( x2, y2 );
-            poligono.lineTo( x3, y3 );
+            poligono.moveTo( tx( x1 ), ty( y1 ) );
+            poligono.lineTo( tx( x2 ), ty( y2 ) );
+            poligono.lineTo( tx( x3 ), ty( y3 ) );
             
             for ( int i = 0; i < xyn.length; i += 2 ) {
-                poligono.lineTo( xyn[i], xyn[i+1] );
+                poligono.lineTo( tx( xyn[i] ), ty( xyn[i+1] ) );
             }
             
             poligono.closePath();
@@ -1133,7 +1186,10 @@ public class Tartaruga {
     public void criarCurvaQuadratica( double x1, double y1, double xControle, double yControle, double x2, double y2, boolean contornada, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
-                new QuadCurve2D.Double( x1, y1, xControle, yControle, x2, y2 ), 
+                new QuadCurve2D.Double( 
+                        tx( x1 ), ty( y1 ),
+                        tx( xControle ), ty( yControle ),
+                        tx( x2 ), ty( y2 ) ), 
                 contornada, preenchida, "curva quad." );
         estados.add( e );
     }
@@ -1141,8 +1197,10 @@ public class Tartaruga {
     public void criarCurvaCubica( double x1, double y1, double xControle1, double yControle1, double xControle2, double yControle2, double x2, double y2, boolean contornada, boolean preenchida ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
-                new CubicCurve2D.Double( x1, y1, xControle1, yControle1, 
-                        xControle2, yControle2, x2, y2 ), 
+                new CubicCurve2D.Double( tx( x1 ), ty( y1 ),
+                        tx( xControle1 ), ty( yControle1 ),
+                        tx( xControle2 ), ty( yControle2 ),
+                        tx( x2 ), ty( y2 ) ), 
                 contornada, preenchida, "curva cúbica" );
         estados.add( e );
     }
@@ -1162,11 +1220,10 @@ public class Tartaruga {
             try { 
                 Estado e = clonarUltimoEstado();
                 caminho = (ContainerForma) caminho.clone();
-                ( (Path2D.Double) caminho.forma ).moveTo( x, y );
+                ( (Path2D.Double) caminho.forma ).moveTo( tx( x ), ty( y ) );
                 e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
-                exc.printStackTrace();
             }
             
         }
@@ -1180,11 +1237,10 @@ public class Tartaruga {
             try { 
                 Estado e = clonarUltimoEstado();
                 caminho = (ContainerForma) caminho.clone();
-                ( (Path2D.Double) caminho.forma ).lineTo( x, y );
+                ( (Path2D.Double) caminho.forma ).lineTo( tx( x ), ty( y ) );
                 e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
-                exc.printStackTrace();
             }
             
         }
@@ -1198,11 +1254,12 @@ public class Tartaruga {
             try { 
                 Estado e = clonarUltimoEstado();
                 caminho = (ContainerForma) caminho.clone();
-                ( (Path2D.Double) caminho.forma ).quadTo( xControle, yControle, x, y );
+                ( (Path2D.Double) caminho.forma ).quadTo( 
+                        tx( xControle ), ty( yControle ), 
+                        tx( x ), ty( y ) );
                 e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
-                exc.printStackTrace();
             }
             
         }
@@ -1216,11 +1273,13 @@ public class Tartaruga {
             try { 
                 Estado e = clonarUltimoEstado();
                 caminho = (ContainerForma) caminho.clone();
-                ( (Path2D.Double) caminho.forma ).curveTo( xControle1, yControle1, xControle2, yControle2, x, y );
+                ( (Path2D.Double) caminho.forma ).curveTo( 
+                        tx( xControle1 ), ty( yControle1 ), 
+                        tx( xControle2 ), ty( yControle2 ), 
+                        tx( x ), ty( y ) );
                 e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
-                exc.printStackTrace();
             }
             
         }
@@ -1238,7 +1297,6 @@ public class Tartaruga {
                 e.containerForma = caminho;
                 estados.add( e );
             } catch ( CloneNotSupportedException exc ) {
-                exc.printStackTrace();
             }
             
         }

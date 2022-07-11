@@ -111,8 +111,10 @@
             <arg value="../../${src.dir}/${saida}/AuroraLogoLexer.tokens"/>
             <arg value="../../${src.dir}/${saidaSH}/AuroraLogoSyntaxHighlighter.flext"/>
             <arg value="../../${src.dir}/${saidaSH}/AuroraLogoSyntaxHighlighter.flex"/>
-            <arg value="x"/>
+            <arg value="abaixar"/>
             <arg value="claro"/>
+            <arg value="x"/>
+            <arg value="comprimento"/>
             <arg value="arcoCosseno"/>
             <arg value="segmento"/>
             <arg value="="/>

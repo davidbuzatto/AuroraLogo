@@ -29,7 +29,7 @@
     <tokenStyles>
         <style token="IDENTIFIER" fg="00b200"/>
         <style token="RESERVED_WORD" fg="0000ff"/>
-        <style token="RESERVED_WORD_2" fg="9e6d03"/>
+        <style token="RESERVED_WORD_2" fg="0aacf2"/>
         <style token="ANNOTATION" fg="808080"/>
         <style token="COMMENT_DOCUMENTATION" fg="00007c"/>
         <style token="COMMENT_EOL" fg="808080"/>

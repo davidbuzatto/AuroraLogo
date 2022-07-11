@@ -309,13 +309,15 @@ public class Valor {
         
     }
     
-    public void incrementar() {
+    public Valor incrementar() {
+        
+        Valor v = null;
         
         if ( isNumero() && !constante ) {
             if ( isInteiro() ) {
-                valor = (Integer) valor + 1;
+                v = novoInteiro( (Integer) valor + 1 );
             } else {
-                valor = (Double) valor + 1.0;
+                v = novoDecimal( (Double) valor + 1.0 );
             }
         }
         
@@ -323,15 +325,23 @@ public class Valor {
             System.err.println( "tentativa de alteração de constante!" );
         }
         
+        if ( v == null ) {
+            return ZERO_INTEIRO;
+        }
+        
+        return v;
+        
     }
     
-    public void decrementar() {
+    public Valor decrementar() {
+        
+        Valor v = null;
         
         if ( isNumero() && !constante ) {
             if ( isInteiro() ) {
-                valor = (Integer) valor - 1;
+                v = novoInteiro( (Integer) valor - 1 );
             } else {
-                valor = (Double) valor - 1.0;
+                v = novoDecimal( (Double) valor - 1.0 );
             }
         }
         
@@ -339,9 +349,15 @@ public class Valor {
             System.err.println( "tentativa de alteração de constante!" );
         }
         
+        if ( v == null ) {
+            return ZERO_INTEIRO;
+        }
+        
+        return v;
+        
     }
     
-    public void contatenar( Valor valor ) {
+    public Valor contatenar( Valor valor ) {
         
         if ( this.isString() && !constante ) {
             
@@ -356,18 +372,23 @@ public class Valor {
             
             novo += concat;
             
-            this.valor = novo; 
+            return novaString( novo );
+            
         }
+        
+        return ZERO_INTEIRO;
         
     }
     
-    public void somar( Valor valor ) {
+    public Valor somar( Valor valor ) {
+        
+        Valor v = null;
         
         if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
-                this.valor = ( (Integer) this.valor ) + valor.valorInteiro();
+                v = novoInteiro( ( (Integer) this.valor ) + valor.valorInteiro() );
             } else {
-                this.valor = ( (Double) this.valor ) + valor.valorDecimal();
+                v = novoDecimal( ( (Double) this.valor ) + valor.valorDecimal() );
             }
         }
         
@@ -375,15 +396,23 @@ public class Valor {
             System.err.println( "tentativa de alteração de constante!" );
         }
         
+        if ( v == null ) {
+            return ZERO_INTEIRO;
+        }
+        
+        return v;
+        
     }
     
-    public void subtrair( Valor valor ) {
+    public Valor subtrair( Valor valor ) {
+        
+        Valor v = null;
         
         if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
-                this.valor = ( (Integer) this.valor ) - valor.valorInteiro();
+                v = novoInteiro( ( (Integer) this.valor ) - valor.valorInteiro() );
             } else {
-                this.valor = ( (Double) this.valor ) - valor.valorDecimal();
+                v = novoDecimal( ( (Double) this.valor ) - valor.valorDecimal() );
             }
         }
         
@@ -391,15 +420,23 @@ public class Valor {
             System.err.println( "tentativa de alteração de constante!" );
         }
         
+        if ( v == null ) {
+            return ZERO_INTEIRO;
+        }
+        
+        return v;
+        
     }
     
-    public void multiplicar( Valor valor ) {
+    public Valor multiplicar( Valor valor ) {
+        
+        Valor v = null;
         
         if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
-                this.valor = ( (Integer) this.valor ) * valor.valorInteiro();
+                v = novoInteiro( ( (Integer) this.valor ) * valor.valorInteiro() );
             } else {
-                this.valor = ( (Double) this.valor ) * valor.valorDecimal();
+                v = novoDecimal( ( (Double) this.valor ) * valor.valorDecimal() );
             }
         }
         
@@ -407,15 +444,23 @@ public class Valor {
             System.err.println( "tentativa de alteração de constante!" );
         }
         
+        if ( v == null ) {
+            return ZERO_INTEIRO;
+        }
+        
+        return v;
+        
     }
     
-    public void dividir( Valor valor ) {
+    public Valor dividir( Valor valor ) {
+        
+        Valor v = null;
         
         if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
-                this.valor = ( (Integer) this.valor ) / ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() );  // possível divisão por zero
+                v = novoInteiro( ( (Integer) this.valor ) / ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() ) );  // possível divisão por zero
             } else {
-                this.valor = ( (Double) this.valor ) / valor.valorDecimal();                                       // divisão por zero "permitida"
+                v = novoDecimal( ( (Double) this.valor ) / valor.valorDecimal() );                                       // divisão por zero "permitida"
             }
         }
         
@@ -423,21 +468,35 @@ public class Valor {
             System.err.println( "tentativa de alteração de constante!" );
         }
         
+        if ( v == null ) {
+            return ZERO_INTEIRO;
+        }
+        
+        return v;
+        
     }
     
-    public void resto( Valor valor ) {
+    public Valor resto( Valor valor ) {
+        
+        Valor v = null;
         
         if ( this.isNumero() && valor.isNumero() && !constante ) {
             if ( isInteiro() ) {
-                this.valor = ( (Integer) this.valor ) % ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() );  // possível divisão por zero
+                v = novoInteiro( ( (Integer) this.valor ) % ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() ) );  // possível divisão por zero
             } else {
-                this.valor = ( (Double) this.valor ) % valor.valorDecimal();                                       // divisão por zero "permitida"
+                v = novoDecimal( ( (Double) this.valor ) % valor.valorDecimal() );                                       // divisão por zero "permitida"
             }
         }
         
         if ( constante ) {
             System.err.println( "tentativa de alteração de constante!" );
         }
+        
+        if ( v == null ) {
+            return ZERO_INTEIRO;
+        }
+        
+        return v;
         
     }
     

@@ -125,6 +125,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     public static final String VERSAO = "v0.1";
     private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
+    private static final String ARQUIVO_DE_TESTE = "testesSenoCosseno";
     
     private Image iconeJanela;
     private Font fontePadrao;
@@ -1731,7 +1732,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( "testes", true );
+            carregarTemplate( ARQUIVO_DE_TESTE, true );
         }
 
     }

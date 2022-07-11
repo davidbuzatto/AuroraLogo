@@ -341,12 +341,6 @@ UNICODE : 'u' DHX DHX DHX DHX ;
 // ú = \u00FA
 
 
-// terminais que são propriedades da tartaruga
-PX : 'x'           ;
-PY : 'y'           ;
-PA : '\u00E2ngulo' ;
-
-
 // palavras chave
 ABA  : 'abaixar'                 ;
 ABE  : 'ABERTO'                  ;
@@ -358,7 +352,6 @@ CHAV : 'chaves'                  ;
 CIM  : 'cima'                    ;
 COD  : 'CORDA'                   ;
 COM  : 'com'                     ;
-COMP : 'comprimento'             ;
 CONT : 'continuar'               ;
 CON  : 'contorno'                ;
 COR  : 'cor'                     ;
@@ -445,6 +438,15 @@ BRANCO   : 'branco'   ;
 AMARELO  : 'amarelo'  ;
 ESCURO   : 'escuro'   ;
 CLARO    : 'claro'    ;
+
+
+// terminais que são propriedades da tartaruga
+PX : 'x'           ;
+PY : 'y'           ;
+PA : '\u00E2ngulo' ;
+
+// terminais que são proprieades dos arranjos e strings
+COMP : 'comprimento' ;
 
 
 // funções

@@ -100,20 +100,20 @@ public class ComponenteVisitorAtribuicao {
         Valor vMemoria = tartaruga.lerMemoria( id );
         
         if ( vMemoria.isString() ) {
-            vMemoria.contatenar( valor );
+            vMemoria = vMemoria.contatenar( valor );
             tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
         } else if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
-                vMemoria.somar( valor );
+                vMemoria = vMemoria.somar( valor );
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
                     Valor vN = novoInteiro( 0 );
-                    vN.somar( valor );
+                    vN = vN.somar( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
                     Valor vN = novoDecimal( 0.0 );
-                    vN.somar( valor );
+                    vN = vN.somar( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
             }
@@ -132,16 +132,16 @@ public class ComponenteVisitorAtribuicao {
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
-                vMemoria.subtrair( valor );
+                vMemoria = vMemoria.subtrair( valor );
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
                     Valor vN = novoInteiro( 0 );
-                    vN.subtrair( valor );
+                    vN = vN.subtrair( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
                     Valor vN = novoDecimal( 0.0 );
-                    vN.subtrair( valor );
+                    vN = vN.subtrair( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
             }
@@ -160,16 +160,16 @@ public class ComponenteVisitorAtribuicao {
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
-                vMemoria.multiplicar( valor );
+                vMemoria = vMemoria.multiplicar( valor );
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
                     Valor vN = novoInteiro( 0 );
-                    vN.multiplicar( valor );
+                    vN = vN.multiplicar( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
                     Valor vN = novoDecimal( 0.0 );
-                    vN.multiplicar( valor );
+                    vN = vN.multiplicar( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
             }
@@ -188,16 +188,16 @@ public class ComponenteVisitorAtribuicao {
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
-                vMemoria.dividir( valor );
+                vMemoria = vMemoria.dividir( valor );
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
                     Valor vN = novoInteiro( 0 );
-                    vN.dividir( valor );
+                    vN = vN.dividir( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
                     Valor vN = novoDecimal( 0.0 );
-                    vN.dividir( valor );
+                    vN = vN.dividir( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
             }
@@ -216,16 +216,16 @@ public class ComponenteVisitorAtribuicao {
         
         if ( valor.isNumero() ) {
             if ( vMemoria.isNumero() ) {
-                vMemoria.resto( valor );
+                vMemoria = vMemoria.resto( valor );
                 tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
             } else if ( vMemoria.isNulo() ) {
                 if ( valor.isInteiro() ) {
                     Valor vN = novoInteiro( 0 );
-                    vN.resto( valor );
+                    vN = vN.resto( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 } else if ( valor.isDecimal() ) {
                     Valor vN = novoDecimal( 0.0 );
-                    vN.resto( valor );
+                    vN = vN.resto( valor );
                     tartaruga.inserirOuAtualizarMemoria( id, vN );
                 }
             }

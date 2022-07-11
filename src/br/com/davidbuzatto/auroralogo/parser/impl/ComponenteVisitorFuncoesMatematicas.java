@@ -441,7 +441,7 @@ public class ComponenteVisitorFuncoesMatematicas {
         Valor valor = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
-            valor.incrementar();
+            valor = valor.incrementar();
             tartaruga.inserirOuAtualizarMemoria( id, valor );
         }
         
@@ -455,7 +455,7 @@ public class ComponenteVisitorFuncoesMatematicas {
         Valor valor = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
-            valor.decrementar();
+            valor = valor.decrementar();
             tartaruga.inserirOuAtualizarMemoria( id, valor );
         }
         

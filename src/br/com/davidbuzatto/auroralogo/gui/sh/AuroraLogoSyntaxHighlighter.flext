@@ -250,6 +250,7 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 
 	/* Keywords 2 (just an optional set of keywords colored differently) */
 	/* No keywords 2 */
+        "PALAVRAS_CHAVE2_REPLACE"               { addToken(Token.RESERVED_WORD_2); }
 
 	/* Data types */
 	/* No data types */

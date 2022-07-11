@@ -1,10 +1,10 @@
 Implementação:
-    - Grade com medição e alteração do sistema de coordenadas -> desafio: tornar cartesiano padrão
+    - Escurecer depurador no tema escuro?
     - Elementos dos arrays associativos acessados via ponto também
     - Cópia profunda de arrays e arrays associativos.
-    - Constantes com prefixo "c" obrigatório
     - Depurador: permitir clicar nos valores grandes?
-    - Instruções simples para strings;
+    - Instruções simples para strings -> comprimento, caractere e substring
+    - Colorir as propriedades das strings e dos arrays com outra cor (usa keyword 2 ).
     - Funções definidas pelo usuário;
     - Sobre e exemplos;
     - Verificar todas as operações conferindo compatibilidade (testes de unidade).
