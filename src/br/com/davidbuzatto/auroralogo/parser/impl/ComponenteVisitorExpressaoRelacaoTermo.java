@@ -18,6 +18,8 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
+import java.awt.Color;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
@@ -179,6 +181,66 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                         } else {
                             res = false;
                         }
+                    } else if ( valor.isCor() ) {
+                        if ( rv.isInteiro() ) {
+                            res = valor.valorCor().getRGB() == rv.valorInteiro();
+                        } else if ( rv.isDecimal() ) {
+                            res = valor.valorCor().getRGB() == rv.valorDecimal();
+                        } else if ( rv.isCaractere() ) {
+                            res = valor.valorCor().getRGB() == rv.valorCaractere();
+                        } else if ( rv.isBooleano() ) {
+                            res = valor.valorCor().getRGB() == ( rv.valorBooleano() ? 1 : 0 );
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor.valorCor() ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCor().getRGB() == rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = valor.equalsArranjo( rv );
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjoAssociativo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = valor.equalsArranjoAssociativo( rv );
+                        } else {
+                            res = false;
+                        }
                     } else {
                         res = false;
                     }
@@ -200,9 +262,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                         }  else if ( rv.isCor() ) {
                             res = valor.valorInteiro() != rv.valorCor().getRGB();
                         } else if ( rv.isArranjo() ) {
-                            res = false;
+                            res = true;
                         } else if ( rv.isArranjoAssociativo() ) {
-                            res = false;
+                            res = true;
                         } else {
                             res = false;
                         }
@@ -220,9 +282,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                         } else if ( rv.isCor() ) {
                             res = valor.valorDecimal() != rv.valorCor().getRGB();
                         } else if ( rv.isArranjo() ) {
-                            res = false;
+                            res = true;
                         } else if ( rv.isArranjoAssociativo() ) {
-                            res = false;
+                            res = true;
                         } else {
                             res = false;
                         }
@@ -240,9 +302,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                         } else if ( rv.isCor() ) {
                             res = valor.valorCaractere() != rv.valorCor().getRGB();
                         } else if ( rv.isArranjo() ) {
-                            res = false;
+                            res = true;
                         } else if ( rv.isArranjoAssociativo() ) {
-                            res = false;
+                            res = true;
                         } else {
                             res = false;
                         }
@@ -260,9 +322,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                         } else if ( rv.isCor() ) {
                             res = ( valor.valorBooleano() ? 1 : 0 ) != rv.valorCor().getRGB();
                         } else if ( rv.isArranjo() ) {
-                            res = false;
+                            res = true;
                         } else if ( rv.isArranjoAssociativo() ) {
-                            res = false;
+                            res = true;
                         } else {
                             res = false;
                         }
@@ -283,6 +345,66 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = !valor.valorString().equals( String.valueOf( rv ) );
                         } else if ( rv.isArranjoAssociativo() ) {
                             res = !valor.valorString().equals( String.valueOf( rv ) );
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isCor() ) {
+                        if ( rv.isInteiro() ) {
+                            res = valor.valorCor().getRGB() != rv.valorInteiro();
+                        } else if ( rv.isDecimal() ) {
+                            res = valor.valorCor().getRGB() != rv.valorDecimal();
+                        } else if ( rv.isCaractere() ) {
+                            res = valor.valorCor().getRGB() != rv.valorCaractere();
+                        } else if ( rv.isBooleano() ) {
+                            res = valor.valorCor().getRGB() != ( rv.valorBooleano() ? 1 : 0 );
+                        } else if ( rv.isString() ) {
+                            res = !String.valueOf( valor.valorCor() ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCor().getRGB() != rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = true;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = true;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = true;
+                        } else if ( rv.isDecimal() ) {
+                            res = true;
+                        } else if ( rv.isCaractere() ) {
+                            res = true;
+                        } else if ( rv.isBooleano() ) {
+                            res = true;
+                        } else if ( rv.isString() ) {
+                            res = !String.valueOf( valor ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = true;
+                        } else if ( rv.isArranjo() ) {
+                            res = !valor.equalsArranjo( rv );
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = true;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjoAssociativo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = true;
+                        } else if ( rv.isDecimal() ) {
+                            res = true;
+                        } else if ( rv.isCaractere() ) {
+                            res = true;
+                        } else if ( rv.isBooleano() ) {
+                            res = true;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).equals( rv.valorString() );
+                        } else if ( rv.isCor() ) {
+                            res = true;
+                        } else if ( rv.isArranjo() ) {
+                            res = true;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = !valor.equalsArranjoAssociativo( rv );
                         } else {
                             res = false;
                         }
@@ -393,6 +515,66 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                         } else {
                             res = false;
                         }
+                    } else if ( valor.isCor() ) {
+                        if ( rv.isInteiro() ) {
+                            res = valor.valorCor().getRGB() < rv.valorInteiro();
+                        } else if ( rv.isDecimal() ) {
+                            res = valor.valorCor().getRGB() < rv.valorDecimal();
+                        } else if ( rv.isCaractere() ) {
+                            res = valor.valorCor().getRGB() < rv.valorCaractere();
+                        } else if ( rv.isBooleano() ) {
+                            res = valor.valorCor().getRGB() < ( rv.valorBooleano() ? 1 : 0 );
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor.valorCor() ).compareTo( rv.valorString() ) < 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCor().getRGB() < rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).compareTo( rv.valorString() ) < 0;
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjoAssociativo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).compareTo( rv.valorString() ) < 0;
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
                     } else {
                         res = false;
                     }
@@ -497,6 +679,66 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorString().compareTo( String.valueOf( rv ) ) <= 0;
                         } else if ( rv.isArranjoAssociativo() ) {
                             res = valor.valorString().compareTo( String.valueOf( rv ) ) <= 0;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isCor() ) {
+                        if ( rv.isInteiro() ) {
+                            res = valor.valorCor().getRGB() <= rv.valorInteiro();
+                        } else if ( rv.isDecimal() ) {
+                            res = valor.valorCor().getRGB() <= rv.valorDecimal();
+                        } else if ( rv.isCaractere() ) {
+                            res = valor.valorCor().getRGB() <= rv.valorCaractere();
+                        } else if ( rv.isBooleano() ) {
+                            res = valor.valorCor().getRGB() <= ( rv.valorBooleano() ? 1 : 0 );
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor.valorCor() ).compareTo( rv.valorString() ) <= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCor().getRGB() <= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).compareTo( rv.valorString() ) <= 0;
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjoAssociativo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).compareTo( rv.valorString() ) <= 0;
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -607,6 +849,66 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                         } else {
                             res = false;
                         }
+                    } else if ( valor.isCor() ) {
+                        if ( rv.isInteiro() ) {
+                            res = valor.valorCor().getRGB() > rv.valorInteiro();
+                        } else if ( rv.isDecimal() ) {
+                            res = valor.valorCor().getRGB() > rv.valorDecimal();
+                        } else if ( rv.isCaractere() ) {
+                            res = valor.valorCor().getRGB() > rv.valorCaractere();
+                        } else if ( rv.isBooleano() ) {
+                            res = valor.valorCor().getRGB() > ( rv.valorBooleano() ? 1 : 0 );
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor.valorCor() ).compareTo( rv.valorString() ) > 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCor().getRGB() > rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).compareTo( rv.valorString() ) > 0;
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjoAssociativo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).compareTo( rv.valorString() ) > 0;
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
                     } else {
                         res = false;
                     }
@@ -711,6 +1013,66 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             res = valor.valorString().compareTo( String.valueOf( rv ) ) >= 0;
                         } else if ( rv.isArranjoAssociativo() ) {
                             res = valor.valorString().compareTo( String.valueOf( rv ) ) >= 0;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isCor() ) {
+                        if ( rv.isInteiro() ) {
+                            res = valor.valorCor().getRGB() >= rv.valorInteiro();
+                        } else if ( rv.isDecimal() ) {
+                            res = valor.valorCor().getRGB() >= rv.valorDecimal();
+                        } else if ( rv.isCaractere() ) {
+                            res = valor.valorCor().getRGB() >= rv.valorCaractere();
+                        } else if ( rv.isBooleano() ) {
+                            res = valor.valorCor().getRGB() >= ( rv.valorBooleano() ? 1 : 0 );
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor.valorCor() ).compareTo( rv.valorString() ) >= 0;
+                        } else if ( rv.isCor() ) {
+                            res = valor.valorCor().getRGB() >= rv.valorCor().getRGB();
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).compareTo( rv.valorString() ) >= 0;
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
+                        } else {
+                            res = false;
+                        }
+                    } else if ( valor.isArranjoAssociativo() ) {
+                        if ( rv.isInteiro() ) {
+                            res = false;
+                        } else if ( rv.isDecimal() ) {
+                            res = false;
+                        } else if ( rv.isCaractere() ) {
+                            res = false;
+                        } else if ( rv.isBooleano() ) {
+                            res = false;
+                        } else if ( rv.isString() ) {
+                            res = String.valueOf( valor ).compareTo( rv.valorString() ) >= 0;
+                        } else if ( rv.isCor() ) {
+                            res = false;
+                        } else if ( rv.isArranjo() ) {
+                            res = false;
+                        } else if ( rv.isArranjoAssociativo() ) {
+                            res = false;
                         } else {
                             res = false;
                         }
@@ -851,6 +1213,66 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else {
                                 // valor é o próprio
                             }
+                        } else if ( valor.isCor() ) {
+                            if ( tv.isInteiro() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() + tv.valorInteiro() );
+                            } else if ( tv.isDecimal() ) {
+                                valor = novoDecimal( valor.valorCor().getRGB() + tv.valorDecimal() );
+                            } else if ( tv.isCaractere() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() + tv.valorCaractere()  );
+                            } else if ( tv.isBooleano() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() + ( tv.valorBooleano() ? 1 : 0 ) );
+                            } else if ( tv.isString() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isCor() ) {
+                                valor = novaCor( Utils.gerarComponenteGradienteAlpha( valor.valorCor(), tv.valorCor(), 0.5 ) );
+                            } else if ( tv.isArranjo() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else {
+                                // valor é o próprio
+                            }
+                        } else if ( valor.isArranjo() ) {
+                            if ( tv.isInteiro() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isDecimal() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isCaractere() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isBooleano() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isString() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isCor() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isArranjo() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else {
+                                // valor é o próprio
+                            }
+                        } else if ( valor.isArranjoAssociativo() ) {
+                            if ( tv.isInteiro() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isDecimal() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isCaractere() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isBooleano() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isString() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isCor() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isArranjo() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                valor = novaString( valor + tv.valorString() );
+                            } else {
+                                // valor é o próprio
+                            }
                         }
                         break;
                     case AuroraLogoParser.SUB:
@@ -955,6 +1377,30 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else {
                                 // valor é o próprio
                             }
+                        } else if ( valor.isCor() ) {
+                            if ( tv.isInteiro() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() - tv.valorInteiro() );
+                            } else if ( tv.isDecimal() ) {
+                                valor = novoDecimal( valor.valorCor().getRGB() - tv.valorDecimal() );
+                            } else if ( tv.isCaractere() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() - tv.valorCaractere()  );
+                            } else if ( tv.isBooleano() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() - ( tv.valorBooleano() ? 1 : 0 ) );
+                            } else if ( tv.isString() ) {
+                                // valor é o próprio
+                            } else if ( tv.isCor() ) {
+                                valor = novaCor( Utils.subtrairCores( valor.valorCor(), tv.valorCor() ) );
+                            } else if ( tv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( tv.isArranjoAssociativo() ) {
+                                // valor é o próprio
+                            } else {
+                                // valor é o próprio
+                            }
+                        } else if ( valor.isArranjo() ) {
+                            // valor é o próprio
+                        } else if ( valor.isArranjoAssociativo() ) {
+                            // valor é o próprio
                         }
                         break;
                 }
@@ -1088,6 +1534,30 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else {
                                 // valor é o próprio
                             }
+                        } else if ( valor.isCor() ) {
+                            if ( fv.isInteiro() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() * fv.valorInteiro() );
+                            } else if ( fv.isDecimal() ) {
+                                valor = novoDecimal( valor.valorCor().getRGB() * fv.valorDecimal() );
+                            } else if ( fv.isCaractere() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() * fv.valorCaractere()  );
+                            } else if ( fv.isBooleano() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() * ( fv.valorBooleano() ? 1 : 0 ) );
+                            } else if ( fv.isString() ) {
+                                // valor é o próprio
+                            } else if ( fv.isCor() ) {
+                                valor = novaCor( Utils.multiplicarCores( valor.valorCor(), fv.valorCor() ) );
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
+                            } else {
+                                // valor é o próprio
+                            }
+                        } else if ( valor.isArranjo() ) {
+                            // valor é o próprio
+                        } else if ( valor.isArranjoAssociativo() ) {
+                            // valor é o próprio
                         }
                         break;
                     case AuroraLogoParser.DIV:
@@ -1192,6 +1662,30 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else {
                                 // valor é o próprio
                             }
+                        } else if ( valor.isCor() ) {
+                            if ( fv.isInteiro() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
+                            } else if ( fv.isDecimal() ) { 
+                                valor = novoDecimal( valor.valorCor().getRGB() / fv.valorDecimal() );                                       // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) { 
+                                valor = novoInteiro( valor.valorCor().getRGB() / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
+                            } else if ( fv.isBooleano() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() / ( fv.valorBooleano() ? 1 : 0 ) );
+                            } else if ( fv.isString() ) {
+                                // valor é o próprio
+                            } else if ( fv.isCor() ) {
+                                valor = novaCor( Utils.dividirCores( valor.valorCor(), fv.valorCor() ) );
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
+                            } else {
+                                // valor é o próprio
+                            }
+                        } else if ( valor.isArranjo() ) {
+                            // valor é o próprio
+                        } else if ( valor.isArranjoAssociativo() ) {
+                            // valor é o próprio
                         }
                         break;
                     case AuroraLogoParser.MOD:
@@ -1296,6 +1790,30 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else {
                                 // valor é o próprio
                             }
+                        } else if ( valor.isCor() ) {
+                            if ( fv.isInteiro() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() / ( fv.valorInteiro() == 0 ? 1 : fv.valorInteiro() ) );      // possível divisão por zero
+                            } else if ( fv.isDecimal() ) { 
+                                valor = novoDecimal( valor.valorCor().getRGB() / fv.valorDecimal() );                                       // divisão por zero "permitida"
+                            } else if ( fv.isCaractere() ) { 
+                                valor = novoInteiro( valor.valorCor().getRGB() / ( fv.valorCaractere() == 0 ? 1 : fv.valorCaractere() ) );  // possível divisão por zero
+                            } else if ( fv.isBooleano() ) {
+                                valor = novoInteiro( valor.valorCor().getRGB() / ( fv.valorBooleano() ? 1 : 0 ) );
+                            } else if ( fv.isString() ) {
+                                // valor é o próprio
+                            } else if ( fv.isCor() ) {
+                                valor = novaCor( Utils.restoCores( valor.valorCor(), fv.valorCor() ) );
+                            } else if ( fv.isArranjo() ) {
+                                // valor é o próprio
+                            } else if ( fv.isArranjoAssociativo() ) {
+                                // valor é o próprio
+                            } else {
+                                // valor é o próprio
+                            }
+                        } else if ( valor.isArranjo() ) {
+                            // valor é o próprio
+                        } else if ( valor.isArranjoAssociativo() ) {
+                            // valor é o próprio
                         }
                         break;
 

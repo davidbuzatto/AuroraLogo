@@ -272,10 +272,10 @@ funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'            
                     | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?             # funcaoDesenharCurvaCubica
                     ;
 
-opcaoFGeomO         : PREO ( E SEM CON )? | SEM CON ( E PREO )? 
+opcaoFGeomO         : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )? 
                     ;
 
-opcaoFGeomA         : PREA ( E SEM CON )? | SEM CON ( E PREA )?
+opcaoFGeomA         : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )?
                     ;
 
 desenharCaminho     : DESE CAM opcaoFGeomO? '{' ( instCaminho DOT )+ '}'
@@ -405,9 +405,7 @@ PI   : 'PI'                      ;
 PINC : 'pincel'                  ;
 PIZ  : 'PIZZA'                   ;
 POR  : 'por'                     ;
-PREA : 'preenchida'              ;
 PREE : 'preenchimento'           ;
-PREO : 'preenchido'              ;
 PUL  : 'pulando'                 ;
 QUAD : 'quadr\u00E1tica'         ;
 REP  : 'repetir'                 ;

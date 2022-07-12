@@ -382,10 +382,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "pincel" | 
 "por " | 
 "por" | 
-"preenchida " | 
-"preenchida" | 
-"preenchido " | 
-"preenchido" | 
 "preenchimento " | 
 "preenchimento" | 
 "preto " | 

@@ -1,7 +1,6 @@
 Implementação:
-    - Atenção: atualizar expr/rel/term para os tipos cor, arranjo e arranjo associativo.
-    -          atualizar atribuições compostas.
-    - obtenção de chaves na estrutura "para cada" (olhar na enquanto)
+    - pontos nos centros das figuras e no início das strings -> investigar e remover
+    - Atenção: atualizar atribuições compostas.
     - instrução para trocar a cor da tartaruga!
     - Cópia profunda de arrays e arrays associativos.
     - Depurador: permitir clicar nos valores grandes.

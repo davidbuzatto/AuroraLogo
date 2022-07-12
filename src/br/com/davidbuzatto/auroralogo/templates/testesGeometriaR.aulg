@@ -5,79 +5,79 @@ desenhar segmento( tartaruga.x, tartaruga.y, tartaruga.x + 40, tartaruga.y ) .
 
 girar em 45 graus .
 vá para cima em 100 .
-desenhar quadrado( tartaruga.x, tartaruga.y, 40 ) preenchido .
+desenhar quadrado( tartaruga.x, tartaruga.y, 40 ) .
 
 girar em 45 graus .
 vá para cima em 100 .
-desenhar retângulo( tartaruga.x, tartaruga.y, 100, 40 ) preenchido .
+desenhar retângulo( tartaruga.x, tartaruga.y, 100, 40 ) .
 
 girar em 45 graus .
 vá para cima em 100 .
-desenhar círculo( tartaruga.x, tartaruga.y, 20 ) preenchido .
+desenhar círculo( tartaruga.x, tartaruga.y, 20 ) .
 
 girar em 45 graus .
 vá para cima em 100 .
-desenhar elipse( tartaruga.x, tartaruga.y, 100, 40 ) preenchida .
+desenhar elipse( tartaruga.x, tartaruga.y, 100, 40 ) .
 
 girar em 45 graus .
 vá para cima em 100 .
-desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 90 ) preenchido .
+desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 90 ) .
 
 vá para cima em 50 .
-desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 120, ABERTO ) preenchido .
+desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 120, ABERTO ) .
 
 vá para cima em 50 .
-desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 150, CORDA ) preenchido .
+desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 150, CORDA ) .
 
 vá para cima em 50 .
-desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 210, PIZZA ) preenchido .
+desenhar arco( tartaruga.x, tartaruga.y, 40, 40, 0, 210, PIZZA ) .
 
 girar em 45 graus .
 vá para cima em 100 .
-desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 3 ) preenchido .
+desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 3 ) .
 
 vá para cima em 50 .
-desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 4 ) preenchido .
+desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 4 ) .
 
 vá para cima em 50 .
-desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 5 ) preenchido .
+desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 5 ) .
 
 vá para cima em 50 .
-desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 6 ) preenchido .
+desenhar polígonoRegular( tartaruga.x, tartaruga.y, 20, 0, 6 ) .
 
 girar em 90 graus .
 vá para cima em 100 .
-desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 3 ) preenchida .
+desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 3 ) .
 
 vá para cima em 50 .
-desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 4 ) preenchida .
+desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 4 ) .
 
 vá para cima em 50 .
-desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 5 ) preenchida .
+desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 5 ) .
 
 vá para cima em 50 .
-desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 6 ) preenchida .
+desenhar estrela( tartaruga.x, tartaruga.y, 20, 0, 6 ) .
 
 girar em 45 graus .
 vá para cima em 100 .
-desenhar polígono( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y, tartaruga.x+25, tartaruga.y+25 ) preenchido .
+desenhar polígono( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y, tartaruga.x+25, tartaruga.y+25 ) .
 
 vá para cima em 50 .
-desenhar polígono( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y, tartaruga.x+40, tartaruga.y+25, tartaruga.x+10, tartaruga.y+25 ) preenchido .
+desenhar polígono( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y, tartaruga.x+40, tartaruga.y+25, tartaruga.x+10, tartaruga.y+25 ) .
 
 girar em -45 graus .
 vá para cima em 100 .
-desenhar curvaQuadrática( tartaruga.x, tartaruga.y, tartaruga.x+100, tartaruga.y-30, tartaruga.x+200, tartaruga.y ) preenchida .
+desenhar curvaQuadrática( tartaruga.x, tartaruga.y, tartaruga.x+100, tartaruga.y-30, tartaruga.x+200, tartaruga.y ) .
 
 girar em -60 graus .
 vá para cima em 200 .
-desenhar curvaCúbica( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y-30, tartaruga.x+150, tartaruga.y+30, tartaruga.x+200, tartaruga.y ) preenchida .
+desenhar curvaCúbica( tartaruga.x, tartaruga.y, tartaruga.x+50, tartaruga.y-30, tartaruga.x+150, tartaruga.y+30, tartaruga.x+200, tartaruga.y ) .
 
 vá para cima em 200 .
 vI = tartaruga.x .
 vJ = tartaruga.y .
 repetir 10 vezes {
-    desenhar caminho {
+    desenhar caminho sem preenchimento {
         mover até ( vI, vJ ) .
         linha até ( vI+50, vJ ) . 
         linha até ( vI+50, vJ-30 ) .

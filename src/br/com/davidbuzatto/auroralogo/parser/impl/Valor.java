@@ -690,4 +690,12 @@ public class Valor {
         return new Valor( Tipo.CONTINUAR, id );
     }
     
+    public boolean equalsArranjo( Valor arranjo ) {
+        return false;
+    }
+    
+    public boolean equalsArranjoAssociativo( Valor arranjoAssociativo ) {
+        return false;
+    }
+    
 }

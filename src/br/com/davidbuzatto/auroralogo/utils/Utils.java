@@ -27,6 +27,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.SplashScreen;
+import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
@@ -319,6 +320,25 @@ public class Utils {
         
     }
     
+    public static Color gerarComponenteGradienteAlpha( Color corEsquerda, Color corDireita, double posicao ) {
+        
+        if ( corEsquerda == null ) {
+            corEsquerda = Color.WHITE;
+        }
+        
+        if ( corDireita == null ) {
+            corDireita = Color.BLACK;
+        }
+        
+        int r = (int) ( corDireita.getRed() * posicao + corEsquerda.getRed() * ( 1 - posicao ) );
+        int g = (int) ( corDireita.getGreen() * posicao + corEsquerda.getGreen() * ( 1 - posicao ) );
+        int b = (int) ( corDireita.getBlue() * posicao + corEsquerda.getBlue() * ( 1 - posicao ) );
+        int a = (int) ( corDireita.getAlpha() * posicao + corEsquerda.getAlpha() * ( 1 - posicao ) );
+        
+        return new Color( r, g, b, a );
+        
+    }
+    
     public static Color decodificarCor( String strCor ) {
         
         try {
@@ -342,6 +362,106 @@ public class Utils {
             exc.printStackTrace();
             return Color.BLACK;
         }
+        
+    }
+    
+    public static Color subtrairCores( Color c1, Color c2 ) {
+        
+        int rC1 = c1.getRed();
+        int gC1 = c1.getGreen();
+        int bC1 = c1.getBlue();
+        int aC1 = c1.getAlpha();
+        
+        int rC2 = c2.getRed();
+        int gC2 = c2.getGreen();
+        int bC2 = c2.getBlue();
+        int aC2 = c2.getAlpha();
+        
+        int rC = Math.max( rC1 - rC2, 0 );
+        int gC = Math.max( gC1 - gC2, 0 );
+        int bC = Math.max( bC1 - bC2, 0 );
+        int aC = Math.max( aC1 - aC2, 0 );
+        
+        if ( aC1 != 255 || aC2 != 255 ) {
+            return new Color( rC, gC, bC, aC );
+        }
+        
+        return new Color( rC, gC, bC );
+        
+    }
+    
+    public static Color multiplicarCores( Color c1, Color c2 ) {
+        
+        int rC1 = c1.getRed();
+        int gC1 = c1.getGreen();
+        int bC1 = c1.getBlue();
+        int aC1 = c1.getAlpha();
+        
+        int rC2 = c2.getRed();
+        int gC2 = c2.getGreen();
+        int bC2 = c2.getBlue();
+        int aC2 = c2.getAlpha();
+        
+        int rC = Math.max( rC1 * rC2 / 255, 0 );
+        int gC = Math.max( gC1 * gC2 / 255, 0 );
+        int bC = Math.max( bC1 * bC2 / 255, 0 );
+        int aC = Math.max( aC1 * aC2 / 255, 0 );
+        
+        if ( aC1 != 255 || aC2 != 255 ) {
+            return new Color( rC, gC, bC, aC );
+        }
+        
+        return new Color( rC, gC, bC );
+        
+    }
+    
+    public static Color dividirCores( Color c1, Color c2 ) {
+        
+        int rC1 = c1.getRed();
+        int gC1 = c1.getGreen();
+        int bC1 = c1.getBlue();
+        int aC1 = c1.getAlpha();
+        
+        int rC2 = c2.getRed();
+        int gC2 = c2.getGreen();
+        int bC2 = c2.getBlue();
+        int aC2 = c2.getAlpha();
+        
+        int rC = rC1 / Math.max( rC2, 1 );
+        int gC = gC1 / Math.max( gC2, 1 );
+        int bC = bC1 / Math.max( bC2, 1 );
+        int aC = aC1 / Math.max( aC2, 1 );
+        
+        if ( aC1 != 255 || aC2 != 255 ) {
+            return new Color( rC, gC, bC, aC );
+        }
+        
+        return new Color( rC, gC, bC );
+        
+    }
+    
+    public static Color restoCores( Color c1, Color c2 ) {
+        
+        int rC1 = c1.getRed();
+        int gC1 = c1.getGreen();
+        int bC1 = c1.getBlue();
+        int aC1 = c1.getAlpha();
+        
+        int rC2 = c2.getRed();
+        int gC2 = c2.getGreen();
+        int bC2 = c2.getBlue();
+        int aC2 = c2.getAlpha();
+        
+        int rC = rC1 % Math.max( rC2, 1 );
+        int gC = gC1 % Math.max( gC2, 1 );
+        int bC = bC1 % Math.max( bC2, 1 );
+        int aC = aC1 % Math.max( aC2, 1 );
+        
+        if ( aC1 != 255 || aC2 != 255 ) {
+            return new Color( rC, gC, bC, aC );
+        }
+        
+        return new Color( rC, gC, bC );
         
     }
     
@@ -617,10 +737,13 @@ public class Utils {
     
     public static void main( String[] args ) {
         //String s = "áàâãéêíóôõúüç";
-        String s = "ÁÀÂÃÉÊÍÓÔÕÚÜÇ";
+        /*String s = "ÁÀÂÃÉÊÍÓÔÕÚÜÇ";
         for ( char c : s.toCharArray() ) {
             System.out.print( toUnicodeScape( c ) );
-        }
+        }*/
+        
+        Color c = subtrairCores( Color.white, Color.red );
+        System.out.println( c );
         
     }
     
