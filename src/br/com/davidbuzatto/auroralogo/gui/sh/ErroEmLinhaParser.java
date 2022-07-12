@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.auroralogo.gui.sh;
 
-import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
+import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.util.ArrayList;

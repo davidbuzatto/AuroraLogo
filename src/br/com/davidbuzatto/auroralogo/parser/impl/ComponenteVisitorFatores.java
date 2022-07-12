@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.auroralogo.parser.impl;
 
-import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
+import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;

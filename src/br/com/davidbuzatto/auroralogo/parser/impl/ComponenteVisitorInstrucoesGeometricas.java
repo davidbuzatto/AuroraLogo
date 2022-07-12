@@ -16,7 +16,7 @@
  */
 package br.com.davidbuzatto.auroralogo.parser.impl;
 
-import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
+import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.geom.Arc2D;
@@ -127,6 +127,39 @@ public class ComponenteVisitorInstrucoesGeometricas {
         
     }
     
+    public Valor visitFuncaoDesenharRetanguloArredondado( AuroraLogoParser.FuncaoDesenharRetanguloArredondadoContext ctx ) {
+        
+        if ( tartaruga.isDesenhando() ) {
+            
+            double xCentro = visitor.visit( ctx.expr( 0 ) ).valorDecimal();
+            double yCentro = visitor.visit( ctx.expr( 1 ) ).valorDecimal();
+            double largura = visitor.visit( ctx.expr( 2 ) ).valorDecimal();
+            double altura = visitor.visit( ctx.expr( 3 ) ).valorDecimal();
+            double arco = visitor.visit( ctx.expr( 4 ) ).valorDecimal();
+
+            boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = true;
+            
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            }
+            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( xCentro, yCentro );
+            tartaruga.criarRetanguloArredondado( xCentro, yCentro, largura, altura, arco, contorno, preenchimento );
+            
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
+            }
+            
+        }
+        
+        return NULO;
+        
+    }
+    
     public Valor visitFuncaoDesenharCirculo( AuroraLogoParser.FuncaoDesenharCirculoContext ctx ) {
         
         if ( tartaruga.isDesenhando() ) {
@@ -171,9 +204,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomA() != null ) {
-                contorno = ctx.opcaoFGeomA().CON() == null;
-                preenchimento = ctx.opcaoFGeomA().PREE() == null;
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -286,9 +319,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
                 boolean contorno = true;
                 boolean preenchimento = true;
 
-                if ( ctx.opcaoFGeomA() != null ) {
-                    contorno = ctx.opcaoFGeomA().CON() == null;
-                    preenchimento = ctx.opcaoFGeomA().PREE() == null;
+                if ( ctx.opcaoFGeomO() != null ) {
+                    contorno = ctx.opcaoFGeomO().CON() == null;
+                    preenchimento = ctx.opcaoFGeomO().PREE() == null;
                 }
                 
                 tartaruga.levantarPincel( false );
@@ -394,9 +427,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomA() != null ) {
-                contorno = ctx.opcaoFGeomA().CON() == null;
-                preenchimento = ctx.opcaoFGeomA().PREE() == null;
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -430,9 +463,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomA() != null ) {
-                contorno = ctx.opcaoFGeomA().CON() == null;
-                preenchimento = ctx.opcaoFGeomA().PREE() == null;
+            if ( ctx.opcaoFGeomO() != null ) {
+                contorno = ctx.opcaoFGeomO().CON() == null;
+                preenchimento = ctx.opcaoFGeomO().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );

@@ -18,7 +18,7 @@ package br.com.davidbuzatto.auroralogo.utils;
 
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
-import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.novoInteiro;
+import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -27,7 +27,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.SplashScreen;
-import java.awt.Transparency;
 import java.awt.color.ColorSpace;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;

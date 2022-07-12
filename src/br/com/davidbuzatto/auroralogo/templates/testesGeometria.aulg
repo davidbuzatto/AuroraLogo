@@ -6,6 +6,8 @@ desenhar quadrado( 300, 200, 40 ) .
 
 desenhar retângulo( 300, 250, 100, 40 ) .
 
+desenhar retânguloArredondado( 430, 250, 100, 40, 15 ) .
+
 desenhar círculo( 300, 300, 20 ) .
 
 desenhar elipse( 300, 350, 100, 40 ) .

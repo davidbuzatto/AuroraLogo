@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
+import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.gui.sh.ErroEmLinhaParser;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
@@ -98,7 +99,7 @@ import org.fife.ui.rtextarea.SearchEngine;
 import org.fife.ui.rtextarea.SearchResult;
 
 /**
- * Janela Principal do ambiente de desenvolvimento da linhaguagem de programação
+ * Janela Principal do ambiente de desenvolvimento da linguagem de programação
  * AuroraLogo.
  * 
  * @author Prof. Dr. David Buzatto
@@ -122,10 +123,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
     
-    public static final String VERSAO = "v0.1";
+    public static final String VERSAO = "v0.95";
     private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
-    private static final String ARQUIVO_DE_TESTE = "testesGeometriaR";
+    private static final String ARQUIVO_DE_TESTE = "testesArranjos";
     
     private Image iconeJanela;
     private Font fontePadrao;

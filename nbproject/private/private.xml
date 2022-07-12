@@ -1,27 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2">
-        <file>
-            <url>src/br/com/davidbuzatto/auroralogo/gui/Tartaruga.java</url>
-            <bookmark id="1">
-                <name/>
-                <line>591</line>
-                <key/>
-            </bookmark>
-        </file>
-    </editor-bookmarks>
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="2"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/TODO.txt</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/Tartaruga.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testes.aulg</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/ComponenteVisitorFatores.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/ComponenteVisitorInstrucoesGeometricas.java</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/gramatica/AuroraLogo.g4</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testesCores.aulg</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testesGeometriaR.aulg</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/gui/JanelaPrincipal.java</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testesGeometria.aulg</file>
         </group>
     </open-files>
 </project-private>

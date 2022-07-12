@@ -572,6 +572,10 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "ret\u00E2ngulo" | 
 "ret\u00E2ngulo( " | 
 "ret\u00E2ngulo() " | 
+"ret\u00E2nguloArredondado " | 
+"ret\u00E2nguloArredondado" | 
+"ret\u00E2nguloArredondado( " | 
+"ret\u00E2nguloArredondado() " | 
 "segmento " | 
 "segmento" | 
 "segmento( " | 

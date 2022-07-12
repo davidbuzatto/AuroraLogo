@@ -18,6 +18,7 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 
@@ -28,7 +29,7 @@ import java.util.Locale;
  * @author Prof. Dr. David Buzatto
  */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
-public class Valor {
+public class Valor implements Serializable {
     
     public static enum Tipo {
     

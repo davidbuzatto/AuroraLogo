@@ -1070,6 +1070,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFuncaoDesenharRetangulo(AuroraLogoParser.FuncaoDesenharRetanguloContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code funcaoDesenharRetanguloArredondado}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void enterFuncaoDesenharRetanguloArredondado(AuroraLogoParser.FuncaoDesenharRetanguloArredondadoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code funcaoDesenharRetanguloArredondado}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 */
+	void exitFuncaoDesenharRetanguloArredondado(AuroraLogoParser.FuncaoDesenharRetanguloArredondadoContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code funcaoDesenharCirculo}
 	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
 	 * @param ctx the parse tree
@@ -1175,16 +1187,6 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#opcaoFGeomA}.
-	 * @param ctx the parse tree
-	 */
-	void enterOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#opcaoFGeomA}.
-	 * @param ctx the parse tree
-	 */
-	void exitOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#desenharCaminho}.
 	 * @param ctx the parse tree

@@ -636,6 +636,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncaoDesenharRetangulo(AuroraLogoParser.FuncaoDesenharRetanguloContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code funcaoDesenharRetanguloArredondado}
+	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFuncaoDesenharRetanguloArredondado(AuroraLogoParser.FuncaoDesenharRetanguloArredondadoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code funcaoDesenharCirculo}
 	 * labeled alternative in {@link AuroraLogoParser#funcaoGeometrica}.
 	 * @param ctx the parse tree
@@ -697,12 +704,6 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#opcaoFGeomA}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#desenharCaminho}.
 	 * @param ctx the parse tree

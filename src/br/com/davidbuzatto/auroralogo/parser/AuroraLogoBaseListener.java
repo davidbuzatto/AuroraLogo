@@ -1144,6 +1144,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFuncaoDesenharRetanguloArredondado(AuroraLogoParser.FuncaoDesenharRetanguloArredondadoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncaoDesenharRetanguloArredondado(AuroraLogoParser.FuncaoDesenharRetanguloArredondadoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFuncaoDesenharCirculo(AuroraLogoParser.FuncaoDesenharCirculoContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -1247,18 +1259,6 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

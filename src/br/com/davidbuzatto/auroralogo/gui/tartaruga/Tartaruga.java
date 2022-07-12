@@ -14,16 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.gui;
+package br.com.davidbuzatto.auroralogo.gui.tartaruga;
 
+import br.com.davidbuzatto.auroralogo.gui.PainelDesenho;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
-import java.awt.Shape;
 import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
 import java.awt.geom.Ellipse2D;
@@ -31,13 +32,12 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 import java.awt.geom.QuadCurve2D;
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.RoundRectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Map.Entry;
 import javax.imageio.ImageIO;
 
@@ -48,111 +48,6 @@ import javax.imageio.ImageIO;
  * @author Prof. Dr. David Buzatto
  */
 public class Tartaruga {
-    
-    private class ContainerForma implements Cloneable {
-        
-        Shape forma;
-        boolean contornada;
-        boolean preenchida;
-        String nome;
-
-        public ContainerForma( Shape forma, boolean contornada, boolean preenchida, String nome ) {
-            this.forma = forma;
-            this.contornada = contornada;
-            this.preenchida = preenchida;
-            this.nome = nome;
-        }
-        
-        @Override
-        public Object clone() throws CloneNotSupportedException {
-            
-            if ( forma instanceof Path2D.Double ) {
-                
-                ContainerForma f = (ContainerForma) super.clone();
-                f.forma = (Path2D.Double) ( (Path2D.Double) forma ).clone();
-                f.contornada = contornada;
-                f.preenchida = preenchida;
-                f.nome = nome;
-
-                return f;
-                
-            }
-            
-            return null;
-            
-        }
-
-        @Override
-        public String toString() {
-            return nome;
-        }
-        
-    }
-    
-    private class Estado implements Cloneable {
-
-        double x;
-        double y;
-        double angulo;
-        BasicStroke contorno;
-        String texto;
-        Color corPincel;
-        Color corPreenchimento;
-        Color corFundo;
-        boolean desenhando;
-        ContainerForma containerForma;
-        Map<String, Valor> memoria;
-        
-        public Estado( double x, double y, double angulo, double grossura, Color corPincel, Color corPreenchimento, Color corFundo, boolean desenhando ) {
-            this.x = x;
-            this.y = y;
-            this.angulo = angulo;
-            this.contorno = new BasicStroke( (float) grossura, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL );
-            this.corPincel = corPincel;
-            this.corPreenchimento = corPreenchimento;
-            this.corFundo = corFundo;
-            this.desenhando = desenhando;
-            this.containerForma = null;
-            this.memoria = new LinkedHashMap<>();
-        }
-
-        public double getX() {
-            return x;
-        }
-
-        public double getY() {
-            return y;
-        }
-
-        public double getAngulo() {
-            return angulo;
-        }
-
-        @Override
-        public Object clone() throws CloneNotSupportedException {
-            
-            Estado e = (Estado) super.clone();
-            e.x = x;
-            e.y = y;
-            e.angulo = angulo;
-            e.contorno = new BasicStroke( e.contorno.getLineWidth(), e.contorno.getEndCap(), e.contorno.getLineJoin() );
-            e.texto = null;
-            e.corPincel = corPincel;
-            e.corPreenchimento = corPreenchimento;
-            e.corFundo = corFundo;
-            e.desenhando = desenhando;
-            e.containerForma = null;
-            e.memoria = new LinkedHashMap<>();
-            
-            for ( Entry<String, Valor> en : memoria.entrySet() ) {
-                e.memoria.put( en.getKey(), en.getValue() );
-            }
-            
-            return e;
-            
-        }
-        
-    }
     
     private static final Color COR_GRADE = new Color( 230, 230, 230 );
     private static final Color COR_FUNDO_DEPURADOR = new Color( 255, 255, 255, 200 );
@@ -184,6 +79,9 @@ public class Tartaruga {
     private boolean passoAPasso;
     private int estadoAtual;
     
+    private int xMouse;
+    private int yMouse;
+    
     private boolean depuradorAtivo;
     private boolean gradeAtiva;
     private boolean eixosAtivos;
@@ -204,6 +102,9 @@ public class Tartaruga {
         
         this.painelDesenho = painelDesenho;
         this.fonteDepurador = fonteDepurador;
+        
+        this.xMouse = -1;
+        this.yMouse = -1;
         
         try {
             imgTartarugaBase = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/icones/tartaruga.png" ) );
@@ -587,8 +488,14 @@ public class Tartaruga {
                         g2ds.rotate( Math.toRadians( atu.angulo ), tx( atu.x ), ty( atu.y ) );
                         g2ds.drawString( atu.texto, (int) tx( atu.x ), (int) ty( atu.y ) );
                         g2ds.dispose();
-                    } else {                        
-                        g2d.draw( new Line2D.Double( tx( ant.x ), ty( ant.y ), tx( atu.x ), ty( atu.y ) ) );
+                    } else {
+                        double xAnt = tx( ant.x );
+                        double yAnt = ty( ant.y );
+                        double xAtu = tx( atu.x );
+                        double yAtu = ty( atu.y );
+                        if ( !( xAnt == xAtu && yAnt == yAtu ) ) {  // evita desenhos de pontos
+                            g2d.draw( new Line2D.Double( xAnt, yAnt, xAtu, yAtu ) );
+                        }
                     }
                 }
                 
@@ -752,8 +659,7 @@ public class Tartaruga {
         
         //Color corFundo = COR_FUNDO_DEPURADOR;
         Color cPD = painelDesenho.getBackground();
-        Color cD = new Color( cPD.getRed(), cPD.getGreen(), cPD.getBlue(), 100 );
-        Color corFundo = cD;
+        Color corFundo = new Color( cPD.getRed(), cPD.getGreen(), cPD.getBlue(), 100 );
         Color corTexto = COR_TEXTO_DEPURADOR;
         
         Estado atu = estados.get( this.estadoAtual );
@@ -824,61 +730,39 @@ public class Tartaruga {
             
         }
         
+        List<VariavelDepurador> variaveis = new ArrayList<>();
         int c = 0;
         for ( Entry<String, Valor> e : atu.memoria.entrySet() ) {
             
-            yAtual = yIniStrings + passoY * i++;
-            
-            String nome = e.getKey();
-            if ( nome.length() > 10 ) {
-                nome = nome.substring( 0, 6 ) + "..." + nome.charAt( nome.length() - 1 );
-            }
-            
-            String completo = nome + ": ";
-            if ( e.getValue().isCor() ) {
-                completo += "  (" + Utils.colorParaHexa( e.getValue().valorCor() )+ ")";
-            } else if ( e.getValue().isString() ) {
-                completo += "\"" + e.getValue() + "\"";
-            } else if ( e.getValue().isCaractere() ) {
-                completo += "'" + e.getValue() + "'";
-            } else {
-                completo += e.getValue();
-            }
-
-            if ( completo.length() > 25 ) {
-                completo = completo.substring( 0, 19 ) + "...";
-            }
-            
-            completo = "\u251e\u2500" + completo;
-
-            String complemento = "";
-            for ( int j = 0; j < 27 - completo.length(); j++ ) {
-                complemento += " ";
-            }
-            complemento += "\u2502";
-            completo += complemento;
-            
-            g2d.drawString( completo, xIniStrings, yAtual );
-            
-            if ( e.getValue().isCor() ) {
-                
-                int largVar = fm.stringWidth( completo.substring( 0, completo.indexOf( ":" ) + 1 ) );
-                
-                
-                g2d.setColor( e.getValue().valorCor() );
-                g2d.fillRect( xIniStrings + largVar + 7, yAtual - 9, 10, 10 );
-
-                g2d.setColor( corTexto );
-                g2d.drawRect( xIniStrings + largVar + 7, yAtual - 9, 10, 10 );
-                
-            }
-            
+            VariavelDepurador vd = new VariavelDepurador();
+            vd.x = xIniStrings + 3;
+            vd.y = yIniStrings + passoY * i++ + 3;
+            vd.largura = larg - xIniStrings - 11;
+            vd.altura = 15;
+            vd.nome = e.getKey();
+            vd.valor = e.getValue();
+                        
+            variaveis.add( vd );
             c++;
+            
         }
         
         if ( c > 0 ) {
             yAtual = yIniStrings + passoY * i++;
             g2d.drawString( "\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518", xIniStrings, yAtual );
+        }
+        
+        boolean entrou = false;
+        for ( int j = variaveis.size() - 1; j >= 0; j-- ) {
+            if ( variaveis.get( j ).desenhar( g2d, corTexto, corFundo, fm, xMouse, yMouse ) ) {
+                entrou = true;
+            }
+        }
+        
+        if ( entrou ) {
+            painelDesenho.setCursor( Cursor.getPredefinedCursor( Cursor.HAND_CURSOR ) );
+        } else {
+            painelDesenho.setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
         }
         
         g2d.dispose();
@@ -902,6 +786,11 @@ public class Tartaruga {
         
         g2d.dispose();
         
+    }
+    
+    public void setXYMouse( int xMouse, int yMouse ) {
+        this.xMouse = xMouse;
+        this.yMouse = yMouse;
     }
     
     public boolean isEstadoInicial() {
@@ -1060,6 +949,16 @@ public class Tartaruga {
                         tx( xCentro ) - largura / 2, ty( yCentro ) - altura / 2, 
                         largura, altura ), 
                 contornado, preenchido, "retângulo" );
+        estados.add( e );
+    }
+    
+    public void criarRetanguloArredondado( double xCentro, double yCentro, double largura, double altura, double arco, boolean contornado, boolean preenchido ) {
+        Estado e = clonarUltimoEstado();
+        e.containerForma = new ContainerForma( 
+                new RoundRectangle2D.Double( 
+                        tx( xCentro ) - largura / 2, ty( yCentro ) - altura / 2, 
+                        largura, altura, arco, arco ), 
+                contornado, preenchido, "retângulo a." );
         estados.add( e );
     }
 

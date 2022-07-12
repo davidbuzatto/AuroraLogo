@@ -254,28 +254,27 @@ funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'            
                     | FG_QUA '(' expr ',' expr ',' expr ')' opcaoFGeomO?                                                          # funcaoDesenharQuadrado
                       //          x        y       larg     alt
                     | FG_RET '(' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                                 # funcaoDesenharRetangulo
+                      //          x        y       larg     alt      arco
+                    | FG_REA '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                        # funcaoDesenharRetanguloArredondado
                       //          xc       yc      raio
                     | FG_CIC '(' expr ',' expr ',' expr ')' opcaoFGeomO?                                                          # funcaoDesenharCirculo
                       //          xc       yc       eh       ev
-                    | FG_ELI '(' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?                                                 # funcaoDesenharElipse
+                    | FG_ELI '(' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                                 # funcaoDesenharElipse
                       //          xc       yc       eh       ev      aini     afim
                     | FG_ARC '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' ( ABE | COD | PIZ ) )? ')' opcaoFGeomO?  # funcaoDesenharArco
                       //          xc       yc      raio     ang       ql
                     | FG_POR '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                        # funcaoDesenharPoligonoRegular
                       //          xc       yc      raio     ang       qp
-                    | FG_EST '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?                                        # funcaoDesenharEstrela
+                    | FG_EST '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                        # funcaoDesenharEstrela
                       //          x1       y1       x2       y2       x3       y3         xn       yn
                     | FG_POL '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' expr ',' expr )* ')' opcaoFGeomO?        # funcaoDesenharPoligono
                       //          x1       y1      ctx      cty       x2       y2
-                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?                               # funcaoDesenharCurvaQuadratica
+                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                               # funcaoDesenharCurvaQuadratica
                       //          x1       y1      ct1x     ct1y     ct2x     ct2y      x2       y2
-                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomA?             # funcaoDesenharCurvaCubica
+                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?             # funcaoDesenharCurvaCubica
                     ;
 
 opcaoFGeomO         : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )? 
-                    ;
-
-opcaoFGeomA         : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )?
                     ;
 
 desenharCaminho     : DESE CAM opcaoFGeomO? '{' ( instCaminho DOT )+ '}'
@@ -484,17 +483,18 @@ F_VABS : 'valorAbsoluto'                ;
 
 
 // funções geométricas
-FG_ARC : 'arco'                 ;
-FG_CCU : 'curvaC\u00FAbica'     ;
-FG_CIC : 'c\u00EDrculo'         ;
-FG_CQD : 'curvaQuadr\u00E1tica' ;
-FG_ELI : 'elipse'               ;
-FG_EST : 'estrela'              ;
-FG_POL : 'pol\u00EDgono'        ;
-FG_POR : 'pol\u00EDgonoRegular' ;
-FG_QUA : 'quadrado'             ;
-FG_RET : 'ret\u00E2ngulo'       ;
-FG_SEG : 'segmento'             ;
+FG_ARC : 'arco'                      ;
+FG_CCU : 'curvaC\u00FAbica'          ;
+FG_CIC : 'c\u00EDrculo'              ;
+FG_CQD : 'curvaQuadr\u00E1tica'      ;
+FG_ELI : 'elipse'                    ;
+FG_EST : 'estrela'                   ;
+FG_POL : 'pol\u00EDgono'             ;
+FG_POR : 'pol\u00EDgonoRegular'      ;
+FG_QUA : 'quadrado'                  ;
+FG_RET : 'ret\u00E2ngulo'            ;
+FG_REA : 'ret\u00E2nguloArredondado' ;
+FG_SEG : 'segmento'                  ;
 
 // operadores de atribuição
 ATR  : '='   ;

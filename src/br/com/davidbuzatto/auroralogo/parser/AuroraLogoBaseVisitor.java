@@ -675,6 +675,13 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * <p>The default implementation returns the result of calling
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
+	@Override public T visitFuncaoDesenharRetanguloArredondado(AuroraLogoParser.FuncaoDesenharRetanguloArredondadoContext ctx) { return visitChildren(ctx); }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation returns the result of calling
+	 * {@link #visitChildren} on {@code ctx}.</p>
+	 */
 	@Override public T visitFuncaoDesenharCirculo(AuroraLogoParser.FuncaoDesenharCirculoContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
@@ -732,13 +739,6 @@ public class AuroraLogoBaseVisitor<T> extends AbstractParseTreeVisitor<T> implem
 	 * {@link #visitChildren} on {@code ctx}.</p>
 	 */
 	@Override public T visitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx) { return visitChildren(ctx); }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation returns the result of calling
-	 * {@link #visitChildren} on {@code ctx}.</p>
-	 */
-	@Override public T visitOpcaoFGeomA(AuroraLogoParser.OpcaoFGeomAContext ctx) { return visitChildren(ctx); }
 	/**
 	 * {@inheritDoc}
 	 *

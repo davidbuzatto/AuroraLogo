@@ -17,7 +17,7 @@
 package br.com.davidbuzatto.auroralogo.parser.impl;
 
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
-import br.com.davidbuzatto.auroralogo.gui.Tartaruga;
+import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoBaseVisitor;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
@@ -523,6 +523,11 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitFuncaoDesenharRetangulo( AuroraLogoParser.FuncaoDesenharRetanguloContext ctx ) {
         return cvInstrucoesGeometricas.visitFuncaoDesenharRetangulo( ctx );
+    }
+
+    @Override
+    public Valor visitFuncaoDesenharRetanguloArredondado( AuroraLogoParser.FuncaoDesenharRetanguloArredondadoContext ctx ) {
+        return cvInstrucoesGeometricas.visitFuncaoDesenharRetanguloArredondado( ctx );
     }
 
     @Override

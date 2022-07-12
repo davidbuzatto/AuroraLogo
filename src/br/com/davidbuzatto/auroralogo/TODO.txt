@@ -1,18 +1,14 @@
 Implementação:
-    - pontos nos centros das figuras e no início das strings -> investigar e remover
-    - Atenção: atualizar atribuições compostas.
-    - instrução para trocar a cor da tartaruga!
-    - Cópia profunda de arrays e arrays associativos.
-    - Depurador: permitir clicar nos valores grandes.
+    - Cópia profunda de arrays e arrays associativos -> testar
+    - Depurador: permitir passar mouse nos valores grandes. -> implementando
+    - Print da tela de desenho no estado atual.
+
     - Instruções simples para strings -> comprimento, caractere e substring
-    - Colorir as propriedades das strings e dos arrays com outra cor (usa keyword 2 ).
     - Funções definidas pelo usuário;
     - Sobre e exemplos;
-    - Pode-se estender os arrays associativos para gerar TADs -> funções como tipos primitivos
     - Verificar todas as operações conferindo compatibilidade (testes de unidade).
     - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
       comparando com a linha errada;
-
 
 Questionamentos:
     - Autocomplete para as funções geométricas e matemáticas? Cores com #?

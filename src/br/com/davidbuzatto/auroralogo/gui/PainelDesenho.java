@@ -16,10 +16,13 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
+import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JPanel;
 
 /**
@@ -31,6 +34,16 @@ import javax.swing.JPanel;
 public class PainelDesenho extends JPanel {
 
     private Tartaruga tartaruga;
+    
+    public PainelDesenho() {
+        addMouseMotionListener( new MouseAdapter() {
+            @Override
+            public void mouseMoved( MouseEvent e ) {
+                tartaruga.setXYMouse( e.getX(), e.getY( ) );
+                repaint();
+            }
+        });
+    }
     
     @Override
     protected void paintComponent( Graphics g ) {
