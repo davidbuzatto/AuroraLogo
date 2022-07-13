@@ -1,25 +1,19 @@
-função fA() {
-	vá para 10, 10 .
-	retornar tartaruga.x() .
-}
+vA = criarArranjoAssociativo{} .
+vA{"teste"} = "klm" .
 
-função fB( pX, pY ) {
-	vá para 10, 10 .
-	vX = 50 .
-	retornar vX .
-}
+vB = criarArranjoAssociativo{} .
+vB{"nome"} = "David" .
+vB{"sobrenome"} = "Buzatto" .
 
-vS = "abc" .
-escrever vS na saída pulando linha .
-escrever vS.comprimento() na saída pulando linha .
-escrever vS.caracteres() na saída pulando linha .
-escrever vS.caracteres()[1] na saída pulando linha .
-escrever vS.substring( 0 ) na saída pulando linha .
-escrever vS.substring( 1 ) na saída pulando linha .
-escrever vS.substring( 2 ) na saída pulando linha .
-escrever vS.substring( -2 ) na saída pulando linha .
-escrever vS.substring( 0, 0 ) na saída pulando linha .
-escrever vS.substring( 0, 1 ) na saída pulando linha .
-escrever vS.substring( 0, 2 ) na saída pulando linha .
-escrever vS.substring( 0, 3 ) na saída pulando linha .
-//escrever vS na saída .
+vC = criarArranjoAssociativo{} .
+vC{"nome"} = "Aurora" .
+vC{"sobrenome"} = "Buzatto" .
+
+vB{"filha"} = vC .
+vA{"Teste"} = vB .
+
+vD = vA.chaves() .
+
+para cada vChave em vD repetir {
+    escrever vChave + ": " + vA{vChave} na saída pulando linha .
+}

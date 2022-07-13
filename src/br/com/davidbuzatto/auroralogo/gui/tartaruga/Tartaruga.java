@@ -659,7 +659,7 @@ public class Tartaruga {
         
         //Color corFundo = COR_FUNDO_DEPURADOR;
         Color cPD = painelDesenho.getBackground();
-        Color corFundo = new Color( cPD.getRed(), cPD.getGreen(), cPD.getBlue(), 100 );
+        Color corFundo = new Color( cPD.getRed(), cPD.getGreen(), cPD.getBlue(), 200 );
         Color corTexto = COR_TEXTO_DEPURADOR;
         
         Estado atu = estados.get( this.estadoAtual );
@@ -709,6 +709,9 @@ public class Tartaruga {
             if ( valores[i] instanceof Color ) {
                 
                 g2d.drawString( PROPRIEDADES_DEPURADOR[i], xIniStrings, yAtual );
+                
+                g2d.setColor( Color.WHITE );
+                g2d.fillRect( 115, yAtual - 9, 10, 10 );
                 
                 g2d.setColor( (Color) valores[i] );
                 g2d.fillRect( 115, yAtual - 9, 10, 10 );

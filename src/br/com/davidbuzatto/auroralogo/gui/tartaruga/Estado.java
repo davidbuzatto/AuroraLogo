@@ -21,7 +21,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.LinkedHashMap;
 import java.util.Map;
-import org.apache.commons.lang3.SerializationUtils;
 
 /**
  * Um estado de execução da tartaruga. 
@@ -86,6 +85,8 @@ public class Estado implements Cloneable {
 
         for ( Map.Entry<String, Valor> en : memoria.entrySet() ) {
             
+            e.memoria.put( en.getKey(), Valor.novoValor( en.getValue().getValor() ) );
+            
             // forma 1 (sintaxe do ponto para de funcionar)
             /*Valor v = en.getValue();
             
@@ -96,7 +97,7 @@ public class Estado implements Cloneable {
             }*/
             
             // forma 2
-            e.memoria.put( en.getKey(), en.getValue() );
+            //e.memoria.put( en.getKey(), en.getValue() );
             
             // forma 3
             //e.memoria.put( en.getKey(), Valor.novoValor( en.getValue().getValor() ) );

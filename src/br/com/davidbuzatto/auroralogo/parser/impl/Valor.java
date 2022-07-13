@@ -663,10 +663,22 @@ public class Valor implements Serializable {
         } else if ( o instanceof Color ) {
             return novaCor( (Color) o );
         } else if ( o instanceof Object[] ) {
+            return novoArranjo( Utils.cloneArrayObject( (Object[]) o ) );
+        } else if ( o instanceof LinkedHashMap ) {
+            return novoArranjoAssociativo( Utils.cloneLinkedHashMapObject( (LinkedHashMap) o ) );
+        } else if ( o instanceof Valor ) {
+            return novoValor( ( (Valor) o ).getValor() );
+        } else if ( o instanceof Valor[] ) {
+            return novoArranjo( Utils.cloneArrayObject( (Valor[]) o ) );
+        }
+        
+        
+        
+        /* else if ( o instanceof Object[] ) {
             return novoArranjo( (Object[]) o );
         } else if ( o instanceof LinkedHashMap ) {
             return novoArranjoAssociativo( (LinkedHashMap) o );
-        }
+        }*/
         
         return NULO;
         

@@ -278,6 +278,7 @@ public class ComponenteVisitorFatores {
                     }
                 } else {
                     v = novoValor( o );
+                    break;
                 }
             }
             

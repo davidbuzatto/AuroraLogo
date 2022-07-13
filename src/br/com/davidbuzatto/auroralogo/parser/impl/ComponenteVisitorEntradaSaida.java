@@ -60,7 +60,18 @@ public class ComponenteVisitorEntradaSaida {
         
         Valor v = visitor.visit( ctx.expr() );
         
-        textoSaida = String.valueOf( v );
+        if ( v.isString() ) {
+            textoSaida = String.valueOf( v );
+        } else if ( v.isCaractere() ) {
+            textoSaida = String.valueOf( v );
+        } else if ( v.isCor() ) {
+            textoSaida = String.valueOf( v );
+        } else if ( v.isArranjo() || v.isArranjoAssociativo() ) {
+            textoSaida = "\n" + Utils.toString( v.getValor() );
+        } else {
+            textoSaida = String.valueOf( v );
+        }
+        
         
         if ( ctx.PUL() != null ) {
             textoSaida += "\n";

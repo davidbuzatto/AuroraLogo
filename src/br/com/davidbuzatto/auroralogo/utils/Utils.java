@@ -34,8 +34,6 @@ import java.awt.image.BufferedImageOp;
 import java.awt.image.ColorConvertOp;
 import java.awt.image.WritableRaster;
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -47,7 +45,6 @@ import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
-import javax.swing.JMenuItem;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -474,6 +471,21 @@ public class Utils {
         
     }
     
+    public static Color inverterCor( Color c ) {
+        
+        int a = c.getAlpha();
+        int r = 255 - c.getRed();
+        int g = 255 - c.getGreen();
+        int b = 255 - c.getBlue();
+        
+        /*if ( ( r + g + b > 740 ) || ( r + g + b < 20 ) ) {
+            return new Color( 255, 255, 40, a );
+        } else {*/
+            return new Color( r, g, b, a );
+        //}
+    
+    }
+    
     /*
      * Cria um array de dimensões especificada no vararg "dimensoes".
      */
@@ -573,31 +585,107 @@ public class Utils {
         
     }
     
-    public static void prepararPreferences( boolean reset ) {
+    public static Object[] cloneArrayObject( Object[] ao ) {
         
-        if ( reset ) {
-            PREFS.remove( PREF_CAMINHO_ABRIR_SALVAR );
-            PREFS.remove( PREF_TEMA );
-            PREFS.remove( PREF_DEPURADOR_ATIVO );
-            PREFS.remove( PREF_GRADE_ATIVA );
-            PREFS.remove( PREF_EIXOS_ATIVOS );
-            PREFS.remove( PREF_PADRAO_CARTESIANO_ATIVO );
-            PREFS.remove( PREF_VALOR_SLIDER_PASSO_AUTOMATICO );
-            PREFS.remove( PREF_JANELA_PRINCIPAL_MAXIMIZADA );
-            PREFS.remove( PREF_COR_TARTARUGA );
-            PREFS.remove( PREF_ULTIMO_TESTE );
+        Object[] clone = ao.clone();
+        
+        for ( int i = 0; i < clone.length; i++ ) {
+            
+            Object vClone = clone[i];
+            if ( vClone instanceof Object[] ) {
+                clone[i] = cloneArrayObject( (Object[]) clone[i] );
+            } else if ( vClone instanceof LinkedHashMap ) {
+                clone[i] = cloneLinkedHashMapObject( (LinkedHashMap<String, Object>) clone[i] );
+            }
+
         }
         
-        PREFS.put( PREF_CAMINHO_ABRIR_SALVAR, PREFS.get( PREF_CAMINHO_ABRIR_SALVAR, new File( "" ).getAbsolutePath() ) );
-        PREFS.put( PREF_TEMA, PREFS.get( PREF_TEMA, "claro" ) );
-        PREFS.putBoolean( PREF_DEPURADOR_ATIVO, PREFS.getBoolean( PREF_DEPURADOR_ATIVO, false ) );
-        PREFS.putBoolean( PREF_GRADE_ATIVA, PREFS.getBoolean( PREF_GRADE_ATIVA, false ) );
-        PREFS.putBoolean( PREF_EIXOS_ATIVOS, PREFS.getBoolean( PREF_EIXOS_ATIVOS, false ) );
-        PREFS.putBoolean( PREF_PADRAO_CARTESIANO_ATIVO, PREFS.getBoolean( PREF_PADRAO_CARTESIANO_ATIVO, false ) );
-        PREFS.putInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 ) );
-        PREFS.putBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false ) );
-        PREFS.putInt( PREF_COR_TARTARUGA, PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE ) );
-        PREFS.put( PREF_ULTIMO_TESTE, PREFS.get( PREF_ULTIMO_TESTE, "testes" ) );
+        return clone;
+        
+    }
+    
+    public static LinkedHashMap<String, Object> cloneLinkedHashMapObject( LinkedHashMap<String, Object> ao ) {
+        
+        LinkedHashMap<String, Object> clone = (LinkedHashMap<String, Object>) ao.clone();
+        
+        for ( Entry<String, Object> e : clone.entrySet() ) {
+            if ( e.getValue() instanceof LinkedHashMap ) {
+                clone.put( e.getKey(), cloneLinkedHashMapObject( (LinkedHashMap<String, Object>) e.getValue() ) );
+            } else if ( e.getValue() instanceof Object[] ) {
+                clone.put( e.getKey(), cloneArrayObject( (Object[]) e.getValue() ) );
+            }
+        }
+        
+        return clone;
+        
+    }
+    
+    public static String toString( Object o ) {
+        
+        StringBuilder sb = new StringBuilder();
+        
+        if ( o instanceof Valor ) {
+            o = ( (Valor) o ).getValor();
+        }
+        
+        toString( o, sb, "", null, false );
+        
+        return sb.toString().trim();
+        
+    }
+    
+    private static void toString( Object o, StringBuilder sb, String ident, Object p, boolean addVirgula ) {
+        
+        String fixIdent = "    ";
+        
+        if ( o instanceof Object[] ) {
+            sb.append( ident ).append( ( p == null ? "" : ( p instanceof String ? "\"" + p + "\"" : p ) + ": " ) ).append( "[" ).append( "\n" );
+            Object[] oa = (Object[]) o;
+            for ( int i = 0; i < oa.length; i++ ) {
+                Object oi = oa[i];
+                if ( oi instanceof Valor ) {
+                    toString( ( (Valor) oi ).getValor(), sb, ident + fixIdent, i, i != oa.length - 1 );
+                } else {
+                    toString( oi, sb, ident + fixIdent, i, i != oa.length - 1 );
+                }
+            }
+            sb.append( ident ).append( "]" ).append( addVirgula ? "," : "" ).append( "\n" );
+        } else if ( o instanceof LinkedHashMap ) {
+            sb.append( ident ).append( ( p == null ? "" : ( p instanceof String ? "\"" + p + "\"" : p ) + ": " ) ).append( "{" ).append( "\n" );
+            LinkedHashMap<String, Object> lhm = (LinkedHashMap<String, Object>) o;
+            int i = 0;
+            for ( Entry<String, Object> e : lhm.entrySet() ) {
+                if ( e.getValue() instanceof Valor ) {
+                    toString( ( (Valor) e.getValue() ).getValor(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
+                } else {
+                    toString( e.getValue(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
+                }
+                i++;
+            }
+            sb.append( ident ).append( "}" ).append( addVirgula ? "," : "" ).append( "\n" );
+        } else {
+            
+            String valor = "NULO";
+            
+            if ( o != null ) {
+                
+                valor = o.toString();
+                
+                if ( o instanceof Color ) {
+                    valor = colorParaHexa( (Color) o );
+                } else if ( o instanceof Character ) {
+                    valor = "'" + o + "'";
+                } else if ( o instanceof String ) {
+                    valor = "\"" + o + "\"";
+                } else if ( o instanceof Boolean ) {
+                    valor = (Boolean) o ? "VERDADEIRO" : "FALSO";
+                }
+                
+            }
+            
+            sb.append( ident ).append( ( p == null ? "" : ( p instanceof String ? "\"" + p + "\"" : p ) + ": " ) ).append( valor ).append( addVirgula ? "," : "" ).append( "\n" );
+            
+        }
         
     }
     
@@ -736,9 +824,38 @@ public class Utils {
                 });
             }
             
-        } catch ( IOException | URISyntaxException exc ) {
+        } catch ( Exception exc ) {
+            menuTestes.setVisible( false );
             exc.printStackTrace();
         }
+        
+    }
+    
+    public static void prepararPreferences( boolean reset ) {
+        
+        if ( reset ) {
+            PREFS.remove( PREF_CAMINHO_ABRIR_SALVAR );
+            PREFS.remove( PREF_TEMA );
+            PREFS.remove( PREF_DEPURADOR_ATIVO );
+            PREFS.remove( PREF_GRADE_ATIVA );
+            PREFS.remove( PREF_EIXOS_ATIVOS );
+            PREFS.remove( PREF_PADRAO_CARTESIANO_ATIVO );
+            PREFS.remove( PREF_VALOR_SLIDER_PASSO_AUTOMATICO );
+            PREFS.remove( PREF_JANELA_PRINCIPAL_MAXIMIZADA );
+            PREFS.remove( PREF_COR_TARTARUGA );
+            PREFS.remove( PREF_ULTIMO_TESTE );
+        }
+        
+        PREFS.put( PREF_CAMINHO_ABRIR_SALVAR, PREFS.get( PREF_CAMINHO_ABRIR_SALVAR, new File( "" ).getAbsolutePath() ) );
+        PREFS.put( PREF_TEMA, PREFS.get( PREF_TEMA, "claro" ) );
+        PREFS.putBoolean( PREF_DEPURADOR_ATIVO, PREFS.getBoolean( PREF_DEPURADOR_ATIVO, false ) );
+        PREFS.putBoolean( PREF_GRADE_ATIVA, PREFS.getBoolean( PREF_GRADE_ATIVA, false ) );
+        PREFS.putBoolean( PREF_EIXOS_ATIVOS, PREFS.getBoolean( PREF_EIXOS_ATIVOS, false ) );
+        PREFS.putBoolean( PREF_PADRAO_CARTESIANO_ATIVO, PREFS.getBoolean( PREF_PADRAO_CARTESIANO_ATIVO, false ) );
+        PREFS.putInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 ) );
+        PREFS.putBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false ) );
+        PREFS.putInt( PREF_COR_TARTARUGA, PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE ) );
+        PREFS.put( PREF_ULTIMO_TESTE, PREFS.get( PREF_ULTIMO_TESTE, "testes" ) );
         
     }
     
@@ -792,7 +909,7 @@ public class Utils {
     
     public static void main( String[] args ) {
         
-//String s = "áàâãéêíóôõúüç";
+        //String s = "áàâãéêíóôõúüç";
         /*String s = "ÁÀÂÃÉÊÍÓÔÕÚÜÇ";
         for ( char c : s.toCharArray() ) {
             System.out.print( toUnicodeScape( c ) );
@@ -801,10 +918,63 @@ public class Utils {
         /*Color c = subtrairCores( Color.white, Color.red );
         System.out.println( c );*/
         
-        for ( int i = -10; i <= 10; i++ ) {
+        /*for ( int i = -10; i <= 10; i++ ) {
             System.out.println( i + ": " + mapeamentoModular( i, 5 ) );
-        }
+        }*/
+        
+        /*Object[] obi1 = { 1, 2, 3 };
+        Object[] obi2 = { 3, 4, 5 };
+        
+        Object[] ob = new Object[10];
+        ob[0] = 1;
+        ob[1] = 1.0;
+        ob[2] = 'a';
+        ob[3] = "string";
+        ob[4] = false;
+        ob[5] = Color.BLACK;
+        ob[6] = obi1;
+        ob[7] = obi2;
+        
+        LinkedHashMap<String, Object> lhm = new LinkedHashMap<String, Object>();
+        lhm.put( "a", 2 );
+        lhm.put( "b", 2.0 );
+        lhm.put( "c", 'b' );
+        lhm.put( "d", "outra" );
+        lhm.put( "e", true );
+        lhm.put( "f", Color.WHITE );
+        
+        Cloneable[] co = {
+            ob,
+            lhm
+        };
+        
+        for ( Object o : co ) {
+            
+            if ( o instanceof Object[] ) {
+                
+                Object[] ao = (Object[]) o;
+                Object[] clone = cloneArrayObject( ao );
+                
+                System.out.println( o );
+                System.out.println( clone );
+                
+                for ( int i = 0; i < clone.length; i++ ) {
+                    
+                    Object vAo = ao[i];
+                    Object vClone = clone[i];
+                    
+                    System.out.println( vAo + " - " + vClone + " -> " + ( vAo == vClone ) );
+                    
+                }
+                
+                System.out.println( toString( co ) );
+                
+            }
+            
+        }*/
+        
         
     }
+    
     
 }

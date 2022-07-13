@@ -19,7 +19,9 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -27,6 +29,7 @@ import java.util.List;
  * 
  * @author Prof. Dr. David Buzatto
  */
+@SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class ComponenteVisitorAtribuicao {
     
     private Tartaruga tartaruga;
@@ -82,7 +85,8 @@ public class ComponenteVisitorAtribuicao {
         }
 
         if ( vMemoria.isArranjo() ) {
-
+            
+            vMemoria = novoValor( Utils.cloneArrayObject( (Object[]) vMemoria.getValor() ) );
             vMemoria.setValorArranjo( valor, ind );
             tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
 
@@ -91,6 +95,8 @@ public class ComponenteVisitorAtribuicao {
         } else if ( vMemoria.isArranjoAssociativo() ) {
 
             String chave = visitor.visit( ctx.exprIndice( 0 ) ).valorString();
+            
+            vMemoria = novoValor( Utils.cloneLinkedHashMapObject( (LinkedHashMap) vMemoria.getValor() ) );
             vMemoria.setValorArranjoAssociativo( chave, valor );
             tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
 
@@ -120,6 +126,7 @@ public class ComponenteVisitorAtribuicao {
 
         if ( vMemoria.isArranjo() ) {
             
+            vMemoria = novoValor( Utils.cloneArrayObject( (Object[]) vMemoria.getValor() ) );
             vMemoria.setValorArranjo( valor, 0 );
             tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
 
@@ -128,6 +135,8 @@ public class ComponenteVisitorAtribuicao {
         } else if ( vMemoria.isArranjoAssociativo() ) {
             
             String chave = visitor.visit( ctx.exprIndice() ).valorString();
+            
+            vMemoria = novoValor( Utils.cloneLinkedHashMapObject( (LinkedHashMap) vMemoria.getValor() ) );
             vMemoria.setValorArranjoAssociativo( chave, valor );
             tartaruga.inserirOuAtualizarMemoria( id, vMemoria );
 

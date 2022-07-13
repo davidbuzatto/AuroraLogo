@@ -22,7 +22,7 @@
  */
 grammar AuroraLogo;
 
-prog : func* inst+ ;
+prog : func* inst+ EOF ;
 
 func : FUNC IDF '(' ( IDP ( ',' IDP )* )? ')' '{' instf+ '}'
      ;

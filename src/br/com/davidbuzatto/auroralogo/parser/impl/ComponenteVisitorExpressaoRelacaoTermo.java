@@ -1127,9 +1127,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else if ( tv.isCor() ) {
                                 valor = novoInteiro( valor.valorInteiro() + tv.valorCor().getRGB() );
                             } else if ( tv.isArranjo() ) {
-                                valor = novaString( valor + String.valueOf( tv ) );
+                                valor = novaString( valor + Utils.toString( tv ) );
                             } else if ( tv.isArranjoAssociativo() ) {
-                                valor = novaString( valor + String.valueOf( tv ) );
+                                valor = novaString( valor + Utils.toString( tv ) );
                             } else {
                                 // valor é o próprio
                             }
@@ -1147,9 +1147,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else if ( tv.isCor() ) {
                                 valor = novoDecimal( valor.valorDecimal() + tv.valorCor().getRGB() );
                             } else if ( tv.isArranjo() ) {
-                                valor = novaString( valor.valorDecimal() + String.valueOf( tv ) );
+                                valor = novaString( valor.valorDecimal() + Utils.toString( tv ) );
                             } else if ( tv.isArranjoAssociativo() ) {
-                                valor = novaString( valor.valorDecimal() + String.valueOf( tv ) );
+                                valor = novaString( valor.valorDecimal() + Utils.toString( tv ) );
                             } else {
                                 // valor é o próprio
                             }
@@ -1167,9 +1167,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else if ( tv.isCor() ) {
                                 valor = novoInteiro( valor.valorCaractere() + tv.valorCor().getRGB() );
                             } else if ( tv.isArranjo() ) {
-                                valor = novaString( valor.valorCaractere() + String.valueOf( tv ) );
+                                valor = novaString( valor.valorCaractere() + Utils.toString( tv ) );
                             } else if ( tv.isArranjoAssociativo() ) {
-                                valor = novaString( valor.valorCaractere() + String.valueOf( tv ) );
+                                valor = novaString( valor.valorCaractere() + Utils.toString( tv ) );
                             } else {
                                 // valor é o próprio
                             }
@@ -1187,9 +1187,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else if ( tv.isCor() ) {
                                 valor = novoInteiro( ( valor.valorBooleano() ? 1 : 0 ) + tv.valorCor().getRGB() );
                             } else if ( tv.isArranjo() ) {
-                                valor = novaString( ( valor.valorBooleano() ? 1 : 0 ) + String.valueOf( tv ) );
+                                valor = novaString( ( valor.valorBooleano() ? 1 : 0 ) + Utils.toString( tv ) );
                             } else if ( tv.isArranjoAssociativo() ) {
-                                valor = novaString( ( valor.valorBooleano() ? 1 : 0 ) + String.valueOf( tv ) );
+                                valor = novaString( ( valor.valorBooleano() ? 1 : 0 ) + Utils.toString( tv ) );
                             } else {
                                 // valor é o próprio
                             }
@@ -1207,9 +1207,9 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else if ( tv.isCor() ) {
                                 valor = novaString( valor.valorString() + tv );
                             } else if ( tv.isArranjo() ) {
-                                valor = novaString( valor.valorString() + tv );
+                                valor = novaString( valor.valorString() + Utils.toString( tv ) );
                             } else if ( tv.isArranjoAssociativo() ) {
-                                valor = novaString( valor.valorString() + tv );
+                                valor = novaString( valor.valorString() + Utils.toString( tv ) );
                             } else {
                                 // valor é o próprio
                             }
@@ -1227,49 +1227,49 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
                             } else if ( tv.isCor() ) {
                                 valor = novaCor( Utils.gerarComponenteGradienteAlpha( valor.valorCor(), tv.valorCor(), 0.5 ) );
                             } else if ( tv.isArranjo() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( valor + Utils.toString( tv ) );
                             } else if ( tv.isArranjoAssociativo() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( valor + Utils.toString( tv ) );
                             } else {
                                 // valor é o próprio
                             }
                         } else if ( valor.isArranjo() ) {
                             if ( tv.isInteiro() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isDecimal() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isCaractere() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isBooleano() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isString() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isCor() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isArranjo() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + Utils.toString( tv ) );
                             } else if ( tv.isArranjoAssociativo() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + Utils.toString( tv ) );
                             } else {
                                 // valor é o próprio
                             }
                         } else if ( valor.isArranjoAssociativo() ) {
                             if ( tv.isInteiro() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isDecimal() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isCaractere() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isBooleano() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isString() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isCor() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + tv );
                             } else if ( tv.isArranjo() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + Utils.toString( tv ) );
                             } else if ( tv.isArranjoAssociativo() ) {
-                                valor = novaString( valor + tv.valorString() );
+                                valor = novaString( Utils.toString( valor ) + Utils.toString( tv ) );
                             } else {
                                 // valor é o próprio
                             }

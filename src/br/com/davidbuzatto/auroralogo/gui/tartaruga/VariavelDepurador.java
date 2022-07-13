@@ -17,14 +17,13 @@
 package br.com.davidbuzatto.auroralogo.gui.tartaruga;
 
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map.Entry;
 
 /**
  * Representação de uma variável do depurador.
@@ -50,7 +49,9 @@ public class VariavelDepurador {
         
         g2d = (Graphics2D) g2d.create();
         g2d.setColor( corTexto );
-        corDepurador = corDepurador.darker();
+        
+        corDepurador = corDepurador.darker().darker();
+        Color corTextoInvertida = Utils.inverterCor( corTexto );
         
         mouseOver = xMouse >= x && xMouse <= x + largura && 
                     yMouse >= ( y - altura ) && yMouse <= y - 1;
@@ -76,7 +77,7 @@ public class VariavelDepurador {
         }
         
         completo += textoValor;
-        if ( completo.length() > 27 ) {
+        if ( completo.length() > 25 ) {
             completo = completo.substring( 0, 22 ) + "...";
         }
         
@@ -92,14 +93,19 @@ public class VariavelDepurador {
         if ( mouseOver ) {
             g2d.setColor( corDepurador );
             g2d.fillRect( x, y - altura, largura, altura );
+            g2d.setColor( corTextoInvertida );
+        } else {
+            g2d.setColor( corTexto );
         }
         
-        g2d.setColor( corTexto );
         g2d.drawString( completo, x - 3, y - 3 );
         
         if ( valor.isCor() ) {
                 
             int largVar = fm.stringWidth( completo.substring( 0, completo.indexOf( ":" ) + 1 ) );
+            
+            g2d.setColor( Color.WHITE );
+            g2d.fillRect( x + largVar + 3, y - 12, 10, 10 );
             
             g2d.setColor( valor.valorCor() );
             g2d.fillRect( x + largVar + 3, y - 12, 10, 10 );
@@ -116,86 +122,46 @@ public class VariavelDepurador {
             int largMax = 0;
             int larg = 0;
             
-            if ( valor.isArranjoAssociativo() ) {
-                
+            String sv = Utils.toString( valor.getValor() );
+
+            if ( sv.contains( "\\n" ) || sv.contains( "\n" ) ) {
+
                 sg = nome + ":";
+                saida.add( sg );
+                String[] ssv = null;
+
+                if ( sv.contains( "\\n" ) ) {
+                    ssv = sv.split( "\\\\n" );
+                } else {
+                    ssv = sv.split( "\n" );
+                }
+
+                for ( int i = 0; i < ssv.length; i++ ) {
+
+                    sg = "    " + ssv[i];
+
+                    larg = fm.stringWidth( sg );
+                    if ( largMax < larg ) {
+                        largMax = larg;
+                    }
+                    saida.add( sg );
+
+                }
+            } else {
+                if ( valor.isString() ) {
+                    sg = nome + ": \"" + valor + "\"";
+                } else if ( valor.isCaractere() ) {
+                    sg = nome + ": '" + valor + "'";
+                } else if ( valor.isCor() ) {
+                    sg = nome + ":   (" + valor + ")";
+                } else {
+                    sg = nome + ": " + valor;
+                }
                 larg = fm.stringWidth( sg );
                 if ( largMax < larg ) {
                     largMax = larg;
                 }
                 saida.add( sg );
-                
-                for ( Entry<String, Object> e : ( (LinkedHashMap<String, Object>) valor.getValor() ).entrySet() ) {
-                    
-                    String sValor = "";
-                    
-                    if ( e.getValue() instanceof String ) {
-                        sValor += "\"" + e.getValue() + "\"";
-                    } else if ( e.getValue() instanceof Character ) {
-                        sValor += "'" + e.getValue() + "'";
-                    } else {
-                        sValor += e.getValue();
-                    }
-                    
-                    sg = "    \"" + e.getKey() + "\": " + sValor;
-                    larg = fm.stringWidth( sg );
-                    if ( largMax < larg ) {
-                        largMax = larg;
-                    }
-                    saida.add( sg );
-                }
-                
-            } else {
-                
-                if ( valor.isString() ) {
-                    
-                    String sv = valor.valorString();
-                    
-                    if ( sv.contains( "\\n" ) ) {
-                        
-                        sg = nome + ":";
-                        saida.add( sg );
-                        String[] ssv = sv.split( "\\\\n" );
-                        
-                        for ( int i = 0; i < ssv.length; i++ ) {
-                            
-                            String ssvi = ssv[i];
-                            if ( i == 0 ) {
-                                sg = "   \"" + ssvi;
-                            } else if ( i == ssv.length - 1) {
-                                sg = "    " + ssvi + "\"";
-                            } else {
-                                sg = "    " + ssvi;
-                            }
-                            
-                            larg = fm.stringWidth( sg );
-                            if ( largMax < larg ) {
-                                largMax = larg;
-                            }
-                            saida.add( sg );
-                            
-                        }
-                    } else {
-                        sg = nome + ": \"" + sv + "\"";
-                        larg = fm.stringWidth( sg );
-                        if ( largMax < larg ) {
-                            largMax = larg;
-                        }
-                        saida.add( sg );
-                    }
-                } else {
-                    if ( valor.isCaractere() ) {
-                        sg = nome + ": '" + valor + "'";
-                    } else {
-                        sg = nome + ": " + valor;
-                    }
-                    larg = fm.stringWidth( sg );
-                    if ( largMax < larg ) {
-                        largMax = larg;
-                    }
-                    saida.add( sg );
-                }
-                
             }
             
             RoundRectangle2D.Double r = new RoundRectangle2D.Double( 
@@ -209,7 +175,31 @@ public class VariavelDepurador {
             
             int i = 0;
             for ( String s : saida ) { 
-                g2d.drawString( s, xMouse + 20 , yMouse + 26 + ( 15 * i++ ) );
+                
+                int largVar = fm.stringWidth( s.substring( 0, s.indexOf( ":" ) + 1 ) );
+            
+                try {
+                    
+                    Color c = Utils.decodificarCor( s.substring( s.indexOf( "(#" ) + 1, s.lastIndexOf( ")" ) ) );
+                            
+                    g2d.setColor( Color.WHITE );
+                    g2d.fillRect( xMouse + largVar + 25, yMouse + 17 + ( 15 * i ), 10, 10 );
+                    
+                    g2d.setColor( c );
+                    g2d.fillRect( xMouse + largVar + 25, yMouse + 17 + ( 15 * i ), 10, 10 );
+
+                    g2d.setColor( corTexto );
+                    g2d.drawRect( xMouse + largVar + 25, yMouse + 17 + ( 15 * i ), 10, 10 );
+                    
+                } catch ( StringIndexOutOfBoundsException | NumberFormatException exc ) {
+                    // não é uma cor
+                }
+                
+                g2d.setColor( corTextoInvertida );
+                g2d.drawString( s, xMouse + 20, yMouse + 26 + ( 15 * i ) );
+                
+                i++;
+                
             }
             
             

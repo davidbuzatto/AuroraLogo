@@ -1,8 +1,6 @@
 Implementação:
-    - terminar o depurador, melhorando as caixas. pensar nas variáveis do tipo cor.
-    - cópias profundas -> implementar manualmente
-    - Funções definidas pelo usuário; -> gramática pronta
     - Sobre e exemplos;
+    - Funções definidas pelo usuário; -> gramática pronta;
     - Verificar todas as operações conferindo compatibilidade (testes de unidade).
     - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
       comparando com a linha errada;

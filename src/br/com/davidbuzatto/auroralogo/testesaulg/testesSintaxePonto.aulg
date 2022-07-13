@@ -8,13 +8,13 @@ vA{"teste"} = "klm" .
 vB = criarArranjoAssociativo{} .
 vB{"nome"} = "David" .
 vB{"sobrenome"} = "Buzatto" .
-vA{"Teste"} = vB .
 
 vC = criarArranjoAssociativo{} .
 vC{"nome"} = "Aurora" .
 vC{"sobrenome"} = "Buzatto" .
-vB{"filha"} = vC .
 
+vB{"filha"} = vC .
+vA{"Teste"} = vB .
 
 vD = vA.chaves() .
 
@@ -34,7 +34,6 @@ escrever vA.aTeste.afilha.anome na saída pulando linha .
 
 escrever "testando chaves no para cada" na saída pulando linha .
 
-// verificar chamada de "chaves" não funcionando
 para cada vChave em vA.chaves() repetir {
     escrever vChave + ": " + vA{vChave} na saída pulando linha .
 }
