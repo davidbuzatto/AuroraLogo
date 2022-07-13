@@ -86,13 +86,20 @@ public class Estado implements Cloneable {
 
         for ( Map.Entry<String, Valor> en : memoria.entrySet() ) {
             
-            Valor v = en.getValue();
+            // forma 1 (sintaxe do ponto para de funcionar)
+            /*Valor v = en.getValue();
             
             if ( v.isArranjo() || v.isArranjoAssociativo() ) {
                 e.memoria.put( en.getKey(), (Valor) SerializationUtils.clone( v ) );
             } else {
                 e.memoria.put( en.getKey(), v );
-            }
+            }*/
+            
+            // forma 2
+            e.memoria.put( en.getKey(), en.getValue() );
+            
+            // forma 3
+            //e.memoria.put( en.getKey(), Valor.novoValor( en.getValue().getValor() ) );
             
         }
 

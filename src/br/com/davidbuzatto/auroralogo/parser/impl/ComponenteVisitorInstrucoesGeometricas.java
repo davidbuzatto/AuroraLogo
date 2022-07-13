@@ -76,9 +76,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -108,9 +108,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -141,9 +141,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -172,9 +172,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -204,9 +204,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -247,9 +247,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -282,9 +282,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
                 boolean contorno = true;
                 boolean preenchimento = true;
 
-                if ( ctx.opcaoFGeomO() != null ) {
-                    contorno = ctx.opcaoFGeomO().CON() == null;
-                    preenchimento = ctx.opcaoFGeomO().PREE() == null;
+                if ( ctx.opcaoFuncGeom() != null ) {
+                    contorno = ctx.opcaoFuncGeom().CON() == null;
+                    preenchimento = ctx.opcaoFuncGeom().PREE() == null;
                 }
                 
                 tartaruga.levantarPincel( false );
@@ -319,9 +319,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
                 boolean contorno = true;
                 boolean preenchimento = true;
 
-                if ( ctx.opcaoFGeomO() != null ) {
-                    contorno = ctx.opcaoFGeomO().CON() == null;
-                    preenchimento = ctx.opcaoFGeomO().PREE() == null;
+                if ( ctx.opcaoFuncGeom() != null ) {
+                    contorno = ctx.opcaoFuncGeom().CON() == null;
+                    preenchimento = ctx.opcaoFuncGeom().PREE() == null;
                 }
                 
                 tartaruga.levantarPincel( false );
@@ -380,9 +380,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
                 boolean contorno = true;
                 boolean preenchimento = true;
 
-                if ( ctx.opcaoFGeomO() != null ) {
-                    contorno = ctx.opcaoFGeomO().CON() == null;
-                    preenchimento = ctx.opcaoFGeomO().PREE() == null;
+                if ( ctx.opcaoFuncGeom() != null ) {
+                    contorno = ctx.opcaoFuncGeom().CON() == null;
+                    preenchimento = ctx.opcaoFuncGeom().PREE() == null;
                 }
                 
                 tartaruga.levantarPincel( false );
@@ -427,9 +427,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -463,9 +463,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );
@@ -490,9 +490,9 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean contorno = true;
             boolean preenchimento = true;
             
-            if ( ctx.opcaoFGeomO() != null ) {
-                contorno = ctx.opcaoFGeomO().CON() == null;
-                preenchimento = ctx.opcaoFGeomO().PREE() == null;
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
             tartaruga.levantarPincel( false );

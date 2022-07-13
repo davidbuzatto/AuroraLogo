@@ -3,31 +3,31 @@
  */
 
 vA = "abc" == "abc" .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = "abc" != "abc" .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = "abc" == "def" .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = "abc" != "def" .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = "abc" != 1 .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = 1 != "abc" .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = "1" != 1 .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = 1 != "1" .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = "maria" > "maria" .
-escrever vA pulando linha na saída .
+escrever vA na saída pulando linha .
 
 vA = "aurora" .
 vB = "aurora" .

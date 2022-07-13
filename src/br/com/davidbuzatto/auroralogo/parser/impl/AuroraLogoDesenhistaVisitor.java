@@ -307,6 +307,16 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     }
     
     @Override
+    public Valor visitFatorConsultarTartaruga( AuroraLogoParser.FatorConsultarTartarugaContext ctx ) {
+        return cvFatores.visitFatorConsultarTartaruga( ctx );
+    }
+
+    @Override
+    public Valor visitFatorConsultarString( AuroraLogoParser.FatorConsultarStringContext ctx ) {
+        return cvFatores.visitFatorConsultarString( ctx );
+    }
+    
+    @Override
     public Valor visitFatorParenteses( AuroraLogoParser.FatorParentesesContext ctx ) {
         return cvFatores.visitFatorParenteses( ctx );
     }
@@ -598,13 +608,7 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitInstrucaoCaminhoFecharCaminho( AuroraLogoParser.InstrucaoCaminhoFecharCaminhoContext ctx ) {
         return cvInstrucoesGeometricas.visitInstrucaoCaminhoFecharCaminho( ctx );
-    }
-
-    @Override
-    public Valor visitConsultarTartaruga( AuroraLogoParser.ConsultarTartarugaContext ctx ) {
-        return cvInstrucoesSimples.visitConsultarTartaruga( ctx );
-    }
-    
+    }    
     
     // outros métodos de visita
     

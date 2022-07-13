@@ -522,6 +522,11 @@
             </MenuItem>
           </SubComponents>
         </Menu>
+        <Menu class="javax.swing.JMenu" name="menuTestes">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Testes"/>
+          </Properties>
+        </Menu>
       </SubComponents>
     </Menu>
   </NonVisualComponents>

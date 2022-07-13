@@ -28,6 +28,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFunc(AuroraLogoParser.FuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunc(AuroraLogoParser.FuncContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterInst(AuroraLogoParser.InstContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -35,6 +47,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitInst(AuroraLogoParser.InstContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterInstf(AuroraLogoParser.InstfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitInstf(AuroraLogoParser.InstfContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -268,6 +292,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorConsultarString(AuroraLogoParser.FatorConsultarStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorConsultarString(AuroraLogoParser.FatorConsultarStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -455,6 +491,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitContinuar(AuroraLogoParser.ContinuarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRetornar(AuroraLogoParser.RetornarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRetornar(AuroraLogoParser.RetornarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1252,13 +1300,13 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx) { }
+	@Override public void enterOpcaoFuncGeom(AuroraLogoParser.OpcaoFuncGeomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx) { }
+	@Override public void exitOpcaoFuncGeom(AuroraLogoParser.OpcaoFuncGeomContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1343,6 +1391,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterConsultarString(AuroraLogoParser.ConsultarStringContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitConsultarString(AuroraLogoParser.ConsultarStringContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

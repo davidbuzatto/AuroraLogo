@@ -114,7 +114,7 @@
             <arg value="abaixar"/>
             <arg value="claro"/>
             <arg value="\u00E2ngulo"/>
-            <arg value="comprimento"/>
+            <arg value="substring"/>
             <arg value="arcoCosseno"/>
             <arg value="segmento"/>
             <arg value="="/>

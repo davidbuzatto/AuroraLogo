@@ -126,7 +126,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     public static final String VERSAO = "v0.95";
     private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
-    private static final String ARQUIVO_DE_TESTE = "testesArranjos";
+    private static final String ARQUIVO_DE_TESTE = "testes";
     
     private Image iconeJanela;
     private Font fontePadrao;
@@ -197,6 +197,12 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
          */
         tartaruga.setFonteDepurador( fontePadrao );
 
+        if ( !PRODUCAO ) {
+            Utils.criarItensMenuTestes( this, menuTestes );
+        } else {
+            menuTestes.setVisible( false );
+        }
+        
     }
 
     /**
@@ -298,6 +304,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuExemplos = new javax.swing.JMenu();
         separadorMenuAjuda1 = new javax.swing.JPopupMenu.Separator();
         menuItemSobre = new javax.swing.JMenuItem();
+        menuTestes = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("AuroraLogo");
@@ -1104,6 +1111,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         barraMenu.add(menuAjuda);
 
+        menuTestes.setText("Testes");
+        barraMenu.add(menuTestes);
+
         setJMenuBar(barraMenu);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -1733,7 +1743,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
         } else {
-            carregarTemplate( ARQUIVO_DE_TESTE, true );
+            carregarTesteAulg( Utils.getPref( Utils.PREF_ULTIMO_TESTE ), true );
+            //carregarTesteAulg( ARQUIVO_DE_TESTE, true );
         }
 
     }
@@ -1815,7 +1826,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         try {
 
             String codigo = textAreaCodigo.getText().trim();
-            AuroraLogoErrorListener errorListener = new AuroraLogoErrorListener( erroLinhaParser );
+            //AuroraLogoErrorListener errorListenerLexer = new AuroraLogoErrorListener( erroLinhaParser );
+            AuroraLogoErrorListener errorListenerParser = new AuroraLogoErrorListener( erroLinhaParser );
 
             textPaneSaida.setText( "" );
             
@@ -1824,10 +1836,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 AuroraLogoLexer lexer = new AuroraLogoLexer(
                         CharStreams.fromString( textAreaCodigo.getText() ) );
                 CommonTokenStream tokens = new CommonTokenStream( lexer );
-
+                //lexer.addErrorListener( errorListenerLexer );
+                
                 AuroraLogoParser parser = new AuroraLogoParser( tokens );
                 parser.removeErrorListeners();
-                parser.addErrorListener( errorListener );
+                parser.addErrorListener( errorListenerParser );
                 //parser.setErrorHandler( new BailErrorStrategy() );
                 
                 erroLinhaParser.limparErros();
@@ -1835,9 +1848,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 erroLinhaParser.processarErros();
                 textAreaCodigo.forceReparsing( erroLinhaParser );
                 
-                if ( !errorListener.houveErro() ) {
+                if ( /*!errorListenerLexer.houveErro() &&*/ !errorListenerParser.houveErro() ) {
                     AuroraLogoDesenhistaVisitor visitor = new AuroraLogoDesenhistaVisitor( tartaruga, this, textPaneSaida );
                     visitor.visit( tree );
+                } else {
+                    System.out.println( "ERRO!" );
                 }
 
                 if ( DEBUG_PARSER ) {
@@ -1848,7 +1863,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 tartaruga.limpar();
             }
 
-            return !errorListener.houveErro();
+            return /*!errorListenerLexer.houveErro() &&*/ !errorListenerParser.houveErro();
 
         } catch ( RecognitionException exc ) {
             tartaruga.limpar();
@@ -2084,11 +2099,21 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
 
-    private void carregarTemplate( String template, boolean inicio ) {
+    public void carregarTemplate( String template, boolean inicio ) {
 
-        try (  Scanner s = new Scanner(
+        try ( Scanner s = new Scanner(
                 getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/templates/"
                         + template + ".aulg" ), StandardCharsets.UTF_8 ) ) {
+            carregar( s, inicio );
+        }
+
+    }
+    
+    public void carregarTesteAulg( String teste, boolean inicio ) {
+
+        try ( Scanner s = new Scanner(
+                getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/testesaulg/"
+                        + teste + ".aulg" ), StandardCharsets.UTF_8 ) ) {
             carregar( s, inicio );
         }
 
@@ -2230,6 +2255,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             menuExecutar,
             menuTemas,
             menuAjuda,
+            menuTestes,
             btnNovo,
             btnAbrir,
             btnSalvar,
@@ -2510,6 +2536,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JMenuItem menuItemTartarugaArcoIris;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenu menuTemas;
+    private javax.swing.JMenu menuTestes;
     private javax.swing.JPanel paineCodigoFonte;
     private br.com.davidbuzatto.auroralogo.gui.PainelDesenho painelDesenho;
     private javax.swing.JPanel painelDesenhoContainer;

@@ -260,6 +260,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "VERDADEIRO" | 
 "abaixar " | 
 "abaixar" | 
+"alterar " | 
+"alterar" | 
 "amarelo " | 
 "amarelo" | 
 "at\u00E9 " | 
@@ -340,6 +342,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "fechar" | 
 "formatarTexto " | 
 "formatarTexto" | 
+"fun\u00E7\u00E3o " | 
+"fun\u00E7\u00E3o" | 
 "fundo " | 
 "fundo" | 
 "girar " | 
@@ -390,10 +394,14 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "pulando" | 
 "quadr\u00E1tica " | 
 "quadr\u00E1tica" | 
+"radianos " | 
+"radianos" | 
 "repeti\u00E7\u00E3o " | 
 "repeti\u00E7\u00E3o" | 
 "repetir " | 
 "repetir" | 
+"retornar " | 
+"retornar" | 
 "rosa " | 
 "rosa" | 
 "sa\u00EDda " | 
@@ -431,10 +439,14 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 	/* No keywords 2 */
         "\u00E2ngulo " | 
 "\u00E2ngulo" | 
+"caracteres " | 
+"caracteres" | 
 "chaves " | 
 "chaves" | 
 "comprimento " | 
 "comprimento" | 
+"substring " | 
+"substring" | 
 "x " | 
 "x" | 
 "y " | 

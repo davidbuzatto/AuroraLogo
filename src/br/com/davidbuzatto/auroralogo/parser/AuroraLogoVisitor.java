@@ -17,11 +17,23 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitProg(AuroraLogoParser.ProgContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#func}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunc(AuroraLogoParser.FuncContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#inst}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitInst(AuroraLogoParser.InstContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#instf}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInstf(AuroraLogoParser.InstfContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#ains}.
 	 * @param ctx the parse tree
@@ -151,6 +163,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code fatorConsultarString}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorConsultarString(AuroraLogoParser.FatorConsultarStringContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code fatorFormatarTexto}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -249,6 +268,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitContinuar(AuroraLogoParser.ContinuarContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#retornar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRetornar(AuroraLogoParser.RetornarContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code movimentarDirecao}
 	 * labeled alternative in {@link AuroraLogoParser#movimentar}.
@@ -699,11 +724,11 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFuncaoDesenharCurvaCubica(AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#opcaoFGeomO}.
+	 * Visit a parse tree produced by {@link AuroraLogoParser#opcaoFuncGeom}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx);
+	T visitOpcaoFuncGeom(AuroraLogoParser.OpcaoFuncGeomContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#desenharCaminho}.
 	 * @param ctx the parse tree
@@ -751,6 +776,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#consultarString}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitConsultarString(AuroraLogoParser.ConsultarStringContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#formatarTexto}.
 	 * @param ctx the parse tree

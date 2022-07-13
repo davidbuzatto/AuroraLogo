@@ -1,0 +1,40 @@
+vA = criarArranjoAssociativo{} .
+vA{"a"} = "abc" .
+vA{"b"} = "cde" .
+vA{"c"} = "efg" .
+vA{"xyz"} = "hij" .
+vA{"teste"} = "klm" .
+
+vB = criarArranjoAssociativo{} .
+vB{"nome"} = "David" .
+vB{"sobrenome"} = "Buzatto" .
+vA{"Teste"} = vB .
+
+vC = criarArranjoAssociativo{} .
+vC{"nome"} = "Aurora" .
+vC{"sobrenome"} = "Buzatto" .
+vB{"filha"} = vC .
+
+
+vD = vA.chaves() .
+
+para cada vChave em vD repetir {
+    escrever vChave + ": " + vA{vChave} na saída pulando linha .
+}
+
+escrever vA.aa na saída pulando linha .
+escrever vA.ab na saída pulando linha .
+escrever vA.ac na saída pulando linha .
+escrever vA.axyz na saída pulando linha .
+escrever vA.ateste na saída pulando linha .
+escrever vA.aTeste na saída pulando linha .
+escrever vA.aTeste.anome na saída pulando linha .
+escrever vA.aTeste.afilha na saída pulando linha .
+escrever vA.aTeste.afilha.anome na saída pulando linha .
+
+escrever "testando chaves no para cada" na saída pulando linha .
+
+// verificar chamada de "chaves" não funcionando
+para cada vChave em vA.chaves() repetir {
+    escrever vChave + ": " + vA{vChave} na saída pulando linha .
+}

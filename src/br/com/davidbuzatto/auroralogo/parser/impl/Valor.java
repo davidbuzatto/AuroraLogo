@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.parser.impl;
 
 import br.com.davidbuzatto.auroralogo.utils.Utils;
+import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
 import java.awt.Color;
 import java.io.Serializable;
 import java.util.LinkedHashMap;
@@ -254,13 +255,7 @@ public class Valor implements Serializable {
                     // usando mapeamento linear. índices negativos, também
                     // mapeados, acessam a estrutura de trás para frente, assim
                     // como em Python
-                    if ( i < 0 ) {
-                        i %= t;
-                        i += t;
-                        i %= t;
-                    } else {
-                        i %= t;
-                    }
+                    i = mapeamentoModular( i, t );
                     
                     v = va[i];
                     
@@ -516,13 +511,7 @@ public class Valor implements Serializable {
                     Object[] va = (Object[]) v;
                     int t = va.length;
                     
-                    if ( indice < 0 ) {
-                        indice %= t;
-                        indice += t;
-                        indice %= t;
-                    } else {
-                        indice %= t;
-                    }
+                    indice = mapeamentoModular( indice, t );
                     
                     v = va[indice];
                     

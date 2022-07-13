@@ -7,14 +7,14 @@ vB["c"] = "789" .
 
 
 vI = 0 .
-enquanto vI < vA.comprimento repetir incrementando vI {
+enquanto vI < vA.comprimento() repetir incrementando vI {
 	vA[vI] = vI * 2 .
 }
 
 para cada vV em vA repetir {
-    escrever vV pulando linha na saída .
+    escrever vV na saída pulando linha .
 }
 
 para cada vV em vB repetir {
-    escrever vV pulando linha na saída .
+    escrever vV na saída pulando linha .
 }

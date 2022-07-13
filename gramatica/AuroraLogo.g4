@@ -22,7 +22,10 @@
  */
 grammar AuroraLogo;
 
-prog : inst+ ;
+prog : func* inst+ ;
+
+func : FUNC IDF '(' ( IDP ( ',' IDP )* )? ')' '{' instf+ '}'
+     ;
 
 inst : ains DOT
      | se
@@ -32,6 +35,10 @@ inst : ains DOT
      | paraCada
      | desenharCaminho
      ;
+
+instf : inst        
+      | retornar DOT
+      ;
 
 ains : movimentar
      | trocarCor
@@ -73,23 +80,24 @@ termo    : fator ( ( MUL | VEZS
                    | MOD | MODA      ) fator )*
          ;
 
-fator    : ( NAO | NAOT ) fator                           # fatorNao
-         | INT                                            # fatorInt
-         | DEC                                            # fatorDec
-         | PI                                             # fatorPi
-         | ID                   ( DOT COMP | DOT CHAV )?  # fatorId
-         | ID ( '[' expr ']' )+ ( DOT COMP | DOT CHAV )?  # fatorIdArranjo
-         | ID   '{' expr '}'    ( DOT COMP | DOT CHAV )?  # fatorIdArranjoAssociativo
-         | ID ( DOT IDA )+                                # fatorIdIdAtributo
-         | CHAR                                           # fatorChar
-         | STRING                                         # fatorString 
-         | ( VER | FAL )                                  # fatorBool
-         | cor                                            # fatorCor
-         | funcaoMatematica                               # fatorFuncaoMatematica
-         | consultarTartaruga                             # fatorConsultarTartaruga
-         | formatarTexto                                  # fatorFormatarTexto
-         | repeticao                                      # fatorRepeticao
-         | '(' expr ')'                                   # fatorParenteses
+fator    : ( NAO | NAOT ) fator                                           # fatorNao
+         | INT                                                            # fatorInt
+         | DEC                                                            # fatorDec
+         | PI                                                             # fatorPi
+         | ID                   ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorId
+         | ID ( '[' expr ']' )+ ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjo
+         | ID   '{' expr '}'    ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjoAssociativo
+         | ID ( DOT IDA )+                                                # fatorIdIdAtributo
+         | CHAR                                                           # fatorChar
+         | STRING                                                         # fatorString 
+         | ( VER | FAL )                                                  # fatorBool
+         | cor                                                            # fatorCor
+         | funcaoMatematica                                               # fatorFuncaoMatematica
+         | consultarTartaruga                                             # fatorConsultarTartaruga
+         | consultarString                                                # fatorConsultarString
+         | formatarTexto                                                  # fatorFormatarTexto
+         | repeticao                                                      # fatorRepeticao
+         | '(' expr ')'                                                   # fatorParenteses
          ;
 
 exprBool : expr
@@ -145,9 +153,12 @@ parar        : PARR
 continuar    : CONT
              ;
 
+retornar     : RET expr?
+             ;
+
 // regras para instruções de ação
 movimentar   : VA PARA ( DIR | ESQ | CIM | BAI ) ( EM expr )?   # movimentarDirecao
-             | VA PARA '(' expr ',' expr ')'                    # movimentarPonto
+             | VA PARA expr ',' expr                            # movimentarPonto
              ;
 
 trocarCor    : TROC COR DO PINC PARA configuracaoCor  # trocarCorPincel
@@ -171,20 +182,20 @@ configuracaoCor : ( ( cor | expr ) | corEx=( PRETO
 cor          : CHEX
              ;
 
-girar        : GIR ( EM expr GRA )?
+girar        : GIR ( EM expr ( GRA | RAD ) )?
              ;
 
-engrossar    : ENG ( EM expr )?
+engrossar    : ENG PINC ( EM expr )?
              ;
 
-desengrossar : DES ( EM expr )?
+desengrossar : DES PINC ( EM expr )?
              ;
 
-trocarGrossura  : TROC GROS PARA expr
+trocarGrossura  : ALT GROS PARA expr
                 ;
 
-escrever     : ESC expr ( ( PUL LIN )? NA SAI 
-                        | ( PUL LIN )? NO DIAG
+escrever     : ESC expr ( NA SAI  ( PUL LIN )?
+                        | NO DIAG ( PUL LIN )?
                         )?
              ;
 
@@ -249,50 +260,53 @@ instrucaoGeometrica : DESE funcaoGeometrica
                     ;
 
                       //          x1       y1       x2       y2
-funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'                                                              # funcaoDesenharSegmento
+funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'                                                                # funcaoDesenharSegmento
                       //          xc       yc      lado
-                    | FG_QUA '(' expr ',' expr ',' expr ')' opcaoFGeomO?                                                          # funcaoDesenharQuadrado
+                    | FG_QUA '(' expr ',' expr ',' expr ')' opcaoFuncGeom?                                                          # funcaoDesenharQuadrado
                       //          x        y       larg     alt
-                    | FG_RET '(' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                                 # funcaoDesenharRetangulo
+                    | FG_RET '(' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?                                                 # funcaoDesenharRetangulo
                       //          x        y       larg     alt      arco
-                    | FG_REA '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                        # funcaoDesenharRetanguloArredondado
+                    | FG_REA '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?                                        # funcaoDesenharRetanguloArredondado
                       //          xc       yc      raio
-                    | FG_CIC '(' expr ',' expr ',' expr ')' opcaoFGeomO?                                                          # funcaoDesenharCirculo
+                    | FG_CIC '(' expr ',' expr ',' expr ')' opcaoFuncGeom?                                                          # funcaoDesenharCirculo
                       //          xc       yc       eh       ev
-                    | FG_ELI '(' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                                 # funcaoDesenharElipse
+                    | FG_ELI '(' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?                                                 # funcaoDesenharElipse
                       //          xc       yc       eh       ev      aini     afim
-                    | FG_ARC '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' ( ABE | COD | PIZ ) )? ')' opcaoFGeomO?  # funcaoDesenharArco
+                    | FG_ARC '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' ( ABE | COD | PIZ ) )? ')' opcaoFuncGeom?  # funcaoDesenharArco
                       //          xc       yc      raio     ang       ql
-                    | FG_POR '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                        # funcaoDesenharPoligonoRegular
+                    | FG_POR '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?                                        # funcaoDesenharPoligonoRegular
                       //          xc       yc      raio     ang       qp
-                    | FG_EST '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                                        # funcaoDesenharEstrela
+                    | FG_EST '(' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?                                        # funcaoDesenharEstrela
                       //          x1       y1       x2       y2       x3       y3         xn       yn
-                    | FG_POL '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' expr ',' expr )* ')' opcaoFGeomO?        # funcaoDesenharPoligono
+                    | FG_POL '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' expr ',' expr )* ')' opcaoFuncGeom?        # funcaoDesenharPoligono
                       //          x1       y1      ctx      cty       x2       y2
-                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?                               # funcaoDesenharCurvaQuadratica
+                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?                               # funcaoDesenharCurvaQuadratica
                       //          x1       y1      ct1x     ct1y     ct2x     ct2y      x2       y2
-                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFGeomO?             # funcaoDesenharCurvaCubica
+                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?             # funcaoDesenharCurvaCubica
                     ;
 
-opcaoFGeomO         : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )? 
+opcaoFuncGeom         : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )? 
                     ;
 
-desenharCaminho     : DESE CAM opcaoFGeomO? '{' ( instCaminho DOT )+ '}'
+desenharCaminho     : DESE CAM opcaoFuncGeom? '{' ( instCaminho DOT )+ '}'
                     ;
 
-                      //           x        y
-instCaminho         : MOV ATE '(' expr ',' expr ')'                                           # instrucaoCaminhoMoverAte
-                      //           x        y
-                    | LIN ATE '(' expr ',' expr ')'                                           # instrucaoCaminhoLinhaAte
-                      //               ctx      cty       x        y
-                    | CUR QUAD ATE '(' expr ',' expr ',' expr ',' expr ')'                    # instrucaoCaminhoCurvaQuadraticaAte
-                      //               ct1x     ct1y     ct2x     ct2y      x        y
-                    | CUR CUBI ATE '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')'  # instrucaoCaminhoCurvaCubicaAte
-                    | FEC                                                                     # instrucaoCaminhoFecharCaminho
+                      //       x        y
+instCaminho         : MOV ATE expr ',' expr                                           # instrucaoCaminhoMoverAte
+                      //       x        y
+                    | LIN ATE expr ',' expr                                           # instrucaoCaminhoLinhaAte
+                      //           ctx      cty       x        y
+                    | CUR QUAD ATE expr ',' expr ',' expr ',' expr                    # instrucaoCaminhoCurvaQuadraticaAte
+                      //            t1x     ct1y     ct2x     ct2y      x        y
+                    | CUR CUBI ATE expr ',' expr ',' expr ',' expr ',' expr ',' expr  # instrucaoCaminhoCurvaCubicaAte
+                    | FEC                                                             # instrucaoCaminhoFecharCaminho
                     ;
 
 
-consultarTartaruga  : TART DOT ( PX | PY | PA )
+consultarTartaruga  : TART DOT ( PX | PY | PA ) '(' ')'
+                    ;
+
+consultarString     : ID DOT ( COMP '(' ')' | CARC '(' ')' ( '[' exprIndice ']' )? | SUBS '(' expr ( ',' expr )? ')' )
                     ;
 
 formatarTexto       : FORM '(' STRING ( ',' expr )* ')'
@@ -348,6 +362,7 @@ UNICODE : 'u' DHX DHX DHX DHX ;
 // palavras chave
 ABA  : 'abaixar'                 ;
 ABE  : 'ABERTO'                  ;
+ALT  : 'alterar'                 ;
 ATE  : 'at\u00E9'                ;
 BAI  : 'baixo'                   ;
 CADA : 'cada'                    ;
@@ -384,6 +399,7 @@ FAL  : 'FALSO'                   ;
 FEC  : 'fechar'                  ;
 FORM : 'formatarTexto'           ;
 FUN  : 'fundo'                   ;
+FUNC : 'fun\u00E7\u00E3o'        ;
 GIR  : 'girar'                   ;
 GRA  : 'graus'                   ;
 GROS : 'grossura'                ;
@@ -407,8 +423,10 @@ POR  : 'por'                     ;
 PREE : 'preenchimento'           ;
 PUL  : 'pulando'                 ;
 QUAD : 'quadr\u00E1tica'         ;
+RAD  : 'radianos'                ;
 REP  : 'repetir'                 ;
 REPE : 'repeti\u00E7\u00E3o'     ;
+RET  : 'retornar'                ;
 SAI  : 'sa\u00EDda'              ;
 SE   : 'se'                      ;
 SEN  : 'sen\u00E3o'              ;
@@ -447,8 +465,10 @@ PX : 'x'           ;
 PY : 'y'           ;
 
 // terminais que são proprieades dos arranjos e strings
+CARC : 'caracteres'  ;
 CHAV : 'chaves'      ;
 COMP : 'comprimento' ;
+SUBS : 'substring'   ;
 
 
 // funções
@@ -571,7 +591,9 @@ DOT  : '.' ;
 // identificadores
 ID   : 'v'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de variáveis
 IDC  : 'c'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de constantes
-IDA  : ( 'a' | 'p' ) ( LET    | LETA    | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de atributos/propriedades
+IDF  : 'f'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de funções definidas pelo usuário
+IDP  : 'p'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de parâmetros de funções
+IDA  : 'a'           ( LET    | LETA    | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de atributos/propriedades
 
 // literais
 // Obs: CHEX (cor hexa) usa um predicado semântico, 

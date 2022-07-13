@@ -28,17 +28,26 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.SplashScreen;
 import java.awt.color.ColorSpace;
+import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.BufferedImageOp;
 import java.awt.image.ColorConvertOp;
 import java.awt.image.WritableRaster;
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.prefs.Preferences;
+import java.util.stream.Collectors;
+import javax.swing.AbstractAction;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -72,6 +81,7 @@ public class Utils {
     public static final String PREF_VALOR_SLIDER_PASSO_AUTOMATICO = "VALOR_SLIDER_PASSO_AUTOMATICO";
     public static final String PREF_JANELA_PRINCIPAL_MAXIMIZADA = "JANELA_PRINCIPAL_MAXIMIZADA";
     public static final String PREF_COR_TARTARUGA = "COR_TARTARUGA";
+    public static final String PREF_ULTIMO_TESTE = "PREF_ULTIMO_TESTE";
     
     public static void mostrarDados( 
             CommonTokenStream tokens, 
@@ -523,7 +533,7 @@ public class Utils {
             String v = JanelaPrincipal.VERSAO;
             int vWidth = fm.stringWidth( v );
             
-            g2d.drawString( v, 300 - vWidth, 175 );
+            g2d.drawString( v, 346 - vWidth, 205 );
             g2d.dispose();
             
             sp.update();
@@ -575,6 +585,7 @@ public class Utils {
             PREFS.remove( PREF_VALOR_SLIDER_PASSO_AUTOMATICO );
             PREFS.remove( PREF_JANELA_PRINCIPAL_MAXIMIZADA );
             PREFS.remove( PREF_COR_TARTARUGA );
+            PREFS.remove( PREF_ULTIMO_TESTE );
         }
         
         PREFS.put( PREF_CAMINHO_ABRIR_SALVAR, PREFS.get( PREF_CAMINHO_ABRIR_SALVAR, new File( "" ).getAbsolutePath() ) );
@@ -586,6 +597,7 @@ public class Utils {
         PREFS.putInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 ) );
         PREFS.putBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false ) );
         PREFS.putInt( PREF_COR_TARTARUGA, PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE ) );
+        PREFS.put( PREF_ULTIMO_TESTE, PREFS.get( PREF_ULTIMO_TESTE, "testes" ) );
         
     }
     
@@ -686,6 +698,50 @@ public class Utils {
         
     }
     
+    public static int mapeamentoModular( int i, int t ) {
+        
+        if ( i < 0 ) {
+            i %= t;
+            i += t;
+            i %= t;
+        } else {
+            i %= t;
+        }
+        
+        return i;
+        
+    }
+    
+    public static void criarItensMenuTestes( JanelaPrincipal janelaPrincipal, JMenu menuTestes ) {
+        
+        try {
+            
+            Path path = new File( Utils.class.getResource( 
+                    "/br/com/davidbuzatto/auroralogo/testesaulg/testes.aulg" ).toURI() ).getParentFile().toPath();
+            
+            List<String> arquivosTeste = Files.walk( path )
+                                             .map( Path::getFileName )
+                                             .map( Path::toString )
+                                             .filter( n -> n.endsWith( ".aulg" ) )
+                                             .collect( Collectors.toList() );
+            
+            for ( String a : arquivosTeste ) {
+                menuTestes.add( new AbstractAction( a ) {
+                    @Override
+                    public void actionPerformed( ActionEvent e ) {
+                        String teste = a.replace( ".aulg", "" );
+                        janelaPrincipal.carregarTesteAulg( teste, true );
+                        setPref( PREF_ULTIMO_TESTE, teste );
+                    }
+                });
+            }
+            
+        } catch ( IOException | URISyntaxException exc ) {
+            exc.printStackTrace();
+        }
+        
+    }
+    
     public static String getPref( String key ) {
         return PREFS.get( key, "" );
     }
@@ -735,14 +791,19 @@ public class Utils {
     }
     
     public static void main( String[] args ) {
-        //String s = "áàâãéêíóôõúüç";
+        
+//String s = "áàâãéêíóôõúüç";
         /*String s = "ÁÀÂÃÉÊÍÓÔÕÚÜÇ";
         for ( char c : s.toCharArray() ) {
             System.out.print( toUnicodeScape( c ) );
         }*/
         
-        Color c = subtrairCores( Color.white, Color.red );
-        System.out.println( c );
+        /*Color c = subtrairCores( Color.white, Color.red );
+        System.out.println( c );*/
+        
+        for ( int i = -10; i <= 10; i++ ) {
+            System.out.println( i + ": " + mapeamentoModular( i, 5 ) );
+        }
         
     }
     

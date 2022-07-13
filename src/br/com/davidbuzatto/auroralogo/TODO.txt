@@ -1,10 +1,7 @@
 Implementação:
-    - Cópia profunda de arrays e arrays associativos -> testar
-    - Depurador: permitir passar mouse nos valores grandes. -> implementando
-    - Print da tela de desenho no estado atual.
-
-    - Instruções simples para strings -> comprimento, caractere e substring
-    - Funções definidas pelo usuário;
+    - terminar o depurador, melhorando as caixas. pensar nas variáveis do tipo cor.
+    - cópias profundas -> implementar manualmente
+    - Funções definidas pelo usuário; -> gramática pronta
     - Sobre e exemplos;
     - Verificar todas as operações conferindo compatibilidade (testes de unidade).
     - Melhorar mensagens de erro, usando uma sequência de comandos corretos 

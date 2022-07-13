@@ -47,14 +47,14 @@ desenhar curvaCúbica( 300, 650, 350, 620, 450, 680, 500, 650 ) .
 vI = 100 .
 repetir 10 vezes {
     desenhar caminho sem preenchimento {
-        mover até ( vI, 100 ) .
-        linha até ( vI+50, 100 ) . 
-        linha até ( vI+50, 70 ) .
-        linha até ( vI+100, 100 ) .
-        curva quadrática até ( vI+125, 70, vI+150, 130 ) .
-        curva cúbica até ( vI+160, 120, vI+190, 140, vI+200, 130 ) . 
-        linha até ( vI+210, 150 ) . 
-        linha até ( vI+50, 150 ) . 
+        mover até vI, 100 .
+        linha até vI+50, 100 . 
+        linha até vI+50, 70 .
+        linha até vI+100, 100 .
+        curva quadrática até vI+125, 70, vI+150, 130 .
+        curva cúbica até vI+160, 120, vI+190, 140, vI+200, 130 . 
+        linha até vI+210, 150 . 
+        linha até vI+50, 150 . 
         //fechar .
     }
     vI += 50 .

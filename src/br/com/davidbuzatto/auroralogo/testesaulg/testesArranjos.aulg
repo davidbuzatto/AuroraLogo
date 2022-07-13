@@ -1,0 +1,132 @@
+vK = 10 .
+vA = criarArranjo[10] .
+vB = criarArranjo[10][5] .
+vC = criarArranjo[10][5][7] .
+
+escrever "k:" na saída pulando linha .
+escrever vK.comprimento() na saída pulando linha .
+escrever "\n\n" na saída .
+
+escrever "a:" na saída pulando linha .
+escrever vA.comprimento() na saída pulando linha .
+escrever vA[0].comprimento() na saída pulando linha .
+escrever vA na saída pulando linha .
+escrever "\n\n" na saída .
+
+escrever "b:" na saída pulando linha .
+escrever vB.comprimento() na saída pulando linha .
+escrever vB[0].comprimento() na saída pulando linha .
+escrever vB[0][0].comprimento() na saída pulando linha .
+escrever vB[0][0][0].comprimento() na saída pulando linha .
+escrever "\n\n" na saída .
+
+escrever "c:" na saída pulando linha .
+escrever vC.comprimento() na saída pulando linha .
+escrever vC[0].comprimento() na saída pulando linha .
+escrever vC[0][0].comprimento() na saída pulando linha .
+escrever vC[0][0][0].comprimento() na saída pulando linha .
+escrever vC[0][0][0][0].comprimento() na saída pulando linha .
+escrever "\n\n" na saída .
+
+
+vT = 5 .
+vA = criarArranjo[vT] .
+vB = criarArranjo[vT][vT] .
+vC = criarArranjo[vT][vT][vT] .
+
+vI = 0 .
+enquanto vI < vA.comprimento() repetir incrementando vI {
+	vA[vI] = ( vI + 1 ) * 5 .
+}
+
+para cada vE em vA repetir {
+	escrever "para cada: " + vE na saída pulando linha .
+}
+
+vI = 0 .
+enquanto vI < vB.comprimento() repetir incrementando vI {
+	vJ = 0 .
+	enquanto vJ < vB[vI].comprimento() repetir incrementando vJ {
+		se vI é igual a vJ então {
+			vB[vI][vJ] = 1 .
+		} senão {
+			vB[vI][vJ] = 0 .
+		}
+	}
+}
+
+vI = 0 .
+enquanto vI < vC.comprimento() repetir incrementando vI {
+	vJ = 0 .
+	enquanto vJ < vC[vI].comprimento() repetir incrementando vJ {
+		vK = 0 .
+		enquanto vK < vC[vI][vJ].comprimento() repetir incrementando vK {
+			se vI é igual a vJ E vJ é igual a vK então {
+				vC[vI][vJ][vK] = 1 .
+			} senão {
+				vC[vI][vJ][vK] = 0 .
+			}
+		}
+	}
+}
+
+vTextoA = "" .
+vI = 0 .
+enquanto vI < vA.comprimento() repetir incrementando vI {
+	se vI é diferente de 0 então {
+		vTextoA += ", " .
+	}
+	vTextoA += vA[vI] .
+}
+
+vTextoB = "" .
+vI = 0 .
+enquanto vI < vB.comprimento() repetir incrementando vI {
+	se vI é diferente de 0 então {
+		vTextoB += "\n  " .
+	}
+	vJ = 0 .
+	vT = "" .
+	enquanto vJ < vB[vI].comprimento() repetir incrementando vJ {
+		se vJ é diferente de 0 então {
+			vT += ", " .
+		}
+		vT += vB[vI][vJ] .
+	}
+	vTextoB += "[ " + vT + " ]" .
+}
+
+vTextoC = "" .
+vI = 0 .
+enquanto vI < vC.comprimento() repetir incrementando vI {
+	vJ = 0 .
+	vTextoC += "    [" .
+	enquanto vJ < vC[vI].comprimento() repetir incrementando vJ {	
+		se vJ é diferente de 0 então {
+			vTextoC += "\n" .
+		} senão {
+			vTextoC += "" .
+		}
+		vK = 0 .
+		vT = "" .
+		enquanto vK < vC[vI][vJ].comprimento() repetir incrementando vK {
+			se vK é diferente de 0 então {
+				vT += ", " .
+			}
+			vT += vC[vI][vJ][vK] .
+		}
+		se vJ é diferente de 0 então {
+			vTextoC += "     " .
+		}
+		vTextoC += " [ " + vT + " ] " .
+	}
+	vTextoC += "]" .
+	se vI é diferente de vC.comprimento() - 1 então {
+		vTextoC += "," .
+	}
+	vTextoC += "\n" .
+}
+
+escrever "[ " + vTextoA + " ]" na saída pulando linha .
+escrever "\n[ " + vTextoB + " ]" na saída pulando linha .
+escrever "\n[\n" + vTextoC + " ]" na saída pulando linha .

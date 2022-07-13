@@ -42,7 +42,11 @@ public class ComponenteVisitorInstrucoesSimples {
         double valor = 1;
         
         if ( ctx.expr() != null ) {
-            valor = visitor.visit( ctx.expr() ).valorDecimal();
+            if ( ctx.GRA() != null ) {
+                valor = visitor.visit( ctx.expr() ).valorDecimal();
+            } else { // radianos
+                valor = Math.toDegrees( visitor.visit( ctx.expr() ).valorDecimal() );
+            }
         }
         
         tartaruga.girar( valor );
@@ -97,20 +101,6 @@ public class ComponenteVisitorInstrucoesSimples {
     public Valor visitTrocarGrossura( AuroraLogoParser.TrocarGrossuraContext ctx ) {
         tartaruga.setGrossura( visitor.visit( ctx.expr() ).valorDecimal() );
         return NULO;
-    }
-    
-    public Valor visitConsultarTartaruga( AuroraLogoParser.ConsultarTartarugaContext ctx ) {
-        
-        if ( ctx.PX() != null ) {
-            return novoDecimal( tartaruga.getXEstadoFinal() );
-        } else if ( ctx.PY() != null ) {
-            return novoDecimal( tartaruga.getYEstadoFinal() );
-        } else if ( ctx.PA() != null ) {
-            return novoDecimal( tartaruga.getAnguloEstadoFinal() );
-        }
-        
-        return ZERO_DECIMAL;
-        
     }
     
 }

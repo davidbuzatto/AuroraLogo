@@ -28,7 +28,7 @@ vá para direita em 40 .
 trocar cor do pincel para #FF0000 .
 
 // engrossa a linha em 1 pixel
-engrossar .
+engrossar pincel .
 
 // movimenta 100 pixels vá para cima em
 vá para cima em 100 .
@@ -38,7 +38,7 @@ vá para cima em 100 .
 trocar cor do pincel para #00FF00 .
 
 // engrossa a linha em 2 pixels
-engrossar em 2 .
+engrossar pincel em 2 .
 
 // movimenta 20 pixels vá para esquerda em
 vá para esquerda em 20 .
@@ -48,7 +48,7 @@ vá para esquerda em 20 .
 trocar cor do pincel para #0000FF .
 
 // desengrossa a linha em 3 pixels
-desengrossar em 3 .
+desengrossar pincel em 3 .
 
 // movimenta 90 pixels vá para baixo em
 vá para baixo em 120 .
@@ -64,13 +64,13 @@ girar em -45 graus .
 // instrução de repetição
 repetir (vAbc*3) vezes {
     trocar cor do pincel para #f59e42 .
-    engrossar em 3 .
+    engrossar pincel em 3 .
     vá para direita em 20 .
-    desengrossar em 3 .
+    desengrossar pincel em 3 .
     trocar cor do pincel para #429cf5 .
-    engrossar .
+    engrossar pincel .
     vá para baixo em 20 .
-    desengrossar .
+    desengrossar pincel .
 }
 
 levantar pincel .
@@ -86,25 +86,25 @@ repetir 36 vezes {
     trocar cor do pincel para #34e5eb .
     vá para baixo em 1 * vI .
     vI = vI + 1 .
-    engrossar .
+    engrossar pincel .
     trocar cor do pincel para #000000 .
     escrever "              espiral: " + (vI-1) .
 }
 
 girar em 180 graus .
-desengrossar em 20 .
+desengrossar pincel em 20 .
 vá para cima em 515 .
 girar em 45 graus .
-desengrossar em 5 .
+desengrossar pincel em 5 .
 vá para cima em 100 .
 girar em 45 graus .
-desengrossar em 5 .
+desengrossar pincel em 5 .
 vá para cima em 100 .
 girar em 45 graus .
-desengrossar em 5 .
+desengrossar pincel em 5 .
 vá para cima em 100 .
 girar em 45 graus .
-desengrossar .
+desengrossar pincel .
 vá para cima em 115 .
 
 levantar pincel .
@@ -115,7 +115,7 @@ vI = 0 .
 vJ = 0 .
 vLargura = 400 .
 vAltura = 40 .
-engrossar em 2 .
+engrossar pincel em 2 .
 
 repetir 10 vezes {
 	trocar cor do pincel para #83eb34 .

@@ -18,6 +18,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitProg(AuroraLogoParser.ProgContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#func}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunc(AuroraLogoParser.FuncContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#func}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunc(AuroraLogoParser.FuncContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#inst}.
 	 * @param ctx the parse tree
 	 */
@@ -27,6 +37,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitInst(AuroraLogoParser.InstContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#instf}.
+	 * @param ctx the parse tree
+	 */
+	void enterInstf(AuroraLogoParser.InstfContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#instf}.
+	 * @param ctx the parse tree
+	 */
+	void exitInstf(AuroraLogoParser.InstfContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#ains}.
 	 * @param ctx the parse tree
@@ -246,6 +266,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code fatorConsultarString}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorConsultarString(AuroraLogoParser.FatorConsultarStringContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorConsultarString}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorConsultarString(AuroraLogoParser.FatorConsultarStringContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code fatorFormatarTexto}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -411,6 +443,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitContinuar(AuroraLogoParser.ContinuarContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#retornar}.
+	 * @param ctx the parse tree
+	 */
+	void enterRetornar(AuroraLogoParser.RetornarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#retornar}.
+	 * @param ctx the parse tree
+	 */
+	void exitRetornar(AuroraLogoParser.RetornarContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code movimentarDirecao}
 	 * labeled alternative in {@link AuroraLogoParser#movimentar}.
@@ -1178,15 +1220,15 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFuncaoDesenharCurvaCubica(AuroraLogoParser.FuncaoDesenharCurvaCubicaContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#opcaoFGeomO}.
+	 * Enter a parse tree produced by {@link AuroraLogoParser#opcaoFuncGeom}.
 	 * @param ctx the parse tree
 	 */
-	void enterOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx);
+	void enterOpcaoFuncGeom(AuroraLogoParser.OpcaoFuncGeomContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#opcaoFGeomO}.
+	 * Exit a parse tree produced by {@link AuroraLogoParser#opcaoFuncGeom}.
 	 * @param ctx the parse tree
 	 */
-	void exitOpcaoFGeomO(AuroraLogoParser.OpcaoFGeomOContext ctx);
+	void exitOpcaoFuncGeom(AuroraLogoParser.OpcaoFuncGeomContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#desenharCaminho}.
 	 * @param ctx the parse tree
@@ -1267,6 +1309,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitConsultarTartaruga(AuroraLogoParser.ConsultarTartarugaContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#consultarString}.
+	 * @param ctx the parse tree
+	 */
+	void enterConsultarString(AuroraLogoParser.ConsultarStringContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#consultarString}.
+	 * @param ctx the parse tree
+	 */
+	void exitConsultarString(AuroraLogoParser.ConsultarStringContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#formatarTexto}.
 	 * @param ctx the parse tree

@@ -21,6 +21,7 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
+import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -286,103 +287,6 @@ public class ComponenteVisitorFatores {
         
     }
     
-    /*public Valor visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
-        
-        String id = ctx.ID().getText();
-        Valor v = tartaruga.lerMemoria( id );
-        
-        if ( v.isArranjo() ) {
-            
-            List<Integer> indices = new ArrayList<>();
-            
-            for ( ExprContext e : ctx.expr() ) {
-                Valor vIndice = visitor.visit( e );
-                indices.add( vIndice.valorInteiro() );
-            }
-            
-            Integer[] aInd = indices.toArray( Integer[]::new );
-            Object valorP = v.valorArranjo( aInd );
-            
-            if ( ctx.COMP() != null ) {
-                if ( valorP instanceof Object[] ) {
-                    v = novoInteiro( ( (Object[]) valorP ).length );
-                } else {
-                    v = ZERO_INTEIRO;
-                }
-            } else {
-                v = novoValor( valorP );
-            }
-            
-        } else if ( v.isArranjoAssociativo() ) {
-            
-            ExprContext e = ctx.expr( 0 );
-            
-            if ( e != null ) {
-                
-                String chave = visitor.visit( e ).valorString();
-                Object valorP = v.valorArranjoAssociativo( chave );
-                
-                if ( ctx.COMP() != null ) {
-                    
-                    if ( valorP instanceof Valor ) {
-                        Valor vo = (Valor) valorP;
-                        if ( vo.isArranjo() ) {
-                            v = novoInteiro( ( (Object[]) vo.getValor() ).length );
-                        } else {
-                            v = ZERO_INTEIRO;
-                        }
-                    } else {
-                        v = ZERO_INTEIRO;
-                    }
-                    
-                } else if ( ctx.CHAV() != null ) {
-                    
-                    
-                    
-                }else {
-                    v = novoValor( valorP );
-                }
-                
-            } else {
-                
-                if ( ctx.COMP() != null ) {
-                    v = novoInteiro( ( (LinkedHashMap<String, Object>) v.getValor() ).keySet().size() );
-                } else if ( ctx.CHAV() != null ) {
-                    
-                    //List<String> chaves = new ArrayList<>();
-                    
-                    //for ( String chave : ( (LinkedHashMap<String, Object>) v.getValor() ).keySet() ) {
-                    //    chaves.add( chave );
-                    //}
-                    
-                    //v = novoArranjo( chaves.toArray( String[]::new ) );
-                    
-                    Set<String> keySet = ( (LinkedHashMap<String, Object>) v.getValor() ).keySet();
-                    Valor[] chaves = new Valor[keySet.size()];
-                    
-                    int i = 0;
-                    for ( String chave : keySet ) {
-                        chaves[i++] = novaString( chave );
-                    }
-                    
-                    v = novoArranjo( chaves );
-                    
-                }
-                
-            }
-            
-        } else {
-            if ( ctx.COMP() != null ) {
-                v = ZERO_INTEIRO;
-            } else if ( ctx.CHAV() != null ) {
-                v = ZERO_INTEIRO;
-            }
-        }
-        
-        return v;
-        
-    }*/
-    
     public Valor visitFatorBool( AuroraLogoParser.FatorBoolContext ctx ) {
         if ( ctx.VER() != null ) {
             return VERDADEIRO;
@@ -400,6 +304,95 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorCor( AuroraLogoParser.FatorCorContext ctx ) {
         return novaCor( Utils.decodificarCor( ctx.cor().CHEX().getText() ) );
+    }
+    
+    public Valor visitFatorConsultarTartaruga( AuroraLogoParser.FatorConsultarTartarugaContext ctx ) {
+        
+        if ( ctx.consultarTartaruga().PX() != null ) {
+            return novoDecimal( tartaruga.getXEstadoFinal() );
+        } else if ( ctx.consultarTartaruga().PY() != null ) {
+            return novoDecimal( tartaruga.getYEstadoFinal() );
+        } else if ( ctx.consultarTartaruga().PA() != null ) {
+            return novoDecimal( tartaruga.getAnguloEstadoFinal() );
+        }
+        
+        return ZERO_DECIMAL;
+        
+    }
+    
+    public Valor visitFatorConsultarString( AuroraLogoParser.FatorConsultarStringContext ctx ) {
+        
+        //ID DOT ( COMP | CARC ( '[' exprIndice ']' )? | SUBS '(' expr ',' expr ')' )
+        AuroraLogoParser.ConsultarStringContext ctxc = ctx.consultarString();
+        String id = ctxc.ID().getText();
+        Valor string = tartaruga.lerMemoria( id );
+        
+        if ( string.isString() ) {
+            
+            if ( ctxc.COMP() != null ) {
+                return novoInteiro( string.valorString().length() );
+            } else if ( ctxc.CARC() != null ) {
+                
+                char[] chars = string.valorString().toCharArray();
+                
+                if ( ctxc.exprIndice() != null ) {
+                    Valor vInd = visitor.visit( ctxc.exprIndice() );
+                    int i = mapeamentoModular( vInd.valorInteiro(), chars.length );
+                    return novoCaractere( chars[i] );
+                } else {
+                    
+                    Character[] charsObj = new Character[chars.length];
+                    int i = 0;
+                    for ( char c : chars ) {
+                        charsObj[i++] = c;
+                    }
+                    
+                    return novoArranjo( charsObj );
+                    
+                }
+                
+            } else if ( ctxc.SUBS() != null ) {
+                
+                Valor vIni = visitor.visit( ctxc.expr( 0 ) );
+                Valor vFim = ctxc.expr( 1 ) == null ? null : visitor.visit( ctxc.expr( 1 ) );
+                String s = string.valorString();
+                
+                if ( vFim == null ) {
+                    
+                    int ini = Utils.mapeamentoModular( vIni.valorInteiro(), s.length() );
+                    if ( ini > s.length() - 1 ) {
+                        ini = s.length() - 1;
+                    }
+                    
+                    return novaString( s.substring( ini ) );
+                    
+                } else {
+                    
+                    int ini = Utils.mapeamentoModular( vIni.valorInteiro(), s.length() );
+                    int fim = Utils.mapeamentoModular( vFim.valorInteiro(), s.length()+1 );
+                    
+                    if ( ini > s.length() - 1 ) {
+                        ini = s.length() - 1;
+                    }
+                    
+                    if ( fim > s.length() ) {
+                        fim = s.length();
+                    }
+                    
+                    try {
+                        return novaString( s.substring( ini, fim ) );
+                    } catch ( IndexOutOfBoundsException exc ) {
+                        return novaString( "" );
+                    }
+                    
+                }
+                
+            }
+            
+        }
+        
+        return novaString( "" );
+        
     }
     
     public Valor visitFatorParenteses( AuroraLogoParser.FatorParentesesContext ctx ) {
