@@ -19,7 +19,6 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
-import java.awt.Color;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**

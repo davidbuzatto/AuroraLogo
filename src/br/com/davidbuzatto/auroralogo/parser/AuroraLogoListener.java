@@ -302,6 +302,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx);
 	/**
+	 * Enter a parse tree produced by the {@code fatorChamadaFuncao}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorChamadaFuncao(AuroraLogoParser.FatorChamadaFuncaoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorChamadaFuncao}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorChamadaFuncao(AuroraLogoParser.FatorChamadaFuncaoContext ctx);
+	/**
 	 * Enter a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -443,16 +455,6 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitContinuar(AuroraLogoParser.ContinuarContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#retornar}.
-	 * @param ctx the parse tree
-	 */
-	void enterRetornar(AuroraLogoParser.RetornarContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#retornar}.
-	 * @param ctx the parse tree
-	 */
-	void exitRetornar(AuroraLogoParser.RetornarContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code movimentarDirecao}
 	 * labeled alternative in {@link AuroraLogoParser#movimentar}.
@@ -1353,4 +1355,34 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#chamadaFuncao}.
+	 * @param ctx the parse tree
+	 */
+	void enterChamadaFuncao(AuroraLogoParser.ChamadaFuncaoContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#chamadaFuncao}.
+	 * @param ctx the parse tree
+	 */
+	void exitChamadaFuncao(AuroraLogoParser.ChamadaFuncaoContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#retornar}.
+	 * @param ctx the parse tree
+	 */
+	void enterRetornar(AuroraLogoParser.RetornarContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#retornar}.
+	 * @param ctx the parse tree
+	 */
+	void exitRetornar(AuroraLogoParser.RetornarContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#processaId}.
+	 * @param ctx the parse tree
+	 */
+	void enterProcessaId(AuroraLogoParser.ProcessaIdContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#processaId}.
+	 * @param ctx the parse tree
+	 */
+	void exitProcessaId(AuroraLogoParser.ProcessaIdContext ctx);
 }

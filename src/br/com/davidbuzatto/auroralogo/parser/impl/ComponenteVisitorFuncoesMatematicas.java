@@ -19,6 +19,7 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.util.Locale;
 import java.util.Random;
 
@@ -437,7 +438,8 @@ public class ComponenteVisitorFuncoesMatematicas {
     
     public Valor visitFuncaoIncrementar( AuroraLogoParser.FuncaoIncrementarContext ctx ) {
         
-        String id = ctx.ID().getText();
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String id = ctx.ID().getText();
         Valor valor = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
@@ -451,7 +453,8 @@ public class ComponenteVisitorFuncoesMatematicas {
     
     public Valor visitFuncaoDecrementar( AuroraLogoParser.FuncaoDecrementarContext ctx ) {
         
-        String id = ctx.ID().getText();
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String id = ctx.ID().getText();
         Valor valor = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {

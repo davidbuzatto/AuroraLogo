@@ -56,6 +56,7 @@ public class VariavelDepurador {
         mouseOver = xMouse >= x && xMouse <= x + largura && 
                     yMouse >= ( y - altura ) && yMouse <= y - 1;
         
+        nome = Utils.formatarIdVariavelFuncao( nome );
         String textoNome = nome;
         String textoValor = "";
         
@@ -147,7 +148,9 @@ public class VariavelDepurador {
                     saida.add( sg );
 
                 }
+                
             } else {
+                
                 if ( valor.isString() ) {
                     sg = nome + ": \"" + valor + "\"";
                 } else if ( valor.isCaractere() ) {
@@ -157,11 +160,13 @@ public class VariavelDepurador {
                 } else {
                     sg = nome + ": " + valor;
                 }
+                
                 larg = fm.stringWidth( sg );
                 if ( largMax < larg ) {
                     largMax = larg;
                 }
                 saida.add( sg );
+                
             }
             
             RoundRectangle2D.Double r = new RoundRectangle2D.Double( 

@@ -1,19 +1,46 @@
-vA = criarArranjoAssociativo{} .
-vA{"teste"} = "klm" .
-
-vB = criarArranjoAssociativo{} .
-vB{"nome"} = "David" .
-vB{"sobrenome"} = "Buzatto" .
-
-vC = criarArranjoAssociativo{} .
-vC{"nome"} = "Aurora" .
-vC{"sobrenome"} = "Buzatto" .
-
-vB{"filha"} = vC .
-vA{"Teste"} = vB .
-
-vD = vA.chaves() .
-
-para cada vChave em vD repetir {
-    escrever vChave + ": " + vA{vChave} na saída pulando linha .
+função fA() {
+    repetir 10 vezes {
+        escrever repetição na saída pulando linha .
+        se repetição == 5 então {
+            escrever "a" na saída pulando linha.
+            parar .
+        }
+    }
 }
+
+função fB() {
+	
+	ler vI .
+	usando vI {
+	
+	    escolha 0:
+		        escrever "zero" na saída pulando linha .
+		        se ( 1 == 1 ) então {
+		        	escrever "parando do if..." na saída pulando linha .
+		        	fA() .
+		        	parar .
+		        } senão se 2 == 2 então {
+		        	se 1 == 1 então {
+		        		escrever "parando do if mais adentro..." na saída pulando linha .
+		        		parar .
+		        	}
+		        }
+		    escolha 1:
+		        escrever "um" na saída pulando linha .
+		        parar .
+		    escolha 2: 
+		        escrever "dois" na saída pulando linha .
+		        parar .
+		    escolha 3:
+		        escrever "três" na saída pulando linha .
+		        parar .
+		    padrão:
+		        escrever "outro" na saída pulando linha .
+		        parar .
+		
+		}
+	
+}
+
+fA() .
+fB() .

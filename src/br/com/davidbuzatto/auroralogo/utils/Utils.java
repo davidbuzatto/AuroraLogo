@@ -17,6 +17,8 @@
 package br.com.davidbuzatto.auroralogo.utils;
 
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
+import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.ComponenteVisitorFuncoes;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.Color;
@@ -54,6 +56,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
+import org.antlr.v4.runtime.tree.TerminalNode;
 import org.fife.rsta.ui.search.FindReplaceButtonsEnableResult;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 
@@ -345,29 +348,22 @@ public class Utils {
         
     }
     
-    public static Color decodificarCor( String strCor ) {
+    public static Color decodificarCor( String strCor ) throws NumberFormatException {
         
-        try {
-            
-            if ( strCor.length() >= 7 ) {
-                
-                Color cor = Color.decode( strCor.substring( 0, 7 ) );
+        if ( strCor.length() >= 7 ) {
 
-                if ( strCor.length() == 9 ) {
-                    String alpha = strCor.substring( 7 );
-                    cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
-                }
+            Color cor = Color.decode( strCor.substring( 0, 7 ) );
 
-                return cor;
-                
+            if ( strCor.length() == 9 ) {
+                String alpha = strCor.substring( 7 );
+                cor = new Color( cor.getRed(), cor.getGreen(), cor.getBlue(), Integer.valueOf( alpha, 16 ) );
             }
-            
-            return Color.BLACK;
-            
-        } catch ( Exception exc )  {
-            exc.printStackTrace();
-            return Color.BLACK;
+
+            return cor;
+
         }
+
+        return Color.BLACK;
         
     }
     
@@ -831,6 +827,54 @@ public class Utils {
         
     }
     
+    public static String montarListaParametros( AuroraLogoParser.FuncContext ctx ) {
+        
+        String s = "";
+        
+        boolean primeiro = true;
+        for ( TerminalNode t : ctx.ID() ) {
+            if ( !primeiro ) {
+                s += ", ";
+            }
+            s += t.getText();
+            primeiro = false;
+        }
+        
+        return s;
+        
+    }
+    
+    public static String gerarId( String idBase ) {
+        
+        if ( ComponenteVisitorFuncoes.PILHA.isEmpty() ) {
+            return idBase;
+        }
+        
+        return ComponenteVisitorFuncoes.PILHA.peek() + "(" + idBase + ")";
+        
+    }
+    
+    public static String formatarIdVariavelFuncao( String id ) {
+        
+        String idLimpo = id;
+        
+        if ( id.startsWith( "f" ) ) {
+            
+            int pP = id.indexOf( "(" );
+            int pU = id.lastIndexOf( "_" );
+            
+            if ( pP >= 0 && pU >= 0 ) {
+                String nV = id.substring( pP + 1, id.length() - 1 );
+                String nF = id.substring( 0, pU );
+                idLimpo = nF + "->" + nV;
+            }
+            
+        }
+        
+        return idLimpo;
+        
+    }
+    
     public static void prepararPreferences( boolean reset ) {
         
         if ( reset ) {
@@ -908,70 +952,6 @@ public class Utils {
     }
     
     public static void main( String[] args ) {
-        
-        //String s = "áàâãéêíóôõúüç";
-        /*String s = "ÁÀÂÃÉÊÍÓÔÕÚÜÇ";
-        for ( char c : s.toCharArray() ) {
-            System.out.print( toUnicodeScape( c ) );
-        }*/
-        
-        /*Color c = subtrairCores( Color.white, Color.red );
-        System.out.println( c );*/
-        
-        /*for ( int i = -10; i <= 10; i++ ) {
-            System.out.println( i + ": " + mapeamentoModular( i, 5 ) );
-        }*/
-        
-        /*Object[] obi1 = { 1, 2, 3 };
-        Object[] obi2 = { 3, 4, 5 };
-        
-        Object[] ob = new Object[10];
-        ob[0] = 1;
-        ob[1] = 1.0;
-        ob[2] = 'a';
-        ob[3] = "string";
-        ob[4] = false;
-        ob[5] = Color.BLACK;
-        ob[6] = obi1;
-        ob[7] = obi2;
-        
-        LinkedHashMap<String, Object> lhm = new LinkedHashMap<String, Object>();
-        lhm.put( "a", 2 );
-        lhm.put( "b", 2.0 );
-        lhm.put( "c", 'b' );
-        lhm.put( "d", "outra" );
-        lhm.put( "e", true );
-        lhm.put( "f", Color.WHITE );
-        
-        Cloneable[] co = {
-            ob,
-            lhm
-        };
-        
-        for ( Object o : co ) {
-            
-            if ( o instanceof Object[] ) {
-                
-                Object[] ao = (Object[]) o;
-                Object[] clone = cloneArrayObject( ao );
-                
-                System.out.println( o );
-                System.out.println( clone );
-                
-                for ( int i = 0; i < clone.length; i++ ) {
-                    
-                    Object vAo = ao[i];
-                    Object vClone = clone[i];
-                    
-                    System.out.println( vAo + " - " + vClone + " -> " + ( vAo == vClone ) );
-                    
-                }
-                
-                System.out.println( toString( co ) );
-                
-            }
-            
-        }*/
         
         
     }

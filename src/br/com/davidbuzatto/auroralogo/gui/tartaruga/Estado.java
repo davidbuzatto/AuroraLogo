@@ -19,7 +19,9 @@ package br.com.davidbuzatto.auroralogo.gui.tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -66,7 +68,21 @@ public class Estado implements Cloneable {
     public double getAngulo() {
         return angulo;
     }
-
+    
+    public List<String> obterIdentificadoresPorPrefixo( String prefixo ) {
+        
+        List<String> ids = new ArrayList<>();
+        
+        for ( String id : memoria.keySet() ) {
+            if ( id.startsWith( prefixo ) ) {
+                ids.add( id );
+            }
+        }
+        
+        return ids;
+        
+    }
+    
     @Override
     public Object clone() throws CloneNotSupportedException {
 
@@ -85,7 +101,11 @@ public class Estado implements Cloneable {
 
         for ( Map.Entry<String, Valor> en : memoria.entrySet() ) {
             
-            e.memoria.put( en.getKey(), Valor.novoValor( en.getValue().getValor() ) );
+            if ( en.getValue().isFuncao() ) {
+                e.memoria.put( en.getKey(), en.getValue() );
+            } else {
+                e.memoria.put( en.getKey(), Valor.novoValor( en.getValue().getValor() ) );
+            }
             
             // forma 1 (sintaxe do ponto para de funcionar)
             /*Valor v = en.getValue();

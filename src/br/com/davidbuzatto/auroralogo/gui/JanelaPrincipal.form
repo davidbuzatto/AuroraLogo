@@ -293,10 +293,27 @@
             <Property name="text" type="java.lang.String" value="Executar"/>
           </Properties>
           <SubComponents>
+            <MenuItem class="javax.swing.JMenuItem" name="menuItemLimpar">
+              <Properties>
+                <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
+                  <KeyStroke key="Ctrl+DELETE"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/eraser.png"/>
+                </Property>
+                <Property name="mnemonic" type="int" value="76"/>
+                <Property name="text" type="java.lang.String" value="Limpar"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemLimparActionPerformed"/>
+              </Events>
+            </MenuItem>
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuExecutar1">
+            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutar">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F6"/>
+                  <KeyStroke key="Ctrl+F6"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/script_go.png"/>
@@ -311,7 +328,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPasso">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F7"/>
+                  <KeyStroke key="Ctrl+F7"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/script_lightning.png"/>
@@ -326,7 +343,7 @@
             <MenuItem class="javax.swing.JMenuItem" name="menuItemExecutarPassoAPassoAutomatico">
               <Properties>
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
-                  <KeyStroke key="F8"/>
+                  <KeyStroke key="Ctrl+F8"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"/>
@@ -338,7 +355,7 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="menuItemExecutarPassoAPassoAutomaticoActionPerformed"/>
               </Events>
             </MenuItem>
-            <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuExecutar1">
+            <MenuItem class="javax.swing.JPopupMenu$Separator" name="separadorMenuExecutar2">
             </MenuItem>
             <MenuItem class="javax.swing.JCheckBoxMenuItem" name="menuItemCBGrade">
               <Properties>
@@ -360,7 +377,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+E"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="71"/>
+                <Property name="mnemonic" type="int" value="69"/>
                 <Property name="text" type="java.lang.String" value="Mostrar Eixos"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -376,7 +393,7 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+U"/>
                 </Property>
-                <Property name="mnemonic" type="int" value="71"/>
+                <Property name="mnemonic" type="int" value="67"/>
                 <Property name="text" type="java.lang.String" value="Usar Sistema Cartesiano Padr&#xe3;o"/>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/chart_curve.png"/>
@@ -718,6 +735,22 @@
         </Component>
         <Component class="javax.swing.JToolBar$Separator" name="separador3">
         </Component>
+        <Component class="javax.swing.JButton" name="btnLimpar">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/br/com/davidbuzatto/auroralogo/gui/icones/eraser.png"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" value="Limpar"/>
+            <Property name="focusable" type="boolean" value="false"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+            <Property name="verticalTextPosition" type="int" value="3"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimparActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JToolBar$Separator" name="separador4">
+        </Component>
         <Component class="javax.swing.JButton" name="btnExecutar">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
@@ -732,7 +765,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnExecutarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToolBar$Separator" name="separador4">
+        <Component class="javax.swing.JToolBar$Separator" name="separador5">
         </Component>
         <Component class="javax.swing.JButton" name="btnExecutarPassoAPasso">
           <Properties>
@@ -844,7 +877,7 @@
             <EventHandler event="stateChanged" listener="javax.swing.event.ChangeListener" parameters="javax.swing.event.ChangeEvent" handler="sliderEstadoAtualStateChanged"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToolBar$Separator" name="separador5">
+        <Component class="javax.swing.JToolBar$Separator" name="separador6">
         </Component>
         <Component class="javax.swing.JButton" name="btnExecutarPassoAPassoAutomatico">
           <Properties>
@@ -936,7 +969,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCorTartarugaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToolBar$Separator" name="separador6">
+        <Component class="javax.swing.JToolBar$Separator" name="separador7">
         </Component>
         <Component class="javax.swing.JToggleButton" name="btnGrade">
           <Properties>
@@ -980,7 +1013,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnPadraoCartesianoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JToolBar$Separator" name="separador7">
+        <Component class="javax.swing.JToolBar$Separator" name="separador8">
         </Component>
         <Component class="javax.swing.JToggleButton" name="btnDepurador">
           <Properties>

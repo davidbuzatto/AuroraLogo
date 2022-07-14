@@ -1,9 +1,11 @@
 Implementação:
+    - Funções: implementar retornar dentro de estruturas de repetição e condicionais;
+               tratar recursão infinita
     - Sobre e exemplos;
-    - Funções definidas pelo usuário; -> gramática pronta;
     - Verificar todas as operações conferindo compatibilidade (testes de unidade).
     - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
       comparando com a linha errada;
+    - Melhorar tratamento de erros (conferir System.out.println( "ERRO!" ); )
 
 Questionamentos:
     - Autocomplete para as funções geométricas e matemáticas? Cores com #?

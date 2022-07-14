@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.auroralogo.parser.impl;
 
+import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
 import java.awt.Color;
@@ -42,6 +43,9 @@ public class Valor implements Serializable {
         COR,
         ARRANJO,
         ARRANJO_ASSOCIATIVO,
+        FUNCAO,
+        RETORNO,
+        IDENTIFICADOR,
         NULO,
         PARAR,
         CONTINUAR
@@ -167,6 +171,18 @@ public class Valor implements Serializable {
         return tipo == Tipo.DECIMAL && valor.equals( Double.NaN );
     }
     
+    public boolean isFuncao() {
+        return tipo == Tipo.FUNCAO;
+    }
+    
+    public boolean isRetorno() {
+        return tipo == Tipo.RETORNO;
+    }
+    
+    public boolean isIdentificador() {
+        return tipo == Tipo.IDENTIFICADOR;
+    }
+    
     public boolean isNaN() {
         return isNaoNumero();
     }
@@ -282,6 +298,26 @@ public class Valor implements Serializable {
         }
         
         return 0;
+        
+    }
+    
+    public AuroraLogoParser.FuncContext valorFuncao() {
+        
+        if ( tipo == Tipo.FUNCAO ) {
+            return (AuroraLogoParser.FuncContext) valor;
+        }
+        
+        return null;
+        
+    }
+    
+    public String valorIdentificador() {
+        
+        if ( tipo == Tipo.IDENTIFICADOR ) {
+            return (String) valor;
+        }
+        
+        return null;
         
     }
     
@@ -565,6 +601,10 @@ public class Valor implements Serializable {
                 return Utils.toStringArranjo( (Object[]) valor );
             case ARRANJO_ASSOCIATIVO:
                 return Utils.toStringArranjoAssociativo( this );
+            case FUNCAO:
+                return "função(" + Utils.montarListaParametros( (AuroraLogoParser.FuncContext) valor ) + ")";
+            case RETORNO:
+                return "retorno";
             case NULO:
                 return "NULO";
             default:
@@ -641,6 +681,14 @@ public class Valor implements Serializable {
         return new Valor( Tipo.ARRANJO_ASSOCIATIVO, mapa );
     }
     
+    public static Valor novaFuncao( AuroraLogoParser.FuncContext ctx ) {
+        return new Valor( Tipo.FUNCAO, ctx );
+    }
+    
+    public static Valor novoRetorno( Valor valor ) {
+        return new Valor( Tipo.RETORNO, valor );
+    }
+    
     // analisa o parâmetro e retorna o valor correto dependendo do tipo
     public static Valor novoValor( Object o ) {
         
@@ -672,8 +720,6 @@ public class Valor implements Serializable {
             return novoArranjo( Utils.cloneArrayObject( (Valor[]) o ) );
         }
         
-        
-        
         /* else if ( o instanceof Object[] ) {
             return novoArranjo( (Object[]) o );
         } else if ( o instanceof LinkedHashMap ) {
@@ -692,6 +738,11 @@ public class Valor implements Serializable {
         return new Valor( Tipo.CONTINUAR, id );
     }
     
+    public static Valor novoIdentificador( String id ) {
+        return new Valor( Tipo.IDENTIFICADOR, id );
+    }
+    
+    // SEMPRE retornam false
     public boolean equalsArranjo( Valor arranjo ) {
         return false;
     }

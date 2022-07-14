@@ -184,6 +184,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code fatorChamadaFuncao}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorChamadaFuncao(AuroraLogoParser.FatorChamadaFuncaoContext ctx);
+	/**
 	 * Visit a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
@@ -268,12 +275,6 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitContinuar(AuroraLogoParser.ContinuarContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#retornar}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitRetornar(AuroraLogoParser.RetornarContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code movimentarDirecao}
 	 * labeled alternative in {@link AuroraLogoParser#movimentar}.
@@ -802,4 +803,22 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#chamadaFuncao}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitChamadaFuncao(AuroraLogoParser.ChamadaFuncaoContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#retornar}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitRetornar(AuroraLogoParser.RetornarContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#processaId}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitProcessaId(AuroraLogoParser.ProcessaIdContext ctx);
 }

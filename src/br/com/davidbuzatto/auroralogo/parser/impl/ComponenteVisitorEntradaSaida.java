@@ -101,11 +101,14 @@ public class ComponenteVisitorEntradaSaida {
     
     public Valor visitLer( AuroraLogoParser.LerContext ctx ) {
         
-        String id = ctx.ID().getText();
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String id = ctx.ID().getText();
         Valor valor = NULO;
         
+        String idLimpo = Utils.formatarIdVariavelFuncao( id );
+        
         String v = JOptionPane.showInputDialog( 
-                       janelaPrincipal, String.format( "Entre com um valor para \"%s\":", id ) );
+                       janelaPrincipal, String.format( "Entre com um valor para \"%s\":", idLimpo ) );
             
         if ( v != null ) {
             

@@ -23,6 +23,7 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import javax.swing.JTextPane;
 import org.antlr.v4.runtime.tree.ErrorNode;
+import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
@@ -50,6 +51,7 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     ComponenteVisitorFatores cvFatores;
     ComponenteVisitorConstrutos cvConstrutos;
     ComponenteVisitorArranjos cvArranjos;
+    ComponenteVisitorFuncoes cvFuncoes;
     
     public AuroraLogoDesenhistaVisitor( 
             Tartaruga tartaruga, 
@@ -72,6 +74,7 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
         cvFatores = new ComponenteVisitorFatores( tartaruga, this );
         cvConstrutos = new ComponenteVisitorConstrutos( tartaruga, janelaPrincipal, textPaneSaida, this );
         cvArranjos = new ComponenteVisitorArranjos( tartaruga, this );
+        cvFuncoes = new ComponenteVisitorFuncoes( tartaruga, this );
         
     }
     
@@ -610,8 +613,29 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
         return cvInstrucoesGeometricas.visitInstrucaoCaminhoFecharCaminho( ctx );
     }    
     
-    // outros métodos de visita
+    // funções definidas pelo usuário
     
+    @Override
+    public Valor visitFunc( AuroraLogoParser.FuncContext ctx) {
+        return cvFuncoes.visitFunc( ctx );
+    }
+
+    @Override
+    public Valor visitFatorChamadaFuncao( AuroraLogoParser.FatorChamadaFuncaoContext ctx ) {
+        return cvFuncoes.visitFatorChamadaFuncao( ctx );
+    }
+
+    @Override
+    public Valor visitRetornar( AuroraLogoParser.RetornarContext ctx ) {
+        return cvFuncoes.visitRetornar( ctx );
+    }
+
+    @Override
+    public Valor visitProcessaId( AuroraLogoParser.ProcessaIdContext ctx ) {
+        return cvFuncoes.visitProcessaId( ctx );
+    }
+    
+    // outros métodos de visita
     @Override
     public Valor visitTerminal( TerminalNode node ) {
         return novoInteiro( node.getSymbol().getType() );

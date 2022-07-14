@@ -77,7 +77,8 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
         
-        String id = ctx.ID().getText();
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjo() ) {
@@ -120,7 +121,8 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorIdArranjo( AuroraLogoParser.FatorIdArranjoContext ctx ) {
         
-        String id = ctx.ID().getText();
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjo() ) {
@@ -171,7 +173,8 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorIdArranjoAssociativo( AuroraLogoParser.FatorIdArranjoAssociativoContext ctx ) {
         
-        String id = ctx.ID().getText();
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjoAssociativo() ) {
@@ -255,7 +258,8 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorIdIdAtributo( AuroraLogoParser.FatorIdIdAtributoContext ctx ) {
         
-        String id = ctx.ID().getText();
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjoAssociativo() ) {
@@ -323,9 +327,9 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorConsultarString( AuroraLogoParser.FatorConsultarStringContext ctx ) {
         
-        //ID DOT ( COMP | CARC ( '[' exprIndice ']' )? | SUBS '(' expr ',' expr ')' )
         AuroraLogoParser.ConsultarStringContext ctxc = ctx.consultarString();
-        String id = ctxc.ID().getText();
+        String id = Utils.gerarId( visitor.visit( ctxc.processaId() ).valorIdentificador() );
+        //String id = ctxc.ID().getText();
         Valor string = tartaruga.lerMemoria( id );
         
         if ( string.isString() ) {

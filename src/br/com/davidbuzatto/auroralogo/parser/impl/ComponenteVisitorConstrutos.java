@@ -214,7 +214,8 @@ public class ComponenteVisitorConstrutos {
     public Valor visitUsando( AuroraLogoParser.UsandoContext ctx ) {
         
         int id = ++idInstrucaoParavel;
-        String idT = ctx.ID().getText();
+        String idT = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String idT = ctx.ID().getText();
         Valor vId = tartaruga.lerMemoria( idT );
         
         if ( !vId.isNulo() ) {
@@ -593,7 +594,8 @@ public class ComponenteVisitorConstrutos {
         int id = ++idInstrucaoParavel;
         boolean breakExt = false;
         
-        String idElemento = ctx.ID().getText();
+        String idElemento = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        //String idElemento = ctx.ID().getText();
         Valor arranjo = visitor.visit( ctx.expr() );
         
         if ( arranjo.isArranjo() ) {
@@ -935,9 +937,9 @@ public class ComponenteVisitorConstrutos {
     
     private void calcularPasso( AuroraLogoParser.RepetirEnquantoContext ctx ) {
         
-        if ( ctx.ID() != null ) {
+        if ( ctx.processaId() != null ) {
                         
-            String idP = ctx.ID().getText();
+            String idP = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
             Valor vIdP = tartaruga.lerMemoria( idP );
             if ( vIdP.isNulo() ) {
                 vIdP = novoInteiro( 0 );

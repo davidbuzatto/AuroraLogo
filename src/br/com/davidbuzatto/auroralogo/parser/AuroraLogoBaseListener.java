@@ -328,6 +328,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorChamadaFuncao(AuroraLogoParser.FatorChamadaFuncaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorChamadaFuncao(AuroraLogoParser.FatorChamadaFuncaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorParenteses(AuroraLogoParser.FatorParentesesContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -491,18 +503,6 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitContinuar(AuroraLogoParser.ContinuarContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterRetornar(AuroraLogoParser.RetornarContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitRetornar(AuroraLogoParser.RetornarContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1439,6 +1439,42 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterChamadaFuncao(AuroraLogoParser.ChamadaFuncaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitChamadaFuncao(AuroraLogoParser.ChamadaFuncaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterRetornar(AuroraLogoParser.RetornarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitRetornar(AuroraLogoParser.RetornarContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterProcessaId(AuroraLogoParser.ProcessaIdContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitProcessaId(AuroraLogoParser.ProcessaIdContext ctx) { }
 
 	/**
 	 * {@inheritDoc}

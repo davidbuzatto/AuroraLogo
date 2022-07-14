@@ -24,7 +24,7 @@ grammar AuroraLogo;
 
 prog : func* inst+ EOF ;
 
-func : FUNC IDF '(' ( IDP ( ',' IDP )* )? ')' '{' instf+ '}'
+func : FUNC IDF '(' ( ID ( ',' ID )* )? ')' '{' instf+ '}'
      ;
 
 inst : ains DOT
@@ -84,10 +84,10 @@ fator    : ( NAO | NAOT ) fator                                           # fato
          | INT                                                            # fatorInt
          | DEC                                                            # fatorDec
          | PI                                                             # fatorPi
-         | ID                   ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorId
-         | ID ( '[' expr ']' )+ ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjo
-         | ID   '{' expr '}'    ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjoAssociativo
-         | ID ( DOT IDA )+                                                # fatorIdIdAtributo
+         | processaId                   ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorId
+         | processaId ( '[' expr ']' )+ ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjo
+         | processaId   '{' expr '}'    ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjoAssociativo
+         | processaId ( DOT IDA )+                                                # fatorIdIdAtributo
          | CHAR                                                           # fatorChar
          | STRING                                                         # fatorString 
          | ( VER | FAL )                                                  # fatorBool
@@ -97,6 +97,7 @@ fator    : ( NAO | NAOT ) fator                                           # fato
          | consultarString                                                # fatorConsultarString
          | formatarTexto                                                  # fatorFormatarTexto
          | repeticao                                                      # fatorRepeticao
+         | chamadaFuncao                                                  # fatorChamadaFuncao
          | '(' expr ')'                                                   # fatorParenteses
          ;
 
@@ -118,7 +119,7 @@ seSenao      : SEN '{' inst+ '}'
              ;
 
 // usando ... escolha (switch ... case)
-usando       : USA ID '{' escolha+  ( PADR ':' inst+ )? '}'
+usando       : USA processaId '{' escolha+  ( PADR ':' inst+ )? '}'
              ;
 
 escolha      : ESCO ( INT | DEC | CHAR | STRING ) ':' inst+
@@ -134,26 +135,23 @@ repeticao    : REPE
 // enquanto ... repetir
 repetirEnquanto   : ( ENQ exprBool )? REP
                     ( 
-                      ( INCM | DCMM ) ID ( EM expr )?
-                      | SOMM ID COM expr
-                      | MULM ID POR expr
-                      | DIVM ID POR expr
-                      | SUBM expr DE ID
+                      ( INCM | DCMM ) processaId ( EM expr )?
+                      | SOMM processaId COM expr
+                      | MULM processaId POR expr
+                      | DIVM processaId POR expr
+                      | SUBM expr DE processaId
                     )?
                     '{' inst+ '}'
                   ;
 
 // para cada
-paraCada     : PARA CADA ID EM expr REP '{' inst+ '}'
+paraCada     : PARA CADA processaId EM expr REP '{' inst+ '}'
              ;
 
 parar        : PARR
              ;
 
 continuar    : CONT
-             ;
-
-retornar     : RET expr?
              ;
 
 // regras para instruções de ação
@@ -199,17 +197,17 @@ escrever     : ESC expr ( NA SAI  ( PUL LIN )?
                         )?
              ;
 
-ler          : LER ID
+ler          : LER processaId
              ;
 
-atribuir     : ID                         (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirPadrao
-             | ID ( '[' exprIndice ']' )+ (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirArranjo
-             | ID ( '{' exprIndice '}' )  (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirArranjoAssociativo
-             | ID ( AC_A | AT_A )   expr                                            # atribuirAdicao
-             | ID ( AC_S | AT_S )   expr                                            # atribuirSubtracao
-             | ID ( AC_M | AT_M )   expr                                            # atribuirMultiplicacao
-             | ID ( AC_D | AT_D )   expr                                            # atribuirDivisao
-             | ID ( AC_R | AT_R )   expr                                            # atribuirResto
+atribuir     : processaId                         (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirPadrao
+             | processaId ( '[' exprIndice ']' )+ (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirArranjo
+             | processaId ( '{' exprIndice '}' )  (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirArranjoAssociativo
+             | processaId ( AC_A | AT_A )   expr                                            # atribuirAdicao
+             | processaId ( AC_S | AT_S )   expr                                            # atribuirSubtracao
+             | processaId ( AC_M | AT_M )   expr                                            # atribuirMultiplicacao
+             | processaId ( AC_D | AT_D )   expr                                            # atribuirDivisao
+             | processaId ( AC_R | AT_R )   expr                                            # atribuirResto
              ;
 
 exprIndice   : expr
@@ -251,8 +249,8 @@ funcaoMatematica : F_VABS '(' expr ')'                       # funcaoAbsoluto
                  | F_LOGA '(' ( expr | expr ',' expr ) ')'   # funcaoLogaritmo
                  | F_GRRA '(' expr ')'                       # funcaoGrausParaRadianos
                  | F_RAGR '(' expr ')'                       # funcaoRadianosParaGraus
-                 | F_INC  '(' ID ')'                         # funcaoIncrementar
-                 | F_DCM  '(' ID ')'                         # funcaoDecrementar
+                 | F_INC  '(' processaId ')'                         # funcaoIncrementar
+                 | F_DCM  '(' processaId ')'                         # funcaoDecrementar
                  ;
 
 // funções geométricas
@@ -306,7 +304,7 @@ instCaminho         : MOV ATE expr ',' expr                                     
 consultarTartaruga  : TART DOT ( PX | PY | PA ) '(' ')'
                     ;
 
-consultarString     : ID DOT ( COMP '(' ')' | CARC '(' ')' ( '[' exprIndice ']' )? | SUBS '(' expr ( ',' expr )? ')' )
+consultarString     : processaId DOT ( COMP '(' ')' | CARC '(' ')' ( '[' exprIndice ']' )? | SUBS '(' expr ( ',' expr )? ')' )
                     ;
 
 formatarTexto       : FORM '(' STRING ( ',' expr )* ')'
@@ -314,6 +312,15 @@ formatarTexto       : FORM '(' STRING ( ',' expr )* ')'
 
 criarArranjos       : ( CRA  | CRR  ) ( '[' expr ']' )+  # criarArranjo
                     | ( CRAA | CRRA )   '{' '}'          # criarArranjoAssociativo
+                    ;
+
+chamadaFuncao       : IDF '(' ( expr ( ',' expr )* )? ')'
+                    ;
+
+retornar            : RET expr?
+                    ;
+
+processaId          : ID
                     ;
 
 fragment
@@ -589,10 +596,10 @@ NAOT : 'N\u00C3O' ;  // NÃO
 DOT  : '.' ;
 
 // identificadores
-ID   : 'v'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de variáveis
+ID   : ( 'v' | 'p' ) ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de variáveis e de parâmetros
 IDC  : 'c'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de constantes
 IDF  : 'f'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de funções definidas pelo usuário
-IDP  : 'p'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de parâmetros de funções
+//IDP  : 'p'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de parâmetros de funções
 IDA  : 'a'           ( LET    | LETA    | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de atributos/propriedades
 
 // literais

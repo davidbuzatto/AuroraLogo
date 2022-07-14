@@ -22,6 +22,7 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoErrorListener;
+import br.com.davidbuzatto.auroralogo.parser.impl.ComponenteVisitorFuncoes;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -228,8 +229,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         btnDiminuirFonte = new javax.swing.JButton();
         btnFonteTamanhoPadrao = new javax.swing.JButton();
         separador3 = new javax.swing.JToolBar.Separator();
-        btnExecutar = new javax.swing.JButton();
+        btnLimpar = new javax.swing.JButton();
         separador4 = new javax.swing.JToolBar.Separator();
+        btnExecutar = new javax.swing.JButton();
+        separador5 = new javax.swing.JToolBar.Separator();
         btnExecutarPassoAPasso = new javax.swing.JButton();
         btnPararPassoAPasso = new javax.swing.JButton();
         btnInicioPassoAPasso = new javax.swing.JButton();
@@ -237,18 +240,18 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         btnProximoPassoAPasso = new javax.swing.JButton();
         btnFinalPassoAPasso = new javax.swing.JButton();
         sliderEstadoAtual = new javax.swing.JSlider();
-        separador5 = new javax.swing.JToolBar.Separator();
+        separador6 = new javax.swing.JToolBar.Separator();
         btnExecutarPassoAPassoAutomatico = new javax.swing.JButton();
         btnPararPassoAPassoAutomatico = new javax.swing.JButton();
         sliderQuadrosPorSegundo = new javax.swing.JSlider();
         lblQuadrosPorSegundo = new javax.swing.JLabel();
         preenchimento = new javax.swing.Box.Filler(new java.awt.Dimension(0, 0), new java.awt.Dimension(0, 0), new java.awt.Dimension(32767, 0));
         btnCorTartaruga = new javax.swing.JButton();
-        separador6 = new javax.swing.JToolBar.Separator();
+        separador7 = new javax.swing.JToolBar.Separator();
         btnGrade = new javax.swing.JToggleButton();
         btnEixos = new javax.swing.JToggleButton();
         btnPadraoCartesiano = new javax.swing.JToggleButton();
-        separador7 = new javax.swing.JToolBar.Separator();
+        separador8 = new javax.swing.JToolBar.Separator();
         btnDepurador = new javax.swing.JToggleButton();
         painelSplitTotal = new javax.swing.JSplitPane();
         painelSplitCodigoSaida = new javax.swing.JSplitPane();
@@ -285,10 +288,12 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuItemDiminuirFonte = new javax.swing.JMenuItem();
         menuItemFonteTamanhoPadrao = new javax.swing.JMenuItem();
         menuExecutar = new javax.swing.JMenu();
+        menuItemLimpar = new javax.swing.JMenuItem();
+        separadorMenuExecutar1 = new javax.swing.JPopupMenu.Separator();
         menuItemExecutar = new javax.swing.JMenuItem();
         menuItemExecutarPassoAPasso = new javax.swing.JMenuItem();
         menuItemExecutarPassoAPassoAutomatico = new javax.swing.JMenuItem();
-        separadorMenuExecutar1 = new javax.swing.JPopupMenu.Separator();
+        separadorMenuExecutar2 = new javax.swing.JPopupMenu.Separator();
         menuItemCBGrade = new javax.swing.JCheckBoxMenuItem();
         menuItemCBEixos = new javax.swing.JCheckBoxMenuItem();
         menuItemCBPadraoCartesiano = new javax.swing.JCheckBoxMenuItem();
@@ -436,6 +441,19 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         barraFerramentas.add(btnFonteTamanhoPadrao);
         barraFerramentas.add(separador3);
 
+        btnLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/eraser.png"))); // NOI18N
+        btnLimpar.setToolTipText("Limpar");
+        btnLimpar.setFocusable(false);
+        btnLimpar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnLimpar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimparActionPerformed(evt);
+            }
+        });
+        barraFerramentas.add(btnLimpar);
+        barraFerramentas.add(separador4);
+
         btnExecutar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/script_go.png"))); // NOI18N
         btnExecutar.setToolTipText("Executar");
         btnExecutar.setFocusable(false);
@@ -447,7 +465,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         barraFerramentas.add(btnExecutar);
-        barraFerramentas.add(separador4);
+        barraFerramentas.add(separador5);
 
         btnExecutarPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/script_lightning.png"))); // NOI18N
         btnExecutarPassoAPasso.setToolTipText("Executar Passo a Passo");
@@ -540,7 +558,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         barraFerramentas.add(sliderEstadoAtual);
-        barraFerramentas.add(separador5);
+        barraFerramentas.add(separador6);
 
         btnExecutarPassoAPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"))); // NOI18N
         btnExecutarPassoAPassoAutomatico.setToolTipText("Executar Passo a Passo Automático");
@@ -602,7 +620,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         barraFerramentas.add(btnCorTartaruga);
-        barraFerramentas.add(separador6);
+        barraFerramentas.add(separador7);
 
         btnGrade.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/note.png"))); // NOI18N
         btnGrade.setToolTipText("Grade");
@@ -639,7 +657,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         barraFerramentas.add(btnPadraoCartesiano);
-        barraFerramentas.add(separador7);
+        barraFerramentas.add(separador8);
 
         btnDepurador.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/bug.png"))); // NOI18N
         btnDepurador.setToolTipText("Depurador");
@@ -947,7 +965,19 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuExecutar.setMnemonic('x');
         menuExecutar.setText("Executar");
 
-        menuItemExecutar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, 0));
+        menuItemLimpar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_DELETE, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        menuItemLimpar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/eraser.png"))); // NOI18N
+        menuItemLimpar.setMnemonic('L');
+        menuItemLimpar.setText("Limpar");
+        menuItemLimpar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuItemLimparActionPerformed(evt);
+            }
+        });
+        menuExecutar.add(menuItemLimpar);
+        menuExecutar.add(separadorMenuExecutar1);
+
+        menuItemExecutar.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F6, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuItemExecutar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/script_go.png"))); // NOI18N
         menuItemExecutar.setMnemonic('x');
         menuItemExecutar.setText("Executar");
@@ -958,7 +988,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         });
         menuExecutar.add(menuItemExecutar);
 
-        menuItemExecutarPassoAPasso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, 0));
+        menuItemExecutarPassoAPasso.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F7, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuItemExecutarPassoAPasso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/script_lightning.png"))); // NOI18N
         menuItemExecutarPassoAPasso.setMnemonic('P');
         menuItemExecutarPassoAPasso.setText("Executar Passo a Passo");
@@ -969,7 +999,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         });
         menuExecutar.add(menuItemExecutarPassoAPasso);
 
-        menuItemExecutarPassoAPassoAutomatico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, 0));
+        menuItemExecutarPassoAPassoAutomatico.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F8, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuItemExecutarPassoAPassoAutomatico.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/clock_go.png"))); // NOI18N
         menuItemExecutarPassoAPassoAutomatico.setMnemonic('A');
         menuItemExecutarPassoAPassoAutomatico.setText("Executar Passo a Passo (Automático)");
@@ -979,7 +1009,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         menuExecutar.add(menuItemExecutarPassoAPassoAutomatico);
-        menuExecutar.add(separadorMenuExecutar1);
+        menuExecutar.add(separadorMenuExecutar2);
 
         menuItemCBGrade.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_G, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         menuItemCBGrade.setMnemonic('G');
@@ -993,7 +1023,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuExecutar.add(menuItemCBGrade);
 
         menuItemCBEixos.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemCBEixos.setMnemonic('G');
+        menuItemCBEixos.setMnemonic('E');
         menuItemCBEixos.setText("Mostrar Eixos");
         menuItemCBEixos.setToolTipText("");
         menuItemCBEixos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/note_add.png"))); // NOI18N
@@ -1005,7 +1035,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuExecutar.add(menuItemCBEixos);
 
         menuItemCBPadraoCartesiano.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        menuItemCBPadraoCartesiano.setMnemonic('G');
+        menuItemCBPadraoCartesiano.setMnemonic('C');
         menuItemCBPadraoCartesiano.setText("Usar Sistema Cartesiano Padrão");
         menuItemCBPadraoCartesiano.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/chart_curve.png"))); // NOI18N
         menuItemCBPadraoCartesiano.addActionListener(new java.awt.event.ActionListener() {
@@ -1551,6 +1581,16 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         
     }//GEN-LAST:event_menuItemCBPadraoCartesianoActionPerformed
 
+    private void btnLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimparActionPerformed
+        tartaruga.limpar();
+        painelDesenho.repaint();
+    }//GEN-LAST:event_btnLimparActionPerformed
+
+    private void menuItemLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemLimparActionPerformed
+        tartaruga.limpar();
+        painelDesenho.repaint();
+    }//GEN-LAST:event_menuItemLimparActionPerformed
+
     private void definirCorTartaruga() {
         
         Color c = JColorChooser.showDialog( this, "Cor da Tartaruga", tartaruga.getCor(), false );
@@ -1832,7 +1872,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             textPaneSaida.setText( "" );
             
             if ( !codigo.isEmpty() ) {
-
+                
+                ComponenteVisitorFuncoes.resetControleEscopo();
+                
                 AuroraLogoLexer lexer = new AuroraLogoLexer(
                         CharStreams.fromString( textAreaCodigo.getText() ) );
                 CommonTokenStream tokens = new CommonTokenStream( lexer );
@@ -2265,6 +2307,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             btnAumentarFonte,
             btnDiminuirFonte,
             btnFonteTamanhoPadrao,
+            btnLimpar,
             btnExecutar,
             btnExecutarPassoAPasso,
             btnPararPassoAPasso,
@@ -2491,6 +2534,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JToggleButton btnGrade;
     private javax.swing.ButtonGroup btnGroupTemas;
     private javax.swing.JButton btnInicioPassoAPasso;
+    private javax.swing.JButton btnLimpar;
     private javax.swing.JButton btnNovo;
     private javax.swing.JToggleButton btnPadraoCartesiano;
     private javax.swing.JButton btnPararPassoAPasso;
@@ -2522,6 +2566,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JMenuItem menuItemExecutarPassoAPassoAutomatico;
     private javax.swing.JMenuItem menuItemFonteTamanhoPadrao;
     private javax.swing.JMenuItem menuItemIrPara;
+    private javax.swing.JMenuItem menuItemLimpar;
     private javax.swing.JMenuItem menuItemNovo;
     private javax.swing.JMenuItem menuItemProcurar;
     private javax.swing.JRadioButtonMenuItem menuItemRTemaClaro;
@@ -2553,6 +2598,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JToolBar.Separator separador5;
     private javax.swing.JToolBar.Separator separador6;
     private javax.swing.JToolBar.Separator separador7;
+    private javax.swing.JToolBar.Separator separador8;
     private javax.swing.JPopupMenu.Separator separadorMenuAjuda1;
     private javax.swing.JPopupMenu.Separator separadorMenuArquivo1;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar1;
@@ -2560,6 +2606,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JPopupMenu.Separator separadorMenuEditar3;
     private javax.swing.JPopupMenu.Separator separadorMenuEditar4;
     private javax.swing.JPopupMenu.Separator separadorMenuExecutar1;
+    private javax.swing.JPopupMenu.Separator separadorMenuExecutar2;
     private javax.swing.JPopupMenu.Separator separadorMenuTemas1;
     private javax.swing.JSlider sliderEstadoAtual;
     private javax.swing.JSlider sliderQuadrosPorSegundo;

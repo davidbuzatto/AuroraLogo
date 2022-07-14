@@ -1,25 +1,39 @@
-função fA() {
-	vá para 10, 10 .
-	retornar tartaruga.x() .
+função fFib( pTermo ) {
+	vA = 1 .
+	vB = 1 .
+	vI = 0 .
+	enquanto vI < pTermo repetir incrementando vI {
+		vT = vB .
+		vB = vA + vB .
+		vA = vT .
+	}
+	retornar vA .
 }
 
-função fB( pX, pY ) {
-	vá para 10, 10 .
-	vX = 50 .
-	retornar vX .
+função fFibR( pTermo ) {
+	se pTermo é igual a 0 OU pTermo é igual a 1 então {
+		vR = 1 .
+	} senão {
+		vR = fFibR( pTermo - 2 ) + fFibR( pTermo - 1 ) .
+	}
 }
 
-vS = "abc" .
-escrever vS na saída pulando linha .
-escrever vS.comprimento() na saída pulando linha .
-escrever vS.caracteres() na saída pulando linha .
-escrever vS.caracteres()[1] na saída pulando linha .
-escrever vS.substring( 0 ) na saída pulando linha .
-escrever vS.substring( 1 ) na saída pulando linha .
-escrever vS.substring( 2 ) na saída pulando linha .
-escrever vS.substring( -2 ) na saída pulando linha .
-escrever vS.substring( 0, 0 ) na saída pulando linha .
-escrever vS.substring( 0, 1 ) na saída pulando linha .
-escrever vS.substring( 0, 2 ) na saída pulando linha .
-escrever vS.substring( 0, 3 ) na saída pulando linha .
-//escrever vS na saída .
+vC = criarArranjo[5] .
+vC[0] = #ff000055 .
+vC[1] = #ffff0055 .
+vC[2] = #ff00ff55 .
+vC[3] = #00ff0055 .
+vC[4] = #0000ff55 .
+
+vT = 0 .
+vAnt = 0 .
+enquanto vT < 40 repetir incrementando vT {
+	vF = fFib( vT ) .
+	trocar cor do preenchimento para vC[vT%5] .
+	desenhar arco( tartaruga.x(), tartaruga.y(), vF / 50, vF / 50, 0, 90, PIZZA ) .
+	girar em -90 graus .
+	levantar pincel .
+	vá para esquerda em vAnt / 100 .
+	abaixar pincel .
+	vAnt = vF .
+}
