@@ -36,7 +36,7 @@ public class ComponenteVisitorFuncoes {
     private AuroraLogoDesenhistaVisitor visitor;
     
     // pilha para resolução de escopo
-    public static final Deque<String> PILHA = new ArrayDeque<>();
+    public static final Deque<String> PILHA_ESCOPOS = new ArrayDeque<>();
     private static int contadorInvocacao = 0;
     
     public ComponenteVisitorFuncoes( 
@@ -47,7 +47,7 @@ public class ComponenteVisitorFuncoes {
     }
     
     public static void resetControleEscopo() {
-        PILHA.clear();
+        PILHA_ESCOPOS.clear();
         contadorInvocacao = 0;
     }
     
@@ -80,7 +80,7 @@ public class ComponenteVisitorFuncoes {
             
             // abre um novo escopo
             String idFuncao = fctx.IDF().getText() + "_" + contadorInvocacao++;
-            PILHA.push( idFuncao );
+            PILHA_ESCOPOS.push( idFuncao );
             
             List<String> parametros = new ArrayList<>();
             for ( TerminalNode t : fctx.ID() ) {
@@ -102,22 +102,24 @@ public class ComponenteVisitorFuncoes {
             AuroraLogoParser.FuncContext corpoFuncao = (AuroraLogoParser.FuncContext) funcao.getValor();
             
             for ( AuroraLogoParser.InstfContext ifc : corpoFuncao.instf() ) {
+                
+                AuroraLogoParser.InstContext inst = ifc.inst();
+                
+                if ( inst.ains() != null && inst.ains().retornar() != null ) {
                     
-                if ( ifc.inst() != null ) {
-                    visitor.visit( ifc.inst() );
-                } else if ( ifc.retornar() != null ) {
-                    
-                    Valor vRet = visitor.visit( ifc.retornar() );
-                    
-                    // limpeza
-                    List<String> aRemover = new ArrayList<>( tartaruga.getEstadoFinal().obterIdentificadoresPorPrefixo( idFuncao ) );
-                    for ( String idR : aRemover ) {
-                        tartaruga.removerDaMemoria( idR );
-                    }
-                    
-                    PILHA.pop();
-                    
+                    Valor vRet = visitor.visit( inst.ains().retornar() );
+                    limparMemoriaEscopo( idFuncao );
                     return ( (Valor) vRet.getValor() );
+                    
+                } else {
+                    
+                    Valor v = visitor.visit( inst );
+                    
+                    // retorno recebido indiretamente (condicionais e repetição)
+                    if ( v != null && v.isRetorno() ) {
+                        limparMemoriaEscopo( idFuncao );
+                        return ( (Valor) v.getValor() );
+                    }
                     
                 }
                 
@@ -126,7 +128,7 @@ public class ComponenteVisitorFuncoes {
         }
         
         // função sem retorno
-        PILHA.pop();
+        PILHA_ESCOPOS.pop();
         return NULO;
         
     }
@@ -143,6 +145,17 @@ public class ComponenteVisitorFuncoes {
     
     public Valor visitProcessaId( AuroraLogoParser.ProcessaIdContext ctx ) {
         return novoIdentificador( ctx.ID().getText() );
+    }
+    
+    private void limparMemoriaEscopo( String idFuncao ) {
+        
+        List<String> aRemover = new ArrayList<>( tartaruga.getEstadoFinal().obterIdentificadoresPorPrefixo( idFuncao ) );
+        for ( String idR : aRemover ) {
+            tartaruga.removerDaMemoria( idR );
+        }
+
+        PILHA_ESCOPOS.pop();
+        
     }
     
 }

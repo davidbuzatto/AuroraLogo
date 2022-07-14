@@ -45,7 +45,6 @@ public class ComponenteVisitorAtribuicao {
     public Valor visitAtribuirPadrao( AuroraLogoParser.AtribuirPadraoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = null;
         
         if ( ctx.expr() != null ) {
@@ -63,7 +62,6 @@ public class ComponenteVisitorAtribuicao {
     public Valor visitAtribuirArranjo( AuroraLogoParser.AtribuirArranjoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = null;
         
         if ( ctx.expr() != null ) {
@@ -113,7 +111,6 @@ public class ComponenteVisitorAtribuicao {
     public Valor visitAtribuirArranjoAssociativo( AuroraLogoParser.AtribuirArranjoAssociativoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = null;
         
         if ( ctx.expr() != null ) {
@@ -154,7 +151,6 @@ public class ComponenteVisitorAtribuicao {
     public Valor visitAtribuirAdicao( AuroraLogoParser.AtribuirAdicaoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );
@@ -186,7 +182,6 @@ public class ComponenteVisitorAtribuicao {
     public Valor visitAtribuirSubtracao( AuroraLogoParser.AtribuirSubtracaoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );
@@ -215,7 +210,6 @@ public class ComponenteVisitorAtribuicao {
     public Valor visitAtribuirMultiplicacao( AuroraLogoParser.AtribuirMultiplicacaoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );
@@ -244,7 +238,6 @@ public class ComponenteVisitorAtribuicao {
     public Valor visitAtribuirDivisao( AuroraLogoParser.AtribuirDivisaoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );
@@ -273,7 +266,6 @@ public class ComponenteVisitorAtribuicao {
     public Valor visitAtribuirResto( AuroraLogoParser.AtribuirRestoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );

@@ -439,7 +439,6 @@ public class ComponenteVisitorFuncoesMatematicas {
     public Valor visitFuncaoIncrementar( AuroraLogoParser.FuncaoIncrementarContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {
@@ -454,7 +453,6 @@ public class ComponenteVisitorFuncoesMatematicas {
     public Valor visitFuncaoDecrementar( AuroraLogoParser.FuncaoDecrementarContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = tartaruga.lerMemoria( id );
         
         if ( valor.isNumero() ) {

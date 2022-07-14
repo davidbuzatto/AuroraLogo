@@ -396,15 +396,7 @@ public class Valor implements Serializable {
             String novo = String.valueOf( this.valor );
             String concat = String.valueOf( valor );
             
-            /*if ( valor.isString() || valor.isCaractere() ) {
-                novo += concat.substring( 1, concat.length() - 1 );
-            } else {
-                novo += concat;
-            }*/
-            
-            novo += concat;
-            
-            return novaString( novo );
+            return novaString( novo + concat );
             
         }
         
@@ -587,10 +579,6 @@ public class Valor implements Serializable {
                     return "VERDADEIRO";
                 }
                 return "FALSO";
-            /*case CARACTERE:
-                return "'" + String.valueOf( valor ) + "'";
-            case STRING:
-                return "\"" + String.valueOf( valor ) + "\"";*/
             case CARACTERE:
                 return String.valueOf( valor );
             case STRING:
@@ -719,12 +707,6 @@ public class Valor implements Serializable {
         } else if ( o instanceof Valor[] ) {
             return novoArranjo( Utils.cloneArrayObject( (Valor[]) o ) );
         }
-        
-        /* else if ( o instanceof Object[] ) {
-            return novoArranjo( (Object[]) o );
-        } else if ( o instanceof LinkedHashMap ) {
-            return novoArranjoAssociativo( (LinkedHashMap) o );
-        }*/
         
         return NULO;
         

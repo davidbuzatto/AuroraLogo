@@ -177,12 +177,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code fatorRepeticao}
+	 * Visit a parse tree produced by the {@code fatorPasso}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx);
+	T visitFatorPasso(AuroraLogoParser.FatorPassoContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code fatorChamadaFuncao}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
@@ -190,6 +190,13 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitFatorChamadaFuncao(AuroraLogoParser.FatorChamadaFuncaoContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code fatorCriarArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFatorCriarArranjo(AuroraLogoParser.FatorCriarArranjoContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
@@ -246,11 +253,11 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitRepetir(AuroraLogoParser.RepetirContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link AuroraLogoParser#repeticao}.
+	 * Visit a parse tree produced by {@link AuroraLogoParser#passo}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitRepeticao(AuroraLogoParser.RepeticaoContext ctx);
+	T visitPasso(AuroraLogoParser.PassoContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#repetirEnquanto}.
 	 * @param ctx the parse tree

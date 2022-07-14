@@ -601,7 +601,6 @@ public class ComponenteVisitorInstrucoesGeometricas {
         boolean d = tartaruga.isDesenhando();
 
         tartaruga.levantarPincel( false );
-        //tartaruga.moverPara( x, y );
         tartaruga.fecharCaminho();
 
         if ( d ) {

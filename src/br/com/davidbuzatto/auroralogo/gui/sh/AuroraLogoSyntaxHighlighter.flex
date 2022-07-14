@@ -382,6 +382,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "para" | 
 "parar " | 
 "parar" | 
+"passo " | 
+"passo" | 
 "pincel " | 
 "pincel" | 
 "por " | 
@@ -396,8 +398,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "quadr\u00E1tica" | 
 "radianos " | 
 "radianos" | 
-"repeti\u00E7\u00E3o " | 
-"repeti\u00E7\u00E3o" | 
 "repetir " | 
 "repetir" | 
 "retornar " | 

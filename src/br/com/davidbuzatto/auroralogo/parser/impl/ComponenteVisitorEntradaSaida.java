@@ -102,7 +102,6 @@ public class ComponenteVisitorEntradaSaida {
     public Valor visitLer( AuroraLogoParser.LerContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor valor = NULO;
         
         String idLimpo = Utils.formatarIdVariavelFuncao( id );

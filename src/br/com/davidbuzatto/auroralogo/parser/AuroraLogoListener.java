@@ -290,17 +290,17 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitFatorFormatarTexto(AuroraLogoParser.FatorFormatarTextoContext ctx);
 	/**
-	 * Enter a parse tree produced by the {@code fatorRepeticao}
+	 * Enter a parse tree produced by the {@code fatorPasso}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
 	 */
-	void enterFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx);
+	void enterFatorPasso(AuroraLogoParser.FatorPassoContext ctx);
 	/**
-	 * Exit a parse tree produced by the {@code fatorRepeticao}
+	 * Exit a parse tree produced by the {@code fatorPasso}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
 	 * @param ctx the parse tree
 	 */
-	void exitFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx);
+	void exitFatorPasso(AuroraLogoParser.FatorPassoContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code fatorChamadaFuncao}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
@@ -313,6 +313,18 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitFatorChamadaFuncao(AuroraLogoParser.FatorChamadaFuncaoContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code fatorCriarArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void enterFatorCriarArranjo(AuroraLogoParser.FatorCriarArranjoContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code fatorCriarArranjo}
+	 * labeled alternative in {@link AuroraLogoParser#fator}.
+	 * @param ctx the parse tree
+	 */
+	void exitFatorCriarArranjo(AuroraLogoParser.FatorCriarArranjoContext ctx);
 	/**
 	 * Enter a parse tree produced by the {@code fatorParenteses}
 	 * labeled alternative in {@link AuroraLogoParser#fator}.
@@ -406,15 +418,15 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitRepetir(AuroraLogoParser.RepetirContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link AuroraLogoParser#repeticao}.
+	 * Enter a parse tree produced by {@link AuroraLogoParser#passo}.
 	 * @param ctx the parse tree
 	 */
-	void enterRepeticao(AuroraLogoParser.RepeticaoContext ctx);
+	void enterPasso(AuroraLogoParser.PassoContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link AuroraLogoParser#repeticao}.
+	 * Exit a parse tree produced by {@link AuroraLogoParser#passo}.
 	 * @param ctx the parse tree
 	 */
-	void exitRepeticao(AuroraLogoParser.RepeticaoContext ctx);
+	void exitPasso(AuroraLogoParser.PassoContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#repetirEnquanto}.
 	 * @param ctx the parse tree

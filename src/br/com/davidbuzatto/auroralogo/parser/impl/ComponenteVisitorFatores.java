@@ -78,7 +78,6 @@ public class ComponenteVisitorFatores {
     public Valor visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjo() ) {
@@ -122,7 +121,6 @@ public class ComponenteVisitorFatores {
     public Valor visitFatorIdArranjo( AuroraLogoParser.FatorIdArranjoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjo() ) {
@@ -174,7 +172,6 @@ public class ComponenteVisitorFatores {
     public Valor visitFatorIdArranjoAssociativo( AuroraLogoParser.FatorIdArranjoAssociativoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjoAssociativo() ) {
@@ -259,7 +256,6 @@ public class ComponenteVisitorFatores {
     public Valor visitFatorIdIdAtributo( AuroraLogoParser.FatorIdIdAtributoContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        //String id = ctx.ID().getText();
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjoAssociativo() ) {
@@ -329,7 +325,6 @@ public class ComponenteVisitorFatores {
         
         AuroraLogoParser.ConsultarStringContext ctxc = ctx.consultarString();
         String id = Utils.gerarId( visitor.visit( ctxc.processaId() ).valorIdentificador() );
-        //String id = ctxc.ID().getText();
         Valor string = tartaruga.lerMemoria( id );
         
         if ( string.isString() ) {

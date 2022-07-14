@@ -316,13 +316,13 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx) { }
+	@Override public void enterFatorPasso(AuroraLogoParser.FatorPassoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFatorRepeticao(AuroraLogoParser.FatorRepeticaoContext ctx) { }
+	@Override public void exitFatorPasso(AuroraLogoParser.FatorPassoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -335,6 +335,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitFatorChamadaFuncao(AuroraLogoParser.FatorChamadaFuncaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFatorCriarArranjo(AuroraLogoParser.FatorCriarArranjoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorCriarArranjo(AuroraLogoParser.FatorCriarArranjoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -448,13 +460,13 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterRepeticao(AuroraLogoParser.RepeticaoContext ctx) { }
+	@Override public void enterPasso(AuroraLogoParser.PassoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitRepeticao(AuroraLogoParser.RepeticaoContext ctx) { }
+	@Override public void exitPasso(AuroraLogoParser.PassoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

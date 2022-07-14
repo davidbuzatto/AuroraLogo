@@ -59,6 +59,8 @@ import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 import org.fife.rsta.ui.search.FindReplaceButtonsEnableResult;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
+import org.fife.ui.rsyntaxtextarea.Style;
+import org.fife.ui.rsyntaxtextarea.SyntaxScheme;
 
 /**
  * Classe com métodos utilitários para a execução do ambiente de desenvolvimento
@@ -474,11 +476,7 @@ public class Utils {
         int g = 255 - c.getGreen();
         int b = 255 - c.getBlue();
         
-        /*if ( ( r + g + b > 740 ) || ( r + g + b < 20 ) ) {
-            return new Color( 255, 255, 40, a );
-        } else {*/
-            return new Color( r, g, b, a );
-        //}
+        return new Color( r, g, b, a );
     
     }
     
@@ -704,15 +702,15 @@ public class Utils {
                 toStringArranjo( (Object[]) o, sb );
             } else {
                 if ( o instanceof String ) {
-                    sb.append( "\"" + o.toString() + "\"" );
+                    sb.append( "\"" ).append( o.toString() ).append("\"");
                 } else if ( o instanceof Character ) {
-                    sb.append( "'" + o.toString() + "'" );
+                    sb.append( "'" ).append( o.toString() ).append("'");
                 } else if ( o instanceof Valor ) {
                     Valor v = (Valor) o;
                     if ( v.isString() ) {
-                        sb.append( "\"" + v + "\"" );
+                        StringBuilder append = sb.append( "\"" + v + "\"" );
                     } else if ( v.isCaractere() ) {
-                        sb.append( "'" + v + "'" );
+                        sb.append( "'" ).append( v ).append("'");
                     } else if ( v.isArranjoAssociativo() ) {
                         sb.append( toStringArranjoAssociativo( v ) );
                     } else {
@@ -745,22 +743,22 @@ public class Utils {
                     sb.append( ", " );
                 }
                 
-                sb.append( "\"" + e.getKey() + "\"=" );
+                sb.append( "\"" ).append( e.getKey() ).append("\"=");
                 Object o = e.getValue();
                 
                 if ( o instanceof Object[] ) {
                     toStringArranjo( (Object[]) o, sb );
                 } else {
                     if ( o instanceof String ) {
-                        sb.append( "\"" + o.toString() + "\"" );
+                        sb.append( "\"" ).append( o.toString() ).append("\"");
                     } else if ( o instanceof Character ) {
-                        //sb.append( "'" + o.toString() + "'" );
+                        sb.append( "'" ).append( o.toString() ).append("'");
                     } else if ( o instanceof Valor ) {
                         Valor vv = (Valor) o;
                         if ( vv.isString() ) {
-                            sb.append( "\"" + vv + "\"" );
+                            sb.append( "\"" ).append( vv ).append("\"");
                         } else if ( vv.isCaractere() ) {
-                            sb.append( "'" + vv + "'" );
+                            sb.append( "'" ).append( vv ).append("'");
                         } else if ( vv.isArranjoAssociativo() ) {
                             sb.append( toStringArranjoAssociativo( vv ) );
                         } else {
@@ -846,11 +844,11 @@ public class Utils {
     
     public static String gerarId( String idBase ) {
         
-        if ( ComponenteVisitorFuncoes.PILHA.isEmpty() ) {
+        if ( ComponenteVisitorFuncoes.PILHA_ESCOPOS.isEmpty() ) {
             return idBase;
         }
         
-        return ComponenteVisitorFuncoes.PILHA.peek() + "(" + idBase + ")";
+        return ComponenteVisitorFuncoes.PILHA_ESCOPOS.peek() + "(" + idBase + ")";
         
     }
     
@@ -872,6 +870,24 @@ public class Utils {
         }
         
         return idLimpo;
+        
+    }
+    
+    private static void mudarColoracaoSintaxe( RSyntaxTextArea textAreaCodigo ) {
+        
+        SyntaxScheme syntaxScheme = new SyntaxScheme( true );
+        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD_2, new Style( new Color( getIntPref( "RESERVED_WORD_2" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.IDENTIFIER, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.OPERATOR, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.FUNCTION, new Style( new Color( getIntPref( "FUNCTION" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_DECIMAL_INT, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_FLOAT, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_HEXADECIMAL, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.COMMENT_EOL, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.COMMENT_MULTILINE, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
+        textAreaCodigo.setSyntaxScheme( syntaxScheme );
         
     }
     

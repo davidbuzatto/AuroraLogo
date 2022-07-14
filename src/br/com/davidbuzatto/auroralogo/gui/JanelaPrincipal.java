@@ -78,6 +78,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
 import javax.swing.JSeparator;
+import javax.swing.JTextPane;
 import javax.swing.UIManager;
 import javax.swing.border.LineBorder;
 import javax.swing.text.BadLocationException;
@@ -127,31 +128,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
     
-    private class ApplicationKeyEventDispatcher implements KeyEventDispatcher {
-        
-        JFrame mainFrame;
-
-        public ApplicationKeyEventDispatcher( JFrame mainFrame ) {
-            this.mainFrame = mainFrame;
-        }
-        
-        @Override
-        public boolean dispatchKeyEvent( KeyEvent e ) {
-            
-            if ( e.getID() == KeyEvent.KEY_RELEASED ) {
-                
-            
-                if ( e.getKeyCode() == KeyEvent.VK_ESCAPE ) {
-                    System.out.println( "aaa" );
-                }
-            }
-            
-            return false;
-            
-        }
-        
-    }
-    
     public static final String VERSAO = "v0.95";
     private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
@@ -193,7 +169,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         } catch ( IOException exc ) {}
         
         initComponents();
-        montarTitulo( true );
+        montarTitulo();
 
         tartaruga = new Tartaruga(
                 painelDesenho.getWidth() / 2,
@@ -214,7 +190,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         atualizarQuadrosPorSegundo();
         
         fontePadrao = textAreaCodigo.getDefaultFont();
-        //textPaneSaida.setFont( fontePadrao );
 
         filtroExtensao = new FileNameExtensionFilter(
                 "Arquivo AuroraLogo", "aulg" );
@@ -1251,7 +1226,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( tartaruga != null ) {
 
             tartaruga.limpar();
-            //tartaruga.atualizarPosicaoEstadoInicial( painelDesenho.getWidth() / 2, painelDesenho.getHeight() / 2 );
             painelTextAreaCodigo.repaint();
 
             mudarEstadoGUI( true );
@@ -1373,8 +1347,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         deveAtualizarComponentesExecutarPassoAPasso = true;
 
         btnPararPassoAPassoAutomatico.setEnabled( false );
-
-        //tartaruga.limpar();
+        
         painelDesenho.repaint();
 
     }//GEN-LAST:event_btnPararPassoAPassoActionPerformed
@@ -1685,15 +1658,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
 
-    private void montarTitulo( boolean inserirAsterisco ) {
-
-        montarTitulo();
-
-        /*if ( inserirAsterisco ) {
-            setTitle( getTitle() + "*" );
-        }*/
-    }
-
     private void configurarTextAreaCodigo() {
 
         textAreaCodigo = new RSyntaxTextArea();
@@ -1714,7 +1678,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_MINUS, KeyEvent.CTRL_DOWN_MASK ), "diminuirTamanhoFonte" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_SUBTRACT, KeyEvent.CTRL_DOWN_MASK ), "diminuirTamanhoFonte" );
-        //am.put( "diminuirTamanhoFonte", new RSyntaxTextAreaEditorKit.DecreaseFontSizeAction() );
         am.put( "diminuirTamanhoFonte", new AbstractAction() {
             @Override
             public void actionPerformed( ActionEvent e ) {
@@ -1725,7 +1688,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_PLUS, KeyEvent.CTRL_DOWN_MASK ), "aumentarTamanhoFonte" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_EQUALS, KeyEvent.CTRL_DOWN_MASK ), "aumentarTamanhoFonte" );
         im.put( KeyStroke.getKeyStroke( KeyEvent.VK_ADD, KeyEvent.CTRL_DOWN_MASK ), "aumentarTamanhoFonte" );
-        //am.put( "aumentarTamanhoFonte", new RSyntaxTextAreaEditorKit.IncreaseFontSizeAction() );
         am.put( "aumentarTamanhoFonte", new AbstractAction() {
             @Override
             public void actionPerformed( ActionEvent e ) {
@@ -1770,14 +1732,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 copiarSelecao( true );
             }
         });
-        
-        /*im.put( KeyStroke.getKeyStroke( KeyEvent.VK_ESCAPE, 0 ), "pararExecucao" );
-        am.put( "pararExecucao", new AbstractAction() {
-            @Override
-            public void actionPerformed( ActionEvent e ) {
-                System.out.println( "a" );
-            }
-        });*/
 
         JPopupMenu pMenu = textAreaCodigo.getPopupMenu();
         JMenuItem menuItemCor = new JMenuItem( "Inserir Cor" );
@@ -1797,19 +1751,19 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
             @Override
             public void insertUpdate( DocumentEvent e ) {
-                montarTitulo( true );
+                montarTitulo();
                 atualizarBotoesDesfazerRefazer( textAreaCodigo );
             }
 
             @Override
             public void removeUpdate( DocumentEvent e ) {
-                montarTitulo( true );
+                montarTitulo();
                 atualizarBotoesDesfazerRefazer( textAreaCodigo );
             }
 
             @Override
             public void changedUpdate( DocumentEvent e ) {
-                montarTitulo( true );
+                montarTitulo();
                 atualizarBotoesDesfazerRefazer( textAreaCodigo );
             }
 
@@ -1820,21 +1774,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         AbstractTokenMakerFactory atmf = ( AbstractTokenMakerFactory ) TokenMakerFactory.getDefaultInstance();
         atmf.putMapping( "text/AuroraLogo", "br.com.davidbuzatto.auroralogo.gui.sh.AuroraLogoSyntaxHighlighter" );
         textAreaCodigo.setSyntaxEditingStyle( "text/AuroraLogo" );
-
-        // se definido pelo usuário
-        /*SyntaxScheme syntaxScheme = new SyntaxScheme( true );
-        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.RESERVED_WORD_2, new Style( new Color( getIntPref( "RESERVED_WORD_2" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.IDENTIFIER, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.OPERATOR, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.FUNCTION, new Style( new Color( getIntPref( "FUNCTION" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_DECIMAL_INT, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_FLOAT, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.LITERAL_NUMBER_HEXADECIMAL, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.COMMENT_EOL, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.COMMENT_MULTILINE, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        syntaxScheme.setStyle( SyntaxScheme.COMMENT_DOCUMENTATION, new Style( new Color( getIntPref( "RESERVED_WORD" ) ) ) );
-        textAreaCodigo.setSyntaxScheme( syntaxScheme );*/
         
         erroLinhaParser = new ErroEmLinhaParser( textAreaCodigo, textPaneSaida, tartaruga );
         textAreaCodigo.addParser( erroLinhaParser );
@@ -1855,7 +1794,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             carregarTemplate( "novoArquivo", true );
         } else {
             carregarTesteAulg( Utils.getPref( Utils.PREF_ULTIMO_TESTE ), true );
-            //carregarTesteAulg( ARQUIVO_DE_TESTE, true );
         }
 
     }
@@ -1937,7 +1875,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         try {
 
             String codigo = textAreaCodigo.getText().trim();
-            //AuroraLogoErrorListener errorListenerLexer = new AuroraLogoErrorListener( erroLinhaParser );
             AuroraLogoErrorListener errorListenerParser = new AuroraLogoErrorListener( erroLinhaParser );
 
             textPaneSaida.setText( "" );
@@ -1949,34 +1886,64 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 AuroraLogoLexer lexer = new AuroraLogoLexer(
                         CharStreams.fromString( textAreaCodigo.getText() ) );
                 CommonTokenStream tokens = new CommonTokenStream( lexer );
-                //lexer.addErrorListener( errorListenerLexer );
                 
                 AuroraLogoParser parser = new AuroraLogoParser( tokens );
                 parser.removeErrorListeners();
                 parser.addErrorListener( errorListenerParser );
-                //parser.setErrorHandler( new BailErrorStrategy() );
                 
                 erroLinhaParser.limparErros();
-                ParseTree tree = parser.prog();
-                erroLinhaParser.processarErros();
-                textAreaCodigo.forceReparsing( erroLinhaParser );
                 
-                if ( /*!errorListenerLexer.houveErro() &&*/ !errorListenerParser.houveErro() ) {
-                    AuroraLogoDesenhistaVisitor visitor = new AuroraLogoDesenhistaVisitor( tartaruga, this, textPaneSaida );
-                    visitor.visit( tree );
-                } else {
-                    System.out.println( "ERRO!" );
-                }
+                try {
+                    
+                    ParseTree tree = parser.prog();
+                    erroLinhaParser.processarErros();
+                    textAreaCodigo.forceReparsing( erroLinhaParser );
 
-                if ( DEBUG_PARSER ) {
-                    mostrarDados( null, parser, tree, true );
+                    if ( !errorListenerParser.houveErro() ) {
+                        AuroraLogoDesenhistaVisitor visitor = new AuroraLogoDesenhistaVisitor( tartaruga, this, textPaneSaida );
+                        visitor.visit( tree );
+                    } else {
+                        System.out.println( "ERRO!" );
+                    }
+
+                    if ( DEBUG_PARSER ) {
+                        mostrarDados( null, parser, tree, true );
+                    }
+                    
+                } catch ( StackOverflowError exc ) {
+                    
+                    tartaruga.limpar();
+                    
+                    Color corFundo = Utils.gerarComponenteGradiente( Color.RED, Color.WHITE, 0.9 );
+                    Color corTexto = Utils.gerarComponenteGradiente( Color.RED, Color.BLACK, 0.5 );
+
+                    JTextPane tp = new JTextPane();
+                    tp.setFont( new Font( "Consolas", 0, 13 ) );
+                    tp.setEditable( false );
+                    tp.setBackground( corFundo );
+                    tp.setBorder( new LineBorder( corTexto ) );
+                    tp.setFont( textPaneSaida.getFont() );
+
+                    Utils.inserirMensagemEmitente( 
+                            tp, "tartaruga escreveu", 
+                                      "Eu provavelmente entrei em recursão\n"
+                                    + "infinita, pois detectei um estouro (overflow) na pilha\n" 
+                                    + "de invocação!\n\n"
+                                    + "Infelizmente não há muito o que eu possa fazer, a\n"
+                                    + "não ser você encontre o(s) erro(s) no seu código.\n\n"
+                                    + "Como dica, procure por chamadas recursivas que não\n"
+                                    + "alcançam a base da recursão. ;)",
+                            Color.RED );
+
+                    JOptionPane.showMessageDialog( this, tp, "Recursão Infinita", JOptionPane.ERROR_MESSAGE );
+                    
                 }
 
             } else {
                 tartaruga.limpar();
             }
 
-            return /*!errorListenerLexer.houveErro() &&*/ !errorListenerParser.houveErro();
+            return !errorListenerParser.houveErro();
 
         } catch ( RecognitionException exc ) {
             tartaruga.limpar();
@@ -1997,7 +1964,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         tartaruga.limpar();
         painelDesenho.repaint();
 
-        montarTitulo( false );
+        montarTitulo();
 
     }
 
@@ -2024,7 +1991,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         
         dialogoAberto = false;
 
-        montarTitulo( false );
+        montarTitulo();
 
     }
 
@@ -2056,7 +2023,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         }
 
-        montarTitulo( false );
+        montarTitulo();
 
     }
 

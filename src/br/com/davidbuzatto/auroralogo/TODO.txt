@@ -1,15 +1,11 @@
 Implementação:
-    - Funções: implementar retornar dentro de estruturas de repetição e condicionais;
-               tratar recursão infinita
+    - Autocomplete para as funções geométricas e matemáticas. Cores com #?
     - Sobre e exemplos;
-    - Verificar todas as operações conferindo compatibilidade (testes de unidade).
-    - Melhorar mensagens de erro, usando uma sequência de comandos corretos 
-      comparando com a linha errada;
-    - Melhorar tratamento de erros (conferir System.out.println( "ERRO!" ); )
+    - Escrever README;
+    - Cconferir System.out.println( "ERRO!" ).
 
-Questionamentos:
-    - Autocomplete para as funções geométricas e matemáticas? Cores com #?
-    - Amarrar execução no editor?
-
-- Registrar AuroraLogo;
-- Registrar CSCH.
+Trabalhos Futuros:
+    - Melhoria das mensagens de erro com consulta por similaridade;
+    - Melhorar tratamento de erros;
+    - Montar testes de unidade ára tpdas as operações;
+    - Associar execução do código ao editor.

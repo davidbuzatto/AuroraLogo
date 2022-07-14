@@ -36,8 +36,7 @@ inst : ains DOT
      | desenharCaminho
      ;
 
-instf : inst        
-      | retornar DOT
+instf : inst
       ;
 
 ains : movimentar
@@ -54,6 +53,7 @@ ains : movimentar
      | atribuir
      | parar
      | continuar
+     | retornar
      | instrucaoGeometrica
      | expr
      ;
@@ -96,8 +96,9 @@ fator    : ( NAO | NAOT ) fator                                                 
          | consultarTartaruga                                                     # fatorConsultarTartaruga
          | consultarString                                                        # fatorConsultarString
          | formatarTexto                                                          # fatorFormatarTexto
-         | repeticao                                                              # fatorRepeticao
+         | passo                                                                  # fatorPasso
          | chamadaFuncao                                                          # fatorChamadaFuncao
+         | criarArranjos                                                          # fatorCriarArranjo
          | '(' expr ')'                                                           # fatorParenteses
          ;
 
@@ -129,7 +130,7 @@ escolha      : ESCO ( INT | DEC | CHAR | STRING ) ':' inst+
 repetir      : REP expr ( VEZ | VEZS ) '{' inst+ '}'
              ;
 
-repeticao    : REPE 
+passo        : PAS 
              ;
 
 // enquanto ... repetir
@@ -420,6 +421,7 @@ MOV  : 'mover'                   ;
 MULM : 'multiplicando'           ;
 NA   : 'na'                      ;
 NO   : 'no'                      ;
+PAS  : 'passo'                   ;
 PADR : 'padr\u00E3o'             ;
 PARA : 'para'                    ;
 PARR : 'parar'                   ;
@@ -432,7 +434,6 @@ PUL  : 'pulando'                 ;
 QUAD : 'quadr\u00E1tica'         ;
 RAD  : 'radianos'                ;
 REP  : 'repetir'                 ;
-REPE : 'repeti\u00E7\u00E3o'     ;
 RET  : 'retornar'                ;
 SAI  : 'sa\u00EDda'              ;
 SE   : 'se'                      ;
