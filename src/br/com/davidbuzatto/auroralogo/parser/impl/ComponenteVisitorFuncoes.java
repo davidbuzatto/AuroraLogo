@@ -102,7 +102,7 @@ public class ComponenteVisitorFuncoes {
             AuroraLogoParser.FuncContext corpoFuncao = (AuroraLogoParser.FuncContext) funcao.getValor();
             
             for ( AuroraLogoParser.InstfContext ifc : corpoFuncao.instf() ) {
-                
+                    
                 if ( ifc.inst() != null ) {
                     visitor.visit( ifc.inst() );
                 } else if ( ifc.retornar() != null ) {

@@ -80,25 +80,25 @@ termo    : fator ( ( MUL | VEZS
                    | MOD | MODA      ) fator )*
          ;
 
-fator    : ( NAO | NAOT ) fator                                           # fatorNao
-         | INT                                                            # fatorInt
-         | DEC                                                            # fatorDec
-         | PI                                                             # fatorPi
+fator    : ( NAO | NAOT ) fator                                                   # fatorNao
+         | INT                                                                    # fatorInt
+         | DEC                                                                    # fatorDec
+         | PI                                                                     # fatorPi
          | processaId                   ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorId
          | processaId ( '[' expr ']' )+ ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjo
          | processaId   '{' expr '}'    ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjoAssociativo
          | processaId ( DOT IDA )+                                                # fatorIdIdAtributo
-         | CHAR                                                           # fatorChar
-         | STRING                                                         # fatorString 
-         | ( VER | FAL )                                                  # fatorBool
-         | cor                                                            # fatorCor
-         | funcaoMatematica                                               # fatorFuncaoMatematica
-         | consultarTartaruga                                             # fatorConsultarTartaruga
-         | consultarString                                                # fatorConsultarString
-         | formatarTexto                                                  # fatorFormatarTexto
-         | repeticao                                                      # fatorRepeticao
-         | chamadaFuncao                                                  # fatorChamadaFuncao
-         | '(' expr ')'                                                   # fatorParenteses
+         | CHAR                                                                   # fatorChar
+         | STRING                                                                 # fatorString 
+         | ( VER | FAL )                                                          # fatorBool
+         | cor                                                                    # fatorCor
+         | funcaoMatematica                                                       # fatorFuncaoMatematica
+         | consultarTartaruga                                                     # fatorConsultarTartaruga
+         | consultarString                                                        # fatorConsultarString
+         | formatarTexto                                                          # fatorFormatarTexto
+         | repeticao                                                              # fatorRepeticao
+         | chamadaFuncao                                                          # fatorChamadaFuncao
+         | '(' expr ')'                                                           # fatorParenteses
          ;
 
 exprBool : expr
@@ -249,8 +249,8 @@ funcaoMatematica : F_VABS '(' expr ')'                       # funcaoAbsoluto
                  | F_LOGA '(' ( expr | expr ',' expr ) ')'   # funcaoLogaritmo
                  | F_GRRA '(' expr ')'                       # funcaoGrausParaRadianos
                  | F_RAGR '(' expr ')'                       # funcaoRadianosParaGraus
-                 | F_INC  '(' processaId ')'                         # funcaoIncrementar
-                 | F_DCM  '(' processaId ')'                         # funcaoDecrementar
+                 | F_INC  '(' processaId ')'                 # funcaoIncrementar
+                 | F_DCM  '(' processaId ')'                 # funcaoDecrementar
                  ;
 
 // funções geométricas
