@@ -94,6 +94,7 @@ import static org.fife.rsta.ui.search.SearchEvent.Type.MARK_ALL;
 import static org.fife.rsta.ui.search.SearchEvent.Type.REPLACE;
 import static org.fife.rsta.ui.search.SearchEvent.Type.REPLACE_ALL;
 import org.fife.rsta.ui.search.SearchListener;
+import org.fife.ui.autocomplete.AutoCompletion;
 import org.fife.ui.rsyntaxtextarea.ErrorStrip;
 import org.fife.ui.rsyntaxtextarea.folding.CurlyFoldParser;
 import org.fife.ui.rsyntaxtextarea.folding.FoldParserManager;
@@ -1663,6 +1664,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         textAreaCodigo = new RSyntaxTextArea();
 
         textAreaCodigo.setTabSize( 4 );
+        textAreaCodigo.setTabsEmulated( true );
         textAreaCodigo.setCaretPosition( 0 );
         textAreaCodigo.setMarkOccurrences( true );
         textAreaCodigo.setCodeFoldingEnabled( true );
@@ -1673,6 +1675,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         DefaultCaret caret = ( DefaultCaret ) textPaneSaida.getCaret();
         caret.setUpdatePolicy( DefaultCaret.ALWAYS_UPDATE );
 
+        AutoCompletion ac = new AutoCompletion( new AuroraLogoCompletionProvider() );
+        ac.install( textAreaCodigo );
+        
         InputMap im = textAreaCodigo.getInputMap();
         ActionMap am = textAreaCodigo.getActionMap();
 

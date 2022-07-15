@@ -134,16 +134,16 @@ passo        : PAS
              ;
 
 // enquanto ... repetir
-repetirEnquanto   : ( ENQ exprBool )? REP
-                    ( 
-                      ( INCM | DCMM ) processaId ( EM expr )?
-                      | SOMM processaId COM expr
-                      | MULM processaId POR expr
-                      | DIVM processaId POR expr
-                      | SUBM expr DE processaId
-                    )?
-                    '{' inst+ '}'
-                  ;
+repetirEnquanto : ( ENQ exprBool )? REP
+                  ( 
+                    ( INCM | DCMM ) processaId ( EM expr )?
+                    | SOMM processaId COM expr
+                    | MULM processaId POR expr
+                    | DIVM processaId POR expr
+                    | SUBM expr DE processaId
+                  )?
+                  '{' inst+ '}'
+                ;
 
 // para cada
 paraCada     : PARA CADA processaId EM expr REP '{' inst+ '}'
@@ -284,7 +284,7 @@ funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'            
                     | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?             # funcaoDesenharCurvaCubica
                     ;
 
-opcaoFuncGeom         : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )? 
+opcaoFuncGeom       : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )? 
                     ;
 
 desenharCaminho     : DESE CAM opcaoFuncGeom? '{' ( instCaminho DOT )+ '}'
@@ -597,10 +597,9 @@ NAOT : 'N\u00C3O' ;  // NÃO
 DOT  : '.' ;
 
 // identificadores
-ID   : ( 'v' | 'p' ) ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de variáveis e de parâmetros
+ID   : ( 'v' | 'p' ) ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de variáveis e de parâmetros de funções
 IDC  : 'c'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de constantes
 IDF  : 'f'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de funções definidas pelo usuário
-//IDP  : 'p'           ( LETmai | LETAmai | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de parâmetros de funções
 IDA  : 'a'           ( LET    | LETA    | [_$] ) ( LET | LETA | DIG | [_$] )* ;   // identificador de atributos/propriedades
 
 // literais

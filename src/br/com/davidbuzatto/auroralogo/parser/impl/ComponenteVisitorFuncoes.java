@@ -26,7 +26,7 @@ import java.util.List;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * Implementação dos métodos de visita para os arranjos.
+ * Implementação dos métodos de visita para a definição e invocação de funções.
  * 
  * @author Prof. Dr. David Buzatto
  */

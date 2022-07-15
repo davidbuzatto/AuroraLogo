@@ -26,7 +26,7 @@ import java.util.Locale;
 
 /**
  * Classe que representa valores de variáveis e constantes mantidas na memória
- * da tartatura. É peça fundamental para a execução das tarefas do Visitor.
+ * da tartatura, sendo peça fundamental para a execução das tarefas do Visitor.
  * 
  * @author Prof. Dr. David Buzatto
  */
