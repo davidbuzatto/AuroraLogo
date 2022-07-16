@@ -68,11 +68,12 @@ import java.awt.Image;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
 import javax.swing.JColorChooser;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
@@ -142,9 +143,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private File arquivoAtual;
     private FileNameExtensionFilter filtroExtensao;
 
+    private DialogoSobre dialogoSobre;
+    
     private boolean pararPassoAPassoAutomatico;
     private boolean deveAtualizarComponentesExecutarPassoAPasso;
-    private boolean dialogoAberto;
     
     private RSyntaxTextArea textAreaCodigo;
     private ErrorStrip errorStrip;
@@ -190,8 +192,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         atualizarBotoesDesfazerRefazer( textAreaCodigo );
         atualizarQuadrosPorSegundo();
         
+        dialogoSobre = new DialogoSobre( this, false );
+        
         fontePadrao = textAreaCodigo.getDefaultFont();
-
         filtroExtensao = new FileNameExtensionFilter(
                 "Arquivo AuroraLogo", "aulg" );
         
@@ -204,32 +207,17 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
          */
         tartaruga.setFonteDepurador( fontePadrao );
 
-        KeyboardFocusManager manager = KeyboardFocusManager.getCurrentKeyboardFocusManager();
-        manager.addKeyEventDispatcher( new KeyEventDispatcher() {
+        getRootPane().getInputMap().put( KeyStroke.getKeyStroke( KeyEvent.VK_ESCAPE, 0 ), "pararExecucao" );
+        getRootPane().getActionMap().put( "pararExecucao", new AbstractAction() {
             @Override
-            public boolean dispatchKeyEvent( KeyEvent e ) {
-                if ( e.getID() == KeyEvent.KEY_PRESSED ) {
-                    if ( e.getKeyCode() == KeyEvent.VK_ESCAPE ) {
-                        
-                        if ( !dialogoProcurar.isVisible() && 
-                             !dialogoSubstituir.isVisible() && 
-                             ( dialogoGoTo == null ||
-                               !dialogoGoTo.isVisible() ) &&
-                             !dialogoAberto ) {
-                            
-                            if ( btnPararPassoAPasso.isEnabled() ) {
-                                btnPararPassoAPasso.doClick();
-                            } else if ( btnPararPassoAPassoAutomatico.isEnabled() ) {
-                                btnPararPassoAPassoAutomatico.doClick();
-                            }
-                            
-                        }
-                        
-                    }
+            public void actionPerformed( ActionEvent e ) {
+                if ( btnPararPassoAPasso.isEnabled() ) {
+                    btnPararPassoAPasso.doClick();
+                } else if ( btnPararPassoAPassoAutomatico.isEnabled() ) {
+                    btnPararPassoAPassoAutomatico.doClick();
                 }
-                return false;
             }
-        });
+        } );
         
         if ( !PRODUCAO ) {
             Utils.criarItensMenuTestes( this, menuTestes );
@@ -1398,9 +1386,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     }//GEN-LAST:event_menuItemExecutarPassoAPassoActionPerformed
 
     private void menuItemSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuItemSobreActionPerformed
-        dialogoAberto = true;
-        JOptionPane.showMessageDialog( this, "AuroraLogo - " + VERSAO, "Sobre...", JOptionPane.INFORMATION_MESSAGE );
-        dialogoAberto = false;
+        dialogoSobre.setVisible( true );
     }//GEN-LAST:event_menuItemSobreActionPerformed
 
     private void btnDiminuirFonteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiminuirFonteActionPerformed
@@ -1626,8 +1612,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void definirCorTartaruga() {
         
-        dialogoAberto = true;
-        
         Color c = JColorChooser.showDialog( this, "Cor da Tartaruga", tartaruga.getCor(), false );
         
         if ( c != null ) {
@@ -1636,8 +1620,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             setIntPref( PREF_COR_TARTARUGA, tartaruga.getCor() == null ? Integer.MAX_VALUE : tartaruga.getCor().getRGB() );
             painelDesenho.repaint();    
         }
-        
-        dialogoAberto = false;
         
     }
     
@@ -1983,8 +1965,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         jfc.setMultiSelectionEnabled( false );
         jfc.removeChoosableFileFilter( jfc.getFileFilter() );
         jfc.setFileFilter( filtroExtensao );
-
-        dialogoAberto = true;
         
         if ( jfc.showOpenDialog( this ) == JFileChooser.APPROVE_OPTION ) {
 
@@ -1994,8 +1974,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         }
         
-        dialogoAberto = false;
-
         montarTitulo();
 
     }
@@ -2040,8 +2018,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         jfc.setMultiSelectionEnabled( false );
         jfc.removeChoosableFileFilter( jfc.getFileFilter() );
         jfc.setFileFilter( filtroExtensao );
-
-        dialogoAberto = true;
         
         if ( jfc.showSaveDialog( this ) == JFileChooser.APPROVE_OPTION ) {
 
@@ -2069,8 +2045,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
 
         }
-        
-        dialogoAberto = false;
 
     }
 
@@ -2309,15 +2283,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void inserirCorTextAreaCodigo() {
 
-        dialogoAberto = true;
-        
         Color cor = JColorChooser.showDialog( this, "Cor", Color.BLACK, true );
 
         if ( cor != null ) {
             inserirCorCodigo( textAreaCodigo, cor );
         }
-        
-        dialogoAberto = false;
 
     }
 
@@ -2522,6 +2492,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                         break;
                 }
 
+                janela.menuItemRTemaNimbus.setVisible( false );
                 
                 int corT = getIntPref( PREF_COR_TARTARUGA );
                 if ( corT != Integer.MAX_VALUE ) {

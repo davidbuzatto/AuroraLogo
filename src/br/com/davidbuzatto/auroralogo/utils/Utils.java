@@ -521,6 +521,7 @@ public class Utils {
     public static void updateSplashScreen( int millisecondsToWait ) {
         
         SplashScreen sp = SplashScreen.getSplashScreen();
+        
         if ( sp != null ) {
             
             Graphics2D g2d = (Graphics2D) sp.createGraphics();

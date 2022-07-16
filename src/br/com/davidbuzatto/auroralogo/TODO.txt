@@ -1,5 +1,6 @@
 Implementação:
-    - Sobre (usar splash) e exemplos;
+    - Escrever texto sobre;
+    - Implementar exemplos;
     - Escrever README;
     - Conferir System.out.println( "ERRO!" ).
 
