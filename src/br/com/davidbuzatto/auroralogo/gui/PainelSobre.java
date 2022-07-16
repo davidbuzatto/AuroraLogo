@@ -39,7 +39,7 @@ public class PainelSobre extends JPanel {
     
     public PainelSobre() {
         try {
-            imgFundo = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/imagens/splash.png" ) );
+            imgFundo = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/imagens/splash2.png" ) );
         } catch ( IOException exc ) {
         }
         setBackground( new Color( 0, 0, 0, 0 ) );
@@ -68,10 +68,10 @@ public class PainelSobre extends JPanel {
         String v = JanelaPrincipal.VERSAO;
         int vWidth = fm.stringWidth( v );
 
-        g2d.drawString( v, 346 - vWidth, 205 );
+        g2d.drawString( v, 346 - vWidth, 290 );
         
         
-        RoundRectangle2D.Double rect = new RoundRectangle2D.Double( 170, 220, 400, 200, 20, 20 );
+        RoundRectangle2D.Double rect = new RoundRectangle2D.Double( 140, 300, 400, 250, 20, 20 );
         
         g2d.setColor( new Color( 255, 255, 255, 200 ) );
         g2d.fill( rect );

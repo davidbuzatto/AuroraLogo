@@ -100,7 +100,8 @@ public class DialogoSobre extends javax.swing.JDialog {
         setUndecorated(true);
         setResizable(false);
 
-        lblSobre.setForeground(new java.awt.Color(0, 51, 102));
+        lblSobre.setForeground(new java.awt.Color(0, 85, 102));
+        lblSobre.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         lblSobre.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblSobre.setVerticalTextPosition(javax.swing.SwingConstants.TOP);
 
@@ -109,15 +110,15 @@ public class DialogoSobre extends javax.swing.JDialog {
         painelSobreLayout.setHorizontalGroup(
             painelSobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSobreLayout.createSequentialGroup()
-                .addContainerGap(179, Short.MAX_VALUE)
+                .addContainerGap(148, Short.MAX_VALUE)
                 .addComponent(lblSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 382, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(14, 14, 14))
+                .addGap(74, 74, 74))
         );
         painelSobreLayout.setVerticalGroup(
             painelSobreLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(painelSobreLayout.createSequentialGroup()
-                .addContainerGap(221, Short.MAX_VALUE)
-                .addComponent(lblSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelSobreLayout.createSequentialGroup()
+                .addContainerGap(300, Short.MAX_VALUE)
+                .addComponent(lblSobre, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 

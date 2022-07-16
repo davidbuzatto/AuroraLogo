@@ -64,12 +64,11 @@ import org.fife.ui.rsyntaxtextarea.RSyntaxTextAreaEditorKit;
 import org.fife.ui.rsyntaxtextarea.Theme;
 import org.fife.ui.rsyntaxtextarea.TokenMakerFactory;
 import java.awt.Component;
+import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -185,6 +184,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 painelDesenho,
                 fontePadrao );
         painelDesenho.setTartaruga( tartaruga );
+        painelDesenho.setJanelaPrincipal( this );
+        atualizarLabelZoom();
         
         configurarTextAreaCodigo();
         configurarDialogosDeBusca();
@@ -237,6 +238,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private void initComponents() {
 
         btnGroupTemas = new javax.swing.ButtonGroup();
+        menuPopupPainel = new javax.swing.JPopupMenu();
+        itemResetarPosicao = new javax.swing.JMenuItem();
+        separadorMenuPopup1 = new javax.swing.JPopupMenu.Separator();
+        itemSalvarComoImagem = new javax.swing.JMenuItem();
         barraFerramentas = new javax.swing.JToolBar();
         btnNovo = new javax.swing.JButton();
         btnAbrir = new javax.swing.JButton();
@@ -283,6 +288,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         textPaneSaida = new javax.swing.JTextPane();
         painelDesenhoContainer = new javax.swing.JPanel();
         painelDesenho = new br.com.davidbuzatto.auroralogo.gui.PainelDesenho();
+        btnMaisZoom = new javax.swing.JButton();
+        btnMenosZoom = new javax.swing.JButton();
+        btnZoomPadrao = new javax.swing.JButton();
+        lblZoom = new javax.swing.JLabel();
         barraMenu = new javax.swing.JMenuBar();
         menuArquivo = new javax.swing.JMenu();
         menuItemNovo = new javax.swing.JMenuItem();
@@ -332,6 +341,25 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         menuItemSobre = new javax.swing.JMenuItem();
         menuTestes = new javax.swing.JMenu();
 
+        itemResetarPosicao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/arrow_refresh.png"))); // NOI18N
+        itemResetarPosicao.setText("Resetar Posição");
+        itemResetarPosicao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemResetarPosicaoActionPerformed(evt);
+            }
+        });
+        menuPopupPainel.add(itemResetarPosicao);
+        menuPopupPainel.add(separadorMenuPopup1);
+
+        itemSalvarComoImagem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/picture.png"))); // NOI18N
+        itemSalvarComoImagem.setText("Salvar Como Imagem");
+        itemSalvarComoImagem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSalvarComoImagemActionPerformed(evt);
+            }
+        });
+        menuPopupPainel.add(itemSalvarComoImagem);
+
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("AuroraLogo");
         setIconImage(iconeJanela);
@@ -348,6 +376,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
             }
         });
 
@@ -751,15 +782,74 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         painelDesenhoContainer.setBorder(javax.swing.BorderFactory.createTitledBorder("Desenho"));
 
+        painelDesenho.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                painelDesenhoMouseClicked(evt);
+            }
+        });
+
+        btnMaisZoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/zoom_in.png"))); // NOI18N
+        btnMaisZoom.setToolTipText("Mais Zoom");
+        btnMaisZoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMaisZoom.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMaisZoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMaisZoomActionPerformed(evt);
+            }
+        });
+
+        btnMenosZoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/zoom_out.png"))); // NOI18N
+        btnMenosZoom.setToolTipText("Menos Zoom");
+        btnMenosZoom.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnMenosZoom.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnMenosZoom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnMenosZoomActionPerformed(evt);
+            }
+        });
+
+        btnZoomPadrao.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/zoom.png"))); // NOI18N
+        btnZoomPadrao.setToolTipText("Sem Zoom");
+        btnZoomPadrao.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnZoomPadrao.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnZoomPadrao.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnZoomPadraoActionPerformed(evt);
+            }
+        });
+
+        lblZoom.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        lblZoom.setForeground(new java.awt.Color(51, 51, 51));
+        lblZoom.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblZoom.setText("zoom");
+
         javax.swing.GroupLayout painelDesenhoLayout = new javax.swing.GroupLayout(painelDesenho);
         painelDesenho.setLayout(painelDesenhoLayout);
         painelDesenhoLayout.setHorizontalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 671, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesenhoLayout.createSequentialGroup()
+                .addContainerGap(587, Short.MAX_VALUE)
+                .addGroup(painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblZoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesenhoLayout.createSequentialGroup()
+                        .addComponent(btnMaisZoom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnMenosZoom)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnZoomPadrao)))
+                .addContainerGap())
         );
         painelDesenhoLayout.setVerticalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(painelDesenhoLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnMaisZoom)
+                    .addComponent(btnMenosZoom)
+                    .addComponent(btnZoomPadrao))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblZoom)
+                .addContainerGap(652, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout painelDesenhoContainerLayout = new javax.swing.GroupLayout(painelDesenhoContainer);
@@ -1211,31 +1301,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     }//GEN-LAST:event_btnExecutarPassoAPassoAutomaticoActionPerformed
 
     private void formComponentResized(java.awt.event.ComponentEvent evt) {//GEN-FIRST:event_formComponentResized
-
-        if ( tartaruga != null ) {
-
-            tartaruga.limpar();
-            painelTextAreaCodigo.repaint();
-
-            mudarEstadoGUI( true );
-            btnPararPassoAPasso.setEnabled( false );
-            btnInicioPassoAPasso.setEnabled( false );
-            btnAnteriorPassoAPasso.setEnabled( false );
-            btnProximoPassoAPasso.setEnabled( false );
-            btnFinalPassoAPasso.setEnabled( false );
-
-            deveAtualizarComponentesExecutarPassoAPasso = false;
-            sliderEstadoAtual.setEnabled( false );
-            sliderEstadoAtual.setValue( 0 );
-            sliderEstadoAtual.setMaximum( 100 );
-            deveAtualizarComponentesExecutarPassoAPasso = true;
-
-            btnPararPassoAPassoAutomatico.setEnabled( false );
-
-        }
-        
         painelSplitCodigoSaida.setDividerLocation( 0.78 );
-
     }//GEN-LAST:event_formComponentResized
 
     private void btnSalvarComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarComoActionPerformed
@@ -1610,6 +1676,91 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         painelDesenho.repaint();
     }//GEN-LAST:event_menuItemLimparActionPerformed
 
+    private void btnZoomPadraoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnZoomPadraoActionPerformed
+        tartaruga.resetEscala();
+        atualizarLabelZoom();
+        repaint();
+    }//GEN-LAST:event_btnZoomPadraoActionPerformed
+
+    private void btnMenosZoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMenosZoomActionPerformed
+        tartaruga.escalonar( -0.5 );
+        atualizarLabelZoom();
+        repaint();
+    }//GEN-LAST:event_btnMenosZoomActionPerformed
+
+    private void btnMaisZoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMaisZoomActionPerformed
+        tartaruga.escalonar( 0.5 );
+        atualizarLabelZoom();
+        repaint();
+    }//GEN-LAST:event_btnMaisZoomActionPerformed
+
+    private void painelDesenhoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_painelDesenhoMouseClicked
+        
+        if ( evt.getButton() == MouseEvent.BUTTON3 ) {
+            menuPopupPainel.show( painelDesenho, evt.getX(), evt.getY() );
+        }
+        
+    }//GEN-LAST:event_painelDesenhoMouseClicked
+
+    private void itemResetarPosicaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemResetarPosicaoActionPerformed
+        tartaruga.setDeslocamento( 0, 0 );
+        repaint();
+    }//GEN-LAST:event_itemResetarPosicaoActionPerformed
+
+    private void itemSalvarComoImagemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalvarComoImagemActionPerformed
+        
+        File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
+        JFileChooser jfc = new JFileChooser( diretorioAtual );
+        jfc.setDialogTitle( "Salvar Como Imagem..." );
+        jfc.setMultiSelectionEnabled( false );
+        jfc.removeChoosableFileFilter( jfc.getFileFilter() );
+        jfc.setFileFilter( new FileNameExtensionFilter( "Arquivo de Imagem", "png" ) );
+
+        if ( jfc.showSaveDialog( this ) == JFileChooser.APPROVE_OPTION ) {
+
+            File arquivo = jfc.getSelectedFile();
+            boolean salvar = true;
+
+            if ( arquivo.exists() ) {
+                if ( JOptionPane.showConfirmDialog( null,
+                        "O arquivo já existe, deseja sobrescrevê-lo?",
+                        "Confirmação",
+                        JOptionPane.YES_NO_OPTION ) == JOptionPane.NO_OPTION ) {
+                    salvar = false;
+                }
+            } else {
+                if ( !arquivo.getName().endsWith( ".png" ) ) {
+                    arquivo = new File( arquivo.getAbsolutePath() + ".png" );
+                }
+            }
+
+            if ( salvar ) {
+
+                setPref( PREF_CAMINHO_ABRIR_SALVAR, arquivo.getParentFile().getAbsolutePath() );
+
+                BufferedImage img = new BufferedImage( painelDesenho.getWidth(), painelDesenho.getHeight(), BufferedImage.TYPE_INT_ARGB );
+                painelDesenho.desenhar( (Graphics2D) img.createGraphics() );
+
+                try {
+                    ImageIO.write( img, "png", arquivo );
+                } catch ( IOException exc ) {
+                    exc.printStackTrace();
+                }
+
+            }
+
+        }
+        
+    }//GEN-LAST:event_itemSalvarComoImagemActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        tartaruga.limpar();
+    }//GEN-LAST:event_formWindowOpened
+
+    public void atualizarLabelZoom() {
+        lblZoom.setText( "zoom: " + Math.round( tartaruga.getEscala() * 100 ) + "%" );
+    }
+    
     private void definirCorTartaruga() {
         
         Color c = JColorChooser.showDialog( this, "Cor da Tartaruga", tartaruga.getCor(), false );
@@ -1894,7 +2045,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                     }
 
                     if ( DEBUG_PARSER ) {
-                        mostrarDados( null, parser, tree, true );
+                        mostrarDadosAnalise( null, parser, tree, true );
                     }
                     
                 } catch ( StackOverflowError exc ) {
@@ -2221,6 +2372,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         FlatIntelliJLaf.setup();
         SwingUtilities.updateComponentTreeUI( this );
+        SwingUtilities.updateComponentTreeUI( menuPopupPainel );
 
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/claro.xml" ) );
@@ -2237,6 +2389,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         FlatDarculaLaf.setup();
         SwingUtilities.updateComponentTreeUI( this );
+        SwingUtilities.updateComponentTreeUI( menuPopupPainel );
 
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/escuro.xml" ) );
@@ -2244,6 +2397,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             setPref( PREF_TEMA, "escuro" );
             dialogoProcurar.updateUI();
             dialogoSubstituir.updateUI();
+            menuPopupPainel.updateUI();
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
@@ -2269,6 +2423,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         }
 
         SwingUtilities.updateComponentTreeUI( this );
+        SwingUtilities.updateComponentTreeUI( menuPopupPainel );
 
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/nimbus.xml" ) );
@@ -2276,6 +2431,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             setPref( PREF_TEMA, "nimbus" );
             dialogoProcurar.updateUI();
             dialogoSubstituir.updateUI();
+            menuPopupPainel.updateUI();
         } catch ( IOException exc ) {
             exc.printStackTrace();
         }
@@ -2561,6 +2717,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.ButtonGroup btnGroupTemas;
     private javax.swing.JButton btnInicioPassoAPasso;
     private javax.swing.JButton btnLimpar;
+    private javax.swing.JButton btnMaisZoom;
+    private javax.swing.JButton btnMenosZoom;
     private javax.swing.JButton btnNovo;
     private javax.swing.JToggleButton btnPadraoCartesiano;
     private javax.swing.JButton btnPararPassoAPasso;
@@ -2569,7 +2727,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JButton btnRefazer;
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnSalvarComo;
+    private javax.swing.JButton btnZoomPadrao;
+    private javax.swing.JMenuItem itemResetarPosicao;
+    private javax.swing.JMenuItem itemSalvarComoImagem;
     private javax.swing.JLabel lblQuadrosPorSegundo;
+    private javax.swing.JLabel lblZoom;
     private javax.swing.JMenu menuAjuda;
     private javax.swing.JMenu menuArquivo;
     private javax.swing.JMenu menuEditar;
@@ -2605,6 +2767,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JMenuItem menuItemSobre;
     private javax.swing.JMenuItem menuItemSubstituir;
     private javax.swing.JMenuItem menuItemTartarugaArcoIris;
+    private javax.swing.JPopupMenu menuPopupPainel;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenu menuTemas;
     private javax.swing.JMenu menuTestes;
@@ -2633,6 +2796,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JPopupMenu.Separator separadorMenuEditar4;
     private javax.swing.JPopupMenu.Separator separadorMenuExecutar1;
     private javax.swing.JPopupMenu.Separator separadorMenuExecutar2;
+    private javax.swing.JPopupMenu.Separator separadorMenuPopup1;
     private javax.swing.JPopupMenu.Separator separadorMenuTemas1;
     private javax.swing.JSlider sliderEstadoAtual;
     private javax.swing.JSlider sliderQuadrosPorSegundo;

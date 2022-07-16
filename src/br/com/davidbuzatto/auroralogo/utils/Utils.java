@@ -85,7 +85,7 @@ public class Utils {
     public static final String PREF_COR_TARTARUGA = "COR_TARTARUGA";
     public static final String PREF_ULTIMO_TESTE = "PREF_ULTIMO_TESTE";
     
-    public static void mostrarDados( 
+    public static void mostrarDadosAnalise( 
             CommonTokenStream tokens, 
             Parser parser, 
             ParseTree tree, 
@@ -110,16 +110,16 @@ public class Utils {
         
     }
     
-    public static void mostrarDados( CommonTokenStream tokens ) {
-        Utils.mostrarDados( tokens, null, null, false );
+    public static void mostrarDadosAnalise( CommonTokenStream tokens ) {
+        Utils.mostrarDadosAnalise( tokens, null, null, false );
     }
     
-    public static void mostrarDados( 
+    public static void mostrarDadosAnalise( 
             Parser parser, 
             ParseTree tree, 
             boolean mostrarTestRig ) {
         
-        Utils.mostrarDados( null, parser, tree, mostrarTestRig );
+        Utils.mostrarDadosAnalise( null, parser, tree, mostrarTestRig );
         
     }
     
@@ -912,7 +912,7 @@ public class Utils {
         PREFS.putBoolean( PREF_DEPURADOR_ATIVO, PREFS.getBoolean( PREF_DEPURADOR_ATIVO, false ) );
         PREFS.putBoolean( PREF_GRADE_ATIVA, PREFS.getBoolean( PREF_GRADE_ATIVA, false ) );
         PREFS.putBoolean( PREF_EIXOS_ATIVOS, PREFS.getBoolean( PREF_EIXOS_ATIVOS, false ) );
-        PREFS.putBoolean( PREF_PADRAO_CARTESIANO_ATIVO, PREFS.getBoolean( PREF_PADRAO_CARTESIANO_ATIVO, false ) );
+        PREFS.putBoolean( PREF_PADRAO_CARTESIANO_ATIVO, PREFS.getBoolean( PREF_PADRAO_CARTESIANO_ATIVO, true ) );
         PREFS.putInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, PREFS.getInt( PREF_VALOR_SLIDER_PASSO_AUTOMATICO, 100 ) );
         PREFS.putBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false ) );
         PREFS.putInt( PREF_COR_TARTARUGA, PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE ) );

@@ -1,1 +1,5 @@
-Texto Sobre ...
+A linguagem de programação AuroraLogo é desenvolvida e mantida pelo Prof. Dr. David Buzatto do Instituto Federal de Educação, Ciência e Tecnologia de São Paulo.
+
+O objetivo a mesma é ser usada como uma linguagem de programação didática no apoio ao ensino de programação de computadores, permitindo que os alunos usem construções próximas à linguagem natural para fornecer comandos à uma tartaruga.
+
+Essa linguagem tem como fonte de inspiração a linguagem Logo e foi nomeada assim em homenagem à <font color="#ff0167">Aurora Buzatto</font>, filha do autor da linguagem, pois a motivação inicial foi o desenvolvimento de um ambiente de programação para ensinar a <font color="#ff0167">Aurora</font>, atualmente com quase 3 anos de idade, a programar. <font color="#ff679a">&#x2764</font><font color="#ff0167">&#x2764</font><font color="#953c5a">&#x2764</font><font color="#7e15e6">&#x2764</font><font color="#5901b1">&#x2764</font><font color="#444488">&#x2764</font>

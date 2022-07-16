@@ -17,23 +17,15 @@
 package br.com.davidbuzatto.auroralogo.gui;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
-import static br.com.davidbuzatto.auroralogo.utils.Utils.PREF_CAMINHO_ABRIR_SALVAR;
-import static br.com.davidbuzatto.auroralogo.utils.Utils.getPref;
-import static br.com.davidbuzatto.auroralogo.utils.Utils.setPref;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
+import java.awt.event.MouseWheelEvent;
 import javax.swing.JPanel;
-import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * Painel responsável em desenhar a tartaruga do ambiente de desenvolvimento da
@@ -44,66 +36,64 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class PainelDesenho extends JPanel {
 
     private Tartaruga tartaruga;
+    private JanelaPrincipal janelaPrincipal;
+    private int xPress;
+    private int yPress;
+    private boolean dragging;
     
     public PainelDesenho() {
         
         addMouseListener( new MouseAdapter() {
+            
             @Override
-            public void mouseClicked( MouseEvent e ) {
-                
-                if ( e.getButton() == MouseEvent.BUTTON3 ) {
-                    
-                    File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
-                    JFileChooser jfc = new JFileChooser( diretorioAtual );
-                    jfc.setDialogTitle( "Salvar Imagem..." );
-                    jfc.setMultiSelectionEnabled( false );
-                    jfc.removeChoosableFileFilter( jfc.getFileFilter() );
-                    jfc.setFileFilter( new FileNameExtensionFilter( "Arquivo de Imagem", "png" ) );
-
-                    if ( jfc.showSaveDialog( e.getComponent().getParent().getParent() ) == JFileChooser.APPROVE_OPTION ) {
-
-                        File arquivo = jfc.getSelectedFile();
-                        boolean salvar = true;
-
-                        if ( arquivo.exists() ) {
-                            if ( JOptionPane.showConfirmDialog( null,
-                                    "O arquivo já existe, deseja sobrescrevê-lo?",
-                                    "Confirmação",
-                                    JOptionPane.YES_NO_OPTION ) == JOptionPane.NO_OPTION ) {
-                                salvar = false;
-                            }
-                        } else {
-                            if ( !arquivo.getName().endsWith( ".png" ) ) {
-                                arquivo = new File( arquivo.getAbsolutePath() + ".png" );
-                            }
-                        }
-
-                        if ( salvar ) {
-                            
-                            setPref( PREF_CAMINHO_ABRIR_SALVAR, arquivo.getParentFile().getAbsolutePath() );
-                            
-                            BufferedImage img = new BufferedImage( getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB );
-                            desenhar( (Graphics2D) img.createGraphics() );
-                            
-                            try {
-                                ImageIO.write( img, "png", arquivo );
-                            } catch ( IOException exc ) {
-                                exc.printStackTrace();
-                            }
-                            
-                        }
-
-                    }
-                    
+            public void mousePressed( MouseEvent e ) {
+                if ( e.getButton() == MouseEvent.BUTTON1 ) {
+                    xPress = e.getX() - tartaruga.getDeslocamentoX();
+                    yPress = e.getY() - tartaruga.getDeslocamentoY();
+                    setCursor( tartaruga.cursorMaoAberta );
+                    dragging = true;
+                    tartaruga.setDragging( dragging );
                 }
-                
             }
+            
+            @Override
+            public void mouseReleased( MouseEvent e ) {
+                setCursor( Cursor.getPredefinedCursor( Cursor.DEFAULT_CURSOR ) );
+                dragging = false;
+                tartaruga.setDragging( dragging );
+            }
+            
         });
         
         addMouseMotionListener( new MouseAdapter() {
+            
             @Override
             public void mouseMoved( MouseEvent e ) {
-                tartaruga.setXYMouse( e.getX(), e.getY( ) );
+                if ( !dragging ) {
+                    tartaruga.setXYMouse( e.getX(), e.getY( ) );
+                } else {
+                    tartaruga.setXYMouse( -1, -1 );
+                }
+                repaint();
+            }
+
+            @Override
+            public void mouseDragged( MouseEvent e ) {
+                if ( e.getModifiersEx() == MouseEvent.BUTTON1_DOWN_MASK ) {
+                    int deslocamentoX = e.getX() - xPress;
+                    int deslocamentoY = e.getY() - yPress;
+                    tartaruga.setDeslocamento( deslocamentoX, deslocamentoY );
+                    repaint();
+                }
+            }
+            
+        });
+        
+        addMouseWheelListener( new MouseAdapter() {
+            @Override
+            public void mouseWheelMoved( MouseWheelEvent e ) {
+                tartaruga.escalonar( ( -e.getPreciseWheelRotation() ) / 2 );
+                janelaPrincipal.atualizarLabelZoom();
                 repaint();
             }
         });
@@ -120,7 +110,7 @@ public class PainelDesenho extends JPanel {
         
     }
 
-    private void desenhar( Graphics2D g2d ) {
+    public void desenhar( Graphics2D g2d ) {
         
         g2d = (Graphics2D) g2d.create();
         g2d.setRenderingHint( 
@@ -140,6 +130,10 @@ public class PainelDesenho extends JPanel {
     
     public void setTartaruga( Tartaruga tartaruga ) {
         this.tartaruga = tartaruga;
+    }
+
+    public void setJanelaPrincipal( JanelaPrincipal janelaPrincipal ) {
+        this.janelaPrincipal = janelaPrincipal;
     }
     
 }

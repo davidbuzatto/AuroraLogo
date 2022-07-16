@@ -1,21 +1,6 @@
-função fFib( pTermo ) {
-	vA = 1 .
-	vB = 1 .
-	vI = 0 .
-	enquanto vI < pTermo repetir incrementando vI {
-		vT = vB .
-		vB = vA + vB .
-		vA = vT .
-	}
-	retornar vA .
+desenhar caminho sem preenchimento {
+    mover até 100, 100 .
+    linha até 150, 100 . 
+    linha até 150, 50 .
+    fechar .
 }
-
-função fFibR( pTermo ) {
-	se pTermo é igual a 0 OU pTermo é igual a 1 então {
-		vR = fFibR( pTermo - 2 ) + fFibR( pTermo - 1 ) .
-	} senão {
-		vR = fFibR( pTermo - 2 ) + fFibR( pTermo - 1 ) .
-	}
-}
-
-escrever fFibR( 2 ) na saída .
