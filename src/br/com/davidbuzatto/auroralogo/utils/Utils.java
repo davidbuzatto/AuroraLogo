@@ -43,6 +43,7 @@ import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Scanner;
 import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import javax.swing.AbstractAction;
@@ -800,7 +801,7 @@ public class Utils {
         try {
             
             Path path = new File( Utils.class.getResource( 
-                    "/br/com/davidbuzatto/auroralogo/testesaulg/testes.aulg" ).toURI() ).getParentFile().toPath();
+                    "/br/com/davidbuzatto/auroralogo/templates/testes/testes.aulg" ).toURI() ).getParentFile().toPath();
             
             List<String> arquivosTeste = Files.walk( path )
                                              .map( Path::getFileName )
@@ -821,6 +822,64 @@ public class Utils {
             
         } catch ( Exception exc ) {
             menuTestes.setVisible( false );
+            exc.printStackTrace();
+        }
+        
+    }
+    
+    public static void criarItensMenuExemplos( JanelaPrincipal janelaPrincipal, JMenu menuExemplos ) {
+        
+        try {
+            
+            Scanner s = new Scanner( Utils.class.getResourceAsStream( 
+                    "/br/com/davidbuzatto/auroralogo/templates/exemplos/exemplos.txt" ) );
+            
+            List<String> nomes = new ArrayList<>();
+            while ( s.hasNextLine() ) {
+                nomes.add( s.nextLine() );
+            }
+            
+            LinkedHashMap<String, JMenu> menus = new LinkedHashMap<>();
+            for ( String linha : nomes ) {
+                
+                if ( !linha.trim().startsWith( "//" ) && !linha.trim().isEmpty() ) {
+
+                    if ( linha.contains( "_" ) ) {
+                        String[] dados = linha.split( "_" );
+                        String nomeMenu = dados[0].replace( "-", " " );
+                        String nomeExemplo = dados[1];
+                        JMenu menu;
+                        if ( !menus.containsKey( nomeMenu ) ) {
+                            menu = new JMenu( nomeMenu );
+                            menus.put( nomeMenu, menu );
+                            menuExemplos.add( menu );
+                        } else {
+                            menu = menus.get( nomeMenu );
+                        }
+                        menu.add( new AbstractAction( nomeExemplo.replace( "-", " " ).replace( ".aulg", "" ) ) {
+                            @Override
+                            public void actionPerformed( ActionEvent e ) {
+                                String exemplo = linha.replace( ".aulg", "" );
+                                janelaPrincipal.novoArquivo();
+                                janelaPrincipal.carregarExemploAulg( exemplo, true );
+                            }
+                        });
+                    } else {
+                        menuExemplos.add( new AbstractAction( linha.replace( "-", " " ).replace( ".aulg", "" ) ) {
+                            @Override
+                            public void actionPerformed( ActionEvent e ) {
+                                String exemplo = linha.replace( ".aulg", "" );
+                                janelaPrincipal.novoArquivo();
+                                janelaPrincipal.carregarExemploAulg( exemplo, true );
+                            }
+                        });
+                    }
+                    
+                }
+                
+            }
+            
+        } catch ( Exception exc ) {
             exc.printStackTrace();
         }
         

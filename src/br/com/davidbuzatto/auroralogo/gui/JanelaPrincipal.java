@@ -220,6 +220,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         } );
         
+        Utils.criarItensMenuExemplos( this, menuExemplos );
+        
         if ( !PRODUCAO ) {
             Utils.criarItensMenuTestes( this, menuTestes );
         } else {
@@ -2093,9 +2095,9 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
 
-    private void novoArquivo() {
+    public void novoArquivo() {
 
-        salvar( arquivoAtual );
+        salvar();
         arquivoAtual = null;
         carregarTemplate( "novoArquivo", false );
 
@@ -2108,7 +2110,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void abrirArquivo() {
 
-        salvar( arquivoAtual );
+        salvar();
 
         File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
         JFileChooser jfc = new JFileChooser( diretorioAtual );
@@ -2129,28 +2131,28 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
 
-    private void salvarArquivo() {
+    public void salvarArquivo() {
 
         if ( arquivoAtual == null ) {
             fragmentoSalvar( "Salvar..." );
         }
 
-        salvar( arquivoAtual );
+        salvar();
 
     }
 
-    private void salvarArquivoComo() {
+    public void salvarArquivoComo() {
 
-        salvar( arquivoAtual );
+        salvar();
         fragmentoSalvar( "Salvar Como..." );
-        salvar( arquivoAtual );
+        salvar();
 
     }
 
-    private void salvar( File arquivo ) {
+    public void salvar() {
 
-        if ( arquivo != null ) {
-            try (  PrintStream ps = new PrintStream( new FileOutputStream( arquivo ) ) ) {
+        if ( arquivoAtual != null ) {
+            try (  PrintStream ps = new PrintStream( new FileOutputStream( arquivoAtual ) ) ) {
                 ps.print( textAreaCodigo.getText() );
             } catch ( FileNotFoundException exc ) {
                 exc.printStackTrace();
@@ -2201,7 +2203,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void executar() {
 
-        salvar( arquivoAtual );
+        salvar();
         
         tartaruga.limpar();
         tartaruga.setPassoAPasso( false );
@@ -2216,7 +2218,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void executarPassoAPasso() {
 
-        salvar( arquivoAtual );
+        salvar();
         
         tartaruga.limpar();
         tartaruga.setPassoAPasso( true );
@@ -2240,7 +2242,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void executarPassoAPassoAutomatico() {
 
-        salvar( arquivoAtual );
+        salvar();
         
         tartaruga.limpar();
         tartaruga.setPassoAPasso( true );
@@ -2330,8 +2332,18 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     public void carregarTesteAulg( String teste, boolean inicio ) {
 
         try ( Scanner s = new Scanner(
-                getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/testesaulg/"
+                getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/templates/testes/"
                         + teste + ".aulg" ), StandardCharsets.UTF_8 ) ) {
+            carregar( s, inicio );
+        }
+
+    }
+    
+    public void carregarExemploAulg( String exemplo, boolean inicio ) {
+
+        try ( Scanner s = new Scanner(
+                getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/templates/exemplos/"
+                        + exemplo + ".aulg" ), StandardCharsets.UTF_8 ) ) {
             carregar( s, inicio );
         }
 

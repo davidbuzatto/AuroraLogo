@@ -1,5 +1,5 @@
 Implementação:
-    - Escrever texto sobre;
+    - Ao abrir exemplo, tentar salvar arquivo atual;
     - Implementar exemplos;
     - Escrever README;
     - Conferir System.out.println( "ERRO!" ).

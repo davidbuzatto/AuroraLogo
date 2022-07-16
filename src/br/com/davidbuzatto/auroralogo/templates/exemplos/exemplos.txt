@@ -1,0 +1,8 @@
+// sf 
+exemplo1.aulg
+
+
+Entrada-Saída_exemplo-chão-teste.aulg
+Teste_exemplo2.aulg
+Entrada-Saída_exemplo1.aulg
+exemplo2.aulg
