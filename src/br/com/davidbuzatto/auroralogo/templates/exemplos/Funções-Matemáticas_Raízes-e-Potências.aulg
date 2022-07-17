@@ -1,0 +1,48 @@
+/**
+ * Funções matemáticas para operações com raízes e potências.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+vA = raizQuadrada( 25 ) .
+escrever "raizQuadrada( 25 ) = " + vA na saída pulando linha .
+
+vA = raizQuadrada( 2 ) .
+escrever "raizQuadrada( 2 ) = " + vA na saída pulando linha .
+
+vA = raizQuadrada( -2 ) .
+escrever "raizQuadrada( -2 ) = " + vA na saída pulando linha .
+
+
+vA = raizCúbica( 27 ) .
+escrever "raizCúbica( 27 ) = " + vA na saída pulando linha .
+
+vA = raizCúbica( -27 ) .
+escrever "raizCúbica( -27 ) = " + vA na saída pulando linha .
+
+vA = raizCúbica( 14 ) .
+escrever "raizCúbica( 14 ) = " + vA na saída pulando linha .
+
+
+vA = raiz( 27, 3 ) .
+escrever "raiz( 27, 3 ) = " + vA na saída pulando linha .
+
+vA = raiz( -27, 10 ) .
+escrever "raizCúbica( -27, 10 ) = " + vA na saída pulando linha .
+
+vA = raiz( 1024, 2 ) .
+escrever "raiz( 1024, 2 ) = " + vA na saída pulando linha .
+
+vA = raiz( 10000, 10 ) .
+escrever "raiz( 10000, 10 ) = " + vA na saída pulando linha .
+
+
+vA = potência( 4, 3 ) .
+escrever "potência( 4, 3 ) = " + vA na saída pulando linha .
+
+vA = potência( 4, 3.5 ) .
+escrever "potência( 4, 3.5 ) = " + vA na saída pulando linha .
+
+vA = potência( 4, -3 ) .
+escrever "potência( 4, -3 ) = " + vA na saída pulando linha .

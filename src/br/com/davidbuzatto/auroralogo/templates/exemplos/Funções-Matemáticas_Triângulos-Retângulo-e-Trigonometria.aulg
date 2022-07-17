@@ -1,0 +1,38 @@
+/**
+ * Funções matemáticas relacionadas a triângulos e trigonométricas.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+vA = hipotenusa( 3, 4 ) .
+escrever "hipotenusa( 3, 4 ) = " + vA na saída pulando linha .
+
+vA = seno( 45 ) .
+escrever "seno( 45 ) = " + vA na saída pulando linha .
+
+vA = cosseno( 45 ) .
+escrever "cosseno( 45 ) = " + vA na saída pulando linha .
+
+vA = tangente( 45 ) .
+escrever "tangente( 45 ) = " + vA na saída pulando linha .
+
+vA = arcoSeno( 0.707 ) .
+escrever "arcoSeno( 0.707 ) = " + vA na saída pulando linha .
+
+vA = arcoCosseno( 0.707 ) .
+escrever "arcoCosseno( 0.707 ) = " + vA na saída pulando linha .
+
+vA = arcoTangente( 1 ) .
+escrever "arcoTangente( 1 ) = " + vA na saída pulando linha .
+
+vA = senoHiperbólico( 1 ) .
+escrever "senoHiperbólico( 1 ) = " + vA na saída pulando linha .
+
+vA = cossenoHiperbólico( 1 ) .
+escrever "cossenoHiperbólico( 1 ) = " + vA na saída pulando linha .
+
+vA = tangenteHiperbólica( 1 ) .
+escrever "tangenteHiperbólica( 1 ) = " + vA na saída pulando linha .
+
+PI

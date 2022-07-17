@@ -39,7 +39,7 @@ public class PainelSobre extends JPanel {
     
     public PainelSobre() {
         try {
-            imgFundo = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/imagens/splash2.png" ) );
+            imgFundo = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/ajuda/splashSobre.png" ) );
         } catch ( IOException exc ) {
         }
         setBackground( new Color( 0, 0, 0, 0 ) );

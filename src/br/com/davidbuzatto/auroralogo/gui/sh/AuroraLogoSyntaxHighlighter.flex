@@ -368,6 +368,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "linha" | 
 "magenta " | 
 "magenta" | 
+"mensagem " | 
+"mensagem" | 
 "mover " | 
 "mover" | 
 "multiplicando " | 

@@ -1,0 +1,24 @@
+/**
+ * Funções matemáticas para geração de números
+ * aleatórios (pseudo-aleatórios).
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+definirSementeAleatória( 1 ) .
+
+vA = númeroAleatório() .
+escrever "númeroAleatório() = " + vA na saída pulando linha .
+
+vA = númeroAleatório( 5 ) .
+escrever "númeroAleatório( 5 ) = " + vA na saída pulando linha .
+
+vA = númeroAleatório( 5.0 ) .
+escrever "númeroAleatório( 5.0 ) = " + vA na saída pulando linha .
+
+vA = númeroAleatório( 4, 10 ) .
+escrever "númeroAleatório( 4, 10 ) = " + vA na saída pulando linha .
+
+vA = númeroAleatório( 4, 10.0 ) .
+escrever "númeroAleatório( 4, 10.0 ) = " + vA na saída pulando linha .

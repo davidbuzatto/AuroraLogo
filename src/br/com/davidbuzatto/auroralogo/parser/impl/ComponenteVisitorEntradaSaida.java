@@ -105,9 +105,13 @@ public class ComponenteVisitorEntradaSaida {
         Valor valor = NULO;
         
         String idLimpo = Utils.formatarIdVariavelFuncao( id );
+        String mensagem = String.format( "Entre com um valor para \"%s\":", idLimpo );
         
-        String v = JOptionPane.showInputDialog( 
-                       janelaPrincipal, String.format( "Entre com um valor para \"%s\":", idLimpo ) );
+        if ( ctx.USA() != null ) {
+            mensagem = String.valueOf( visitor.visit( ctx.expr() ) );
+        }
+        
+        String v = JOptionPane.showInputDialog( janelaPrincipal, mensagem );
             
         if ( v != null ) {
             

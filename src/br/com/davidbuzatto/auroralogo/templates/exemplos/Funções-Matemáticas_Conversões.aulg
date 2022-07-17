@@ -1,0 +1,15 @@
+/**
+ * Funções matemáticas para conversão de valores.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+vA = cartesianoParaPolar( 100, 100 ) .
+escrever "cartesianoParaPolar( 100, 100 ) = " + vA na saída pulando linha .
+
+vA = grausParaRadianos( 180 ) .
+escrever "grausParaRadianos( 180 ) = " + vA na saída pulando linha .
+
+vA = radianosParaGraus( PI ) .
+escrever "radianosParaGraus( PI ) = " + vA na saída pulando linha .

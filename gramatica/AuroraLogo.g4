@@ -198,7 +198,7 @@ escrever     : ESC expr ( NA SAI  ( PUL LIN )?
                         )?
              ;
 
-ler          : LER processaId
+ler          : LER processaId ( USA A MEN expr )?
              ;
 
 atribuir     : processaId                         (  ATR | ATRA ) ( expr | criarArranjos )  # atribuirPadrao
@@ -368,6 +368,7 @@ UNICODE : 'u' DHX DHX DHX DHX ;
 
 
 // palavras chave
+A    : 'a'                       ;
 ABA  : 'abaixar'                 ;
 ABE  : 'ABERTO'                  ;
 ALT  : 'alterar'                 ;
@@ -417,6 +418,7 @@ LER  : 'ler'                     ;
 LEV  : 'levantar'                ;
 LIM  : 'limpar'                  ;
 LIN  : 'linha'                   ;
+MEN  : 'mensagem'                ;
 MOV  : 'mover'                   ;
 MULM : 'multiplicando'           ;
 NA   : 'na'                      ;

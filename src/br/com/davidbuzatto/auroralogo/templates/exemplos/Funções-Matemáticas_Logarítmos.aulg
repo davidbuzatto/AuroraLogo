@@ -1,0 +1,15 @@
+/**
+ * Funções matemáticas para lidar com logarítmos.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+vA = logarítmo( 10 ) .
+escrever "logarítmo( 10 ) = " + vA na saída pulando linha .
+
+vA = logarítmo( 1024, 2 ) .
+escrever "logarítmo( 1024, 2 ) = " + vA na saída pulando linha .
+
+vA = logarítmo( 1000, 10 ) .
+escrever "logarítmo( 1000, 10 ) = " + vA na saída pulando linha .

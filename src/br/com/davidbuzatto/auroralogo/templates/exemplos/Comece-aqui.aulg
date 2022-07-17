@@ -1,0 +1,45 @@
+/**
+ * Seja bem-vindo! A ideia desse conjunto de exemplos é tentar
+ * lhe auxiliar no entendimento de como a linguagem AuroraLogo
+ * funciona, vem como seus principais comandos. O funcionamento
+ * da interface gráfica do ambiente de programação pode ser
+ * visto no vídeo disponibilizado no endereço:
+ *
+ * Este texto que você está lendo está escrito dentro do que
+ * chamamos de "comentário de documentação". Esses comentários
+ * iniciam com uma barra e dois asteriscos e terminam com um
+ * asterisco e uma barra. Todo o conteúdo textual entre esses
+ * dois delimitadores é ignorado na execução do seu código.
+ *
+ * A linguagem de programação AuroraLogo é uma linguagem com
+ * objetivo didático, ou seja, foi projetada para auxiliar
+ * professores a ensinarem programação de computadores em cursos
+ * ou disciplinsa introdutórias com essa temática em cursos dos
+ * mais variados tipos. Nada impede também que alunos autodidatas
+ * aprendam a como programar.
+ *
+ * Do ponto de vista técnico, a linguagem AuroraLogo é uma
+ * linguagem de programação interpretada de tipagem dinâmica e
+ * fraca que pertence ao paradigma de programação chamado
+ * "estruturado", onde as funções são tidas como os blocos
+ * fundamentais para a construção dos programas. O inter pretador
+ * da linguagem acusará erros léxicos e sintáticos durante o
+ * processo de interpretação. Problemas semânticos são resolvidos
+ * automaticamente pelo interpretador, realizando conversões
+ * de tipos implícitas. Iremos ver esses detalhes nos exemplos
+ * posteriores.
+ *
+ * Espero que sua jornada pelo aprendizado da linguagem de
+ * programação AuroraLogo seja prazeroso e enriquecedor. Essa
+ * linguagem é baseada na ideia da linguagem de programação Logo
+ * (https://el.media.mit.edu/logo-foundation/what_is_logo/)
+ *
+ * Vamos começar? Siga os exemplos na ordem apresentada e não deixe
+ * de experimentar o que é possível fazer! Aproveito também
+ * para pedir a gentiliza de que quaisquer erros que você
+ * encontrar tanto no uso do ambiente, quanto da linguagem,
+ * sejam reportados através do e-mail davidbuzatto@ifsp.edu.br
+ *
+ * Ass. Prof. Dr. David Buzatto, 16 de julho de 2022.
+ *
+ */
