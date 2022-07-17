@@ -1,6 +1,1 @@
-desenhar caminho sem preenchimento {
-    mover até 100, 100 .
-    linha até 150, 100 . 
-    linha até 150, 50 .
-    fechar .
-}
+a
