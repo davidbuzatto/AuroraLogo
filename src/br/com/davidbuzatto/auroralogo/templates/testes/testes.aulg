@@ -25,7 +25,7 @@ vá para cima em 50 .
 girar em PI/2 radianos .      // pi/2 radianos correspondem a 90 graus
 vá para cima em 50 .
 
-girar em -(3*PI/2) radianos . // 3pi/4 radianos correspondem a 270 graus
+girar em -(3*PI/2) radianos . // 3pi/2 radianos correspondem a 270 graus
 vá para cima em 50 .
 
 girar em -135 graus .
@@ -45,9 +45,129 @@ trocar grossura do pincel para 10 . // troca a grossura do pincel para 10 pixels
 vá para direita em 50 .
 
 // trocando a cor do pincel para vermelho
-trocar cor do pincel para #ff0000 .
+trocar cor do pincel para vermelho .
 vá para direita em 50 .
+
+trocar grossura do pincel para 2 .
+
+// trocando a cor do pincel para uma cor qualquer
+trocar cor do pincel para #0099cc .
+vá para direita em 50 .
+
+// trocando a cor do pincel para uma cor com transparência
+trocar cor do pincel para #cc55ee55 .
+vá para direita em 50 .
+
+// trocando a cor do pincel, mudando o tom da mesma
+trocar cor do pincel para laranja 1 vez claro .
+vá para direita em 50 .
+
+trocar cor do pincel para laranja 2 vezes escuro .
+vá para direita em 50 .
+
+trocar cor do pincel para preto .
 trocar grossura do pincel para 1 .
 
-trocar cor do pincel para azul .
-vá para direita em 50 .
+// desenhando formas geométricas
+// um segmento de reta iniciado em 300, 150 e
+// terminado em 430, 200 
+desenhar segmento( 300, 150, 430, 200 ) .
+
+// um quadrado com centro em 300, 200 e lado 40 pixels.
+desenhar quadrado( 300, 200, 40 ) .
+
+// um retângulo com centro em 300, 250, largura de 100
+// pixels e altura de 40 pixels
+desenhar retângulo( 300, 250, 100, 40 ) .
+
+// um retângulo com cantos arredondados com centro em 
+// 430, 250, largura de 100 pixels, altura de 40 pixels
+// e canto com um arco de 15 pixels de raio.
+desenhar retânguloArredondado( 430, 250, 100, 40, 15 ) .
+
+// trocando a cor do preenchimento 
+trocar cor do preenchimento para laranja .
+
+// um círculo com centro em 300, 300 e raio 20
+desenhar círculo( 300, 300, 20 ) .
+
+// uma elipse com centro em 430, 300, eixo maior de 100
+// eixo menor de 40 e sem preenchimento
+desenhar elipse( 430, 300, 100, 40 ) sem preenchimento .
+
+// um arco aberto com centro 250, 360, eixo maior de 40,
+// eixo menor de 40, ângulo inicial em 0 grau, ângulo final
+// em 270 graus e sem contorno
+desenhar arco( 250, 360, 40, 40, 0, 270 ) sem contorno .
+
+// um arco aberto com centro 300, 360, eixo maior de 40,
+// eixo menor de 40, ângulo inicial em 0 grau e ângulo final
+// em 120 graus
+desenhar arco( 300, 360, 40, 40, 0, 120, ABERTO ) .
+
+// um arco fechado com uma corda com centro 360, 360,
+// eixo maior de 60, eixo menor de 40, ângulo inicial em 0 grau
+// e ângulo final em 150 graus
+desenhar arco( 360, 360, 60, 40, 0, 150, CORDA ) .
+
+// um arco fechado em formato de pizza com centro 430, 360,
+// eixo maior de 60, eixo menor de 40, ângulo inicial em 0 grau
+// e ângulo final em 210 graus
+desenhar arco( 430, 360, 60, 40, 0, 210, PIZZA ) .
+
+trocar cor do preenchimento para rosa .
+
+// um polígono regular com centro em 200, 420, girado
+// em 0 grau e três lados
+desenhar polígonoRegular( 200, 420, 20, 0, 3 ) .
+
+// um polígono regular com centro em 250, 420, girado
+// em 10 graus e quatro lados
+desenhar polígonoRegular( 250, 420, 20, 10, 4 ) .
+
+// um polígono regular com centro em 300, 420, girado
+// em 20 graus e cinco lados
+desenhar polígonoRegular( 300, 420, 20, 20, 5 ) .
+
+// um polígono regular com centro em 350, 420, girado
+// em 30 graus e seis lados
+desenhar polígonoRegular( 350, 420, 20, 30, 6 ) .
+
+// uma estrela com centro em 200, 480, girada
+// em 0 grau e cinco pontas
+desenhar estrela( 200, 480, 20, 0, 5 ) .
+
+// uma estrela com centro em 250, 480, girada
+// em 10 graus e seis pontas
+desenhar estrela( 250, 480, 20, 10, 6 ) .
+
+// uma estrela com centro em 300, 480, girada
+// em 20 graus e sete pontas
+desenhar estrela( 300, 480, 20, 20, 7 ) .
+
+// uma estrela com centro em 350, 480, girada
+// em 30 graus e oito pontas
+desenhar estrela( 350, 480, 20, 30, 8 ) .
+
+// um polígono com três vértices:
+// v1: 390, 430
+// v2: 450, 430
+// v3: 420, 470
+desenhar polígono( 390, 430, 450, 430, 420, 470 ) .
+
+// um polígono com quatro vértices:
+// v1: 470, 430
+// v2: 530, 430
+// v3: 520, 470
+// v4: 480, 470
+desenhar polígono( 470, 430, 530, 430, 520, 470, 480, 470 ) .
+
+// uma curva Bézier quadrática (um ponto de controle) com
+// início em 580, 180, fim em 580, 460 e ponto de controle
+// em 540, 320
+desenhar curvaQuadrática( 580, 180, 540, 320, 580, 460 ) sem preenchimento . 
+
+// uma curva Bézier cúbica (dois pontos de controle) com
+// início em 640, 180, fim em 640, 460, primeiro ponto de
+// controle em 600, 275 e segundo ponto de controle em 680, 370
+desenhar curvaCúbica( 640, 180, 600, 275, 680, 370, 640, 460 ) sem preenchimento . 

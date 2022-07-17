@@ -139,6 +139,7 @@ public class AuroraLogoCompletionProvider extends DefaultCompletionProvider {
         addCompletion( new ShorthandCompletion( this, "criar array associativo", "criarArrayAssociativo{}", "cria um array (arranjo) associativo" ) );
         
         addCompletion( new ShorthandCompletion( this, "ler", "ler variável .", "apresenta um diálogo para entrada de dados, atribuindo o valor válido na variável usada" ) );
+        addCompletion( new ShorthandCompletion( this, "ler usando a mensagem", "ler variável usando a mensagem expressão.", "apresenta um diálogo para entrada de dados com uma mensagem personalizada, atribuindo o valor válido na variável usada" ) );
         
         addCompletion( new ShorthandCompletion( this, "escrever", "escrever \"expressão\" .", "comanda a tartaruga para escrever a expressão na posição atual" ) );
         addCompletion( new ShorthandCompletion( this, "escrever na saída", "escrever \"expressão\" na saída .", "escreve a expressão na saída" ) );

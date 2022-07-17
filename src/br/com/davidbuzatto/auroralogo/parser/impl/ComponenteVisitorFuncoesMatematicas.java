@@ -165,13 +165,22 @@ public class ComponenteVisitorFuncoesMatematicas {
             
             Valor v = visitor.visit( ctx.expr( 0 ) );
             Valor casas = visitor.visit( ctx.expr( 1 ) );
-            try {
-            if ( v.isNumero() && casas.isNumero() ) {
-                String vs = String.format( Locale.US, "%." + casas.valorInteiro() + "f", v.valorDecimal() );
-                return novoDecimal( Double.valueOf( vs ) );
+            int casasD = 0;
+            
+            if ( casas.isNumero() ) {
+                casasD = casas.valorInteiro();
+                if ( casasD < 0 ) {
+                    casasD = 0;
+                }
             }
-            } catch ( Exception exc ) {
-                exc.printStackTrace();
+            
+            if ( v.isNumero() ) {
+                
+                double valor = v.valorDecimal();
+                double casasF = Math.pow( 10, casasD );
+                double novoValor = (double) Math.round( valor * casasF ) / casasF;
+                return novoDecimal( novoValor );
+                
             }
             
         }

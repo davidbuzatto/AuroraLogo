@@ -276,25 +276,25 @@ public class ComponenteVisitorInstrucoesGeometricas {
             double angulo = visitor.visit( ctx.expr( 3 ) ).valorDecimal();
             int quantidadeLados = visitor.visit( ctx.expr( 4 ) ).valorInteiro();
             
-            if ( quantidadeLados >= 3 ) {
-                
-                boolean d = tartaruga.isDesenhando();
-                boolean contorno = true;
-                boolean preenchimento = true;
-
-                if ( ctx.opcaoFuncGeom() != null ) {
-                    contorno = ctx.opcaoFuncGeom().CON() == null;
-                    preenchimento = ctx.opcaoFuncGeom().PREE() == null;
-                }
-                
-                tartaruga.levantarPincel( false );
-                tartaruga.moverPara( xCentro, yCentro );
-                tartaruga.criarPoligonoRegular( xCentro, yCentro, raio, angulo, quantidadeLados, contorno, preenchimento );
-
-                if ( d ) {
-                    tartaruga.abaixarPincel( false );
-                }
+            if ( quantidadeLados < 3 ) {
+                quantidadeLados = 3;
+            }
             
+            boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = true;
+
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
+            }
+
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( xCentro, yCentro );
+            tartaruga.criarPoligonoRegular( xCentro, yCentro, raio, angulo, quantidadeLados, contorno, preenchimento );
+
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
             }
             
         }
@@ -313,25 +313,25 @@ public class ComponenteVisitorInstrucoesGeometricas {
             double angulo = visitor.visit( ctx.expr( 3 ) ).valorDecimal();
             int quantidadePontas = visitor.visit( ctx.expr( 4 ) ).valorInteiro();
             
-            if ( quantidadePontas >= 3 ) {
-                
-                boolean d = tartaruga.isDesenhando();
-                boolean contorno = true;
-                boolean preenchimento = true;
+            if ( quantidadePontas < 5 ) {
+                quantidadePontas = 5;
+            }
+               
+            boolean d = tartaruga.isDesenhando();
+            boolean contorno = true;
+            boolean preenchimento = true;
 
-                if ( ctx.opcaoFuncGeom() != null ) {
-                    contorno = ctx.opcaoFuncGeom().CON() == null;
-                    preenchimento = ctx.opcaoFuncGeom().PREE() == null;
-                }
-                
-                tartaruga.levantarPincel( false );
-                tartaruga.moverPara( xCentro, yCentro );
-                tartaruga.criarEstrela( xCentro, yCentro, raio, angulo, quantidadePontas, contorno, preenchimento );
+            if ( ctx.opcaoFuncGeom() != null ) {
+                contorno = ctx.opcaoFuncGeom().CON() == null;
+                preenchimento = ctx.opcaoFuncGeom().PREE() == null;
+            }
 
-                if ( d ) {
-                    tartaruga.abaixarPincel( false );
-                }
-            
+            tartaruga.levantarPincel( false );
+            tartaruga.moverPara( xCentro, yCentro );
+            tartaruga.criarEstrela( xCentro, yCentro, raio, angulo, quantidadePontas, contorno, preenchimento );
+
+            if ( d ) {
+                tartaruga.abaixarPincel( false );
             }
             
         }
