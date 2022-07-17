@@ -426,15 +426,20 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean d = tartaruga.isDesenhando();
             boolean contorno = true;
             boolean preenchimento = true;
+            boolean mostrarControles = false;
             
             if ( ctx.opcaoFuncGeom() != null ) {
                 contorno = ctx.opcaoFuncGeom().CON() == null;
                 preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
+            if ( ctx.opcaoPontosControle() != null ) {
+                mostrarControles = true;
+            }
+            
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( x2, y2 );
-            tartaruga.criarCurvaQuadratica( x1, y1, xControle, yControle, x2, y2, contorno, preenchimento );
+            tartaruga.criarCurvaQuadratica( x1, y1, xControle, yControle, x2, y2, contorno, preenchimento, mostrarControles );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );
@@ -462,15 +467,20 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean d = tartaruga.isDesenhando();
             boolean contorno = true;
             boolean preenchimento = true;
+            boolean mostrarControles = false;
             
             if ( ctx.opcaoFuncGeom() != null ) {
                 contorno = ctx.opcaoFuncGeom().CON() == null;
                 preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
+            if ( ctx.opcaoPontosControle() != null ) {
+                mostrarControles = true;
+            }
+            
             tartaruga.levantarPincel( false );
             tartaruga.moverPara( x2, y2 );
-            tartaruga.criarCurvaCubica( x1, y1, xControle1, yControle1, xControle2, yControle2, x2, y2, contorno, preenchimento );
+            tartaruga.criarCurvaCubica( x1, y1, xControle1, yControle1, xControle2, yControle2, x2, y2, contorno, preenchimento, mostrarControles );
             
             if ( d ) {
                 tartaruga.abaixarPincel( false );

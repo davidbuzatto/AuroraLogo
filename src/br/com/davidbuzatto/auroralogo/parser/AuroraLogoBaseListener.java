@@ -1324,6 +1324,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterOpcaoPontosControle(AuroraLogoParser.OpcaoPontosControleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOpcaoPontosControle(AuroraLogoParser.OpcaoPontosControleContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterDesenharCaminho(AuroraLogoParser.DesenharCaminhoContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -1244,6 +1244,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitOpcaoFuncGeom(AuroraLogoParser.OpcaoFuncGeomContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#opcaoPontosControle}.
+	 * @param ctx the parse tree
+	 */
+	void enterOpcaoPontosControle(AuroraLogoParser.OpcaoPontosControleContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#opcaoPontosControle}.
+	 * @param ctx the parse tree
+	 */
+	void exitOpcaoPontosControle(AuroraLogoParser.OpcaoPontosControleContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#desenharCaminho}.
 	 * @param ctx the parse tree
 	 */

@@ -27,6 +27,7 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
+import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
@@ -507,9 +508,7 @@ public class Tartaruga {
         g2d.setColor( estadoFinal.corFundo );
         g2d.fillRect( 0, 0, painelDesenho.getWidth(), painelDesenho.getHeight() );
         
-        //if ( gradeAtiva ) {
-            desenharGradesEEixos( g2d, ESPACAMENTO_GRADE );
-        //}
+        desenharGradesEEixos( g2d, ESPACAMENTO_GRADE );
             
         if ( estados.size() == 1 || estadoAtual == 0 ) {
             
@@ -529,7 +528,7 @@ public class Tartaruga {
 
                 g2d.setColor( atu.corPincel );
                 g2d.setStroke( atu.contorno );
-
+                
                 if ( atu.containerForma != null ) {
                     
                     Graphics2D g2dr = (Graphics2D) g2d.create();
@@ -608,6 +607,20 @@ public class Tartaruga {
                                 tx( f.ctrlx ), ty( f.ctrly ),
                                 tx( f.x2 ), ty( f.y2 ) );
                         
+                        if ( atu.containerForma.mostrarControles ) {
+                            Graphics2D g2ds = (Graphics2D) g2d.create();
+                            if ( escala < 1.0 ) {
+                                Font ff = new Font( g2d.getFont().getFontName(), g2d.getFont().getStyle(), 
+                                        (int) ( g2d.getFont().getSize() * escala ) );
+                                g2ds.setFont( ff );
+                            }
+                            g2ds.setStroke( new BasicStroke( 3 ) );
+                            Line2D.Double p = new Line2D.Double( tx( f.ctrlx ), ty( f.ctrly ), tx( f.ctrlx ), ty( f.ctrly ) );
+                            g2ds.draw( p );
+                            g2ds.drawString( "c", (int) p.x1 + 3, (int) p.y1 );
+                            g2ds.dispose();
+                        }
+                        
                         forma = nf;
                         
                     } else if ( forma instanceof CubicCurve2D.Double ) {
@@ -618,6 +631,23 @@ public class Tartaruga {
                                 tx( f.ctrlx1 ), ty( f.ctrly1 ),
                                 tx( f.ctrlx2 ), ty( f.ctrly2 ),
                                 tx( f.x2 ), ty( f.y2 ) );
+                        
+                        if ( atu.containerForma.mostrarControles ) {
+                            Graphics2D g2ds = (Graphics2D) g2d.create();
+                            if ( escala < 1.0 ) {
+                                Font ff = new Font( g2d.getFont().getFontName(), g2d.getFont().getStyle(), 
+                                        (int) ( g2d.getFont().getSize() * escala ) );
+                                g2ds.setFont( ff );
+                            }
+                            g2ds.setStroke( new BasicStroke( 3 ) );
+                            Line2D.Double p1 = new Line2D.Double( tx( f.ctrlx1 ), ty( f.ctrly1 ), tx( f.ctrlx1 ), ty( f.ctrly1 ) );
+                            Line2D.Double p2 = new Line2D.Double( tx( f.ctrlx2 ), ty( f.ctrly2 ), tx( f.ctrlx2 ), ty( f.ctrly2 ) );
+                            g2ds.draw( p1 );
+                            g2ds.draw( p2 );
+                            g2ds.drawString( "c1", (int) p1.x1 + 3, (int) p1.y1 );
+                            g2ds.drawString( "c2", (int) p2.x1 + 3, (int) p2.y1 );
+                            g2ds.dispose();
+                        }
                         
                         forma = nf;
                         
@@ -676,11 +706,9 @@ public class Tartaruga {
                     if ( atu.texto != null ) {
                         Graphics2D g2ds = (Graphics2D) g2d.create();
                         g2ds.rotate( Math.toRadians( atu.angulo ), tx( atu.x ), ty( atu.y ) );
-                        if ( escala < 1.0 ) {
-                            Font f = new Font( g2d.getFont().getFontName(), g2d.getFont().getStyle(), 
-                                    (int) ( g2d.getFont().getSize() * escala ) );
-                            g2ds.setFont( f );
-                        }
+                        Font f = new Font( g2d.getFont().getFontName(), g2d.getFont().getStyle(), 
+                                (int) ( g2d.getFont().getSize() * escala ) );
+                        g2ds.setFont( f );
                         g2ds.drawString( atu.texto, (int) tx( atu.x ), (int) ty( atu.y ) );
                         g2ds.dispose();
                     } else {
@@ -1212,6 +1240,22 @@ public class Tartaruga {
         return getEstadoFinal().y;
     }
     
+    public double getGrossuraPincelEstadoFinal() {
+        return (double) getEstadoFinal().contorno.getLineWidth();
+    }
+    
+    public Color getCorPincelEstadoFinal() {
+        return getEstadoFinal().corPincel;
+    }
+    
+    public Color getCorPreenchimentoEstadoFinal() {
+        return getEstadoFinal().corPreenchimento;
+    }
+    
+    public Color getCorFundoEstadoFinal() {
+        return getEstadoFinal().corFundo;
+    }
+    
     public void irParaEstadoInicial() {
         estadoAtual = 0;
     }
@@ -1453,14 +1497,15 @@ public class Tartaruga {
     public void criarCurvaQuadratica( double x1, double y1,
             double xControle, double yControle,
             double x2, double y2,
-            boolean contornada, boolean preenchida ) {
+            boolean contornada, boolean preenchida, boolean mostrarControles ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new QuadCurve2D.Double( 
                         x1, y1,
                         xControle, yControle,
                         x2, y2 ),
-                contornada, preenchida, "curva quad." );
+                contornada, preenchida, 
+                mostrarControles, "curva quad." );
         estados.add( e );
     }
 
@@ -1468,7 +1513,7 @@ public class Tartaruga {
             double xControle1, double yControle1,
             double xControle2, double yControle2,
             double x2, double y2,
-            boolean contornada, boolean preenchida ) {
+            boolean contornada, boolean preenchida, boolean mostrarControles ) {
         Estado e = clonarUltimoEstado();
         e.containerForma = new ContainerForma( 
                 new CubicCurve2D.Double( 
@@ -1476,7 +1521,8 @@ public class Tartaruga {
                         xControle1, yControle1,
                         xControle2, yControle2,
                         x2, y2 ), 
-                contornada, preenchida, "curva cúbica" );
+                contornada, preenchida, 
+                mostrarControles, "curva cúbica" );
         estados.add( e );
     }
 

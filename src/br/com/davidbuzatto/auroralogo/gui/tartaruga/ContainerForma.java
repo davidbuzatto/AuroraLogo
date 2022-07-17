@@ -29,12 +29,18 @@ public class ContainerForma implements Cloneable {
     protected Shape forma;
     protected boolean contornada;
     protected boolean preenchida;
+    protected boolean mostrarControles;
     protected String nome;
 
     public ContainerForma( Shape forma, boolean contornada, boolean preenchida, String nome ) {
+        this( forma, contornada, preenchida, false, nome );
+    }
+    
+    public ContainerForma( Shape forma, boolean contornada, boolean preenchida, boolean mostrarControles, String nome ) {
         this.forma = forma;
         this.contornada = contornada;
         this.preenchida = preenchida;
+        this.mostrarControles = mostrarControles;
         this.nome = nome;
     }
 

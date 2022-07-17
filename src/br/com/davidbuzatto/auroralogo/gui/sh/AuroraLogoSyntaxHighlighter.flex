@@ -294,6 +294,10 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "continuar" | 
 "contorno " | 
 "contorno" | 
+"controle " | 
+"controle" | 
+"controles " | 
+"controles" | 
 "cor " | 
 "cor" | 
 "criarArranjo " | 
@@ -372,6 +376,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "magenta" | 
 "mensagem " | 
 "mensagem" | 
+"mostrar " | 
+"mostrar" | 
 "mover " | 
 "mover" | 
 "multiplicando " | 
@@ -449,6 +455,18 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "chaves" | 
 "comprimento " | 
 "comprimento" | 
+"corDoFundo " | 
+"corDoFundo" | 
+"corDoPincel " | 
+"corDoPincel" | 
+"corDoPreenchimento " | 
+"corDoPreenchimento" | 
+"corPr\u00F3pria " | 
+"corPr\u00F3pria" | 
+"est\u00E1Desenhando " | 
+"est\u00E1Desenhando" | 
+"grossuraDoPincel " | 
+"grossuraDoPincel" | 
 "substring " | 
 "substring" | 
 "x " | 

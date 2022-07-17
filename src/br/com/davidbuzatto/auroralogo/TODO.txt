@@ -1,4 +1,5 @@
 Implementação:
+    - Consultar tipo de variáveis.
     - Ao abrir exemplo, tentar salvar arquivo atual;
     - Implementar exemplos;
     - Escrever README;

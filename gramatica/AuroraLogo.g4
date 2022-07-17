@@ -279,12 +279,17 @@ funcaoGeometrica    : FG_SEG '(' expr ',' expr ',' expr ',' expr ')'            
                       //          x1       y1       x2       y2       x3       y3         xn       yn
                     | FG_POL '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ( ',' expr ',' expr )* ')' opcaoFuncGeom?        # funcaoDesenharPoligono
                       //          x1       y1      ctx      cty       x2       y2
-                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?                               # funcaoDesenharCurvaQuadratica
+                    | FG_CQD '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')'
+                      ( ( opcaoFuncGeom ( ',' opcaoPontosControle )? ) | ( opcaoPontosControle ( ',' opcaoFuncGeom )? ) )?          # funcaoDesenharCurvaQuadratica
                       //          x1       y1      ct1x     ct1y     ct2x     ct2y      x2       y2
-                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' opcaoFuncGeom?             # funcaoDesenharCurvaCubica
+                    | FG_CCU '(' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ',' expr ')' 
+                      ( ( opcaoFuncGeom ( ',' opcaoPontosControle )? ) | ( opcaoPontosControle ( ',' opcaoFuncGeom )? ) )?          # funcaoDesenharCurvaCubica
                     ;
 
 opcaoFuncGeom       : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )? 
+                    ;
+
+opcaoPontosControle : MOS ( CONE | CONS )
                     ;
 
 desenharCaminho     : DESE CAM opcaoFuncGeom? '{' ( instCaminho DOT )+ '}'
@@ -301,8 +306,7 @@ instCaminho         : MOV ATE expr ',' expr                                     
                     | FEC                                                             # instrucaoCaminhoFecharCaminho
                     ;
 
-
-consultarTartaruga  : TART DOT ( PX | PY | PA ) '(' ')'
+consultarTartaruga  : TART DOT ( PX | PY | PA | PG | PCP | PCPP | PCF | PCPR | PD ) '(' ')'
                     ;
 
 consultarString     : processaId DOT ( COMP '(' ')' | CARC '(' ')' ( '[' exprIndice ']' )? | SUBS '(' expr ( ',' expr )? ')' )
@@ -381,6 +385,8 @@ COD  : 'CORDA'                   ;
 COM  : 'com'                     ;
 CONT : 'continuar'               ;
 CON  : 'contorno'                ;
+CONE : 'controle'                ;
+CONS : 'controles'                ;
 COR  : 'cor'                     ;
 CUBI : 'c\u00FAbica'             ;
 CUR  : 'curva'                   ;
@@ -419,6 +425,7 @@ LEV  : 'levantar'                ;
 LIM  : 'limpar'                  ;
 LIN  : 'linha'                   ;
 MEN  : 'mensagem'                ;
+MOS  : 'mostrar'                 ;
 MOV  : 'mover'                   ;
 MULM : 'multiplicando'           ;
 NA   : 'na'                      ;
@@ -470,9 +477,15 @@ CLARO    : 'claro'    ;
 
 
 // terminais que são propriedades da tartaruga
-PA : '\u00E2ngulo' ;
-PX : 'x'           ;
-PY : 'y'           ;
+PA   : '\u00E2ngulo'         ;
+PCF  : 'corDoFundo'          ;
+PCP  : 'corDoPincel'         ;
+PCPP : 'corDoPreenchimento'  ;
+PCPR : 'corPr\u00F3pria'     ;
+PD   : 'est\u00E1Desenhando' ;
+PG   : 'grossuraDoPincel'    ;
+PX   : 'x'                   ;
+PY   : 'y'                   ;
 
 // terminais que são proprieades dos arranjos e strings
 CARC : 'caracteres'  ;

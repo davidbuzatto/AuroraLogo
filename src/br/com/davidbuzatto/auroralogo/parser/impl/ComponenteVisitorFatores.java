@@ -22,6 +22,7 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -309,12 +310,26 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorConsultarTartaruga( AuroraLogoParser.FatorConsultarTartarugaContext ctx ) {
         
+        //PG | PCP | PCPP | PCF | PD
+        
         if ( ctx.consultarTartaruga().PX() != null ) {
             return novoDecimal( tartaruga.getXEstadoFinal() );
         } else if ( ctx.consultarTartaruga().PY() != null ) {
             return novoDecimal( tartaruga.getYEstadoFinal() );
         } else if ( ctx.consultarTartaruga().PA() != null ) {
             return novoDecimal( tartaruga.getAnguloEstadoFinal() );
+        } else if ( ctx.consultarTartaruga().PG() != null ) {
+            return novoDecimal( tartaruga.getGrossuraPincelEstadoFinal() );
+        } else if ( ctx.consultarTartaruga().PCP() != null ) {
+            return novaCor( tartaruga.getCorPincelEstadoFinal() );
+        } else if ( ctx.consultarTartaruga().PCPP() != null ) {
+            return novaCor( tartaruga.getCorPreenchimentoEstadoFinal());
+        } else if ( ctx.consultarTartaruga().PCF() != null ) {
+            return novaCor( tartaruga.getCorFundoEstadoFinal() );
+        } else if ( ctx.consultarTartaruga().PCPR() != null ) {
+            return novaCor( tartaruga.getCor() == null ? Color.BLACK : tartaruga.getCor() );
+        } else if ( ctx.consultarTartaruga().PD() != null ) {
+            return novoBooleano( tartaruga.isDesenhando() );
         }
         
         return ZERO_DECIMAL;

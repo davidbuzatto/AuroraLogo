@@ -738,6 +738,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitOpcaoFuncGeom(AuroraLogoParser.OpcaoFuncGeomContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#opcaoPontosControle}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitOpcaoPontosControle(AuroraLogoParser.OpcaoPontosControleContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#desenharCaminho}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
