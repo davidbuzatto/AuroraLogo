@@ -72,48 +72,51 @@ public class ComponenteVisitorCor {
             Valor c = visitor.visit( configuracaoCor.cor() );
             cor = c.valorCor();
             
-        } else if ( configuracaoCor.expr() != null ) {
+        } else if ( configuracaoCor.expr( 0 ) != null ) {
             
             Valor c = visitor.visit( configuracaoCor.expr( 0 ) );
+            
             if ( c.isCor() ) {
                 cor = c.valorCor();
             }
             
-        } else {
+        }
+        
+        if ( configuracaoCor.corEx != null ) {
             
             switch ( configuracaoCor.corEx.getType() ) {
                 case AuroraLogoParser.PRETO:
-                    cor = Color.BLACK;
+                    cor = Color.decode( "#000000" );
                     break;
                 case AuroraLogoParser.AZUL:
-                    cor = Color.BLUE;
+                    cor = Color.decode( "#0000ff" );
                     break;
                 case AuroraLogoParser.CIANO:
-                    cor = Color.CYAN;
+                    cor = Color.decode( "#00ffff" );
                     break;
                 case AuroraLogoParser.CINZA:
-                    cor = Color.GRAY;
+                    cor = Color.decode( "#808080" );
                     break;
                 case AuroraLogoParser.VERDE:
-                    cor = Color.GREEN;
+                    cor = Color.decode( "#00ff00" );
                     break;
                 case AuroraLogoParser.MAGENTA:
-                    cor = Color.MAGENTA;
+                    cor = Color.decode( "#ff00ff" );
                     break;
                 case AuroraLogoParser.LARANJA:
-                    cor = Color.ORANGE;
+                    cor = Color.decode( "#fc8f00" );
                     break;
                 case AuroraLogoParser.ROSA:
-                    cor = Color.PINK;
+                    cor = Color.decode( "#fc005c" );
                     break;
                 case AuroraLogoParser.VERMELHO:
-                    cor = Color.RED;
+                    cor = Color.decode( "#ff0000" );
                     break;
                 case AuroraLogoParser.BRANCO:
-                    cor = Color.WHITE;
+                    cor = Color.decode( "#ffffff" );
                     break;
                 case AuroraLogoParser.AMARELO:
-                    cor = Color.YELLOW;
+                    cor = Color.decode( "#ffff00" );
                     break;
             }
             
@@ -130,9 +133,9 @@ public class ComponenteVisitorCor {
         
         for ( int i = 0; i < vezes; i++ ) {
             if ( configuracaoCor.CLARO() != null ) {
-                cor = cor.brighter();
+                cor = Utils.gerarComponenteGradienteAlpha( cor, Color.WHITE, 0.1 );
             } else if ( configuracaoCor.ESCURO() != null ) {
-                cor = cor.darker();
+                cor = Utils.gerarComponenteGradienteAlpha( cor, Color.BLACK, 0.1 );
             }
         }
         

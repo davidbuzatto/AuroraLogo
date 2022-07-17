@@ -1,1 +1,53 @@
-a
+// desenhando um quadrado no sentido horário
+vá para direita em 100 .   // vai para a direita em 100 pixels
+vá para cima em 100 .      // vai para cima em 100 pixels
+vá para esquerda em 100 .  // vai para a esquerda em 100 pixels
+vá para baixo em 100 .     // vai para baixo em 100 pixels
+
+// indo para o centro do quadrado
+vá para 50, 50 .           // vai para a coordenada 50, 50
+
+// para movimentar sem desenhar, levante o pincel
+levantar pincel .
+vá para direita em 100 .
+
+// para voltar a desenhar, abaixe o pincel
+abaixar pincel .
+vá para cima em 100 .
+
+// pode-se girar a tartaruga em graus ou radianos
+girar em 45 graus .   // 45 graus sentido horário
+vá para cima em 50 .
+
+girar em -90 graus .  // 90 graus sentido anti-horário
+vá para cima em 50 .
+
+girar em PI/2 radianos .      // pi/2 radianos correspondem a 90 graus
+vá para cima em 50 .
+
+girar em -(3*PI/2) radianos . // 3pi/4 radianos correspondem a 270 graus
+vá para cima em 50 .
+
+girar em -135 graus .
+levantar pincel .
+vá para 200, 40 .
+abaixar pincel .
+
+engrossar pincel .         // aumenta a grossura do pincel em 1 pixel
+vá para direita em 50 .
+engrossar pincel em 3 .    // aumenta a grossura do pincel em 3 pixels
+vá para direita em 50 .
+desengrossar pincel .      // diminui a grossura do pincel em 1 pixel
+vá para direita em 50 .
+desengrossar pincel em 2 . // diminui a grossura do pincel em 2 pixels
+vá para direita em 50 .
+trocar grossura do pincel para 10 . // troca a grossura do pincel para 10 pixels
+vá para direita em 50 .
+
+// trocando a cor do pincel para vermelho
+trocar cor do pincel para #ff0000 .
+vá para direita em 50 .
+trocar grossura do pincel para 1 .
+
+trocar cor do pincel para azul .
+vá para direita em 50 .

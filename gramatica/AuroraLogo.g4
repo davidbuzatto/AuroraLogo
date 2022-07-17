@@ -190,7 +190,7 @@ engrossar    : ENG PINC ( EM expr )?
 desengrossar : DES PINC ( EM expr )?
              ;
 
-trocarGrossura  : ALT GROS PARA expr
+trocarGrossura  : TROC GROS DO PINC PARA expr
                 ;
 
 escrever     : ESC expr ( NA SAI  ( PUL LIN )?

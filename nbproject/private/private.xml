@@ -12,8 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/TODO.txt</file>
             <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/exemplos/exemplos.txt</file>
-            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/exemplos/Veja-o-que-pode-ser-feito.aulg</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/AuroraLogoDesenhistaVisitor.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/gramatica/AuroraLogo.g4</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/utils/Utils.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/parser/impl/ComponenteVisitorCor.java</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/exemplos/Comece-aqui.aulg</file>
+            <file>file:/D:/Google%20Drive/Projetos%20e%20Códigos/AuroraLogo/implementação/AuroraLogo/src/br/com/davidbuzatto/auroralogo/templates/testes/testes.aulg</file>
         </group>
     </open-files>
 </project-private>
