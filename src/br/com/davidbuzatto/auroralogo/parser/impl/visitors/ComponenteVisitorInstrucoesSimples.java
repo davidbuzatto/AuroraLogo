@@ -14,10 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 
 /**
@@ -51,23 +53,23 @@ public class ComponenteVisitorInstrucoesSimples {
         
         tartaruga.girar( valor );
         
-        return NULO;
+        return novoNulo();
         
     }
     
     public Valor visitAbaixar( AuroraLogoParser.AbaixarContext ctx ) {
         tartaruga.abaixarPincel();
-        return NULO;
+        return novoNulo();
     }
     
     public Valor visitLevantar( AuroraLogoParser.LevantarContext ctx ) {
         tartaruga.levantarPincel();
-        return NULO;
+        return novoNulo();
     }
     
     public Valor visitLimpar( AuroraLogoParser.LimparContext ctx ) {
         tartaruga.limpar();
-        return NULO;
+        return novoNulo();
     }
     
     public Valor visitEngrossar( AuroraLogoParser.EngrossarContext ctx ) {
@@ -80,7 +82,7 @@ public class ComponenteVisitorInstrucoesSimples {
         
         tartaruga.engrossar( valor );
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -94,13 +96,13 @@ public class ComponenteVisitorInstrucoesSimples {
         
         tartaruga.desengrossar( valor );
         
-        return NULO;
+        return novoNulo();
         
     }
     
     public Valor visitTrocarGrossura( AuroraLogoParser.TrocarGrossuraContext ctx ) {
         tartaruga.setGrossura( visitor.visit( ctx.expr() ).valorDecimal() );
-        return NULO;
+        return novoNulo();
     }
     
 }

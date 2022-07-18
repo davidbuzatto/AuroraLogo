@@ -14,10 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.util.Random;
@@ -51,7 +53,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.abs( v.valorDecimal() ) );
         }
        
-        return ZERO_INTEIRO;
+        return novoZeroInteiro();
        
     }
     
@@ -69,7 +71,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             }
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -83,7 +85,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.cbrt( v.valorDecimal() ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -96,7 +98,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.pow( vRad.valorDecimal(), 1.0 / vInd.valorDecimal() ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -109,7 +111,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.pow( vBase.valorDecimal(), vExp.valorDecimal() ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -122,7 +124,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.hypot( lado1.valorDecimal(), lado2.valorDecimal() ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -134,7 +136,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.floor( v.valorDecimal() ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -146,7 +148,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.ceil( v.valorDecimal() ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -184,7 +186,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -200,7 +202,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.min( n1.valorDecimal(), n2.valorDecimal() ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -216,7 +218,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.max( n1.valorDecimal(), n2.valorDecimal() ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
 
@@ -265,7 +267,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             gerador = new Random( v.valorInteiro() );
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -278,7 +280,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.sin( rad ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -290,7 +292,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.sinh( a.valorDecimal() ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -302,7 +304,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.toDegrees( Math.asin( v.valorDecimal() ) ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -315,7 +317,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.cos( rad ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -327,7 +329,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.cosh( a.valorDecimal() ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -339,7 +341,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.toDegrees( Math.acos( v.valorDecimal() ) ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -352,7 +354,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.tan( rad ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -364,7 +366,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.tanh( a.valorDecimal() ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -376,7 +378,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.toDegrees( Math.atan( v.valorDecimal() ) ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -389,7 +391,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.toDegrees( Math.atan2( y.valorDecimal(), x.valorDecimal() ) ) );
         }
        
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
        
     }
     
@@ -416,7 +418,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -428,7 +430,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.toRadians( g.valorDecimal() ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     
@@ -440,7 +442,7 @@ public class ComponenteVisitorFuncoesMatematicas {
             return novoDecimal( Math.toDegrees( r.valorDecimal() ) );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     

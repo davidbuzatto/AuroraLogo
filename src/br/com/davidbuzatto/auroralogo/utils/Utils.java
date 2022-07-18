@@ -17,10 +17,8 @@
 package br.com.davidbuzatto.auroralogo.utils;
 
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
-import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
-import br.com.davidbuzatto.auroralogo.parser.impl.ComponenteVisitorFuncoes;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorFuncoes;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
-import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -48,6 +46,7 @@ import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
+import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -57,7 +56,6 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
-import org.antlr.v4.runtime.tree.TerminalNode;
 import org.fife.rsta.ui.search.FindReplaceButtonsEnableResult;
 import org.fife.ui.rsyntaxtextarea.RSyntaxTextArea;
 import org.fife.ui.rsyntaxtextarea.Style;
@@ -549,7 +547,7 @@ public class Utils {
             
         }
         
-        return novoInteiro( 0 );
+        return Valor.novoInteiro( 0 );
         
     }
     
@@ -674,7 +672,7 @@ public class Utils {
             for ( int i = 0; i < oa.length; i++ ) {
                 Object oi = oa[i];
                 if ( oi instanceof Valor ) {
-                    toString( ( (Valor) oi ).getValor(), sb, ident + fixIdent, i, i != oa.length - 1 );
+                    toString(( (Valor) oi ).getValor(), sb, ident + fixIdent, i, i != oa.length - 1 );
                 } else {
                     toString( oi, sb, ident + fixIdent, i, i != oa.length - 1 );
                 }
@@ -686,7 +684,7 @@ public class Utils {
             int i = 0;
             for ( Entry<String, Object> e : lhm.entrySet() ) {
                 if ( e.getValue() instanceof Valor ) {
-                    toString( ( (Valor) e.getValue() ).getValor(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
+                    toString(( (Valor) e.getValue() ).getValor(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
                 } else {
                     toString( e.getValue(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
                 }
@@ -893,9 +891,8 @@ public class Utils {
                         menu.add( new AbstractAction( nomeExemplo.replace( "-", " " ).replace( ".aulg", "" ) ) {
                             @Override
                             public void actionPerformed( ActionEvent e ) {
-                                janelaPrincipal.salvarArquivo();
-                                String exemplo = linha.replace( ".aulg", "" );
                                 janelaPrincipal.novoArquivo();
+                                String exemplo = linha.replace( ".aulg", "" );
                                 janelaPrincipal.carregarExemploAulg( exemplo, true );
                             }
                         });
@@ -903,9 +900,8 @@ public class Utils {
                         menuExemplos.add( new AbstractAction( linha.replace( "-", " " ).replace( ".aulg", "" ) ) {
                             @Override
                             public void actionPerformed( ActionEvent e ) {
-                                janelaPrincipal.salvarArquivo();
-                                String exemplo = linha.replace( ".aulg", "" );
                                 janelaPrincipal.novoArquivo();
+                                String exemplo = linha.replace( ".aulg", "" );
                                 janelaPrincipal.carregarExemploAulg( exemplo, true );
                             }
                         });
@@ -918,23 +914,6 @@ public class Utils {
         } catch ( Exception exc ) {
             exc.printStackTrace();
         }
-        
-    }
-    
-    public static String montarListaParametros( AuroraLogoParser.FuncContext ctx ) {
-        
-        String s = "";
-        
-        boolean primeiro = true;
-        for ( TerminalNode t : ctx.ID() ) {
-            if ( !primeiro ) {
-                s += ", ";
-            }
-            s += t.getText();
-            primeiro = false;
-        }
-        
-        return s;
         
     }
     

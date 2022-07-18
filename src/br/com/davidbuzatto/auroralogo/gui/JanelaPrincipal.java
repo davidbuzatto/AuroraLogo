@@ -22,7 +22,7 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoErrorListener;
-import br.com.davidbuzatto.auroralogo.parser.impl.ComponenteVisitorFuncoes;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorFuncoes;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
@@ -69,6 +69,8 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -133,7 +135,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     //public static final String VERSAO = "vx.xx.\u03b1";   // alfa
     //public static final String VERSAO = "vx.xx.\u03b2";   // beta
     
-    private static final boolean PRODUCAO = true;
+    private static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
     
     private Image iconeJanela;
@@ -142,6 +144,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private Tartaruga tartaruga;
 
     private File arquivoAtual;
+    private boolean arquivoSalvo;
     private FileNameExtensionFilter filtroExtensao;
 
     private DialogoSobre dialogoSobre;
@@ -1793,6 +1796,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         } else {
             setTitle( getTitle() + " - " + "Sem título" );
         }
+        
+        if ( !arquivoSalvo ) {
+            setTitle( getTitle() + "*" );
+        }
 
     }
 
@@ -1931,6 +1938,24 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         painelTextAreaCodigo.add( csp, BorderLayout.CENTER );
         painelTextAreaCodigo.add( errorStrip, BorderLayout.LINE_END );
         painelTextAreaCodigo.add( statusBar, BorderLayout.SOUTH );
+        
+        textAreaCodigo.getDocument().addDocumentListener( new DocumentListener() {
+            
+            @Override
+            public void insertUpdate( DocumentEvent e ) {
+            }
+
+            @Override
+            public void removeUpdate( DocumentEvent e ) {
+            }
+
+            @Override
+            public void changedUpdate( DocumentEvent e ) {
+                arquivoSalvo = false;
+                montarTitulo();
+            }
+            
+        });
         
         if ( PRODUCAO ) {
             carregarTemplate( "novoArquivo", true );
@@ -2096,23 +2121,37 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         return false;
 
     }
-
+    
     public void novoArquivo() {
 
-        salvar();
+        if ( !arquivoSalvo && JOptionPane.showConfirmDialog(
+                this,
+                "Deseja salvar o arquivo atual?", "Salvar",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE ) == JOptionPane.YES_OPTION ) {
+            salvarArquivo();
+        }
+        
         arquivoAtual = null;
         carregarTemplate( "novoArquivo", false );
 
         tartaruga.limpar();
         painelDesenho.repaint();
 
+        arquivoSalvo = false;
         montarTitulo();
 
     }
 
     private void abrirArquivo() {
 
-        salvar();
+        if ( !arquivoSalvo && JOptionPane.showConfirmDialog(
+                this,
+                "Deseja salvar o arquivo atual?", "Salvar",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE ) == JOptionPane.YES_OPTION ) {
+            salvarArquivo();
+        }
 
         File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
         JFileChooser jfc = new JFileChooser( diretorioAtual );
@@ -2129,13 +2168,13 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         }
         
+        arquivoSalvo = true;
         montarTitulo();
 
     }
 
     public void salvarArquivo() {
 
-        
         if ( arquivoAtual == null ) {
             fragmentoSalvar( "Salvar..." );
         }
@@ -2145,23 +2184,23 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     }
 
     public void salvarArquivoComo() {
-
-        salvar();
+        
         fragmentoSalvar( "Salvar Como..." );
         salvar();
-
+        
     }
 
     public void salvar() {
 
         if ( arquivoAtual != null ) {
-            try (  PrintStream ps = new PrintStream( new FileOutputStream( arquivoAtual ) ) ) {
+            try ( PrintStream ps = new PrintStream( new FileOutputStream( arquivoAtual ) ) ) {
                 ps.print( textAreaCodigo.getText() );
             } catch ( FileNotFoundException exc ) {
                 exc.printStackTrace();
             }
         }
 
+        arquivoSalvo = true;
         montarTitulo();
 
     }
@@ -2179,7 +2218,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
             File arquivo = jfc.getSelectedFile();
             boolean salvar = true;
-
+            
             if ( arquivo.exists() ) {
                 if ( JOptionPane.showConfirmDialog( null,
                         "O arquivo já existe, deseja sobrescrevê-lo?",
@@ -2192,7 +2231,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                     arquivo = new File( arquivo.getAbsolutePath() + ".aulg" );
                 }
             }
-
+            
             if ( salvar ) {
 
                 setPref( PREF_CAMINHO_ABRIR_SALVAR, arquivo.getParentFile().getAbsolutePath() );
@@ -2304,20 +2343,26 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         if ( PRODUCAO ) {
 
-            salvarArquivo();
+            if ( !arquivoSalvo && JOptionPane.showConfirmDialog(
+                    this,
+                    "Deseja salvar o arquivo atual?", "Salvar",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE ) == JOptionPane.YES_OPTION ) {
+                salvarArquivo();
+            }
 
             if ( JOptionPane.showConfirmDialog(
                     this,
                     "Deseja mesmo sair?", "Sair",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE ) == JOptionPane.YES_OPTION ) {
-                System.exit( 0 );
                 textAreaCodigo.removeParser( erroLinhaParser );
+                System.exit( 0 );
             }
 
         } else {
-            System.exit( 0 );
             textAreaCodigo.removeParser( erroLinhaParser );
+            System.exit( 0 );
         }
 
     }

@@ -63,6 +63,12 @@ public class PainelDesenho extends JPanel {
                 tartaruga.setDragging( dragging );
             }
             
+            @Override
+            public void mouseExited( MouseEvent e ) {
+                tartaruga.setXYMouse( -1, -1 );
+                repaint();
+            }
+            
         });
         
         addMouseMotionListener( new MouseAdapter() {
@@ -76,7 +82,7 @@ public class PainelDesenho extends JPanel {
                 }
                 repaint();
             }
-
+            
             @Override
             public void mouseDragged( MouseEvent e ) {
                 if ( e.getModifiersEx() == MouseEvent.BUTTON1_DOWN_MASK ) {

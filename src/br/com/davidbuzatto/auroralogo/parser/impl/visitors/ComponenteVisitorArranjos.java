@@ -14,60 +14,50 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Implementação dos métodos de visita para as instruções de movimentação.
+ * Implementação dos métodos de visita para os arranjos.
  * 
  * @author Prof. Dr. David Buzatto
  */
-public class ComponenteVisitorMovimentacao {
+public class ComponenteVisitorArranjos {
     
     private Tartaruga tartaruga;
     private AuroraLogoDesenhistaVisitor visitor;
     
-    public ComponenteVisitorMovimentacao( 
+    public ComponenteVisitorArranjos( 
             Tartaruga tartaruga, 
             AuroraLogoDesenhistaVisitor visitor ) {
         this.tartaruga = tartaruga;
         this.visitor = visitor;
     }
     
-    public Valor visitMovimentarDirecao( AuroraLogoParser.MovimentarDirecaoContext ctx ) {
+    public Valor visitCriarArranjo( AuroraLogoParser.CriarArranjoContext ctx ) {
         
-        Valor valor = UM_DECIMAL;
+        List<Integer> dimensoes = new ArrayList<>();
         
-        if ( ctx.expr() != null ) {
-            valor = visitor.visit( ctx.expr() );
+        for ( AuroraLogoParser.ExprContext c : ctx.expr() ) {
+            
+            Valor v = visitor.visit( c );
+            dimensoes.add( v.valorInteiro() );
+            
         }
         
-        if ( ctx.DIR() != null ) {
-            tartaruga.moverParaDireita( valor.valorDecimal() );
-        } else if ( ctx.ESQ() != null ) {
-            tartaruga.moverParaEsquerda( valor.valorDecimal() );
-        } else if ( ctx.CIM() != null ) {
-            tartaruga.moverParaCima( valor.valorDecimal() );
-        } else if ( ctx.BAI() != null ) {
-            tartaruga.moverParaBaixo( valor.valorDecimal() );
-        }
-        
-        return NULO;
+        return novoArranjo( dimensoes.toArray( Integer[]::new ) );
         
     }
-    
-    public Valor visitMovimentarPonto( AuroraLogoParser.MovimentarPontoContext ctx ) {
-        
-        double x = visitor.visit( ctx.expr( 0 ) ).valorDecimal();
-        double y = visitor.visit( ctx.expr( 1 ) ).valorDecimal();
-        
-        tartaruga.moverPara( x, y );
-        
-        return NULO;
-        
+
+    public Valor visitCriarArranjoAssociativo( AuroraLogoParser.CriarArranjoAssociativoContext ctx ) {
+        return novoArranjoAssociativo();
     }
     
 }

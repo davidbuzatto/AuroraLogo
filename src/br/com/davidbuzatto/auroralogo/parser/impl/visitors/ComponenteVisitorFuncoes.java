@@ -14,10 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -90,7 +92,7 @@ public class ComponenteVisitorFuncoes {
             List<Valor> argumentosFaltando = new ArrayList<>();
             if ( argumentos.size() < parametros.size() ) {
                 for ( int i = 0; i < parametros.size() - argumentos.size(); i++ ) {
-                    argumentosFaltando.add( NULO );
+                    argumentosFaltando.add( novoNulo() );
                 }
             }
             argumentos.addAll( argumentosFaltando );
@@ -129,17 +131,17 @@ public class ComponenteVisitorFuncoes {
         
         // função sem retorno
         PILHA_ESCOPOS.pop();
-        return NULO;
+        return novoNulo();
         
     }
     
     public Valor visitRetornar( AuroraLogoParser.RetornarContext ctx ) {
         
         if ( ctx.expr() != null ) {
-            return novoRetorno( visitor.visit( ctx.expr() ) );
+            return novoRetornar( visitor.visit( ctx.expr() ) );
         }
         
-        return novoRetorno( NULO );
+        return novoRetornar( novoNulo() );
         
     }
     

@@ -14,10 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
@@ -41,17 +43,17 @@ public class ComponenteVisitorCor {
     
     public Valor visitTrocarCorPincel( AuroraLogoParser.TrocarCorPincelContext ctx ) {
         tartaruga.trocarCorPincel( obterCor( Color.BLACK, ctx ) );
-        return NULO;
+        return novoNulo();
     }
     
     public Valor visitTrocarCorPreenchimento( AuroraLogoParser.TrocarCorPreenchimentoContext ctx ) {
         tartaruga.trocarCorPreenchimento( obterCor( Color.WHITE, ctx ) );
-        return NULO;
+        return novoNulo();
     }
     
     public Valor visitTrocarCorFundo( AuroraLogoParser.TrocarCorFundoContext ctx ) {
         tartaruga.trocarCorFundo( obterCor( Color.WHITE, ctx ) );
-        return NULO;
+        return novoNulo();
     }
     
     public Valor visitCriarCor( AuroraLogoParser.CriarCorContext ctx ) {

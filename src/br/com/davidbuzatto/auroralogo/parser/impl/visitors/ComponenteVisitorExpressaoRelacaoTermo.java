@@ -14,9 +14,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import org.antlr.v4.runtime.tree.TerminalNode;
@@ -37,7 +39,7 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
     
     public Valor visitExpr( AuroraLogoParser.ExprContext ctx ) {
 
-        Valor valor = ZERO_INTEIRO;
+        Valor valor = novoZeroInteiro();
 
         for ( int i = 0; i < ctx.getChildCount(); i += 2 ) {
 
@@ -1091,8 +1093,8 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
     
     public Valor visitExprSimp( AuroraLogoParser.ExprSimpContext ctx ) {
 
-        Valor valor = ZERO_INTEIRO;
-        Valor mult = UM_INTEIRO;
+        Valor valor = novoZeroInteiro();
+        Valor mult = novoUmInteiro();
         int ini = 0;
 
         if ( ctx.opNeg != null && ctx.opNeg.getType() == AuroraLogoParser.SUB ) {
@@ -1419,7 +1421,7 @@ public class ComponenteVisitorExpressaoRelacaoTermo {
     
     public Valor visitTermo( AuroraLogoParser.TermoContext ctx ) {
 
-        Valor valor = ZERO_INTEIRO;
+        Valor valor = novoZeroInteiro();
 
         for ( int i = 0; i < ctx.getChildCount(); i += 2 ) {
 

@@ -14,11 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
@@ -74,7 +76,7 @@ public class ComponenteVisitorConstrutos {
         boolean entrouNoSe = false;
         boolean entrouEmAlgumSenaoSe = false;
         
-        Valor retorno = NULO;
+        Valor retorno = novoNulo();
         
         if ( visitor.visit( ctx.seSe().exprBool() ).isVerdadeiro() ) {
             
@@ -340,7 +342,7 @@ public class ComponenteVisitorConstrutos {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -434,7 +436,7 @@ public class ComponenteVisitorConstrutos {
         }
         
         limparPasso( idP );
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -658,7 +660,7 @@ public class ComponenteVisitorConstrutos {
         }
         
         limparPasso( idP );
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -857,7 +859,7 @@ public class ComponenteVisitorConstrutos {
         }
         
         limparPasso( idP );
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -883,7 +885,7 @@ public class ComponenteVisitorConstrutos {
             if ( ctx.expr() != null ) {
                 vP = visitor.visit( ctx.expr() );
             } else {
-                vP = UM_INTEIRO;
+                vP = novoUmInteiro();
             }
 
             if ( ctx.INCM() != null ) {

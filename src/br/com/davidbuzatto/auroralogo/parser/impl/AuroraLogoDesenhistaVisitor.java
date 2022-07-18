@@ -16,6 +16,18 @@
  */
 package br.com.davidbuzatto.auroralogo.parser.impl;
 
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorInstrucoesSimples;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorCor;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorFuncoes;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorConstrutos;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorFatores;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorFuncoesMatematicas;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorArranjos;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorInstrucoesGeometricas;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorEntradaSaida;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorExpressaoRelacaoTermo;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorAtribuicao;
+import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorMovimentacao;
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoBaseVisitor;
@@ -648,7 +660,7 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitErrorNode( ErrorNode node ) {
         System.out.println( node );
-        return NULO;
+        return novoNulo();
     }
     
 }

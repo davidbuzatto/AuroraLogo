@@ -14,11 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
@@ -53,9 +55,9 @@ public class ComponenteVisitorFatores {
             
         if ( ctx.NAO() != null || ctx.NAOT() != null ) {
             if ( valor.isFalso() ) {
-                return VERDADEIRO;
+                return novoVerdadeiro();
             } else {
-                return FALSO;
+                return novoFalso();
             }
         }
         
@@ -73,7 +75,7 @@ public class ComponenteVisitorFatores {
     }
     
     public Valor visitFatorPi( AuroraLogoParser.FatorPiContext ctx ) {
-        return PI_DECIMAL;
+        return novoDecimal( Math.PI );
     }
     
     public Valor visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
@@ -81,14 +83,18 @@ public class ComponenteVisitorFatores {
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
         Valor v = tartaruga.lerMemoria( id );
         
-        if ( v.isArranjo() ) {
+        if ( v.isString() ) {
+            if ( ctx.COMP() != null ) {
+                return novoInteiro( v.valorString().length() );
+            }
+        } else if ( v.isArranjo() ) {
             
             if ( ctx.COMP() != null ) {
                 v = novoInteiro( ( (Object[]) v.getValor() ).length );
             } else if ( ctx.CHAV() != null ) {
-                v = ZERO_INTEIRO;
+                v = novoZeroInteiro();
             } else if ( ctx.TIPO() != null ) {
-                v = novaString( v.getTipo().toString() );
+                v = novaString( v.getTipo() );
             }
             
         } else if ( v.isArranjoAssociativo() ) {
@@ -113,9 +119,9 @@ public class ComponenteVisitorFatores {
             
         } else {
             if ( ctx.COMP() != null ) {
-                v = ZERO_INTEIRO;
+                v = novoZeroInteiro();
             } else if ( ctx.CHAV() != null ) {
-                v = ZERO_INTEIRO;
+                v = novoZeroInteiro();
             } else if ( ctx.TIPO() != null ) {
                 v = novaString( v.getTipo().toString() );
             }
@@ -130,7 +136,11 @@ public class ComponenteVisitorFatores {
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
         Valor v = tartaruga.lerMemoria( id );
         
-        if ( v.isArranjo() ) {
+        if ( v.isString() ) {
+            if ( ctx.COMP() != null ) {
+                return novoInteiro( v.valorString().length() );
+            }
+        } else if ( v.isArranjo() ) {
             
             List<Integer> indices = new ArrayList<>();
             
@@ -146,7 +156,7 @@ public class ComponenteVisitorFatores {
                 if ( valorP instanceof Object[] ) {
                     v = novoInteiro( ( (Object[]) valorP ).length );
                 } else {
-                    v = ZERO_INTEIRO;
+                    v = novoZeroInteiro();
                 }
             } else if ( ctx.CHAV() != null ) {
                 if ( valorP instanceof LinkedHashMap ) {
@@ -162,7 +172,7 @@ public class ComponenteVisitorFatores {
                     v = novoArranjo( chaves );
                     
                 } else {
-                    v = ZERO_INTEIRO;
+                    v = novoZeroInteiro();
                 }
             } else if ( ctx.TIPO() != null ) {
                 v = novaString( novoValor( valorP ).getTipo().toString() );
@@ -187,10 +197,10 @@ public class ComponenteVisitorFatores {
                         } else if ( vo.isArranjoAssociativo() ) {
                             v = novoInteiro( ( (LinkedHashMap<String, Object>) vo.getValor() ).keySet().size() );
                         } else {
-                            v = ZERO_INTEIRO;
+                            v = novoZeroInteiro();
                         }
                     } else {
-                        v = ZERO_INTEIRO;
+                        v = novoZeroInteiro();
                     }
                     
                 } else if ( ctx.CHAV() != null ) {
@@ -198,7 +208,7 @@ public class ComponenteVisitorFatores {
                     if ( valorP instanceof Valor ) {
                         Valor vo = (Valor) valorP;
                         if ( vo.isArranjo() ) {
-                            v = ZERO_INTEIRO;
+                            v = novoZeroInteiro();
                         } else if ( vo.isArranjoAssociativo() ) {
                             
                             Set<String> keySet = ( (LinkedHashMap<String, Object>) vo.getValor() ).keySet();
@@ -212,10 +222,10 @@ public class ComponenteVisitorFatores {
                             v = novoArranjo( chaves );
                             
                         } else {
-                            v = ZERO_INTEIRO;
+                            v = novoZeroInteiro();
                         }
                     } else {
-                        v = ZERO_INTEIRO;
+                        v = novoZeroInteiro();
                     }
                     
                 } else if ( ctx.TIPO() != null ) {
@@ -227,7 +237,7 @@ public class ComponenteVisitorFatores {
             }
             
         } else {
-            v = ZERO_INTEIRO;
+            v = novoZeroInteiro();
         }
         
         return v;
@@ -239,7 +249,11 @@ public class ComponenteVisitorFatores {
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
         Valor v = tartaruga.lerMemoria( id );
         
-        if ( v.isArranjoAssociativo() ) {
+        if ( v.isString() ) {
+            if ( ctx.COMP() != null ) {
+                return novoInteiro( v.valorString().length() );
+            }
+        } else if ( v.isArranjoAssociativo() ) {
             
             if ( ctx.expr() != null ) {
                 
@@ -255,10 +269,10 @@ public class ComponenteVisitorFatores {
                         } else if ( vo.isArranjoAssociativo() ) {
                             v = novoInteiro( ( (LinkedHashMap<String, Object>) vo.getValor() ).keySet().size() );
                         } else {
-                            v = ZERO_INTEIRO;
+                            v = novoZeroInteiro();
                         }
                     } else {
-                        v = ZERO_INTEIRO;
+                        v = novoZeroInteiro();
                     }
                     
                 } else if ( ctx.CHAV() != null ) {
@@ -266,7 +280,7 @@ public class ComponenteVisitorFatores {
                     if ( valorP instanceof Valor ) {
                         Valor vo = (Valor) valorP;
                         if ( vo.isArranjo() ) {
-                            v = ZERO_INTEIRO;
+                            v = novoZeroInteiro();
                         } else if ( vo.isArranjoAssociativo() ) {
                             
                             Set<String> keySet = ( (LinkedHashMap<String, Object>) vo.getValor() ).keySet();
@@ -280,10 +294,10 @@ public class ComponenteVisitorFatores {
                             v = novoArranjo( chaves );
                             
                         } else {
-                            v = ZERO_INTEIRO;
+                            v = novoZeroInteiro();
                         }
                     } else {
-                        v = ZERO_INTEIRO;
+                        v = novoZeroInteiro();
                     }
                     
                 } else if ( ctx.TIPO() != null ) {
@@ -315,7 +329,7 @@ public class ComponenteVisitorFatores {
             }
             
         } else {
-            v = ZERO_INTEIRO;
+            v = novoZeroInteiro();
         }
         
         return v;
@@ -359,9 +373,9 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorBool( AuroraLogoParser.FatorBoolContext ctx ) {
         if ( ctx.VER() != null ) {
-            return VERDADEIRO;
+            return novoVerdadeiro();
         }
-        return FALSO;
+        return novoFalso();
     }
     
     public Valor visitFatorChar( AuroraLogoParser.FatorCharContext ctx ) {
@@ -398,7 +412,7 @@ public class ComponenteVisitorFatores {
             return novoBooleano( tartaruga.isDesenhando() );
         }
         
-        return ZERO_DECIMAL;
+        return novoZeroDecimal();
         
     }
     

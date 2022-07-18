@@ -14,10 +14,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import java.awt.geom.Arc2D;
 
@@ -60,7 +62,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -91,7 +93,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -123,7 +125,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -156,7 +158,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -187,7 +189,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -219,7 +221,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -262,7 +264,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -299,7 +301,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -336,7 +338,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -408,7 +410,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -447,7 +449,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -488,7 +490,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -525,7 +527,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -544,7 +546,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             tartaruga.abaixarPincel( false );
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -563,7 +565,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             tartaruga.abaixarPincel( false );
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -584,7 +586,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             tartaruga.abaixarPincel( false );
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -607,7 +609,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             tartaruga.abaixarPincel( false );
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
@@ -622,7 +624,7 @@ public class ComponenteVisitorInstrucoesGeometricas {
             tartaruga.abaixarPincel( false );
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     

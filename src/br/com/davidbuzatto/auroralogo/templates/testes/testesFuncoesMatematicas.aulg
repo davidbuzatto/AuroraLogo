@@ -35,7 +35,7 @@ vA = raiz( 27, 3 ) .
 escrever "raiz( 27, 3 ) = " + vA na saída pulando linha .
 
 vA = raiz( -27, 10 ) .
-escrever "raizCúbica( -27, 10 ) = " + vA na saída pulando linha .
+escrever "raiz( -27, 10 ) = " + vA na saída pulando linha .
 
 vA = raiz( 1024, 2 ) .
 escrever "raiz( 1024, 2 ) = " + vA na saída pulando linha .

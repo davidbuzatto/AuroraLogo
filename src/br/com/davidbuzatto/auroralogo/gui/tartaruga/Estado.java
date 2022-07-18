@@ -104,7 +104,7 @@ public class Estado implements Cloneable {
             if ( en.getValue().isFuncao() ) {
                 e.memoria.put( en.getKey(), en.getValue() );
             } else {
-                e.memoria.put( en.getKey(), Valor.novoValor( en.getValue().getValor() ) );
+                e.memoria.put(en.getKey(), Valor.novoValor( en.getValue().getValor() ) );
             }
             
             // forma 1 (sintaxe do ponto para de funcionar)

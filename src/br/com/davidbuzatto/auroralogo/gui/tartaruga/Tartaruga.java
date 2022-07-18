@@ -17,7 +17,8 @@
 package br.com.davidbuzatto.auroralogo.gui.tartaruga;
 
 import br.com.davidbuzatto.auroralogo.gui.PainelDesenho;
-import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import  br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -491,7 +492,7 @@ public class Tartaruga {
     
     public Valor lerMemoria( String id ) {
         Estado e = getEstadoFinal();
-        return e.memoria.getOrDefault( id, Valor.NULO );
+        return e.memoria.getOrDefault( id, novoNulo() );
     }
     
     public Valor removerDaMemoria( String id ) {

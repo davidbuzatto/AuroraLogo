@@ -14,11 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package br.com.davidbuzatto.auroralogo.parser.impl;
+package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
+import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
@@ -95,14 +97,14 @@ public class ComponenteVisitorEntradaSaida {
             tartaruga.setTexto( textoSaida );
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
     public Valor visitLer( AuroraLogoParser.LerContext ctx ) {
         
         String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
-        Valor valor = NULO;
+        Valor valor = novoNulo();
         
         String idLimpo = Utils.formatarIdVariavelFuncao( id );
         String mensagem = String.format( "Entre com um valor para \"%s\":", idLimpo );
@@ -135,10 +137,10 @@ public class ComponenteVisitorEntradaSaida {
                     
                     switch ( v ) {
                         case "VERDADEIRO":
-                            valor = VERDADEIRO;
+                            valor = novoVerdadeiro();
                             break;
                         case "FALSO":
-                            valor = FALSO;
+                            valor = novoFalso();
                             break;
                         default:
                             if ( v.startsWith( "#" ) ) {
@@ -160,7 +162,7 @@ public class ComponenteVisitorEntradaSaida {
             
         }
         
-        return NULO;
+        return novoNulo();
         
     }
     
