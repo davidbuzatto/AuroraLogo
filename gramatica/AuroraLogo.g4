@@ -84,9 +84,9 @@ fator    : ( NAO | NAOT ) fator                                                 
          | INT                                                                    # fatorInt
          | DEC                                                                    # fatorDec
          | PI                                                                     # fatorPi
-         | processaId                   ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorId
-         | processaId ( '[' expr ']' )+ ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjo
-         | processaId   '{' expr '}'    ( DOT COMP '(' ')' | DOT CHAV '(' ')' )?  # fatorIdArranjoAssociativo
+         | processaId                   ( DOT ( COMP | CHAV | TIPO ) '(' ')' )?   # fatorId
+         | processaId ( '[' expr ']' )+ ( DOT ( COMP | CHAV ) '(' ')' )?          # fatorIdArranjo
+         | processaId   '{' expr '}'    ( DOT ( COMP | CHAV ) '(' ')' )?          # fatorIdArranjoAssociativo
          | processaId ( DOT IDA )+                                                # fatorIdIdAtributo
          | CHAR                                                                   # fatorChar
          | STRING                                                                 # fatorString 
@@ -452,6 +452,7 @@ SOMM : 'somando'                 ;
 SUBM : 'subtraindo'              ;
 TART : 'tartaruga'               ;
 TER  : 'terminar'                ;
+TIPO : 'tipo'                    ;
 TROC : 'trocar'                  ;
 USA  : 'usando'                  ;
 VA   : 'v\u00E1'                 ;

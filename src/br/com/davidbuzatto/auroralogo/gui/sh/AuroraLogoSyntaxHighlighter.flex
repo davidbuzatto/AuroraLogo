@@ -430,6 +430,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "tartaruga" | 
 "terminar " | 
 "terminar" | 
+"tipo " | 
+"tipo" | 
 "trocar " | 
 "trocar" | 
 "usando " | 

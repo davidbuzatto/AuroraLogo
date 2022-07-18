@@ -87,6 +87,8 @@ public class ComponenteVisitorFatores {
                 v = novoInteiro( ( (Object[]) v.getValor() ).length );
             } else if ( ctx.CHAV() != null ) {
                 v = ZERO_INTEIRO;
+            } else if ( ctx.TIPO() != null ) {
+                v = novaString( v.getTipo().toString() );
             }
             
         } else if ( v.isArranjoAssociativo() ) {
@@ -105,6 +107,8 @@ public class ComponenteVisitorFatores {
 
                 v = novoArranjo( chaves );
                 
+            } else if ( ctx.TIPO() != null ) {
+                v = novaString( v.getTipo().toString() );
             }
             
         } else {
@@ -112,6 +116,8 @@ public class ComponenteVisitorFatores {
                 v = ZERO_INTEIRO;
             } else if ( ctx.CHAV() != null ) {
                 v = ZERO_INTEIRO;
+            } else if ( ctx.TIPO() != null ) {
+                v = novaString( v.getTipo().toString() );
             }
         }
         

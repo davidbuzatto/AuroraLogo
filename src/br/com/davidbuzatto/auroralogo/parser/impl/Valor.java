@@ -43,12 +43,13 @@ public class Valor implements Serializable {
         COR,
         ARRANJO,
         ARRANJO_ASSOCIATIVO,
+        
         FUNCAO,
-        RETORNO,
         IDENTIFICADOR,
         NULO,
         PARAR,
-        CONTINUAR
+        CONTINUAR,
+        RETORNO
 
     }
     
