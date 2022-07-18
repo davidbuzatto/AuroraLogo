@@ -548,6 +548,16 @@ public interface AuroraLogoListener extends ParseTreeListener {
 	 */
 	void exitCor(AuroraLogoParser.CorContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link AuroraLogoParser#criarCor}.
+	 * @param ctx the parse tree
+	 */
+	void enterCriarCor(AuroraLogoParser.CriarCorContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link AuroraLogoParser#criarCor}.
+	 * @param ctx the parse tree
+	 */
+	void exitCriarCor(AuroraLogoParser.CriarCorContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link AuroraLogoParser#girar}.
 	 * @param ctx the parse tree
 	 */

@@ -376,8 +376,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "magenta" | 
 "mensagem " | 
 "mensagem" | 
-"mostrar " | 
-"mostrar" | 
+"mostrando " | 
+"mostrando" | 
 "mover " | 
 "mover" | 
 "multiplicando " | 
@@ -520,6 +520,10 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "cossenoHiperb\u00F3lico" | 
 "cossenoHiperb\u00F3lico( " | 
 "cossenoHiperb\u00F3lico() " | 
+"criarCorRGB " | 
+"criarCorRGB" | 
+"criarCorRGB( " | 
+"criarCorRGB() " | 
 "curvaC\u00FAbica " | 
 "curvaC\u00FAbica" | 
 "curvaC\u00FAbica( " | 

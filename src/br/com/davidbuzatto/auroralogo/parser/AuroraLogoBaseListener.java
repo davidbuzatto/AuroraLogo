@@ -604,6 +604,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterCriarCor(AuroraLogoParser.CriarCorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCriarCor(AuroraLogoParser.CriarCorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterGirar(AuroraLogoParser.GirarContext ctx) { }
 	/**
 	 * {@inheritDoc}

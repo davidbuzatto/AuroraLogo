@@ -23,7 +23,6 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
 import javax.swing.JTextPane;
 import org.antlr.v4.runtime.tree.ErrorNode;
-import org.antlr.v4.runtime.tree.ParseTree;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
@@ -112,6 +111,11 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitCor( AuroraLogoParser.CorContext ctx ) {
         return cvCor.visitCor( ctx );
+    }
+
+    @Override
+    public Valor visitCriarCor( AuroraLogoParser.CriarCorContext ctx ) {
+        return cvCor.visitCriarCor( ctx );
     }
     
     

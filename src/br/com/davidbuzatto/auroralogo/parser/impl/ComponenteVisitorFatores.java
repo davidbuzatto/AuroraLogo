@@ -373,12 +373,10 @@ public class ComponenteVisitorFatores {
     }
     
     public Valor visitFatorCor( AuroraLogoParser.FatorCorContext ctx ) {
-        return novaCor( Utils.decodificarCor( ctx.cor().CHEX().getText() ) );
+        return visitor.visit( ctx.cor() );
     }
     
     public Valor visitFatorConsultarTartaruga( AuroraLogoParser.FatorConsultarTartarugaContext ctx ) {
-        
-        //PG | PCP | PCPP | PCF | PD
         
         if ( ctx.consultarTartaruga().PX() != null ) {
             return novoDecimal( tartaruga.getXEstadoFinal() );

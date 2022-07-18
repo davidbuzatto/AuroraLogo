@@ -180,7 +180,7 @@ desenhar curvaQuadrática( 580, 180, 540, 320, 580, 460 ) sem preenchimento .
 // início em 640, 180, fim em 640, 460, primeiro ponto de
 // controle em 600, 275 e segundo ponto de controle em 680, 370
 // mostrando os pontos de controle
-desenhar curvaCúbica( 640, 180, 600, 275, 680, 370, 640, 460 ) mostrar controles, sem preenchimento . 
+desenhar curvaCúbica( 640, 180, 600, 275, 680, 370, 640, 460 ) mostrando controles, sem preenchimento . 
 
 // consulta os atributos da tartaruga
 escrever tartaruga.x() na saída pulando linha .
@@ -193,6 +193,84 @@ escrever tartaruga.corDoFundo() na saída pulando linha .
 escrever tartaruga.corPrópria() na saída pulando linha .
 escrever tartaruga.estáDesenhando() na saída pulando linha .
 
+trocar cor do preenchimento para #0099cc .
+
+// desenhando um caminho
+desenhar caminho {
+    mover até 140, -60 .
+    linha até tartaruga.x() + 100, tartaruga.y() .
+    curva quadrática até tartaruga.x() + 60, tartaruga.y(),
+                         tartaruga.x() + 60, tartaruga.y() - 60 .
+    curva cúbica até tartaruga.x() - 80, tartaruga.y(),
+                     tartaruga.x() - 80, tartaruga.y() - 160,
+                     tartaruga.x() - 160, tartaruga.y() - 160.
+    fechar .
+}
+
+levantar pincel .
+vá para 400, -60 .
+abaixar pincel .
+girar em 45 graus .
+
+repetir 80 vezes {
+    
+    trocar grossura do pincel para númeroAleatório( 1, 11 ) .
+    
+    se passo % 2 == 0 então {
+        girar em -90 graus .
+    } senão {
+        girar em 90 graus .
+    }
+    
+    se passo % 4 == 0 então {
+        trocar cor do pincel para #FF00CC .
+    } senão se passo % 3 == 0 então {
+        trocar cor do pincel para #00CC66 .
+    } senão se passo % 2 == 0 então {
+        trocar cor do pincel para #FF6600 .
+    }
+    
+    se passo % 20 == 0 então {
+        girar em 90 graus .
+    }
+    
+    vá para cima em 40 .
+    
+}
+
+levantar pincel .
+vá para 650, -370 .
+abaixar pincel .
+girar em -45 graus .
+trocar cor do pincel para #000000 .
+trocar grossura do pincel para 1 .
+
+vCores = criarArranjo[5] .
+vCores[0] = #FF3333AA .
+vCores[1] = #00CC00AA .
+vCores[2] = #CC33FFAA .
+vCores[3] = #0066FFAA .
+vCores[4] = #FF6633AA .
+
+vP = 20 .
+repetir vP vezes {
+    
+    levantar pincel .
+    vá para cima em 140 .
+    abaixar pincel .
+    trocar cor do preenchimento para vCores[passo%5] .
+    desenhar elipse( tartaruga.x(), tartaruga.y(), 80, 240 ).
+    levantar pincel .
+    vá para baixo em 140 .
+    abaixar pincel .
+    girar em 360 / vP graus .
+    
+}
+
+abaixar pincel .
+trocar cor do preenchimento para amarelo .
+desenhar círculo( tartaruga.x(), tartaruga.y(), 40 ).
+    
 escrever "Sexto termo da série de Fibonacci: " + fFibonacci( 5 ) na saída pulando linha .
 vA = 10 .
 

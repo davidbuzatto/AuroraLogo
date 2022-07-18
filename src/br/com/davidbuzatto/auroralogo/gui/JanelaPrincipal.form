@@ -1066,7 +1066,7 @@
     </Container>
     <Container class="javax.swing.JSplitPane" name="painelSplitTotal">
       <Properties>
-        <Property name="dividerLocation" type="int" value="570"/>
+        <Property name="dividerLocation" type="int" value="650"/>
       </Properties>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JSplitPaneSupportLayout"/>
@@ -1103,7 +1103,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="painelTextAreaCodigo" pref="548" max="32767" attributes="0"/>
+                          <Component id="painelTextAreaCodigo" pref="628" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1144,7 +1144,7 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="scrollPaneSaida" pref="548" max="32767" attributes="0"/>
+                          <Component id="scrollPaneSaida" pref="628" max="32767" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
                   </Group>
@@ -1228,7 +1228,7 @@
                 <DimensionLayout dim="0">
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace pref="587" max="32767" attributes="0"/>
+                          <EmptySpace pref="507" max="32767" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
                               <Component id="lblZoom" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" alignment="1" attributes="0">

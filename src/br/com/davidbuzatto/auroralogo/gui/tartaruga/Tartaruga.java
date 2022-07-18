@@ -27,7 +27,6 @@ import java.awt.FontMetrics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Shape;
-import java.awt.Stroke;
 import java.awt.Toolkit;
 import java.awt.geom.Arc2D;
 import java.awt.geom.CubicCurve2D;
@@ -664,24 +663,65 @@ public class Tartaruga {
                             int tipo = pi.currentSegment( coords );
                             
                             switch ( tipo ) {
+                                
                                 case PathIterator.SEG_MOVETO:
                                     nf.moveTo( tx( coords[0] ), ty( coords[1] ) );
                                     break;
+                                    
                                 case PathIterator.SEG_LINETO:
                                     nf.lineTo( tx( coords[0] ), ty( coords[1] ) );
                                     break;
+                                    
                                 case PathIterator.SEG_QUADTO:
+                                    
                                     nf.quadTo( tx( coords[0] ), ty( coords[1] ),
                                             tx( coords[2] ), ty( coords[3] ) );
+                                    
+                                    if ( atu.containerForma.mostrarControles ) {
+                                        Graphics2D g2ds = (Graphics2D) g2d.create();
+                                        if ( escala < 1.0 ) {
+                                            Font ff = new Font( g2d.getFont().getFontName(), g2d.getFont().getStyle(), 
+                                                    (int) ( g2d.getFont().getSize() * escala ) );
+                                            g2ds.setFont( ff );
+                                        }
+                                        g2ds.setStroke( new BasicStroke( 3 ) );
+                                        Line2D.Double p = new Line2D.Double( tx( coords[0] ), ty( coords[1] ), tx( coords[0] ), ty( coords[1] ) );
+                                        g2ds.draw( p );
+                                        g2ds.drawString( "c", (int) p.x1 + 3, (int) p.y1 );
+                                        g2ds.dispose();
+                                    }
+                                    
                                     break;
+                                    
                                 case PathIterator.SEG_CUBICTO:
+                                    
                                     nf.curveTo( tx( coords[0] ), ty( coords[1] ),
                                             tx( coords[2] ), ty( coords[3] ),
                                             tx( coords[4] ), ty( coords[5] ) );
+                                    
+                                    if ( atu.containerForma.mostrarControles ) {
+                                        Graphics2D g2ds = (Graphics2D) g2d.create();
+                                        if ( escala < 1.0 ) {
+                                            Font ff = new Font( g2d.getFont().getFontName(), g2d.getFont().getStyle(), 
+                                                    (int) ( g2d.getFont().getSize() * escala ) );
+                                            g2ds.setFont( ff );
+                                        }
+                                        g2ds.setStroke( new BasicStroke( 3 ) );
+                                        Line2D.Double p1 = new Line2D.Double( tx( coords[0] ), ty( coords[1] ), tx( coords[0] ), ty( coords[1] ) );
+                                        Line2D.Double p2 = new Line2D.Double( tx( coords[2] ), ty( coords[3] ), tx( coords[2] ), ty( coords[3] ) );
+                                        g2ds.draw( p1 );
+                                        g2ds.draw( p2 );
+                                        g2ds.drawString( "c1", (int) p1.x1 + 3, (int) p1.y1 );
+                                        g2ds.drawString( "c2", (int) p2.x1 + 3, (int) p2.y1 );
+                                        g2ds.dispose();
+                                    }
+                                    
                                     break;
+                                    
                                 case PathIterator.SEG_CLOSE:
                                     nf.closePath();
                                     break;
+                                    
                             }
                             
                             pi.next();
@@ -1526,10 +1566,10 @@ public class Tartaruga {
         estados.add( e );
     }
 
-    public void iniciarCaminho( boolean contornado, boolean preenchido ) {
+    public void iniciarCaminho( boolean contornado, boolean preenchido, boolean mostrarControles ) {
         Estado e = clonarUltimoEstado();
         caminho = null;
-        caminho = new ContainerForma( new Path2D.Double(), contornado, preenchido, "caminho" );
+        caminho = new ContainerForma( new Path2D.Double(), contornado, preenchido, mostrarControles, "caminho" );
         e.containerForma = caminho;
         estados.add( e );
     }

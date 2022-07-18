@@ -129,10 +129,12 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
     
-    public static final String VERSAO = "v0.95";
-    private static final boolean PRODUCAO = false;
+    public static final String VERSAO = "v0.99.\u03b2";
+    //public static final String VERSAO = "vx.xx.\u03b1";   // alfa
+    //public static final String VERSAO = "vx.xx.\u03b2";   // beta
+    
+    private static final boolean PRODUCAO = true;
     private static final boolean DEBUG_PARSER = false;
-    private static final String ARQUIVO_DE_TESTE = "testes";
     
     private Image iconeJanela;
     private Font fontePadrao;
@@ -725,7 +727,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         });
         barraFerramentas.add(btnDepurador);
 
-        painelSplitTotal.setDividerLocation(570);
+        painelSplitTotal.setDividerLocation(650);
 
         painelSplitCodigoSaida.setDividerLocation(570);
         painelSplitCodigoSaida.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
@@ -740,7 +742,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             paineCodigoFonteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(paineCodigoFonteLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                .addComponent(painelTextAreaCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addContainerGap())
         );
         paineCodigoFonteLayout.setVerticalGroup(
@@ -767,7 +769,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             painelSaidaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(painelSaidaLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollPaneSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 548, Short.MAX_VALUE)
+                .addComponent(scrollPaneSaida, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addContainerGap())
         );
         painelSaidaLayout.setVerticalGroup(
@@ -830,7 +832,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         painelDesenhoLayout.setHorizontalGroup(
             painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesenhoLayout.createSequentialGroup()
-                .addContainerGap(587, Short.MAX_VALUE)
+                .addContainerGap(507, Short.MAX_VALUE)
                 .addGroup(painelDesenhoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblZoom, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelDesenhoLayout.createSequentialGroup()
@@ -2133,6 +2135,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     public void salvarArquivo() {
 
+        
         if ( arquivoAtual == null ) {
             fragmentoSalvar( "Salvar..." );
         }

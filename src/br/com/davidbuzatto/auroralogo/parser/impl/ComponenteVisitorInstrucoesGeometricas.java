@@ -499,14 +499,19 @@ public class ComponenteVisitorInstrucoesGeometricas {
             boolean d = tartaruga.isDesenhando();
             boolean contorno = true;
             boolean preenchimento = true;
+            boolean mostrarControles = false;
             
             if ( ctx.opcaoFuncGeom() != null ) {
                 contorno = ctx.opcaoFuncGeom().CON() == null;
                 preenchimento = ctx.opcaoFuncGeom().PREE() == null;
             }
             
+            if ( ctx.opcaoPontosControle() != null ) {
+                mostrarControles = true;
+            }
+            
             tartaruga.levantarPincel( false );
-            tartaruga.iniciarCaminho( contorno, preenchimento );
+            tartaruga.iniciarCaminho( contorno, preenchimento, mostrarControles );
             
             for ( AuroraLogoParser.InstCaminhoContext c : ctx.instCaminho() ) {
                 visitor.visit( c );

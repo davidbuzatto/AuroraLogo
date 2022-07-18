@@ -165,20 +165,23 @@ trocarCor    : TROC COR DO PINC PARA configuracaoCor  # trocarCorPincel
              | TROC COR DO FUN  PARA configuracaoCor  # trocarCorFundo
              ;
 
-configuracaoCor : ( ( cor | expr ) | corEx=( PRETO
-                                           | AZUL
-                                           | CIANO
-                                           | CINZA
-                                           | VERDE
-                                           | MAGENTA
-                                           | LARANJA
-                                           | ROSA 
-                                           | VERMELHO
-                                           | BRANCO
-                                           | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
+configuracaoCor : ( cor | expr | corEx=( PRETO
+                                       | AZUL
+                                       | CIANO
+                                       | CINZA
+                                       | VERDE
+                                       | MAGENTA
+                                       | LARANJA
+                                       | ROSA 
+                                       | VERMELHO
+                                       | BRANCO
+                                       | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
                 ;
 
-cor          : CHEX
+cor          : CHEX | criarCor 
+             ;
+
+criarCor     : FC_RGB  '(' expr ',' expr ',' expr ( ',' expr )? ')'
              ;
 
 girar        : GIR ( EM expr ( GRA | RAD ) )?
@@ -292,7 +295,7 @@ opcaoFuncGeom       : SEM PREE ( E SEM CON )? | SEM CON ( E SEM PREE )?
 opcaoPontosControle : MOS ( CONE | CONS )
                     ;
 
-desenharCaminho     : DESE CAM opcaoFuncGeom? '{' ( instCaminho DOT )+ '}'
+desenharCaminho     : DESE CAM ( ( opcaoFuncGeom ( ',' opcaoPontosControle )? ) | ( opcaoPontosControle ( ',' opcaoFuncGeom )? ) )? '{' ( instCaminho DOT )+ '}'
                     ;
 
                       //       x        y
@@ -386,7 +389,7 @@ COM  : 'com'                     ;
 CONT : 'continuar'               ;
 CON  : 'contorno'                ;
 CONE : 'controle'                ;
-CONS : 'controles'                ;
+CONS : 'controles'               ;
 COR  : 'cor'                     ;
 CUBI : 'c\u00FAbica'             ;
 CUR  : 'curva'                   ;
@@ -425,7 +428,7 @@ LEV  : 'levantar'                ;
 LIM  : 'limpar'                  ;
 LIN  : 'linha'                   ;
 MEN  : 'mensagem'                ;
-MOS  : 'mostrar'                 ;
+MOS  : 'mostrando'               ;
 MOV  : 'mover'                   ;
 MULM : 'multiplicando'           ;
 NA   : 'na'                      ;
@@ -524,6 +527,10 @@ F_TANG : 'tangente'                     ;
 F_TANH : 'tangenteHiperb\u00F3lica'     ;
 F_TETO : 'teto'                         ;
 F_VABS : 'valorAbsoluto'                ;
+
+
+// funções para criar cores
+FC_RGB  : 'criarCorRGB'              ;
 
 
 // funções geométricas

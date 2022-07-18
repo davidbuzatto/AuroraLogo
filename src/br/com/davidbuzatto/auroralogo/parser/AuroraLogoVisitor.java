@@ -330,6 +330,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitCor(AuroraLogoParser.CorContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#criarCor}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitCriarCor(AuroraLogoParser.CriarCorContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#girar}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

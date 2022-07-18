@@ -1,8 +1,6 @@
 Implementação:
-    - Consultar tipo de variáveis.
-    - Ao abrir exemplo, tentar salvar arquivo atual;
+    - Perguntar se quer salvar, sempre.
     - Implementar exemplos;
-    - Escrever README;
     - Conferir System.out.println( "ERRO!" ).
 
 Trabalhos Futuros:

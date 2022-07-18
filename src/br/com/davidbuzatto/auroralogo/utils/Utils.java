@@ -481,6 +481,40 @@ public class Utils {
     
     }
     
+    public static Color criarCorRGB( int r, int g, int b ) {
+        return criarCorRGBA( r, g, b, 255 );
+    }
+    
+    public static Color criarCorRGBA( int r, int g, int b, int a ) {
+        
+        if ( r < 0 ) {
+            r = 0;
+        } else if ( r > 255 ) {
+            r = 255;
+        }
+        
+        if ( g < 0 ) {
+            g = 0;
+        } else if ( g > 255 ) {
+            g = 255;
+        }
+        
+        if ( b < 0 ) {
+            b = 0;
+        } else if ( b > 255 ) {
+            b = 255;
+        }
+        
+        if ( a < 0 ) {
+            a = 0;
+        } else if ( a > 255 ) {
+            a = 255;
+        }
+        
+        return new Color( r, g, b, a );
+        
+    }    
+    
     /*
      * Cria um array de dimensões especificada no vararg "dimensoes".
      */
@@ -859,6 +893,7 @@ public class Utils {
                         menu.add( new AbstractAction( nomeExemplo.replace( "-", " " ).replace( ".aulg", "" ) ) {
                             @Override
                             public void actionPerformed( ActionEvent e ) {
+                                janelaPrincipal.salvarArquivo();
                                 String exemplo = linha.replace( ".aulg", "" );
                                 janelaPrincipal.novoArquivo();
                                 janelaPrincipal.carregarExemploAulg( exemplo, true );
@@ -868,6 +903,7 @@ public class Utils {
                         menuExemplos.add( new AbstractAction( linha.replace( "-", " " ).replace( ".aulg", "" ) ) {
                             @Override
                             public void actionPerformed( ActionEvent e ) {
+                                janelaPrincipal.salvarArquivo();
                                 String exemplo = linha.replace( ".aulg", "" );
                                 janelaPrincipal.novoArquivo();
                                 janelaPrincipal.carregarExemploAulg( exemplo, true );

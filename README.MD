@@ -1,10 +1,16 @@
-AuroraLogo é uma proposta de implementação de uma linguagem de programação pedagógica, um "subconjunto" restrito e baseado na linguagem Logo (https://el.media.mit.edu/logo-foundation/).
+A linguagem de programação AuroraLogo é desenvolvida e mantida pelo Prof. Dr. David Buzatto do Instituto Federal de Educação, Ciência e Tecnologia de São Paulo.
 
-Essa linguagem é desenvolvida pelo Professor Dr. David Buzatto para aplicação em disciplinas que ele trabalha. O nome Aurora é uma homenagem a primogênita do autor, Aurora Buzatto.
+O objetivo a mesma é ser usada como uma linguagem de programação didática no apoio ao ensino de programação de computadores, permitindo que os alunos usem construções próximas à linguagem natural para fornecer comandos à uma tartaruga.
+
+Essa linguagem tem como fonte de inspiração a linguagem Logo e foi nomeada assim em homenagem à Aurora Buzatto, filha do autor da linguagem, pois a motivação inicial foi o desenvolvimento de um ambiente de programação para ensinar a Aurora, atualmente com quase 3 anos de idade, a programar. 💛🧡❤💙💜
+
+## Desenvolvimento
+
+Este é um projeto desenvolvido na IDE NetBeans 14 e é auto-contido.
 
 ## Instação
 
-Este é um projeto desenvolvido na IDE NetBeans e é auto-contido.
+As releases podem ser encontradas à direita. É necessário no mínimo o JDK 11.
 
 ## Desenvolvedor
 

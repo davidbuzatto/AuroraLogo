@@ -54,6 +54,33 @@ public class ComponenteVisitorCor {
         return NULO;
     }
     
+    public Valor visitCriarCor( AuroraLogoParser.CriarCorContext ctx ) {
+        
+        int r = visitor.visit( ctx.expr( 0 ) ).valorInteiro();
+        int g = visitor.visit( ctx.expr( 1 ) ).valorInteiro();
+        int b = visitor.visit( ctx.expr( 2 ) ).valorInteiro();
+        int a = 255;
+        
+        if ( ctx.expr().size() == 4 ) {
+            a = visitor.visit( ctx.expr( 3 ) ).valorInteiro();
+        }
+        
+        return novaCor( Utils.criarCorRGBA( r, g, b, a ) );
+        
+    }
+    
+    public Valor visitCor( AuroraLogoParser.CorContext ctx ) {
+        
+        if ( ctx.CHEX() != null ) {
+            return novaCor( Utils.decodificarCor( ctx.CHEX().getText() ) );
+        } else if ( ctx.criarCor() != null ) {
+            return visitor.visit( ctx.criarCor() );
+        }
+        
+        return novaCor( Color.BLACK );
+        
+    }
+    
     private Color obterCor( Color corInicial, AuroraLogoParser.TrocarCorContext ctx ) {
         
         Color cor = corInicial;
@@ -141,10 +168,6 @@ public class ComponenteVisitorCor {
         
         return cor;
         
-    }
-
-    public Valor visitCor( AuroraLogoParser.CorContext ctx ) {
-        return novaCor( Utils.decodificarCor( ctx.CHEX().getText() ) );
     }
     
 }
