@@ -4,9 +4,9 @@ vD{"teste2"} = criarArray[20] .
 
 
 vX = criarArrayAssociativo{} .
-vX["a"] = "a" .
-vX["b"] = "b" .
-vX["c"] = "c" .
+vX["a"] = "a" .     // sintaxe com colchetes é permitida tbm
+vX{"b"} = "b" .
+vX{"c"} = "c" .
 vD{"teste3"} = vX .
 
 vC = vD.chaves() .
@@ -16,4 +16,8 @@ enquanto vI < vC.comprimento() repetir incrementando vI {
 	escrever vC[vI] + ": " + vD{vC[vI]} na saída pulando linha .
 	escrever vC[vI] + ": " + vD{vC[vI]}.comprimento() na saída pulando linha .
 	escrever vC[vI] + ": " + vD{vC[vI]}.chaves() na saída pulando linha .
+	escrever vC[vI] + ": " + vD{vC[vI]}.tipo() na saída pulando linha .
 }
+
+escrever vD.tipo() na saída pulando linha .
+escrever vD["teste1"] na saída pulando linha .   // sintaxe com colchetes é permitida tbm

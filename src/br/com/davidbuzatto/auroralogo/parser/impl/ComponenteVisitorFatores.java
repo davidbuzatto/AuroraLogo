@@ -164,8 +164,66 @@ public class ComponenteVisitorFatores {
                 } else {
                     v = ZERO_INTEIRO;
                 }
+            } else if ( ctx.TIPO() != null ) {
+                v = novaString( novoValor( valorP ).getTipo().toString() );
             } else {
                 v = novoValor( valorP );
+            }
+            
+        } else if ( v.isArranjoAssociativo() ) {
+            
+            if ( !ctx.expr().isEmpty() ) {
+                
+                // somente a primeira dimensão
+                String chave = visitor.visit( ctx.expr( 0 ) ).valorString();
+                Object valorP = v.valorArranjoAssociativo( chave );
+                
+                if ( ctx.COMP() != null ) {
+                    
+                    if ( valorP instanceof Valor ) {
+                        Valor vo = (Valor) valorP;
+                        if ( vo.isArranjo() ) {
+                            v = novoInteiro( ( (Object[]) vo.getValor() ).length );
+                        } else if ( vo.isArranjoAssociativo() ) {
+                            v = novoInteiro( ( (LinkedHashMap<String, Object>) vo.getValor() ).keySet().size() );
+                        } else {
+                            v = ZERO_INTEIRO;
+                        }
+                    } else {
+                        v = ZERO_INTEIRO;
+                    }
+                    
+                } else if ( ctx.CHAV() != null ) {
+                    
+                    if ( valorP instanceof Valor ) {
+                        Valor vo = (Valor) valorP;
+                        if ( vo.isArranjo() ) {
+                            v = ZERO_INTEIRO;
+                        } else if ( vo.isArranjoAssociativo() ) {
+                            
+                            Set<String> keySet = ( (LinkedHashMap<String, Object>) vo.getValor() ).keySet();
+                            Valor[] chaves = new Valor[keySet.size()];
+
+                            int i = 0;
+                            for ( String c : keySet ) {
+                                chaves[i++] = novaString( c );
+                            }
+
+                            v = novoArranjo( chaves );
+                            
+                        } else {
+                            v = ZERO_INTEIRO;
+                        }
+                    } else {
+                        v = ZERO_INTEIRO;
+                    }
+                    
+                } else if ( ctx.TIPO() != null ) {
+                    v = novaString( novoValor( valorP ).getTipo().toString() );
+                } else {
+                    v = novoValor( valorP );
+                }
+                
             }
             
         } else {
@@ -228,6 +286,8 @@ public class ComponenteVisitorFatores {
                         v = ZERO_INTEIRO;
                     }
                     
+                } else if ( ctx.TIPO() != null ) {
+                    v = novaString( novoValor( valorP ).getTipo().toString() );
                 } else {
                     v = novoValor( valorP );
                 }
@@ -248,6 +308,8 @@ public class ComponenteVisitorFatores {
                     
                     v = novoArranjo( chaves );
                     
+                } else if ( ctx.TIPO() != null ) {
+                    v = novaString( v.getTipo().toString() );
                 }
                 
             }

@@ -85,8 +85,8 @@ fator    : ( NAO | NAOT ) fator                                                 
          | DEC                                                                    # fatorDec
          | PI                                                                     # fatorPi
          | processaId                   ( DOT ( COMP | CHAV | TIPO ) '(' ')' )?   # fatorId
-         | processaId ( '[' expr ']' )+ ( DOT ( COMP | CHAV ) '(' ')' )?          # fatorIdArranjo
-         | processaId   '{' expr '}'    ( DOT ( COMP | CHAV ) '(' ')' )?          # fatorIdArranjoAssociativo
+         | processaId ( '[' expr ']' )+ ( DOT ( COMP | CHAV | TIPO ) '(' ')' )?   # fatorIdArranjo
+         | processaId   '{' expr '}'    ( DOT ( COMP | CHAV | TIPO ) '(' ')' )?   # fatorIdArranjoAssociativo
          | processaId ( DOT IDA )+                                                # fatorIdIdAtributo
          | CHAR                                                                   # fatorChar
          | STRING                                                                 # fatorString 
