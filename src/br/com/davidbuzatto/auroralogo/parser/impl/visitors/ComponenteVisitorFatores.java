@@ -21,7 +21,7 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
-import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
 import java.awt.Color;
@@ -80,7 +80,7 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorId( AuroraLogoParser.FatorIdContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isString() ) {
@@ -133,7 +133,7 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorIdArranjo( AuroraLogoParser.FatorIdArranjoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isString() ) {
@@ -150,7 +150,7 @@ public class ComponenteVisitorFatores {
             }
             
             Integer[] aInd = indices.toArray( Integer[]::new );
-            Object valorP = v.valorArranjo( aInd );
+            Object valorP = v.valorDoArranjo( aInd );
             
             if ( ctx.COMP() != null ) {
                 if ( valorP instanceof Object[] ) {
@@ -186,7 +186,7 @@ public class ComponenteVisitorFatores {
                 
                 // somente a primeira dimensão
                 String chave = visitor.visit( ctx.expr( 0 ) ).valorString();
-                Object valorP = v.valorArranjoAssociativo( chave );
+                Object valorP = v.valorDoArranjoAssociativo( chave );
                 
                 if ( ctx.COMP() != null ) {
                     
@@ -246,7 +246,7 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorIdArranjoAssociativo( AuroraLogoParser.FatorIdArranjoAssociativoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isString() ) {
@@ -258,7 +258,7 @@ public class ComponenteVisitorFatores {
             if ( ctx.expr() != null ) {
                 
                 String chave = visitor.visit( ctx.expr() ).valorString();
-                Object valorP = v.valorArranjoAssociativo( chave );
+                Object valorP = v.valorDoArranjoAssociativo( chave );
                 
                 if ( ctx.COMP() != null ) {
                     
@@ -338,7 +338,7 @@ public class ComponenteVisitorFatores {
     
     public Valor visitFatorIdIdAtributo( AuroraLogoParser.FatorIdIdAtributoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor v = tartaruga.lerMemoria( id );
         
         if ( v.isArranjoAssociativo() ) {
@@ -419,7 +419,7 @@ public class ComponenteVisitorFatores {
     public Valor visitFatorConsultarString( AuroraLogoParser.FatorConsultarStringContext ctx ) {
         
         AuroraLogoParser.ConsultarStringContext ctxc = ctx.consultarString();
-        String id = Utils.gerarId( visitor.visit( ctxc.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctxc.processaId() ).valorDoIdentificador() );
         Valor string = tartaruga.lerMemoria( id );
         
         if ( string.isString() ) {

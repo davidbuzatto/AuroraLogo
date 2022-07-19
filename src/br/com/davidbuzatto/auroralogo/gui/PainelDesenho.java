@@ -96,12 +96,27 @@ public class PainelDesenho extends JPanel {
         });
         
         addMouseWheelListener( new MouseAdapter() {
+            
             @Override
             public void mouseWheelMoved( MouseWheelEvent e ) {
-                tartaruga.escalonar( ( -e.getPreciseWheelRotation() ) / 2 );
-                janelaPrincipal.atualizarLabelZoom();
+                
+                if ( e.isAltDown() ) {
+                    tartaruga.escalonar( ( -e.getPreciseWheelRotation() ) / 2 );
+                    janelaPrincipal.atualizarLabelZoom();
+                } else if ( e.isControlDown() ) {
+                    tartaruga.setDeslocamento( 
+                            (int) ( tartaruga.getDeslocamentoX() + -e.getPreciseWheelRotation() * 20 ), 
+                            tartaruga.getDeslocamentoY() );
+                } else {
+                    tartaruga.setDeslocamento( 
+                            tartaruga.getDeslocamentoX(), 
+                            (int) ( tartaruga.getDeslocamentoY() + -e.getPreciseWheelRotation() * 20 ) );
+                }
+                
                 repaint();
+                
             }
+            
         });
         
     }

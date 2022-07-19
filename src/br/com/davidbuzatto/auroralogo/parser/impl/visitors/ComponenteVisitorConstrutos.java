@@ -21,7 +21,7 @@ import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
-import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.awt.Font;
@@ -241,7 +241,7 @@ public class ComponenteVisitorConstrutos {
     public Valor visitUsando( AuroraLogoParser.UsandoContext ctx ) {
         
         int id = ++idInstrucaoParavel;
-        String idT = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String idT = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         //String idT = ctx.ID().getText();
         Valor vId = tartaruga.lerMemoria( idT );
         
@@ -325,7 +325,7 @@ public class ComponenteVisitorConstrutos {
                         if ( v.isParar() ) {
 
                             // se o id bater, para essa instrução
-                            if ( v.valorIdParar() == id ) {
+                            if ( v.valorDoIdParar() == id ) {
                                 break;
                             }
 
@@ -370,7 +370,7 @@ public class ComponenteVisitorConstrutos {
                             Valor p = visitor.visit( c.ains().parar() );
 
                             // se o id bater, para essa instrução
-                            if ( p.valorIdParar() == id ) {
+                            if ( p.valorDoIdParar() == id ) {
                                 breakExt = true;
                                 break;
                             }
@@ -381,7 +381,7 @@ public class ComponenteVisitorConstrutos {
                             Valor con = visitor.visit( c.ains().continuar() );
                             
                             // se o id bater, continua essa instrução matando o for interno
-                            if ( con.valorIdContinuar() == id ) {
+                            if ( con.valorDoIdContinuar() == id ) {
                                 break;
                             }
                             
@@ -406,7 +406,7 @@ public class ComponenteVisitorConstrutos {
                             if ( v.isParar() ) {
 
                                 // se o id bater, para essa instrução
-                                if ( v.valorIdParar() == id ) {
+                                if ( v.valorDoIdParar() == id ) {
                                     breakExt = true;
                                     break;
                                 }
@@ -414,7 +414,7 @@ public class ComponenteVisitorConstrutos {
                             } else if ( v.isContinuar() ) {
 
                                 // se o id bater, continua essa instrução matando o for interno
-                                if ( v.valorIdContinuar() == id ) {
+                                if ( v.valorDoIdContinuar() == id ) {
                                     break;
                                 }
                                 
@@ -484,7 +484,7 @@ public class ComponenteVisitorConstrutos {
                                 Valor p = visitor.visit( c.ains().parar() );
 
                                 // se o id bater, para essa instrução
-                                if ( p.valorIdParar() == id ) {
+                                if ( p.valorDoIdParar() == id ) {
                                     breakExt = true;
                                     break;
                                 }
@@ -495,7 +495,7 @@ public class ComponenteVisitorConstrutos {
                                 Valor con = visitor.visit( c.ains().continuar() );
 
                                 // se o id bater, continua essa instrução matando o for interno
-                                if ( con.valorIdContinuar() == id ) {
+                                if ( con.valorDoIdContinuar() == id ) {
                                     break;
                                 }
 
@@ -520,7 +520,7 @@ public class ComponenteVisitorConstrutos {
                                 if ( v.isParar() ) {
 
                                     // se o id bater, para essa instrução
-                                    if ( v.valorIdParar() == id ) {
+                                    if ( v.valorDoIdParar() == id ) {
                                         breakExt = true;
                                         break;
                                     }
@@ -528,7 +528,7 @@ public class ComponenteVisitorConstrutos {
                                 } else if ( v.isContinuar() ) {
 
                                     // se o id bater, continua essa instrução matando o for interno
-                                    if ( v.valorIdContinuar() == id ) {
+                                    if ( v.valorDoIdContinuar() == id ) {
                                         break;
                                     }
 
@@ -585,7 +585,7 @@ public class ComponenteVisitorConstrutos {
                                     Valor p = visitor.visit( c.ains().parar() );
 
                                     // se o id bater, para essa instrução
-                                    if ( p.valorIdParar() == id ) {
+                                    if ( p.valorDoIdParar() == id ) {
                                         breakExt = true;
                                         break;
                                     }
@@ -596,7 +596,7 @@ public class ComponenteVisitorConstrutos {
                                     Valor con = visitor.visit( c.ains().continuar() );
 
                                     // se o id bater, continua essa instrução matando o for interno
-                                    if ( con.valorIdContinuar() == id ) {
+                                    if ( con.valorDoIdContinuar() == id ) {
                                         break;
                                     }
 
@@ -621,7 +621,7 @@ public class ComponenteVisitorConstrutos {
                                     if ( v.isParar() ) {
 
                                         // se o id bater, para essa instrução
-                                        if ( v.valorIdParar() == id ) {
+                                        if ( v.valorDoIdParar() == id ) {
                                             breakExt = true;
                                             break;
                                         }
@@ -629,7 +629,7 @@ public class ComponenteVisitorConstrutos {
                                     } else if ( v.isContinuar() ) {
 
                                         // se o id bater, continua essa instrução matando o for interno
-                                        if ( v.valorIdContinuar() == id ) {
+                                        if ( v.valorDoIdContinuar() == id ) {
                                             break;
                                         }
 
@@ -670,7 +670,7 @@ public class ComponenteVisitorConstrutos {
         int idP = ++idPasso;
         boolean breakExt = false;
         
-        String idElemento = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String idElemento = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         //String idElemento = ctx.ID().getText();
         Valor arranjo = visitor.visit( ctx.expr() );
         
@@ -698,7 +698,7 @@ public class ComponenteVisitorConstrutos {
                                 Valor p = visitor.visit( c.ains().parar() );
 
                                 // se o id bater, para essa instrução
-                                if ( p.valorIdParar() == id ) {
+                                if ( p.valorDoIdParar() == id ) {
                                     breakExt = true;
                                     break;
                                 }
@@ -709,7 +709,7 @@ public class ComponenteVisitorConstrutos {
                                 Valor con = visitor.visit( c.ains().continuar() );
 
                                 // se o id bater, continua essa instrução matando o for interno
-                                if ( con.valorIdContinuar() == id ) {
+                                if ( con.valorDoIdContinuar() == id ) {
                                     break;
                                 }
 
@@ -734,7 +734,7 @@ public class ComponenteVisitorConstrutos {
                                 if ( v.isParar() ) {
 
                                     // se o id bater, para essa instrução
-                                    if ( v.valorIdParar() == id ) {
+                                    if ( v.valorDoIdParar() == id ) {
                                         breakExt = true;
                                         break;
                                     }
@@ -742,7 +742,7 @@ public class ComponenteVisitorConstrutos {
                                 } else if ( v.isContinuar() ) {
 
                                     // se o id bater, continua essa instrução matando o for interno
-                                    if ( v.valorIdContinuar() == id ) {
+                                    if ( v.valorDoIdContinuar() == id ) {
                                         break;
                                     }
 
@@ -789,7 +789,7 @@ public class ComponenteVisitorConstrutos {
                                 Valor p = visitor.visit( c.ains().parar() );
 
                                 // se o id bater, para essa instrução
-                                if ( p.valorIdParar() == id ) {
+                                if ( p.valorDoIdParar() == id ) {
                                     breakExt = true;
                                     break;
                                 }
@@ -800,7 +800,7 @@ public class ComponenteVisitorConstrutos {
                                 Valor con = visitor.visit( c.ains().continuar() );
 
                                 // se o id bater, continua essa instrução matando o for interno
-                                if ( con.valorIdContinuar() == id ) {
+                                if ( con.valorDoIdContinuar() == id ) {
                                     break;
                                 }
 
@@ -825,7 +825,7 @@ public class ComponenteVisitorConstrutos {
                                 if ( v.isParar() ) {
 
                                     // se o id bater, para essa instrução
-                                    if ( v.valorIdParar() == id ) {
+                                    if ( v.valorDoIdParar() == id ) {
                                         breakExt = true;
                                         break;
                                     }
@@ -833,7 +833,7 @@ public class ComponenteVisitorConstrutos {
                                 } else if ( v.isContinuar() ) {
 
                                     // se o id bater, continua essa instrução matando o for interno
-                                    if ( v.valorIdContinuar() == id ) {
+                                    if ( v.valorDoIdContinuar() == id ) {
                                         break;
                                     }
 
@@ -875,7 +875,7 @@ public class ComponenteVisitorConstrutos {
         
         if ( ctx.processaId() != null ) {
                         
-            String idP = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+            String idP = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
             Valor vIdP = tartaruga.lerMemoria( idP );
             if ( vIdP.isNulo() ) {
                 vIdP = novoInteiro( 0 );

@@ -69,8 +69,6 @@ import java.awt.Image;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import javax.imageio.ImageIO;
 import javax.swing.Action;
 import javax.swing.ImageIcon;
@@ -145,7 +143,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private File arquivoAtual;
     private boolean arquivoSalvo;
-    private FileNameExtensionFilter filtroExtensao;
+    private FileNameExtensionFilter filtroExtensaoAULG;
+    private FileNameExtensionFilter filtroExtensaoTXT;
 
     private DialogoSobre dialogoSobre;
     
@@ -201,8 +200,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         dialogoSobre = new DialogoSobre( this, false );
         
         fontePadrao = textAreaCodigo.getDefaultFont();
-        filtroExtensao = new FileNameExtensionFilter(
+        
+        filtroExtensaoAULG = new FileNameExtensionFilter(
                 "Arquivo AuroraLogo", "aulg" );
+        filtroExtensaoTXT = new FileNameExtensionFilter(
+                "Arquivo de Texto", "txt" );
         
         /* 
          * precisa reconfigurar.
@@ -249,6 +251,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         itemResetarPosicao = new javax.swing.JMenuItem();
         separadorMenuPopup1 = new javax.swing.JPopupMenu.Separator();
         itemSalvarComoImagem = new javax.swing.JMenuItem();
+        menuPopupTextPaneSaida = new javax.swing.JPopupMenu();
+        itemSalvarSaidaComo = new javax.swing.JMenuItem();
         barraFerramentas = new javax.swing.JToolBar();
         btnNovo = new javax.swing.JButton();
         btnAbrir = new javax.swing.JButton();
@@ -366,6 +370,16 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         });
         menuPopupPainel.add(itemSalvarComoImagem);
+
+        itemSalvarSaidaComo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/disk_multiple.png"))); // NOI18N
+        itemSalvarSaidaComo.setText("Salvar Como");
+        itemSalvarSaidaComo.setActionCommand("Salvar Como");
+        itemSalvarSaidaComo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                itemSalvarSaidaComoActionPerformed(evt);
+            }
+        });
+        menuPopupTextPaneSaida.add(itemSalvarSaidaComo);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("AuroraLogo");
@@ -764,6 +778,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         textPaneSaida.setFont(new java.awt.Font("Consolas", 0, 13)); // NOI18N
         textPaneSaida.setFocusable(false);
+        textPaneSaida.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                textPaneSaidaMouseClicked(evt);
+            }
+        });
         scrollPaneSaida.setViewportView(textPaneSaida);
 
         javax.swing.GroupLayout painelSaidaLayout = new javax.swing.GroupLayout(painelSaida);
@@ -1764,6 +1783,57 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         tartaruga.limpar();
     }//GEN-LAST:event_formWindowOpened
 
+    private void itemSalvarSaidaComoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_itemSalvarSaidaComoActionPerformed
+        
+        File diretorioAtual = new File( getPref( PREF_CAMINHO_ABRIR_SALVAR ) );
+        JFileChooser jfc = new JFileChooser( diretorioAtual );
+        jfc.setDialogTitle( "Salvar Saída Como..." );
+        jfc.setMultiSelectionEnabled( false );
+        jfc.removeChoosableFileFilter( jfc.getFileFilter() );
+        jfc.setFileFilter( filtroExtensaoTXT );
+        
+        if ( jfc.showSaveDialog( this ) == JFileChooser.APPROVE_OPTION ) {
+
+            File arquivo = jfc.getSelectedFile();
+            boolean salvar = true;
+            
+            if ( arquivo.exists() ) {
+                if ( JOptionPane.showConfirmDialog( null,
+                        "O arquivo já existe, deseja sobrescrevê-lo?",
+                        "Confirmação",
+                        JOptionPane.YES_NO_OPTION ) == JOptionPane.NO_OPTION ) {
+                    salvar = false;
+                }
+            } else {
+                if ( !arquivo.getName().endsWith( ".txt" ) ) {
+                    arquivo = new File( arquivo.getAbsolutePath() + ".txt" );
+                }
+            }
+            
+            if ( salvar ) {
+
+                setPref( PREF_CAMINHO_ABRIR_SALVAR, arquivo.getParentFile().getAbsolutePath() );
+                
+                try ( PrintStream ps = new PrintStream( new FileOutputStream( arquivo ) ) ) {
+                    ps.print( textPaneSaida.getText() );
+                } catch ( FileNotFoundException exc ) {
+                    exc.printStackTrace();
+                }
+
+            }
+
+        }
+        
+    }//GEN-LAST:event_itemSalvarSaidaComoActionPerformed
+
+    private void textPaneSaidaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textPaneSaidaMouseClicked
+        
+        if ( evt.getButton() == MouseEvent.BUTTON3 ) {
+            menuPopupTextPaneSaida.show( textPaneSaida, evt.getX(), evt.getY() );
+        }
+        
+    }//GEN-LAST:event_textPaneSaidaMouseClicked
+
     public void atualizarLabelZoom() {
         lblZoom.setText( "zoom: " + Math.round( tartaruga.getEscala() * 100 ) + "%" );
     }
@@ -2158,7 +2228,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         jfc.setDialogTitle( "Abrir..." );
         jfc.setMultiSelectionEnabled( false );
         jfc.removeChoosableFileFilter( jfc.getFileFilter() );
-        jfc.setFileFilter( filtroExtensao );
+        jfc.setFileFilter( filtroExtensaoAULG );
         
         if ( jfc.showOpenDialog( this ) == JFileChooser.APPROVE_OPTION ) {
 
@@ -2195,12 +2265,12 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         if ( arquivoAtual != null ) {
             try ( PrintStream ps = new PrintStream( new FileOutputStream( arquivoAtual ) ) ) {
                 ps.print( textAreaCodigo.getText() );
+                arquivoSalvo = true;
             } catch ( FileNotFoundException exc ) {
                 exc.printStackTrace();
             }
         }
 
-        arquivoSalvo = true;
         montarTitulo();
 
     }
@@ -2212,7 +2282,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         jfc.setDialogTitle( tituloDialogo );
         jfc.setMultiSelectionEnabled( false );
         jfc.removeChoosableFileFilter( jfc.getFileFilter() );
-        jfc.setFileFilter( filtroExtensao );
+        jfc.setFileFilter( filtroExtensaoAULG );
         
         if ( jfc.showSaveDialog( this ) == JFileChooser.APPROVE_OPTION ) {
 
@@ -2433,6 +2503,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         FlatIntelliJLaf.setup();
         SwingUtilities.updateComponentTreeUI( this );
         SwingUtilities.updateComponentTreeUI( menuPopupPainel );
+        SwingUtilities.updateComponentTreeUI( menuPopupTextPaneSaida );
 
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/claro.xml" ) );
@@ -2450,6 +2521,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         FlatDarculaLaf.setup();
         SwingUtilities.updateComponentTreeUI( this );
         SwingUtilities.updateComponentTreeUI( menuPopupPainel );
+        SwingUtilities.updateComponentTreeUI( menuPopupTextPaneSaida );
 
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/escuro.xml" ) );
@@ -2484,6 +2556,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         SwingUtilities.updateComponentTreeUI( this );
         SwingUtilities.updateComponentTreeUI( menuPopupPainel );
+        SwingUtilities.updateComponentTreeUI( menuPopupTextPaneSaida );
 
         try {
             Theme t = Theme.load( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/temasrsta/nimbus.xml" ) );
@@ -2790,6 +2863,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JButton btnZoomPadrao;
     private javax.swing.JMenuItem itemResetarPosicao;
     private javax.swing.JMenuItem itemSalvarComoImagem;
+    private javax.swing.JMenuItem itemSalvarSaidaComo;
     private javax.swing.JLabel lblQuadrosPorSegundo;
     private javax.swing.JLabel lblZoom;
     private javax.swing.JMenu menuAjuda;
@@ -2828,6 +2902,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private javax.swing.JMenuItem menuItemSubstituir;
     private javax.swing.JMenuItem menuItemTartarugaArcoIris;
     private javax.swing.JPopupMenu menuPopupPainel;
+    private javax.swing.JPopupMenu menuPopupTextPaneSaida;
     private javax.swing.JMenuItem menuSair;
     private javax.swing.JMenu menuTemas;
     private javax.swing.JMenu menuTestes;

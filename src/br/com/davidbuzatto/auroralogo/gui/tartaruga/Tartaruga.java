@@ -18,7 +18,7 @@ package br.com.davidbuzatto.auroralogo.gui.tartaruga;
 
 import br.com.davidbuzatto.auroralogo.gui.PainelDesenho;
 import  br.com.davidbuzatto.auroralogo.parser.impl.Valor;
-import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.BasicStroke;
 import java.awt.Color;

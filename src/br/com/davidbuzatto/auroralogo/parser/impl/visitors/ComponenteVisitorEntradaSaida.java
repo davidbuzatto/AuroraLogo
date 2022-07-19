@@ -21,7 +21,7 @@ import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
-import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.Color;
 import java.awt.Font;
@@ -69,7 +69,7 @@ public class ComponenteVisitorEntradaSaida {
         } else if ( v.isCor() ) {
             textoSaida = String.valueOf( v );
         } else if ( v.isArranjo() || v.isArranjoAssociativo() ) {
-            textoSaida = "\n" + Utils.toString( v.getValor() );
+            textoSaida = "\n" + Utils.toStringGeral( v.getValor() );
         } else {
             textoSaida = String.valueOf( v );
         }
@@ -103,7 +103,7 @@ public class ComponenteVisitorEntradaSaida {
     
     public Valor visitLer( AuroraLogoParser.LerContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = novoNulo();
         
         String idLimpo = Utils.formatarIdVariavelFuncao( id );
@@ -114,7 +114,7 @@ public class ComponenteVisitorEntradaSaida {
         }
         
         String v = JOptionPane.showInputDialog( janelaPrincipal, mensagem );
-            
+        
         if ( v != null ) {
             
             v = v.trim();

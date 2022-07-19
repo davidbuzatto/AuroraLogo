@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.parser.impl.valores;
 
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import java.io.Serializable;
 import java.util.Locale;
 
@@ -43,6 +44,77 @@ public class ValorDecimal extends Valor<Double> implements Serializable {
             return "NaN (Não-Número)";
         }
         return String.format( Locale.US, "%.3f", valor );
+    }
+    
+    @Override
+    public Valor incrementar() {
+        return novoDecimal( valor + 1.0 );
+    }
+    
+    @Override
+    public Valor decrementar() {
+        return novoDecimal( valor - 1.0 );
+    }
+    
+    @Override
+    public Valor somar( Valor valor ) {
+        
+        if ( valor.isString() ) {
+            return concatenar( valor );
+        }
+         
+        return novoDecimal( ( this.valor ) + valor.valorDecimal() );
+        
+    }
+    
+    @Override
+    public Valor subtrair( Valor valor ) {
+        return novoDecimal( ( this.valor ) - valor.valorDecimal() );
+    }
+    
+    @Override
+    public Valor multiplicar( Valor valor ) {
+        return novoDecimal( ( this.valor ) * valor.valorDecimal() );
+    }
+    
+    @Override
+    public Valor dividir( Valor valor ) {
+        return novoDecimal( ( this.valor ) / valor.valorDecimal() );  // divisão por zero "permitida"
+    }
+    
+    @Override
+    public Valor resto( Valor valor ) {
+        return novoDecimal( ( this.valor ) % valor.valorDecimal() );  // divisão por zero "permitida"
+    }
+    
+    @Override
+    public Valor igualA( Valor valor ) {
+        return novoBooleano( this.valor.doubleValue() == valor.valorDecimal().doubleValue() );
+    }
+    
+    @Override
+    public Valor diferenteDe( Valor valor ) {
+        return novoBooleano( this.valor.doubleValue() != valor.valorDecimal().doubleValue() );
+    }
+    
+    @Override
+    public Valor menorQue( Valor valor ) {
+        return novoBooleano( this.valor < valor.valorDecimal() );
+    }
+    
+    @Override
+    public Valor menorOuIgualA( Valor valor ) {
+        return novoBooleano( this.valor <= valor.valorDecimal() );
+    }
+    
+    @Override
+    public Valor maiorQue( Valor valor ) {
+        return novoBooleano( this.valor > valor.valorDecimal() );
+    }
+    
+    @Override
+    public Valor maiorOuIgualA( Valor valor ) {
+        return novoBooleano( this.valor >= valor.valorDecimal() );
     }
     
 }

@@ -31,6 +31,7 @@ import br.com.davidbuzatto.auroralogo.parser.impl.valores.ValorCor;
 import br.com.davidbuzatto.auroralogo.parser.impl.valores.ValorString;
 import br.com.davidbuzatto.auroralogo.parser.impl.valores.ValorNulo;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
 import java.awt.Color;
@@ -173,7 +174,7 @@ public abstract class Valor<Tipo> implements Serializable {
     
     public boolean isFalso() {
         return isBooleano() && valor.equals( false );
-    }
+    }    
     
     public Integer valorInteiro() {
         
@@ -181,6 +182,22 @@ public abstract class Valor<Tipo> implements Serializable {
             return (Integer) valor;
         } else if ( isDecimal() ) {
             return ( (Double) valor ).intValue();
+        } else if ( isCaractere() ) {
+            return (int) ( (Character) valor );
+        } else if ( isBooleano() ) {
+            return (Boolean) valor ? 1 : 0;
+        } else if ( isString() ) {
+            try {
+                return Integer.valueOf( valor.toString() );
+            } catch ( NumberFormatException exc ) {
+                return 0;
+            }
+        } else if ( isCor() ) {
+            return ( (Color) valor ).getRGB();
+        } else if ( isArranjo() ) {
+            return ( (Object[]) valor ).length;
+        } else if ( isArranjoAssociativo() ) {
+            return ( (LinkedHashMap<String, Object>) valor ).keySet().size();
         }
         
         return 0;
@@ -193,6 +210,22 @@ public abstract class Valor<Tipo> implements Serializable {
             return ( (Integer) valor ).doubleValue();
         } else if ( isDecimal() ) {
             return (Double) valor;
+        } else if ( isCaractere() ) {
+            return (double) ( (Character) valor );
+        } else if ( isBooleano() ) {
+            return (Boolean) valor ? 1.0 : 0.0;
+        } else if ( isString() ) {
+            try {
+                return Double.valueOf( valor.toString() );
+            } catch ( NumberFormatException exc ) {
+                return 0.0;
+            }
+        } else if ( isCor() ) {
+            return (double) ( (Color) valor ).getRGB();
+        } else if ( isArranjo() ) {
+            return (double) ( (Object[]) valor ).length;
+        } else if ( isArranjoAssociativo() ) {
+            return (double) ( (LinkedHashMap<String, Object>) valor ).keySet().size();
         }
         
         return 0.0;
@@ -200,22 +233,88 @@ public abstract class Valor<Tipo> implements Serializable {
     }
     
     public Character valorCaractere() {
-        return isCaractere() && valor != null ? (Character) valor : '\0' ;
+        
+        if ( isInteiro() ) {
+            return (char) ( (Integer) valor ).intValue();
+        } else if ( isDecimal() ) {
+            return (char) ( (Double) valor ).intValue();
+        } else if ( isCaractere() ) {
+            return (Character) valor;
+        } else if ( isBooleano() ) {
+            return (Boolean) valor ? '1' : '\0';
+        } else if ( isString() ) {
+            return valor.toString().length() > 0 ? valor.toString().charAt( 0 ) : '\0';
+        } else if ( isCor() ) {
+            return '\0';
+        } else if ( isArranjo() ) {
+            return '\0';
+        } else if ( isArranjoAssociativo() ) {
+            return '\0';
+        }
+        
+        return '\0';
+        
     }
     
     public Boolean valorBooleano() {
-        return isBooleano() && valor != null ? (Boolean) valor : false ;
+        
+        if ( isInteiro() ) {
+            return ( (Integer) valor ) != 0;
+        } else if ( isDecimal() ) {
+            return ( (Double) valor ).intValue() != 0;
+        } else if ( isCaractere() ) {
+            return ( (Character) valor ) != '\0';
+        } else if ( isBooleano() ) {
+            return (Boolean) valor;
+        } else if ( isString() ) {
+            return valor.toString().length() > 0;
+        } else if ( isCor() ) {
+            return false;
+        } else if ( isArranjo() ) {
+            return false;
+        } else if ( isArranjoAssociativo() ) {
+            return false;
+        }
+        
+        return false;
+        
     }
     
     public String valorString() {
-        return isString() && valor != null ? (String) valor : "" ;
+        return valor.toString();
     }
     
     public Color valorCor() {
-        return isCor() && valor != null ? (Color) valor : Color.BLACK ;
+        
+        if ( isInteiro() ) {
+            int c = (Integer) valor;
+            return Utils.criarCorRGB( c, c, c );
+        } else if ( isDecimal() ) {
+            int c = ( (Double) valor ).intValue();
+            return Utils.criarCorRGB( c, c, c );
+        } else if ( isCaractere() ) {
+            int c = (Character) valor;
+            return Utils.criarCorRGB( c, c, c );
+        } else if ( isBooleano() ) {
+            return (Boolean) valor ? Color.BLUE : Color.RED;
+        } else if ( isString() ) {
+            try {
+                return Utils.decodificarCor( valor.toString() );
+            } catch ( NumberFormatException exc ) {
+            }
+        } else if ( isCor() ) {
+            return (Color) valor;
+        } else if ( isArranjo() ) {
+            return Color.BLACK;
+        } else if ( isArranjoAssociativo() ) {
+            return Color.BLACK;
+        }
+        
+        return Color.BLACK;
+        
     }
     
-    public Object valorArranjo( Integer... indices ) {
+    public Object valorDoArranjo( Integer... indices ) {
         
         Object v = valor;
         
@@ -255,7 +354,7 @@ public abstract class Valor<Tipo> implements Serializable {
         
     }
     
-    public Object valorArranjoAssociativo( String chave ) {
+    public Object valorDoArranjoAssociativo( String chave ) {
         
         if ( isArranjoAssociativo() ) {
             return ( (LinkedHashMap<String, Object>) valor ).getOrDefault( chave, 0 );
@@ -265,7 +364,7 @@ public abstract class Valor<Tipo> implements Serializable {
         
     }
     
-    public AuroraLogoParser.FuncContext valorFuncao() {
+    public AuroraLogoParser.FuncContext valorDaFuncao() {
         
         if ( isFuncao() ) {
             return (AuroraLogoParser.FuncContext) valor;
@@ -275,7 +374,7 @@ public abstract class Valor<Tipo> implements Serializable {
         
     }
     
-    public String valorIdentificador() {
+    public String valorDoIdentificador() {
         
         if ( isIdentificador() ) {
             return (String) valor;
@@ -285,7 +384,7 @@ public abstract class Valor<Tipo> implements Serializable {
         
     }
     
-    public Integer valorIdParar() {
+    public Integer valorDoIdParar() {
         
         if ( isParar() ) {
             return (Integer) valor;
@@ -295,7 +394,7 @@ public abstract class Valor<Tipo> implements Serializable {
         
     }
     
-    public Integer valorIdContinuar() {
+    public Integer valorDoIdContinuar() {
         
         if ( isContinuar() ) {
             return (Integer) valor;
@@ -305,159 +404,83 @@ public abstract class Valor<Tipo> implements Serializable {
         
     }
     
+    // métodos a implementar nas subclasses
     public Valor incrementar() {
-        
-        Valor v = null;
-        
-        if ( isNumero() ) {
-            if ( isInteiro() ) {
-                v = novoInteiro( (Integer) valor + 1 );
-            } else {
-                v = novoDecimal( (Double) valor + 1.0 );
-            }
-        }
-        
-        if ( v == null ) {
-            return Valor.novoZeroInteiro();
-        }
-        
-        return v;
-        
+        return novoZeroInteiro();
     }
     
     public Valor decrementar() {
-        
-        Valor v = null;
-        
-        if ( isNumero() ) {
-            if ( isInteiro() ) {
-                v = novoInteiro( (Integer) valor - 1 );
-            } else {
-                v = novoDecimal( (Double) valor - 1.0 );
-            }
-        }
-        
-        if ( v == null ) {
-            return Valor.novoZeroInteiro();
-        }
-        
-        return v;
-        
+        return novoZeroInteiro();
     }
     
     public Valor concatenar( Valor valor ) {
         
-        if ( this.isString() ) {
-            
-            String novo = String.valueOf( this.valor );
-            String concat = String.valueOf( valor );
-            
-            return novaString( novo + concat );
-            
+        String esq = String.valueOf( this );
+        String dir = String.valueOf( valor );
+        
+        if ( isArranjo() || isArranjoAssociativo() ) {
+            esq = Utils.toStringGeral( this );
         }
         
-        return Valor.novoZeroInteiro();
+        if ( valor.isArranjo() || valor.isArranjoAssociativo() ) {
+            dir = Utils.toStringGeral( valor );
+        }
+        
+        
+        return novaString( esq + dir );
         
     }
     
     public Valor somar( Valor valor ) {
-        
-        Valor v = null;
-        
-        if ( this.isNumero() && valor.isNumero() ) {
-            if ( isInteiro() ) {
-                v = novoInteiro( ( (Integer) this.valor ) + valor.valorInteiro() );
-            } else {
-                v = novoDecimal( ( (Double) this.valor ) + valor.valorDecimal() );
-            }
-        }
-        
-        if ( v == null ) {
-            return Valor.novoZeroInteiro();
-        }
-        
-        return v;
-        
+        return novoZeroInteiro();
     }
     
     public Valor subtrair( Valor valor ) {
-        
-        Valor v = null;
-        
-        if ( this.isNumero() && valor.isNumero() ) {
-            if ( isInteiro() ) {
-                v = novoInteiro( ( (Integer) this.valor ) - valor.valorInteiro() );
-            } else {
-                v = novoDecimal( ( (Double) this.valor ) - valor.valorDecimal() );
-            }
-        }
-        
-        if ( v == null ) {
-            return Valor.novoZeroInteiro();
-        }
-        
-        return v;
-        
+        return novoZeroInteiro();
     }
     
     public Valor multiplicar( Valor valor ) {
-        
-        Valor v = null;
-        
-        if ( this.isNumero() && valor.isNumero() ) {
-            if ( isInteiro() ) {
-                v = novoInteiro( ( (Integer) this.valor ) * valor.valorInteiro() );
-            } else {
-                v = novoDecimal( ( (Double) this.valor ) * valor.valorDecimal() );
-            }
-        }
-        
-        if ( v == null ) {
-            return Valor.novoZeroInteiro();
-        }
-        
-        return v;
-        
+        return novoZeroInteiro();
     }
     
     public Valor dividir( Valor valor ) {
-        
-        Valor v = null;
-        
-        if ( this.isNumero() && valor.isNumero() ) {
-            if ( isInteiro() ) {
-                v = novoInteiro( ( (Integer) this.valor ) / ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() ) );  // possível divisão por zero
-            } else {
-                v = novoDecimal( ( (Double) this.valor ) / valor.valorDecimal() );                                       // divisão por zero "permitida"
-            }
-        }
-        
-        if ( v == null ) {
-            return Valor.novoZeroInteiro();
-        }
-        
-        return v;
-        
+        return novoZeroInteiro();
     }
     
     public Valor resto( Valor valor ) {
-        
-        Valor v = null;
-        
-        if ( this.isNumero() && valor.isNumero() ) {
-            if ( isInteiro() ) {
-                v = novoInteiro( ( (Integer) this.valor ) % ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() ) );  // possível divisão por zero
-            } else {
-                v = novoDecimal( ( (Double) this.valor ) % valor.valorDecimal() );                                       // divisão por zero "permitida"
-            }
-        }
-        
-        if ( v == null ) {
-            return Valor.novoZeroInteiro();
-        }
-        
-        return v;
-        
+        return novoZeroInteiro();
+    }
+    
+    public Valor igualA( Valor valor ) {
+        return novoFalso();
+    }
+    
+    public Valor diferenteDe( Valor valor ) {
+        return novoFalso();
+    }
+    
+    public Valor maiorQue( Valor valor ) {
+        return novoFalso();
+    }
+    
+    public Valor maiorOuIgualA( Valor valor ) {
+        return novoFalso();
+    }
+    
+    public Valor menorQue( Valor valor ) {
+        return novoFalso();
+    }
+    
+    public Valor menorOuIgualA( Valor valor ) {
+        return novoFalso();
+    }
+    
+    public Valor eLogico( Valor valor ) {
+        return novoFalso();
+    }
+    
+    public Valor ouLogico( Valor valor ) {
+        return novoFalso();
     }
     
     public void setValorArranjo( Object valor, Integer... indices ) {
@@ -497,182 +520,6 @@ public abstract class Valor<Tipo> implements Serializable {
             ( (ValorArranjoAssociativo) this ).valor.put( chave, valor );
         }
         
-    }
-    
-    @Override
-    public String toString() {
-        return "";
-    }
-    
-    
-    public static Valor novoInteiro( Integer valor ) {
-        return new ValorInteiro( valor );
-    }
-    
-    public static Valor novoInteiro( String valor ) {
-        try {
-            return new ValorInteiro( Integer.valueOf( valor ) );
-        } catch ( NumberFormatException exc ) {
-            return Valor.novoZeroInteiro();
-        }
-    }
-    
-    public static Valor novoZeroInteiro() {
-        return novoInteiro( 0 );
-    }
-    
-    public static Valor novoUmInteiro() {
-        return novoInteiro( 1 );
-    }
-    
-    public static Valor novoDecimal( Double valor ) {
-        if ( valor.isNaN() ) {
-            return novoNaoNumeroDecimal();
-        }
-        return new ValorDecimal( valor );
-    }
-    
-    public static Valor novoDecimal( String valor ) {
-        try {
-            return new ValorDecimal( Double.parseDouble( valor ) );
-        } catch ( NumberFormatException exc ) {
-            return Valor.novoZeroDecimal();
-        }
-    }
-    
-    public static Valor novoZeroDecimal() {
-        return novoDecimal( 0.0 );
-    }
-    
-    public static Valor novoUmDecimal() {
-        return novoDecimal( 1.0 );
-    }
-    
-    public static Valor novoNaoNumeroDecimal() {
-        return new ValorDecimal( Double.NaN );
-    }
-    
-    public static Valor novoBooleano( Boolean valor ) {
-        if ( valor ) {
-            return new ValorBooleano( true );
-        }
-        return new ValorBooleano( false );
-    }
-    
-    public static Valor novoBooleano( String valor ) {
-        switch ( valor ) {
-            case "true":
-            case "VERDADEIRO":
-                return new ValorBooleano( true );
-            case "false":
-            case "FALSO":
-                return new ValorBooleano( false );
-        }
-        return new ValorBooleano( false );
-    }
-    
-    public static Valor novoVerdadeiro() {
-        return novoBooleano( true );
-    }
-    
-    public static Valor novoFalso() {
-        return novoBooleano( false );
-    }
-    
-    public static Valor novoNulo() {
-        return new ValorNulo();
-    }
-    
-    public static Valor novoCaractere( Character valor ) {
-        return new ValorCaractere( valor );
-    }
-    
-    public static Valor novaString( String valor ) {
-        return new ValorString( valor );
-    }
-    
-    public static Valor novaCor( Color valor ) {
-        return new ValorCor( valor );
-    }
-    
-    public static Valor novoArranjo( Integer... dimensoes ) {
-        return new ValorArranjo( Utils.criarArrayNDimensional( dimensoes ) );
-    }
-    
-    public static Valor novoArranjo( Object dados ) {
-        return new ValorArranjo( dados );
-    }
-    
-    public static Valor novoArranjoAssociativo() {
-        return new ValorArranjoAssociativo( new LinkedHashMap<>() );
-    }
-    
-    public static Valor novoArranjoAssociativo( LinkedHashMap<String, Object> mapa ) {
-        return new ValorArranjoAssociativo( mapa );
-    }
-    
-    public static Valor novaFuncao( AuroraLogoParser.FuncContext contexto ) {
-        return new ValorFuncao( contexto );
-    }
-    
-    public static Valor novoRetornar( Valor valor ) {
-        return new ValorRetornar( valor );
-    }
-    
-    // analisa o parâmetro e retorna o valor correto dependendo do tipo
-    public static Valor novoValor( Object o ) {
-        
-        if ( o == null ) {
-            return Valor.novoNulo();
-        } else if ( o instanceof Valor ) {
-            o = ( (Valor) o ).getValor();
-        }
-        
-        if ( o instanceof Integer ) {
-            return novoInteiro( (Integer) o );
-        } else if ( o instanceof Double ) {
-            return novoDecimal( (Double) o );
-        } else if ( o instanceof Character ) {
-            return novoCaractere( (Character) o );
-        } else if ( o instanceof Boolean ) {
-            return novoBooleano( (Boolean) o );
-        } else if ( o instanceof String ) {
-            return novaString( (String) o );
-        } else if ( o instanceof Color ) {
-            return novaCor( (Color) o );
-        } else if ( o instanceof Object[] ) {
-            return novoArranjo( Utils.cloneArrayObject( (Object[]) o ) );
-        } else if ( o instanceof LinkedHashMap ) {
-            return novoArranjoAssociativo( Utils.cloneLinkedHashMapObject( (LinkedHashMap) o ) );
-        } else if ( o instanceof Valor ) {
-            return novoValor(( (Valor) o ).getValor() );
-        } else if ( o instanceof Valor[] ) {
-            return novoArranjo(Utils.cloneArrayObject((Valor[]) o ) );
-        }
-        
-        return Valor.novoNulo();
-        
-    }
-    
-    public static Valor novoParar( Integer idParavel ) {
-        return new ValorParar( idParavel );
-    }
-    
-    public static Valor novoContinuar( Integer idParavel ) {
-        return new ValorContinuar( idParavel );
-    }
-    
-    public static Valor novoIdentificador( String id ) {
-        return new ValorIdentificador( id );
-    }
-    
-    // SEMPRE retornam false
-    public static boolean equalsArranjo( Valor arranjo ) {
-        return false;
-    }
-    
-    public static boolean equalsArranjoAssociativo( Valor arranjoAssociativo ) {
-        return false;
     }
     
 }

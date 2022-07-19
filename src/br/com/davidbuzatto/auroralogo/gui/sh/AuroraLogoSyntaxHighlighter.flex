@@ -430,8 +430,6 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "tartaruga" | 
 "terminar " | 
 "terminar" | 
-"tipo " | 
-"tipo" | 
 "trocar " | 
 "trocar" | 
 "usando " | 
@@ -471,6 +469,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "grossuraDoPincel" | 
 "substring " | 
 "substring" | 
+"tipo " | 
+"tipo" | 
 "x " | 
 "x" | 
 "y " | 

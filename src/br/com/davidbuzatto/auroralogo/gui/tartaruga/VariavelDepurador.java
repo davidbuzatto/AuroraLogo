@@ -123,7 +123,7 @@ public class VariavelDepurador {
             int largMax = 0;
             int larg = 0;
             
-            String sv = Utils.toString( valor.getValor() );
+            String sv = Utils.toStringGeral( valor.getValor() );
 
             if ( sv.contains( "\\n" ) || sv.contains( "\n" ) ) {
 

@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.parser.impl.valores;
 
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import java.io.Serializable;
 
 /**
@@ -39,6 +40,103 @@ public class ValorInteiro extends Valor<Integer> implements Serializable {
     @Override
     public String toString() {
         return String.valueOf( valor );
+    }
+    
+    @Override
+    public Valor incrementar() {
+        return novoInteiro( valor + 1 );
+    }
+    
+    @Override
+    public Valor decrementar() {
+        return novoInteiro( valor - 1 );
+    }
+    
+    @Override
+    public Valor somar( Valor valor ) {
+        
+        if ( valor.isDecimal() ) {
+            return novoDecimal( ( this.valor ) + valor.valorDecimal() );
+        } else if ( valor.isString() ) {
+            return concatenar( valor );
+        }
+        
+        return novoInteiro( ( this.valor ) + valor.valorInteiro() );
+        
+    }
+    
+    @Override
+    public Valor subtrair( Valor valor ) {
+        
+        if ( valor.isDecimal() ) {
+            return novoDecimal( ( this.valor ) - valor.valorDecimal() );
+        }
+        
+        return novoInteiro( ( this.valor ) - valor.valorInteiro() );
+        
+    }
+    
+    @Override
+    public Valor multiplicar( Valor valor ) {
+        
+        if ( valor.isDecimal() ) {
+            return novoDecimal( ( this.valor ) * valor.valorDecimal() );
+        }
+        
+        return novoInteiro( ( this.valor ) * valor.valorInteiro() );
+        
+    }
+    
+    @Override
+    public Valor dividir( Valor valor ) {
+        
+        if ( valor.isDecimal() ) {
+            return novoDecimal( ( this.valor ) / valor.valorDecimal() );                                  // divisão por zero "permitida"
+        }
+        
+        return novoInteiro( ( this.valor ) / ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() ) );  // possível divisão por zero;
+        
+    }
+    
+    @Override
+    public Valor resto( Valor valor ) {
+        
+        if ( valor.isDecimal() ) {
+            return novoDecimal( ( this.valor ) % valor.valorDecimal() );                                  // divisão por zero "permitida"
+        }
+        
+        return novoInteiro( ( this.valor ) % ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() ) );  // possível divisão por zero;
+        
+    }
+    
+    @Override
+    public Valor igualA( Valor valor ) {
+        return novoBooleano( this.valor.intValue() == valor.valorInteiro().intValue() );
+    }
+    
+    @Override
+    public Valor diferenteDe( Valor valor ) {
+        return novoBooleano( this.valor.intValue() != valor.valorInteiro().intValue() );
+    }
+    
+    @Override
+    public Valor menorQue( Valor valor ) {
+        return novoBooleano( this.valor < valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor menorOuIgualA( Valor valor ) {
+        return novoBooleano( this.valor <= valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor maiorQue( Valor valor ) {
+        return novoBooleano( this.valor > valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor maiorOuIgualA( Valor valor ) {
+        return novoBooleano( this.valor >= valor.valorInteiro() );
     }
     
 }

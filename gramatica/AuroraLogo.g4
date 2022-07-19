@@ -455,7 +455,6 @@ SOMM : 'somando'                 ;
 SUBM : 'subtraindo'              ;
 TART : 'tartaruga'               ;
 TER  : 'terminar'                ;
-TIPO : 'tipo'                    ;
 TROC : 'trocar'                  ;
 USA  : 'usando'                  ;
 VA   : 'v\u00E1'                 ;
@@ -496,6 +495,7 @@ CARC : 'caracteres'  ;
 CHAV : 'chaves'      ;
 COMP : 'comprimento' ;
 SUBS : 'substring'   ;
+TIPO : 'tipo'        ;
 
 
 // funções

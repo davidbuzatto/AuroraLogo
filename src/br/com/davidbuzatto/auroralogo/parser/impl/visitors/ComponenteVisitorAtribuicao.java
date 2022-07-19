@@ -20,7 +20,7 @@ import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
-import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -46,7 +46,7 @@ public class ComponenteVisitorAtribuicao {
     
     public Valor visitAtribuirPadrao( AuroraLogoParser.AtribuirPadraoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = null;
         
         if ( ctx.expr() != null ) {
@@ -63,7 +63,7 @@ public class ComponenteVisitorAtribuicao {
     
     public Valor visitAtribuirArranjo( AuroraLogoParser.AtribuirArranjoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = null;
         
         if ( ctx.expr() != null ) {
@@ -112,7 +112,7 @@ public class ComponenteVisitorAtribuicao {
 
     public Valor visitAtribuirArranjoAssociativo( AuroraLogoParser.AtribuirArranjoAssociativoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = null;
         
         if ( ctx.expr() != null ) {
@@ -152,7 +152,7 @@ public class ComponenteVisitorAtribuicao {
     
     public Valor visitAtribuirAdicao( AuroraLogoParser.AtribuirAdicaoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );
@@ -183,7 +183,7 @@ public class ComponenteVisitorAtribuicao {
     
     public Valor visitAtribuirSubtracao( AuroraLogoParser.AtribuirSubtracaoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );
@@ -211,7 +211,7 @@ public class ComponenteVisitorAtribuicao {
     
     public Valor visitAtribuirMultiplicacao( AuroraLogoParser.AtribuirMultiplicacaoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );
@@ -239,7 +239,7 @@ public class ComponenteVisitorAtribuicao {
     
     public Valor visitAtribuirDivisao( AuroraLogoParser.AtribuirDivisaoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );
@@ -267,7 +267,7 @@ public class ComponenteVisitorAtribuicao {
     
     public Valor visitAtribuirResto( AuroraLogoParser.AtribuirRestoContext ctx ) {
         
-        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorIdentificador() );
+        String id = Utils.gerarId( visitor.visit( ctx.processaId() ).valorDoIdentificador() );
         Valor valor = visitor.visit( ctx.expr() );
         
         Valor vMemoria = tartaruga.lerMemoria( id );

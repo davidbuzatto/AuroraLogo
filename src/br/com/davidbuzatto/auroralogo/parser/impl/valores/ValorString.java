@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.parser.impl.valores;
 
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import java.io.Serializable;
 
 /**
@@ -39,6 +40,41 @@ public class ValorString extends Valor<String> implements Serializable {
     @Override
     public String toString() {
         return valor;
+    }
+    
+    @Override
+    public Valor somar( Valor valor ) {
+        return concatenar( valor );
+    }
+    
+    @Override
+    public Valor igualA( Valor valor ) {
+        return novoBooleano( this.valor.equals( valor.valorString() ) );
+    }
+    
+    @Override
+    public Valor diferenteDe( Valor valor ) {
+        return novoBooleano( !this.valor.equals( valor.valorString() ) );
+    }
+    
+    @Override
+    public Valor menorQue( Valor valor ) {
+        return novoBooleano( this.valor.compareTo( valor.valorString() ) < 0 );
+    }
+    
+    @Override
+    public Valor menorOuIgualA( Valor valor ) {
+        return novoBooleano( this.valor.compareTo( valor.valorString() ) <= 0 );
+    }
+    
+    @Override
+    public Valor maiorQue( Valor valor ) {
+        return novoBooleano( this.valor.compareTo( valor.valorString() ) > 0 );
+    }
+    
+    @Override
+    public Valor maiorOuIgualA( Valor valor ) {
+        return novoBooleano( this.valor.compareTo( valor.valorString() ) >= 0 );
     }
     
 }

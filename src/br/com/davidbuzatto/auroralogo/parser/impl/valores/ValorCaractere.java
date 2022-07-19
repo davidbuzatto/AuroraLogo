@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.parser.impl.valores;
 
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import java.io.Serializable;
 
 /**
@@ -39,6 +40,67 @@ public class ValorCaractere extends Valor<Character> implements Serializable {
     @Override
     public String toString() {
         return String.valueOf( valor );
+    }
+    
+    @Override
+    public Valor somar( Valor valor ) {
+        
+        if ( valor.isString() ) {
+            return concatenar( valor );
+        }
+        
+        return novoCaractere( ( this.valor ) + valor.valorInteiro() );
+        
+    }
+    
+    @Override
+    public Valor subtrair( Valor valor ) {
+        return novoCaractere( ( this.valor ) - valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor multiplicar( Valor valor ) {
+        return novoCaractere( ( this.valor ) * valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor dividir( Valor valor ) {
+        return novoCaractere( ( this.valor ) / ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() ) );  // possível divisão por zero;
+    }
+    
+    @Override
+    public Valor resto( Valor valor ) {
+        return novoCaractere( ( this.valor ) % ( valor.valorInteiro() == 0 ? 1 : valor.valorInteiro() ) );  // possível divisão por zero;
+    }
+    
+    @Override
+    public Valor igualA( Valor valor ) {
+        return novoBooleano( this.valor.charValue() == valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor diferenteDe( Valor valor ) {
+        return novoBooleano( this.valor.charValue() != valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor menorQue( Valor valor ) {
+        return novoBooleano( this.valor < valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor menorOuIgualA( Valor valor ) {
+        return novoBooleano( this.valor <= valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor maiorQue( Valor valor ) {
+        return novoBooleano( this.valor > valor.valorInteiro() );
+    }
+    
+    @Override
+    public Valor maiorOuIgualA( Valor valor ) {
+        return novoBooleano( this.valor >= valor.valorInteiro() );
     }
     
 }

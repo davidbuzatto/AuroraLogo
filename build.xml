@@ -114,7 +114,7 @@
             <arg value="a"/>
             <arg value="claro"/>
             <arg value="\u00E2ngulo"/>
-            <arg value="substring"/>
+            <arg value="tipo"/>
             <arg value="arcoCosseno"/>
             <arg value="segmento"/>
             <arg value="="/>
@@ -145,5 +145,11 @@
     <target name="-post-compile">
         <delete file="${build.classes.dir}/${gramatica}.g4"/>
     </target>
-        
+    
+    <target name="-post-jar">
+        <copy file="LICENSE.MD" todir="${dist.dir}"/>
+        <copy file="README.MD" todir="${dist.dir}"/>
+        <delete file="${dist.dir}/README.TXT"/>
+    </target>
+    
 </project>

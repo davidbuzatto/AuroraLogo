@@ -37,7 +37,6 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
@@ -46,7 +45,6 @@ import java.util.prefs.Preferences;
 import java.util.stream.Collectors;
 import javax.swing.AbstractAction;
 import javax.swing.JMenu;
-import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.SimpleAttributeSet;
@@ -368,6 +366,10 @@ public class Utils {
         
     }
     
+    public static Color somarCores( Color c1, Color c2 ) {
+        return gerarComponenteGradienteAlpha( c1, c2, 0.5 );
+    }
+    
     public static Color subtrairCores( Color c1, Color c2 ) {
         
         int rC1 = c1.getRed();
@@ -511,44 +513,6 @@ public class Utils {
         
         return new Color( r, g, b, a );
         
-    }    
-    
-    /*
-     * Cria um array de dimensões especificada no vararg "dimensoes".
-     */
-    public static Object criarArrayNDimensional( Integer... dimensoes ) {
-        return criarArrayNDimensional( "", false, dimensoes );
-    }
-    
-    private static Object criarArrayNDimensional( String identacao, boolean tracar, Integer... dimensoes ) {
-        
-        if ( dimensoes.length >= 1 ) {
-            
-            List<Integer> listaIndices = new ArrayList<>( Arrays.<Integer>asList(dimensoes ) );
-            Integer tamanhoAtual = listaIndices.remove( 0 );
-            
-            if ( tamanhoAtual  <= 0 ) {
-                tamanhoAtual  = 1;
-            }
-            
-            Object[] novoSubArray = new Object[tamanhoAtual];
-            
-            for ( int i = 0; i < tamanhoAtual ; i++ ) {
-                if ( tracar ) {
-                    System.out.println( identacao + i );
-                }
-                novoSubArray[i] = criarArrayNDimensional( 
-                        identacao + "  ", 
-                        tracar, 
-                        listaIndices.toArray( Integer[]::new ) );
-            }
-            
-            return novoSubArray;
-            
-        }
-        
-        return Valor.novoInteiro( 0 );
-        
     }
     
     public static void updateSplashScreen( int millisecondsToWait ) {
@@ -648,7 +612,7 @@ public class Utils {
         
     }
     
-    public static String toString( Object o ) {
+    public static String toStringGeral( Object o ) {
         
         StringBuilder sb = new StringBuilder();
         
@@ -656,13 +620,13 @@ public class Utils {
             o = ( (Valor) o ).getValor();
         }
         
-        toString( o, sb, "", null, false );
+        toStringGeral( o, sb, "", null, false );
         
         return sb.toString().trim();
         
     }
     
-    private static void toString( Object o, StringBuilder sb, String ident, Object p, boolean addVirgula ) {
+    private static void toStringGeral( Object o, StringBuilder sb, String ident, Object p, boolean addVirgula ) {
         
         String fixIdent = "    ";
         
@@ -672,9 +636,9 @@ public class Utils {
             for ( int i = 0; i < oa.length; i++ ) {
                 Object oi = oa[i];
                 if ( oi instanceof Valor ) {
-                    toString(( (Valor) oi ).getValor(), sb, ident + fixIdent, i, i != oa.length - 1 );
+                    toStringGeral(( (Valor) oi ).getValor(), sb, ident + fixIdent, i, i != oa.length - 1 );
                 } else {
-                    toString( oi, sb, ident + fixIdent, i, i != oa.length - 1 );
+                    toStringGeral( oi, sb, ident + fixIdent, i, i != oa.length - 1 );
                 }
             }
             sb.append( ident ).append( "]" ).append( addVirgula ? "," : "" ).append( "\n" );
@@ -684,9 +648,9 @@ public class Utils {
             int i = 0;
             for ( Entry<String, Object> e : lhm.entrySet() ) {
                 if ( e.getValue() instanceof Valor ) {
-                    toString(( (Valor) e.getValue() ).getValor(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
+                    toStringGeral(( (Valor) e.getValue() ).getValor(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
                 } else {
-                    toString( e.getValue(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
+                    toStringGeral( e.getValue(), sb, ident + fixIdent, e.getKey(), i != lhm.size() - 1 );
                 }
                 i++;
             }
@@ -714,103 +678,6 @@ public class Utils {
             sb.append( ident ).append( ( p == null ? "" : ( p instanceof String ? "\"" + p + "\"" : p ) + ": " ) ).append( valor ).append( addVirgula ? "," : "" ).append( "\n" );
             
         }
-        
-    }
-    
-    public static String toStringArranjo( Object[] arranjo ) {
-        StringBuilder sb = new StringBuilder();
-        toStringArranjo( arranjo, sb );
-        return sb.toString();
-    }
-    
-    private static void toStringArranjo( Object[] arranjo, StringBuilder sb ) {
-        
-        boolean primeiro = true;
-        sb.append( "[" );
-        
-        for ( Object o : arranjo ) {
-            if ( !primeiro ) {
-                sb.append( ", " );
-            }
-            if ( o instanceof Object[] ) {
-                toStringArranjo( (Object[]) o, sb );
-            } else {
-                if ( o instanceof String ) {
-                    sb.append( "\"" ).append( o.toString() ).append("\"");
-                } else if ( o instanceof Character ) {
-                    sb.append( "'" ).append( o.toString() ).append("'");
-                } else if ( o instanceof Valor ) {
-                    Valor v = (Valor) o;
-                    if ( v.isString() ) {
-                        StringBuilder append = sb.append( "\"" + v + "\"" );
-                    } else if ( v.isCaractere() ) {
-                        sb.append( "'" ).append( v ).append("'");
-                    } else if ( v.isArranjoAssociativo() ) {
-                        sb.append( toStringArranjoAssociativo( v ) );
-                    } else {
-                        sb.append( v.toString() );
-                    }
-                } else {
-                    sb.append( o.toString() );
-                }
-            }
-            primeiro = false;
-        }
-        
-        sb.append( "]" );
-        
-    }
-    
-    public static String toStringArranjoAssociativo( Valor v ) {
-        
-        StringBuilder sb = new StringBuilder();
-        
-        if ( v.isArranjoAssociativo() ) {
-            
-            LinkedHashMap<String, Object> mapa = (LinkedHashMap<String, Object>) v.getValor();
-            sb.append( "{" );
-            
-            boolean primeiro = true;
-            for ( Entry<String, Object> e : mapa.entrySet() ) {
-                
-                if ( !primeiro ) {
-                    sb.append( ", " );
-                }
-                
-                sb.append( "\"" ).append( e.getKey() ).append("\"=");
-                Object o = e.getValue();
-                
-                if ( o instanceof Object[] ) {
-                    toStringArranjo( (Object[]) o, sb );
-                } else {
-                    if ( o instanceof String ) {
-                        sb.append( "\"" ).append( o.toString() ).append("\"");
-                    } else if ( o instanceof Character ) {
-                        sb.append( "'" ).append( o.toString() ).append("'");
-                    } else if ( o instanceof Valor ) {
-                        Valor vv = (Valor) o;
-                        if ( vv.isString() ) {
-                            sb.append( "\"" ).append( vv ).append("\"");
-                        } else if ( vv.isCaractere() ) {
-                            sb.append( "'" ).append( vv ).append("'");
-                        } else if ( vv.isArranjoAssociativo() ) {
-                            sb.append( toStringArranjoAssociativo( vv ) );
-                        } else {
-                            sb.append( vv.toString() );
-                        }
-                    } else {
-                        sb.append( o.toString() );
-                    }
-                }
-                
-                primeiro = false;
-            }
-            
-            sb.append( "}" );
-            
-        }
-        
-        return sb.toString();
         
     }
     

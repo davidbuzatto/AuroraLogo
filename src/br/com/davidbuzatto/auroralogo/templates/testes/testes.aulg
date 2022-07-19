@@ -1,6 +1,64 @@
-vA = criarArranjo[10] .
+vC = criarArranjo[13] .
 
-escrever "a:" na saída pulando linha .
-escrever vA.comprimento() na saída pulando linha .
-escrever vA[0].comprimento() na saída pulando linha .
-escrever vA na saída pulando linha .
+vC[0] = 1 .
+vC[1] = -1 .
+vC[2] = 0 .
+vC[3] = 1.0 .
+vC[4] = -1.0 .
+vC[5] = 0.0 .
+vC[6] = VERDADEIRO .
+vC[7] = FALSO .
+vC[8] = 'a' .
+vC[9] = "" .
+vC[10] = "string" .
+vC[11] = #ff0000 .
+vC[12] = #ff00ff .
+
+vA = criarArranjo[2] .
+vA[0] = criarArranjo[5] .
+vA[1] = criarArranjoAssociativo{} .
+
+para cada vOp1 em vA repetir {
+    para cada vOp2 em vC repetir {
+        escrever vOp1 + " == " + vOp2 + " -> " + ( vOp1 == vOp2 ) na saída pulando linha .
+        escrever vOp1 + " != " + vOp2 + " -> " + ( vOp1 != vOp2 ) na saída pulando linha .
+        escrever vOp1 + " < " + vOp2 + " -> " + ( vOp1 < vOp2 ) na saída pulando linha .
+        escrever vOp1 + " <= " + vOp2 + " -> " + ( vOp1 <= vOp2 ) na saída pulando linha .
+        escrever vOp1 + " > " + vOp2 + " -> " + ( vOp1 > vOp2 ) na saída pulando linha .
+        escrever vOp1 + " >= " + vOp2 + " -> " + ( vOp1 >= vOp2 ) na saída pulando linha .
+    }
+}
+
+escrever "\n\n\n" na saída .
+
+
+para cada vOp1 em vA repetir {
+    para cada vOp2 em vC repetir {
+        escrever vOp1 + " + " + vOp2 + " -> " + ( vOp1 + vOp2 ) na saída pulando linha .
+        escrever vOp1 + " - " + vOp2 + " -> " + ( vOp1 - vOp2 ) na saída pulando linha .
+        escrever vOp1 + " * " + vOp2 + " -> " + ( vOp1 * vOp2 ) na saída pulando linha .
+        escrever vOp1 + " / " + vOp2 + " -> " + ( vOp1 / vOp2 ) na saída pulando linha .
+        escrever vOp1 + " % " + vOp2 + " -> " + ( vOp1 % vOp2 ) na saída pulando linha .
+    }
+}
+
+/*para cada vOp1 em vC repetir {
+    para cada vOp2 em vC repetir {
+        escrever vOp1 + " == " + vOp2 + " -> " + ( vOp1 == vOp2 ) na saída pulando linha .
+        escrever vOp1 + " != " + vOp2 + " -> " + ( vOp1 != vOp2 ) na saída pulando linha .
+        escrever vOp1 + " < " + vOp2 + " -> " + ( vOp1 < vOp2 ) na saída pulando linha .
+        escrever vOp1 + " <= " + vOp2 + " -> " + ( vOp1 <= vOp2 ) na saída pulando linha .
+        escrever vOp1 + " > " + vOp2 + " -> " + ( vOp1 > vOp2 ) na saída pulando linha .
+        escrever vOp1 + " >= " + vOp2 + " -> " + ( vOp1 >= vOp2 ) na saída pulando linha .
+    }
+}*/
+
+/*para cada vOp1 em vC repetir {
+    para cada vOp2 em vC repetir {
+        escrever vOp1 + " + " + vOp2 + " -> " + ( vOp1 + vOp2 ) na saída pulando linha .
+        escrever vOp1 + " - " + vOp2 + " -> " + ( vOp1 - vOp2 ) na saída pulando linha .
+        escrever vOp1 + " * " + vOp2 + " -> " + ( vOp1 * vOp2 ) na saída pulando linha .
+        escrever vOp1 + " / " + vOp2 + " -> " + ( vOp1 / vOp2 ) na saída pulando linha .
+        escrever vOp1 + " % " + vOp2 + " -> " + ( vOp1 % vOp2 ) na saída pulando linha .
+    }
+}*/

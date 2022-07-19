@@ -20,7 +20,7 @@ import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
-import static br.com.davidbuzatto.auroralogo.parser.impl.Valor.*;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -72,7 +72,7 @@ public class ComponenteVisitorFuncoes {
         
         if ( funcao.isFuncao() ) {
             
-            AuroraLogoParser.FuncContext fctx = (AuroraLogoParser.FuncContext) funcao.valorFuncao();
+            AuroraLogoParser.FuncContext fctx = (AuroraLogoParser.FuncContext) funcao.valorDaFuncao();
             
             // obtém os valores no escopo anterior
             List<Valor> argumentos = new ArrayList<>();

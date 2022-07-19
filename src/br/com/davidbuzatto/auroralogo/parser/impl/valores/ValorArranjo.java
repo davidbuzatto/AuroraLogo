@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.parser.impl.valores;
 
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import java.io.Serializable;
 
 /**
@@ -34,6 +35,42 @@ public class ValorArranjo extends Valor<Object> implements Serializable {
     @Override
     public String getTipo() {
         return "ARRANJO";
+    }
+    
+    @Override
+    public Valor diferenteDe( Valor valor ) {
+        return novoVerdadeiro();
+    }
+    
+    @Override
+    public Valor somar( Valor valor ) {
+        
+        if ( valor.isString() ) {
+            return concatenar( valor );
+        }
+        
+        return this;
+        
+    }
+    
+    @Override
+    public Valor subtrair( Valor valor ) {
+        return this;
+    }
+    
+    @Override
+    public Valor multiplicar( Valor valor ) {
+        return this;
+    }
+    
+    @Override
+    public Valor dividir( Valor valor ) {
+        return this;
+    }
+    
+    @Override
+    public Valor resto( Valor valor ) {
+        return this;
     }
     
     @Override

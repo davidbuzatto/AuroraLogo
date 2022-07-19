@@ -17,6 +17,7 @@
 package br.com.davidbuzatto.auroralogo.gui.tartaruga;
 
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -104,7 +105,7 @@ public class Estado implements Cloneable {
             if ( en.getValue().isFuncao() ) {
                 e.memoria.put( en.getKey(), en.getValue() );
             } else {
-                e.memoria.put(en.getKey(), Valor.novoValor( en.getValue().getValor() ) );
+                e.memoria.put(en.getKey(), novoValor( en.getValue().getValor() ) );
             }
             
             // forma 1 (sintaxe do ponto para de funcionar)
@@ -120,7 +121,7 @@ public class Estado implements Cloneable {
             //e.memoria.put( en.getKey(), en.getValue() );
             
             // forma 3
-            //e.memoria.put( en.getKey(), Valor.novoValor( en.getValue().getValor() ) );
+            //e.memoria.put( en.getKey(), novoValor( en.getValue().getValor() ) );
             
         }
 
