@@ -5,9 +5,186 @@
  * Data: <DATA>
  */
 
-//levantar
-//abaixar
-// engrossar
-// desengrossar
-// trocar grossura
-// trocar cores
+/*
+ * Agora que você conhece as capacidades de movimentação da tartaruga
+ * e algumas opções envolvendo o ambiente gráfico de desenvolvimento, vamos
+ * aprender a mudar o comportamento do pincel.
+ */
+
+/*
+ * Quando queremos movimentar a tartaruga sem que haja o desenho do
+ * caminho, nós podemos pedir que ela levante o pincel.
+ */
+
+levantar pincel .
+
+/*
+ * Ao levantar o pincel, todas as operações de desenho não aparecerão
+ * na área de desenho, apesar das instruções de desenho ainda serem
+ * processadas. Veja, vamos movimentar a tartaruga para a coordenada 100, 100.
+ */
+
+vá para 100, 100 .
+
+/*
+ * A tartaruga se movimentou, mas sem desenhar. Para voltar a desenhar, 
+ * basta abaixar o pincel.
+ */
+
+abaixar pincel .
+vá para 200, 100 .
+
+/*
+ * Por padrão, a cor do fundo da área de desenho é sempre branca, mas podemos
+ * configurá-la para qualquer cor que dejarmos. Essa é a única instrução
+ * que não ficará sendo atualizada na área de desenho, ou seja, apenas a última
+ * intrução de troca de cor do fundo ficará ativa na execução de seu programa.
+ */
+
+/*
+ * Experimente "descomentando" (tirando as duas barras) de cada uma das duas 
+ * linhas abaixo.
+ */
+
+//trocar cor do fundo para azul .
+//trocar cor do fundo para preto .
+
+/*
+ * Se você deixare apenas a linha 49 ativa, o fundo ficará azul. Se deixar
+ * as duas ativas, o fundo ficará preto, "desconsiderando" a instrução
+ * de troca de cor de fundo que foi submetida anteriormente.
+ */
+
+/* 
+ * Na linguagem de programação AuroraLogo as cores são consideradas como tipos
+ * (falaremos disso mais tarde) e existem onze constantes que representam as
+ * onze cores mais comuns, sendo elas: preto, azul (usadas acima), ciano, 
+ * cinza, verde, magenta, laranja, rosa, vermelho, branco e amarelo, mas isso
+ * não nos restringe obrigatoriamente a poder usar apenas essas onze cores.
+ * 
+ * Para continuarmos, volte a comentar as linhas 49 e 50 para termos o fundo
+ * em branco novamente. Vamos agora trocar a cor do pincel, usando uma cor
+ * arbitrária.
+ */
+
+trocar cor do pincel para #0099CC .
+vá para baixo em 100 .
+
+/*
+ * Perceba que agora, na linha 70, ao invés de usarmos um nome para a cor, 
+ * nós fornecemos um valor iniciado com um símbolo de cerquilha (#) mais seis
+ * dígitos hexadecimais (de 0 a F). Os dois primeiros dígitos correspondem
+ * ao componente vermelho da cor, os dois dígitos do meio correspondem ao
+ * componente verde da cor e os dois últimos ao componente azul. Ou seja,
+ * nessa cor temos 00 de vermelho, 99 de verde e CC (ou cc) de azul, formando
+ * no final um tom de azul ao se desenhar.
+ * 
+ * Também podemos aplicar mais dois dígitos à cor, totalizando oito dígitos,
+ * para especificarmos o componente "alpha" (transparência) da cor. Por
+ * exemplo, na cor abaixo temos um tom de laranja (FF em vermelho, 66 em verde
+ * e 00 em azul) com 55 de transparência. Os componentes das cores podem variar
+ * de 00 a FF.
+ */
+
+trocar cor do pincel para #FF660055 .
+vá para baixo em 100 .
+
+/*
+ * Obviamente é humanamente impossível decorar todas as cores formadas nessa
+ * codificação hexadecimal, assim como nomeá-las uma a uma. Sendo assim, 
+ * podemos invocar um diálogo de seleção de cores para nos ajudar quando
+ * queremos escolher alguma cor. Para isso, use o atalho Ctrl+U ou clique
+ * com o botão direito do mouse aqui na área de código fonte e escolha a opção
+ * "Inserir Cor". Ao fazer isso, você poderá escolher uma cor, inclusive em 
+ * vários espaços de cor disponíveis, e o ambiente da AuroraLogo vai, depois
+ * que você clicar em OK no diálogo de cor, inserir o código hexadecimal
+ * correspondente no código, na posição em que o cursor está no momento.
+ * Experimente por exemplo, na linha abaixo, trocar a cor do pincel para
+ * algum tom de verde.
+ */
+
+trocar cor do pincel para #009966 .
+vá para direita em 100 . 
+
+/*
+ * Além da troca da cor do fundo e do pincel, podemos também trocar a cor
+ * do preenchimento das formas geométricas que a tartaruga é capaz de desenhar.
+ * Não veremos nesse momento todas as formas possíveis, mas apenas o quadrado
+ * para podermos ver o comportamento da troca de cor de preenchimento.
+ */
+
+/*
+ * A instrução abaixo diz à tartaruga para desenhar um quadrado com
+ * centro/centróide na coordenada 300, 100 e com lado de 40 pixels.
+ * Você perceberá que por padrão a cor de preenchimento é a branca, pois
+ * o quadrado que será desenhado será branco por dentro contornado com uma
+ * linha feita usando a cor de contorno alterada anteriormente.
+ */
+
+desenhar quadrado( 300, 100, 40 ) .
+
+/*
+ * A mudança da cor do preenchimento é feita da seguinte maneira:
+ */
+trocar cor do preenchimento para #6699FF .
+desenhar quadrado( 400, 100, 40 ) .
+
+/*
+ * Agora um novo quadrado foi feito na coordenada 400, 100, mas com o
+ * preenchimento alterado. Como já dito, aprenderemos sobre todas as formas
+ * geométricas possíveis no momento oportuno.
+ */
+
+/*
+ * Além da mudança nas cores, o pincel ainda pode ser configurado de mais
+ * algumas formas. Uma delas é a mudança na sua grossura. Para isso temos
+ * algumas variações mostradas abaixo.
+ */
+
+trocar cor do pincel para preto .
+levantar pincel .
+vá para 240, 40 .
+abaixar pincel .
+
+engrossar pincel .         // engrossa o pincel em 1 pixel
+vá para direita em 50 .
+
+desengrossar pincel .      // desengrossa o pincel em 1 pixel 
+vá para direita em 50 .
+
+engrossar pincel em 5 .    // engrossa o pincel em 5 pixels .
+vá para direita em 50 .
+
+desengrossar pincel em 3 . // engrossa o pincel em 3 pixels .
+vá para direita em 50 .
+
+trocar grossura do pincel para 10 . // troca a grossura do pincel
+vá para direita em 50 .             // para 10 pixels.
+
+/*
+ * Por fim, podemos mudar o estilo da ponta do pincel. Por padrão
+ * usamos uma linha contínua, mas podemos alterar para tracejado ou
+ * pontilhado.
+ */
+
+levantar pincel .
+vá para 240, -40 .
+abaixar pincel .
+
+trocar grossura do pincel para 5 .
+trocar estilo do pincel para tracejado .
+vá para 340, -40 .
+
+trocar grossura do pincel para 2 .
+trocar estilo do pincel para pontilhado .
+vá para 420, -40 .
+
+trocar grossura do pincel para 1 .
+trocar estilo do pincel para contínuo .
+vá para 500, -40 .
+
+/*
+ * Agora que conhecemos a maioria das instruçõesb básicas para lidar
+ * com a tartaruga, podemos seguir adiante para aprendermos como
+ * escrever e ler dados, tornando nossos programas mais úteis e interativos.
+ */

@@ -1,0 +1,295 @@
+/**
+ * Você está preparado para ter um gostinho do que a
+ * linguagem de programação AuroraLogo vai lhe oferecer?
+ *
+ * Clique no botão "Executar" acima para ver o resultado
+ * do código abaixo.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+// função resursiva que calcula um termo da série de Fibonacci
+função fFibonacci( pTermo ) {
+    se pTermo é igual a 0 OU pTermo é igual a 1 então {
+        retornar 1 .
+    } senão {
+        retornar fFibonacci( pTermo - 2 ) + fFibonacci( pTermo - 1 ) .
+    }
+}
+
+// desenhando um quadrado no sentido horário
+vá para direita em 100 .   // vai para a direita em 100 pixels
+vá para cima em 100 .      // vai para cima em 100 pixels
+vá para esquerda em 100 .  // vai para a esquerda em 100 pixels
+vá para baixo em 100 .     // vai para baixo em 100 pixels
+
+// indo para o centro do quadrado
+vá para 50, 50 .           // vai para a coordenada 50, 50
+
+// para movimentar sem desenhar, levante o pincel
+levantar pincel .
+vá para direita em 100 .
+
+// para voltar a desenhar, abaixe o pincel
+abaixar pincel .
+vá para cima em 100 .
+
+// pode-se girar a tartaruga em graus ou radianos
+girar em 45 graus .   // 45 graus sentido horário
+vá para cima em 50 .
+
+girar em -90 graus .  // 90 graus sentido anti-horário
+vá para cima em 50 .
+
+girar em PI/2 radianos .      // pi/2 radianos correspondem a 90 graus
+vá para cima em 50 .
+
+girar em -(3*PI/2) radianos . // 3pi/2 radianos correspondem a 270 graus
+vá para cima em 50 .
+
+girar em -135 graus .
+levantar pincel .
+vá para 200, 40 .
+abaixar pincel .
+
+engrossar pincel .         // aumenta a grossura do pincel em 1 pixel
+vá para direita em 50 .
+engrossar pincel em 3 .    // aumenta a grossura do pincel em 3 pixels
+vá para direita em 50 .
+desengrossar pincel .      // diminui a grossura do pincel em 1 pixel
+vá para direita em 50 .
+desengrossar pincel em 2 . // diminui a grossura do pincel em 2 pixels
+vá para direita em 50 .
+trocar grossura do pincel para 10 . // troca a grossura do pincel para 10 pixels
+vá para direita em 50 .
+
+// trocando a cor do pincel para vermelho
+trocar cor do pincel para vermelho .
+vá para direita em 50 .
+
+trocar grossura do pincel para 2 .
+
+// trocando a cor do pincel para uma cor qualquer
+trocar cor do pincel para #0099cc .
+vá para direita em 50 .
+
+// trocando a cor do pincel para uma cor com transparência
+trocar cor do pincel para #cc55ee55 .
+vá para direita em 50 .
+
+// trocando a cor do pincel, mudando o tom da mesma
+trocar cor do pincel para laranja 1 vez claro .
+vá para direita em 50 .
+
+trocar cor do pincel para laranja 2 vezes escuro .
+vá para direita em 50 .
+
+trocar cor do pincel para preto .
+trocar grossura do pincel para 1 .
+
+// desenhando formas geométricas
+// um segmento de reta iniciado em 300, 150 e
+// terminado em 430, 200 
+desenhar segmento( 300, 150, 430, 200 ) .
+
+// um quadrado com centro em 300, 200 e lado 40 pixels.
+desenhar quadrado( 300, 200, 40 ) .
+
+// um retângulo com centro em 300, 250, largura de 100
+// pixels e altura de 40 pixels
+desenhar retângulo( 300, 250, 100, 40 ) .
+
+// um retângulo com cantos arredondados com centro em 
+// 430, 250, largura de 100 pixels, altura de 40 pixels
+// e canto com um arco de 15 pixels de raio.
+desenhar retânguloArredondado( 430, 250, 100, 40, 15 ) .
+
+// trocando a cor do preenchimento 
+trocar cor do preenchimento para laranja .
+
+// um círculo com centro em 300, 300 e raio 20
+desenhar círculo( 300, 300, 20 ) .
+
+// uma elipse com centro em 430, 300, eixo maior de 100
+// eixo menor de 40 e sem preenchimento
+desenhar elipse( 430, 300, 100, 40 ) sem preenchimento .
+
+// um arco aberto com centro 250, 360, eixo maior de 40,
+// eixo menor de 40, ângulo inicial em 0 grau, ângulo final
+// em 270 graus e sem contorno
+desenhar arco( 250, 360, 40, 40, 0, 270 ) sem contorno .
+
+// um arco aberto com centro 300, 360, eixo maior de 40,
+// eixo menor de 40, ângulo inicial em 0 grau e ângulo final
+// em 120 graus
+desenhar arco( 300, 360, 40, 40, 0, 120, ABERTO ) .
+
+// um arco fechado com uma corda com centro 360, 360,
+// eixo maior de 60, eixo menor de 40, ângulo inicial em 0 grau
+// e ângulo final em 150 graus
+desenhar arco( 360, 360, 60, 40, 0, 150, CORDA ) .
+
+// um arco fechado em formato de pizza com centro 430, 360,
+// eixo maior de 60, eixo menor de 40, ângulo inicial em 0 grau
+// e ângulo final em 210 graus
+desenhar arco( 430, 360, 60, 40, 0, 210, PIZZA ) .
+
+trocar cor do preenchimento para rosa .
+
+// um polígono regular com centro em 200, 420, girado
+// em 0 grau e três lados
+desenhar polígonoRegular( 200, 420, 20, 0, 3 ) .
+
+// um polígono regular com centro em 250, 420, girado
+// em 10 graus e quatro lados
+desenhar polígonoRegular( 250, 420, 20, 10, 4 ) .
+
+// um polígono regular com centro em 300, 420, girado
+// em 20 graus e cinco lados
+desenhar polígonoRegular( 300, 420, 20, 20, 5 ) .
+
+// um polígono regular com centro em 350, 420, girado
+// em 30 graus e seis lados
+desenhar polígonoRegular( 350, 420, 20, 30, 6 ) .
+
+// uma estrela com centro em 200, 480, girada
+// em 0 grau e cinco pontas
+desenhar estrela( 200, 480, 20, 0, 5 ) .
+
+// uma estrela com centro em 250, 480, girada
+// em 10 graus e seis pontas
+desenhar estrela( 250, 480, 20, 10, 6 ) .
+
+// uma estrela com centro em 300, 480, girada
+// em 20 graus e sete pontas
+desenhar estrela( 300, 480, 20, 20, 7 ) .
+
+// uma estrela com centro em 350, 480, girada
+// em 30 graus e oito pontas
+desenhar estrela( 350, 480, 20, 30, 8 ) .
+
+// um polígono com três vértices:
+// v1: 390, 430
+// v2: 450, 430
+// v3: 420, 470
+desenhar polígono( 390, 430, 450, 430, 420, 470 ) .
+
+// um polígono com quatro vértices:
+// v1: 470, 430
+// v2: 530, 430
+// v3: 520, 470
+// v4: 480, 470
+desenhar polígono( 470, 430, 530, 430, 520, 470, 480, 470 ) .
+
+// uma curva Bézier quadrática (um ponto de controle) com
+// início em 580, 180, fim em 580, 460 e ponto de controle
+// em 540, 320
+desenhar curvaQuadrática( 580, 180, 540, 320, 580, 460 ) sem preenchimento . 
+
+// uma curva Bézier cúbica (dois pontos de controle) com
+// início em 640, 180, fim em 640, 460, primeiro ponto de
+// controle em 600, 275 e segundo ponto de controle em 680, 370
+// mostrando os pontos de controle
+desenhar curvaCúbica( 640, 180, 600, 275, 680, 370, 640, 460 ) mostrando controles, sem preenchimento . 
+
+// consulta os atributos da tartaruga
+escrever tartaruga.x() na saída pulando linha .
+escrever tartaruga.y() na saída pulando linha .
+escrever tartaruga.ângulo() na saída pulando linha .
+escrever tartaruga.grossuraDoPincel() na saída pulando linha .
+escrever tartaruga.corDoPincel() na saída pulando linha .
+escrever tartaruga.corDoPreenchimento() na saída pulando linha .
+escrever tartaruga.corDoFundo() na saída pulando linha .
+escrever tartaruga.corPrópria() na saída pulando linha .
+escrever tartaruga.estáDesenhando() na saída pulando linha .
+
+trocar cor do preenchimento para #0099cc .
+
+// desenhando um caminho
+desenhar caminho {
+    mover até 140, -60 .
+    linha até tartaruga.x() + 100, tartaruga.y() .
+    curva quadrática até tartaruga.x() + 60, tartaruga.y(),
+                         tartaruga.x() + 60, tartaruga.y() - 60 .
+    curva cúbica até tartaruga.x() - 80, tartaruga.y(),
+                     tartaruga.x() - 80, tartaruga.y() - 160,
+                     tartaruga.x() - 160, tartaruga.y() - 160.
+    fechar .
+}
+
+levantar pincel .
+vá para 400, -60 .
+abaixar pincel .
+girar em 45 graus .
+
+repetir 80 vezes {
+    
+    trocar grossura do pincel para númeroAleatório( 1, 11 ) .
+    
+    se passo % 2 == 0 então {
+        girar em -90 graus .
+    } senão {
+        girar em 90 graus .
+    }
+    
+    se passo % 4 == 0 então {
+        trocar cor do pincel para #FF00CC .
+    } senão se passo % 3 == 0 então {
+        trocar cor do pincel para #00CC66 .
+    } senão se passo % 2 == 0 então {
+        trocar cor do pincel para #FF6600 .
+    }
+    
+    se passo % 20 == 0 então {
+        girar em 90 graus .
+    }
+    
+    vá para cima em 40 .
+    
+}
+
+levantar pincel .
+vá para 650, -370 .
+abaixar pincel .
+girar em -45 graus .
+trocar cor do pincel para #000000 .
+trocar grossura do pincel para 1 .
+
+vCores = criarArranjo[5] .
+vCores[0] = #FF3333AA .
+vCores[1] = #00CC00AA .
+vCores[2] = #CC33FFAA .
+vCores[3] = #0066FFAA .
+vCores[4] = #FF6633AA .
+
+vP = 20 .
+repetir vP vezes {
+    
+    levantar pincel .
+    vá para cima em 140 .
+    abaixar pincel .
+    trocar cor do preenchimento para vCores[passo%5] .
+    desenhar elipse( tartaruga.x(), tartaruga.y(), 80, 240 ).
+    levantar pincel .
+    vá para baixo em 140 .
+    abaixar pincel .
+    girar em 360 / vP graus .
+    
+}
+
+abaixar pincel .
+trocar cor do preenchimento para amarelo .
+desenhar círculo( tartaruga.x(), tartaruga.y(), 40 ).
+    
+escrever "Sexto termo da série de Fibonacci: " + fFibonacci( 5 ) na saída pulando linha .
+vA = 10 .
+
+escrever vA * 10 no diálogo .
+
+ler vA usando a mensagem "Entre com um número:" .
+se vA % 2 é igual a 0 então {
+    escrever formatarTexto( "O número %d é par!", vA ) no diálogo .
+} senão {
+    escrever formatarTexto( "O número %d é ímpar!", vA ) no diálogo .
+}

@@ -18,6 +18,7 @@ package br.com.davidbuzatto.auroralogo.gui.tartaruga;
 
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
+import br.com.davidbuzatto.auroralogo.utils.Utils;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.util.ArrayList;
@@ -32,11 +33,12 @@ import java.util.Map;
  */
 @SuppressWarnings({"all", "warnings", "unchecked", "unused", "cast"})
 public class Estado implements Cloneable {
-
+    
     protected double x;
     protected double y;
     protected double angulo;
     protected BasicStroke contorno;
+    protected EstiloContorno estiloContorno;
     protected String texto;
     protected Color corPincel;
     protected Color corPreenchimento;
@@ -45,17 +47,32 @@ public class Estado implements Cloneable {
     protected ContainerForma containerForma;
     protected Map<String, Valor> memoria;
 
-    public Estado( double x, double y, double angulo, double grossura, Color corPincel, Color corPreenchimento, Color corFundo, boolean desenhando ) {
+    public Estado( double x, double y, double angulo, double grossura, EstiloContorno estiloContorno, Color corPincel, Color corPreenchimento, Color corFundo, boolean desenhando ) {
+        
         this.x = x;
         this.y = y;
         this.angulo = angulo;
-        this.contorno = new BasicStroke( (float) grossura, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL );
         this.corPincel = corPincel;
         this.corPreenchimento = corPreenchimento;
         this.corFundo = corFundo;
         this.desenhando = desenhando;
         this.containerForma = null;
         this.memoria = new LinkedHashMap<>();
+        
+        this.estiloContorno = estiloContorno;
+        switch ( estiloContorno ) {
+            case CONTINUO:
+                this.contorno = Utils.criarContornoContinuo( grossura );
+                break;
+            case TRACEJADO:
+                this.contorno = Utils.criarContornoTracejado( grossura );
+                break;
+            case PONTILHADO:
+                this.contorno = Utils.criarContornoPontilhado( grossura );
+                break;
+        }
+        
+        
     }
 
     public double getX() {
@@ -86,12 +103,11 @@ public class Estado implements Cloneable {
     
     @Override
     public Object clone() throws CloneNotSupportedException {
-
+        
         Estado e = (Estado) super.clone();
         e.x = x;
         e.y = y;
         e.angulo = angulo;
-        e.contorno = new BasicStroke( e.contorno.getLineWidth(), e.contorno.getEndCap(), e.contorno.getLineJoin() );
         e.texto = null;
         e.corPincel = corPincel;
         e.corPreenchimento = corPreenchimento;
@@ -100,6 +116,19 @@ public class Estado implements Cloneable {
         e.containerForma = null;
         e.memoria = new LinkedHashMap<>();
 
+        e.estiloContorno = estiloContorno;
+        switch ( estiloContorno ) {
+            case CONTINUO:
+                e.contorno = Utils.criarContornoContinuo( contorno.getLineWidth() );
+                break;
+            case TRACEJADO:
+                e.contorno = Utils.criarContornoTracejado( contorno.getLineWidth() );
+                break;
+            case PONTILHADO:
+                e.contorno = Utils.criarContornoPontilhado( contorno.getLineWidth() );
+                break;
+        }
+        
         for ( Map.Entry<String, Valor> en : memoria.entrySet() ) {
             
             if ( en.getValue().isFuncao() ) {

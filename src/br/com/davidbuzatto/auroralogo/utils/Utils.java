@@ -19,6 +19,7 @@ package br.com.davidbuzatto.auroralogo.utils;
 import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorFuncoes;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -731,7 +732,7 @@ public class Utils {
         try {
             
             Scanner s = new Scanner( Utils.class.getResourceAsStream( 
-                    "/br/com/davidbuzatto/auroralogo/templates/exemplos/exemplos.txt" ) );
+                    "/br/com/davidbuzatto/auroralogo/templates/exemplos/estruturaMenu.txt" ) );
             
             List<String> nomes = new ArrayList<>();
             while ( s.hasNextLine() ) {
@@ -812,6 +813,48 @@ public class Utils {
         }
         
         return idLimpo;
+        
+    }
+    
+    public static BasicStroke criarContornoContinuo( double grossura ) {
+        
+        if ( grossura <= 0 ) {
+            grossura = 1;
+        }
+        
+        return new BasicStroke( (float) grossura, BasicStroke.CAP_ROUND, BasicStroke.JOIN_BEVEL );
+        
+    }
+    
+    public static BasicStroke criarContornoTracejado( double grossura ) {
+        
+        if ( grossura <= 0 ) {
+            grossura = 1;
+        }
+        
+        return new BasicStroke( 
+                (float) grossura, 
+                BasicStroke.CAP_ROUND, 
+                BasicStroke.JOIN_BEVEL,
+                0, 
+                new float[]{ 5f, (float) grossura * 2f }, 
+                0f );
+        
+    }
+    
+    public static BasicStroke criarContornoPontilhado( double grossura ) {
+        
+        if ( grossura <= 0 ) {
+            grossura = 1;
+        }
+        
+        return new BasicStroke( 
+                (float) grossura, 
+                BasicStroke.CAP_ROUND, 
+                BasicStroke.JOIN_BEVEL,
+                0, 
+                new float[]{ 1f, (float) grossura * 1.5f }, 
+                0f );
         
     }
     

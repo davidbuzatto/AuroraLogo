@@ -360,6 +360,12 @@ public interface AuroraLogoVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitTrocarGrossura(AuroraLogoParser.TrocarGrossuraContext ctx);
 	/**
+	 * Visit a parse tree produced by {@link AuroraLogoParser#trocarEstilo}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitTrocarEstilo(AuroraLogoParser.TrocarEstiloContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link AuroraLogoParser#escrever}.
 	 * @param ctx the parse tree
 	 * @return the visitor result

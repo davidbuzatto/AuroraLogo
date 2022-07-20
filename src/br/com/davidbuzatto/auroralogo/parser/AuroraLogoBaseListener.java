@@ -664,6 +664,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterTrocarEstilo(AuroraLogoParser.TrocarEstiloContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitTrocarEstilo(AuroraLogoParser.TrocarEstiloContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterEscrever(AuroraLogoParser.EscreverContext ctx) { }
 	/**
 	 * {@inheritDoc}

@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
+import br.com.davidbuzatto.auroralogo.gui.tartaruga.EstiloContorno;
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
@@ -103,6 +104,20 @@ public class ComponenteVisitorInstrucoesSimples {
     public Valor visitTrocarGrossura( AuroraLogoParser.TrocarGrossuraContext ctx ) {
         tartaruga.setGrossura( visitor.visit( ctx.expr() ).valorDecimal() );
         return novoNulo();
+    }
+    
+    public Valor visitTrocarEstilo( AuroraLogoParser.TrocarEstiloContext ctx ) {
+        
+        if ( ctx.CONU() != null ) {
+            tartaruga.setEstiloContorno( EstiloContorno.CONTINUO );
+        } else if ( ctx.TRAC() != null ) {
+            tartaruga.setEstiloContorno( EstiloContorno.TRACEJADO );
+        } else if ( ctx.PONT() != null ) {
+            tartaruga.setEstiloContorno( EstiloContorno.PONTILHADO );
+        }
+        
+        return novoNulo();
+        
     }
     
 }

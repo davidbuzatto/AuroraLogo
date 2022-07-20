@@ -290,6 +290,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "claro" | 
 "com " | 
 "com" | 
+"cont\u00EDnuo " | 
+"cont\u00EDnuo" | 
 "continuar " | 
 "continuar" | 
 "contorno " | 
@@ -344,6 +346,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "escuro" | 
 "esquerda " | 
 "esquerda" | 
+"estilo " | 
+"estilo" | 
 "fechar " | 
 "fechar" | 
 "formatarTexto " | 
@@ -396,6 +400,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "passo" | 
 "pincel " | 
 "pincel" | 
+"pontilhado " | 
+"pontilhado" | 
 "por " | 
 "por" | 
 "preenchimento " | 
@@ -430,6 +436,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "tartaruga" | 
 "terminar " | 
 "terminar" | 
+"tracejado " | 
+"tracejado" | 
 "trocar " | 
 "trocar" | 
 "usando " | 
@@ -465,6 +473,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "corPr\u00F3pria" | 
 "est\u00E1Desenhando " | 
 "est\u00E1Desenhando" | 
+"estiloDoPincel " | 
+"estiloDoPincel" | 
 "grossuraDoPincel " | 
 "grossuraDoPincel" | 
 "substring " | 

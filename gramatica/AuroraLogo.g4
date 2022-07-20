@@ -48,6 +48,7 @@ ains : movimentar
      | engrossar
      | desengrossar
      | trocarGrossura
+     | trocarEstilo
      | escrever
      | ler
      | atribuir
@@ -196,6 +197,9 @@ desengrossar : DES PINC ( EM expr )?
 trocarGrossura  : TROC GROS DO PINC PARA expr
                 ;
 
+trocarEstilo    : TROC EST DO PINC PARA ( CONU | TRAC | PONT )
+                ;
+
 escrever     : ESC expr ( NA SAI  ( PUL LIN )?
                         | NO DIAG ( PUL LIN )?
                         )?
@@ -309,7 +313,7 @@ instCaminho         : MOV ATE expr ',' expr                                     
                     | FEC                                                             # instrucaoCaminhoFecharCaminho
                     ;
 
-consultarTartaruga  : TART DOT ( PX | PY | PA | PG | PCP | PCPP | PCF | PCPR | PD ) '(' ')'
+consultarTartaruga  : TART DOT ( PX | PY | PA | PG | PES | PCP | PCPP | PCF | PCPR | PD ) '(' ')'
                     ;
 
 consultarString     : processaId DOT ( COMP '(' ')' | CARC '(' ')' ( '[' exprIndice ']' )? | SUBS '(' expr ( ',' expr )? ')' )
@@ -387,6 +391,7 @@ CIM  : 'cima'                    ;
 COD  : 'CORDA'                   ;
 COM  : 'com'                     ;
 CONT : 'continuar'               ;
+CONU : 'cont\u00EDnuo'           ;
 CON  : 'contorno'                ;
 CONE : 'controle'                ;
 CONS : 'controles'               ;
@@ -413,6 +418,7 @@ ENT  : 'ent\u00E3o'              ;
 ESCO : 'escolha'                 ;
 ESC  : 'escrever'                ;
 ESQ  : 'esquerda'                ;
+EST  : 'estilo'                  ;
 FAL  : 'FALSO'                   ;
 FEC  : 'fechar'                  ;
 FORM : 'formatarTexto'           ;
@@ -440,6 +446,7 @@ PARR : 'parar'                   ;
 PI   : 'PI'                      ;
 PINC : 'pincel'                  ;
 PIZ  : 'PIZZA'                   ;
+PONT : 'pontilhado'              ;
 POR  : 'por'                     ;
 PREE : 'preenchimento'           ;
 PUL  : 'pulando'                 ;
@@ -455,6 +462,7 @@ SOMM : 'somando'                 ;
 SUBM : 'subtraindo'              ;
 TART : 'tartaruga'               ;
 TER  : 'terminar'                ;
+TRAC : 'tracejado'               ;
 TROC : 'trocar'                  ;
 USA  : 'usando'                  ;
 VA   : 'v\u00E1'                 ;
@@ -486,6 +494,7 @@ PCP  : 'corDoPincel'         ;
 PCPP : 'corDoPreenchimento'  ;
 PCPR : 'corPr\u00F3pria'     ;
 PD   : 'est\u00E1Desenhando' ;
+PES  : 'estiloDoPincel'      ;
 PG   : 'grossuraDoPincel'    ;
 PX   : 'x'                   ;
 PY   : 'y'                   ;

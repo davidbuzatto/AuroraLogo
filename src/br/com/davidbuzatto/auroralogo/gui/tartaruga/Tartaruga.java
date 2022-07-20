@@ -64,6 +64,7 @@ public class Tartaruga {
         "            y: ",
         "       ângulo: ",
         "     grossura: ",
+        "       estilo: ",
         "  forma atual: ",
         "       pincel: ",
         "preenchimento: ",
@@ -108,7 +109,7 @@ public class Tartaruga {
         
         estados = new ArrayList<>();
         
-        Estado e = new Estado( x, y, angulo, grossura, corPincel, corPreenchimento, corFundo, desenhando );
+        Estado e = new Estado( x, y, angulo, grossura, EstiloContorno.CONTINUO, corPincel, corPreenchimento, corFundo, desenhando );
         estados.add( e );
         
         this.painelDesenho = painelDesenho;
@@ -374,8 +375,20 @@ public class Tartaruga {
         }
         
         Estado e = clonarUltimoEstado();
-        e.contorno = new BasicStroke( (float) (e.contorno.getLineWidth() + quantidade),
-                e.contorno.getEndCap(), e.contorno.getLineJoin() );
+        double novaQuantidade = e.contorno.getLineWidth() + quantidade;
+        
+        switch ( e.estiloContorno ) {
+            case CONTINUO:
+                e.contorno = Utils.criarContornoContinuo( (float) novaQuantidade );
+                break;
+            case TRACEJADO:
+                e.contorno = Utils.criarContornoTracejado( (float) novaQuantidade );
+                break;
+            case PONTILHADO:
+                e.contorno = Utils.criarContornoPontilhado( (float) novaQuantidade );
+                break;
+        }
+        
         estados.add( e );
         
     }
@@ -393,8 +406,18 @@ public class Tartaruga {
             novaQuantidade = 1;
         }
         
-        e.contorno = new BasicStroke( (float) novaQuantidade,
-                e.contorno.getEndCap(), e.contorno.getLineJoin() );
+        switch ( e.estiloContorno ) {
+            case CONTINUO:
+                e.contorno = Utils.criarContornoContinuo( (float) novaQuantidade );
+                break;
+            case TRACEJADO:
+                e.contorno = Utils.criarContornoTracejado( (float) novaQuantidade );
+                break;
+            case PONTILHADO:
+                e.contorno = Utils.criarContornoPontilhado( (float) novaQuantidade );
+                break;
+        }
+        
         estados.add( e );
         
     }
@@ -406,8 +429,40 @@ public class Tartaruga {
         }
         
         Estado e = clonarUltimoEstado();
-        e.contorno = new BasicStroke( (float) quantidade,
-                e.contorno.getEndCap(), e.contorno.getLineJoin() );
+        
+        switch ( e.estiloContorno ) {
+            case CONTINUO:
+                e.contorno = Utils.criarContornoContinuo( (float) quantidade );
+                break;
+            case TRACEJADO:
+                e.contorno = Utils.criarContornoTracejado( (float) quantidade );
+                break;
+            case PONTILHADO:
+                e.contorno = Utils.criarContornoPontilhado( (float) quantidade );
+                break;
+        }
+        
+        estados.add( e );
+        
+    }
+    
+    public void setEstiloContorno( EstiloContorno estiloContorno ) {
+        
+        Estado e = clonarUltimoEstado();
+        
+        e.estiloContorno = estiloContorno;
+        switch ( e.estiloContorno ) {
+            case CONTINUO:
+                e.contorno = Utils.criarContornoContinuo( e.contorno.getLineWidth() );
+                break;
+            case TRACEJADO:
+                e.contorno = Utils.criarContornoTracejado( e.contorno.getLineWidth() );
+                break;
+            case PONTILHADO:
+                e.contorno = Utils.criarContornoPontilhado( e.contorno.getLineWidth() );
+                break;
+        }
+        
         estados.add( e );
         
     }
@@ -1089,6 +1144,7 @@ public class Tartaruga {
             String.format( Locale.US, "%.4f", atu.y ),
             String.format( Locale.US, "%.4f", atu.angulo ) + "º",
             String.format( Locale.US, "%.4f", atu.contorno.getLineWidth() ),
+            getEstiloPincel( atu ),
             atu.containerForma == null ? "não há" : atu.containerForma,
             atu.corPincel,
             atu.corPreenchimento,
@@ -1283,6 +1339,36 @@ public class Tartaruga {
     
     public double getGrossuraPincelEstadoFinal() {
         return (double) getEstadoFinal().contorno.getLineWidth();
+    }
+    
+    public String getEstiloPincel( Estado estado ) {
+        
+        switch ( estado.estiloContorno ) {
+            case CONTINUO:
+                return "contínuo";
+            case TRACEJADO:
+                return "tracejado";
+            case PONTILHADO:
+                return "pontilhado";
+        }
+        
+        return "";
+        
+    }
+    
+    public String getEstiloPincelEstadoFinal() {
+        
+        switch ( getEstadoFinal().estiloContorno ) {
+            case CONTINUO:
+                return "contínuo";
+            case TRACEJADO:
+                return "tracejado";
+            case PONTILHADO:
+                return "pontilhado";
+        }
+        
+        return "";
+        
     }
     
     public Color getCorPincelEstadoFinal() {

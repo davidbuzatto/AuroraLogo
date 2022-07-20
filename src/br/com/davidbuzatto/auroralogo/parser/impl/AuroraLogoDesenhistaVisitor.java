@@ -168,6 +168,11 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
         return cvInstrucoesSimples.visitTrocarGrossura( ctx );
     }
 
+    @Override
+    public Valor visitTrocarEstilo( AuroraLogoParser.TrocarEstiloContext ctx ) {
+        return cvInstrucoesSimples.visitTrocarEstilo( ctx );
+    }
+    
     
     // entrada e saída 
     

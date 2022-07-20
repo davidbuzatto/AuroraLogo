@@ -1,5 +1,5 @@
 Implementação:
-    - Perguntar se quer salvar, sempre.
+    - Pincel pontilhado e tracejado .
     - Implementar exemplos;
     - Conferir System.out.println( "ERRO!" ).
 

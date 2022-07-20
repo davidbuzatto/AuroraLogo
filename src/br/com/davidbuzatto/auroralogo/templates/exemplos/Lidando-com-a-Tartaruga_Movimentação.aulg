@@ -4,3 +4,121 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+ 
+/**
+ * Lidando com a Tartaruga: movimentação.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: 20/07/2022
+ */
+ 
+/*
+ * A tartaruga é capaz de se mover em quatro direções:
+ * para cima, para baixo, para esquerda e para direita.
+ */
+
+/*
+ * A movimentação é sempre feita tomando como base a direção
+ * em que a cabeça da tartaruga está apontando.
+ */
+
+/* 
+ * Por padrão, a cada movimento da tartaruga, um rastro, ou
+ * desenho, é feito pela sua cauda. Na instrução abaixo, a tartaruga
+ * se move 100 pixels para a direita, deixando o desenho de uma linha
+ * na cor preta. Você notará que a maioria das instruções que podemos
+ * dar à tartaruga terminam com um ponto.
+ */
+
+vá para direita em 100 .
+
+/*
+ * Para executar o código, você tem três opções:
+ *     1) Executar de uma vez ao clicar no botão "Executar" (atalho Ctrl+F6);
+ *     2) Executar passo a passo ao clicar no botão "Executar Passo a Passo"
+ *        (atalho Ctrl+F7) e então controlar a execução usando os botões
+ *        "Início", "Próximo", "Anterior", "Final" e "Parar" ou então 
+ *        através do componente deslizante;
+ *     3) Executar passo a passo automaticamente ao clicar no botão "Executar
+ *        Passo a Passo Automático" (atalho Ctrl+F8) e então controlar a
+ *        execução usando o botão "Parar" ou a velocidade da mesma através
+ *        do componente deslizante.
+ * Sendo assim, para seguir o tutorial, é legal que você execute passo a passo
+ * (atalho Ctrl+F7) para que você não veja o resultado de uma vez. Clique então
+ * no botão de execução passo a passo ou use o atalho.
+ * 
+ * Você vai perceber que a tartaruga se manterá no lugar original. Use agora
+ * os controles de execução para ver o que vai acontecer. O primeiro passo
+ * será a execução da instrução apresentada acima, na linha 24.
+ */
+
+/*
+ * Na extremidade direita da barra de ferramentas existem cinco botões. 
+ * No primeiro você pode alterar a cor da tartaruga, no segundo exibir ou
+ * esconder uma grade na área de desenho, no terceiro exibir ou esconder
+ * os eixos na área de desenho, no quarto modificar o sistema de coordenadas
+ * usado pela tartaruga e no quinto exibir ou esconder o depurador do código
+ * que mostrará diversos detalhes dos dados gerenciados pela tartaruga.
+ */
+
+/*
+ * Além disso, a área de desenho pode ser arrastada com o mouse (clicar e
+ * arrastar) ou então ser rolada na horizontal (Ctrl+ Girar a Rodinha do Mouse)
+ * ou na vertical (Girar a Rodinha do Mouse). Pode-se também aumentar o
+ * diminuir o zoom da área de desenho usando os botões de lupa no canto
+ * superior direito da área de desenho e também controlar o zoom com o 
+ * mouse (Alt+Girar a Rodinha do Mouse). As outras funcionalidades do 
+ * ambiente eu vou deixar para você explorar, acessando os menus e os atalhos.
+ */
+
+/*
+ * Agora, vamos movimentar a tartaruga nas outras quatro direções,
+ * formando o desenho de um quadrado.
+ */
+
+vá para cima em 100 .
+vá para esquerda em 100 .
+vá para baixo em 100 .
+
+/*
+ * A direção em que a tartaruga aponta pode ser controlada também.
+ * Para isso, podemos girar a tartaruga tomando sempre a cauda dela como
+ * eixo de rotação. O processo de girar pode ser feito usando valores em
+ * graus ou em radianos. Valores positivos denotam rotação no sentido horário,
+ * enquanto valores negativos no sentido anti-horário.
+ */
+
+girar em 45 graus .   // gira a tartaruga em 45 graus.
+
+/*
+ * Perceba que agora, toda movimentação da tartaruga nas quatro direções
+ * será feita usando como base o ângulo em que ela está rotacionada.
+ * Vamos desenhar um pedaço da diagnonal do quadrado.
+ */
+
+vá para cima em 100 .
+
+/*
+ * Vamos testar a rotação em radianos agora. π radianos correspondem a
+ * 180 graus. π/4 radianos correspondem a 45 graus. Vamos girar no sentido
+ * anti-horário.
+ */
+
+girar em -PI/4 radianos . 
+vá para cima em 50 .
+
+/*
+ * A tartaruga também pode ser comandada para ir direto a algum
+ * ponto na área de desenho, sem obedecer à rotação atual. 
+ */
+
+vá para 150, 150 .   // movimenta a tartaruga para a coordenada
+                     // 100 em x e 100 em y
+
+/*
+ * Agora já conhecemos os comandos mais básicos para lidar
+ * com a tartaruga. No nosso próximo tutorial iremos aprender
+ * a alterar as opções do pincel ligado à cauda da tartaruga como
+ * cor e grossura. Está esperando o que? Carregue o próximo exemplo e vamos
+ * continuar!
+ */

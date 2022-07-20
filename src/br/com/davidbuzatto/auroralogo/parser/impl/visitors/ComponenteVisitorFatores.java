@@ -400,6 +400,8 @@ public class ComponenteVisitorFatores {
             return novoDecimal( tartaruga.getAnguloEstadoFinal() );
         } else if ( ctx.consultarTartaruga().PG() != null ) {
             return novoDecimal( tartaruga.getGrossuraPincelEstadoFinal() );
+        } else if ( ctx.consultarTartaruga().PES() != null ) {
+            return novaString( tartaruga.getEstiloPincelEstadoFinal() );
         } else if ( ctx.consultarTartaruga().PCP() != null ) {
             return novaCor( tartaruga.getCorPincelEstadoFinal() );
         } else if ( ctx.consultarTartaruga().PCPP() != null ) {
