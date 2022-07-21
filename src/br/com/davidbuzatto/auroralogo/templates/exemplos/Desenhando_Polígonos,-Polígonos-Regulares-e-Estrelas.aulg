@@ -4,3 +4,70 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+trocar cor do preenchimento para rosa .
+
+/*
+ * Desenhando um polígono regular com centro em 60, 60, girado
+ * em 0 grau e três lados
+ */
+desenhar polígonoRegular( 60, 60, 20, 0, 3 ) .
+
+/*
+ * Desenhando um polígono regular com centro em 110, 60, girado
+ * em 10 graus e quatro lados
+ */
+desenhar polígonoRegular( 110, 60, 20, 10, 4 ) .
+
+/*
+ * Desenhando um polígono regular com centro em 160, 60, girado
+ * em 20 graus e cinco lados
+ */
+desenhar polígonoRegular( 160, 60, 20, 20, 5 ) .
+
+/*
+ * Desenhando um polígono regular com centro em 210, 60, girado
+ * em 30 graus e seis lados
+ */
+desenhar polígonoRegular( 210, 60, 20, 30, 6 ) .
+
+/*
+ * Desenhando uma estrela com centro em 60, 120, girada
+ * em 0 grau e cinco pontas
+ */
+desenhar estrela( 60, 120, 20, 0, 5 ) .
+
+/*
+ * Desenhando uma estrela com centro em 110, 120, girada
+ * em 10 graus e seis pontas
+ */
+desenhar estrela( 110, 120, 20, 10, 6 ) .
+
+/*
+ * Desenhando uma estrela com centro em 160, 120, girada
+ * em 20 graus e sete pontas
+ */
+desenhar estrela( 160, 120, 20, 20, 7 ) .
+
+/*
+ * Desenhando uma estrela com centro em 210, 120, girada
+ * em 30 graus e oito pontas
+ */
+desenhar estrela( 210, 120, 20, 30, 8 ) .
+
+/*
+ * Desenhando um polígono com três vértices:
+ *   v1: 240, 70
+ *   v2: 300, 70
+ *   v3: 270, 110
+ */
+desenhar polígono( 240, 70, 300, 70, 270, 110 ) .
+
+/*
+ * Desenhando um polígono com quatro vértices:
+ *   v1: 320, 70
+ *   v2: 380, 70
+ *   v3: 370, 110
+ *   v4: 330, 110
+ */
+desenhar polígono( 320, 70, 380, 70, 370, 110, 330, 110 ) .

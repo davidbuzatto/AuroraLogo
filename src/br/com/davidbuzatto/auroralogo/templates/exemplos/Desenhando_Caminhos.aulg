@@ -4,3 +4,54 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+trocar cor do preenchimento para #0099cc .
+
+/*
+ * Podemos também desenhar formas geométricas mais complexas fazendo
+ * uso dos caminhos. Primeiro abrimos um bloco de desenho de 
+ * caminho e então seguimos com as instruções que devem formá-lo.
+ */
+desenhar caminho {
+    
+    /* 
+     * A primeira instrução normalmente é a de mover até uma coordenada
+     * para iniciar o caminho. nesse caso, a coordenada 60, 280.
+     */ 
+    mover até 60, 280 .
+    
+    /*
+     * usaremos agora um artifícil interessante que é consultar a
+     * coordenada em que a tartaruga está usando as propriedades .x() e .y().
+     */
+    
+    /*
+     * Desenha uma linha saindo do movimento anterior
+     * para a coordenada correspondente a 100 pixels à direita
+     * da posição da tartaruga e na mesma posição em y dela.
+     */
+    linha até tartaruga.x() + 100, tartaruga.y() .
+    
+    /*
+     * desenha uma curva quadrática saindo do ponto anterior.
+     * o ponto de destino é a última coordenada e o primeiro
+     * ponto de controle é a primeira.
+     */  
+    curva quadrática até tartaruga.x() + 60, tartaruga.y(),
+                         tartaruga.x() + 60, tartaruga.y() - 60 .
+    /*
+     * Agora desenhamos uma curva cúbica. são seis parâmetros, sendo
+     * os quatro primeiros correspondentes aos dois pontos de controle
+     * e o último ao ponto de destino.
+     */ 
+    curva cúbica até tartaruga.x() - 80, tartaruga.y(),
+                     tartaruga.x() - 80, tartaruga.y() - 160,
+                     tartaruga.x() - 160, tartaruga.y() - 160.
+    
+    /*
+     * Por fim, opcionalmente, podemos mandar fechar a forma,
+     * onde uma linha é feita do último ponto criado ao primeiro.
+     */
+    fechar .
+    
+}

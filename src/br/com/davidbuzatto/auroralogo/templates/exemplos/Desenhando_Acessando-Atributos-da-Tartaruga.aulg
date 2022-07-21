@@ -4,3 +4,22 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * Vimos no exemplo dos caminhos que é possível usar as propriedades
+ * .x() e .y() da tartaruga para sabermos onde ela está.
+ * 
+ * Além dessa propriedades há diversas outras, auto-explicativas
+ * mostradas abaixo.
+ */
+
+escrever "        posição em x: " + tartaruga.x() na saída pulando linha .
+escrever "        posição em y: " + tartaruga.y() na saída pulando linha .
+escrever "        ângulo atual: " + tartaruga.ângulo() na saída pulando linha .
+escrever "  grossura do pincel: " + tartaruga.grossuraDoPincel() na saída pulando linha .
+escrever "    estilo do pincel: " + tartaruga.estiloDoPincel() na saída pulando linha .
+escrever "       cor do pincel: " + tartaruga.corDoPincel() na saída pulando linha .
+escrever "cor do preenchimento: " + tartaruga.corDoPreenchimento() na saída pulando linha .
+escrever "        cor do fundo: " + tartaruga.corDoFundo() na saída pulando linha .
+escrever "    cor da tartaruga: " + tartaruga.corPrópria() na saída pulando linha .
+escrever "  se está desenhando: " + tartaruga.estáDesenhando() na saída pulando linha .

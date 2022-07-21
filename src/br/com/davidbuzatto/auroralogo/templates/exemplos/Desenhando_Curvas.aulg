@@ -4,3 +4,18 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/* 
+ * Desenhando uma curva Bézier quadrática (um ponto de controle) com
+ * início em 60, 60, fim em 60, 340 e ponto de controle em 20, 220
+ */
+desenhar curvaQuadrática( 60, 60, 20, 200, 60, 340 ) sem preenchimento . 
+
+/*
+ * Desenhando uma curva Bézier cúbica (dois pontos de controle) com
+ * início em 120, 60, fim em 120, 340, primeiro ponto de
+ * controle em 80, 155 e segundo ponto de controle em 160, 250
+ * mostrando os pontos de controle
+*/ 
+desenhar curvaCúbica( 120, 60, 80, 155, 160, 250, 120, 340 ) 
+         mostrando controles, sem preenchimento . 

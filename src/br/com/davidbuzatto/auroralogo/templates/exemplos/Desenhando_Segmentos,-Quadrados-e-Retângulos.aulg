@@ -4,3 +4,31 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * Agora vamos aprender as instruções para desenho de formas geométrias.
+ */
+
+/* 
+ * Desenha um segmento de reta iniciado em 100, 40 e terminado em 430, 100.
+ */
+desenhar segmento( 100, 40, 230, 100 ) .
+
+/* 
+ * Desenha um quadrado com centro em 100, 100 e lado 40 pixels.
+ */
+desenhar quadrado( 100, 100, 40 ) .
+
+/* 
+ * Desenha um retângulo com centro em 100, 150, largura de 100 pixels e
+ * altura de 40 pixels.
+ */
+
+desenhar retângulo( 100, 150, 100, 40 ) .
+
+/* 
+ * Desenha um retângulo com cantos arredondados com centro em 230, 150,
+ * largura de 100 pixels, altura de 40 pixels e canto com um arco de
+ * 15 pixels de raio.
+ */
+desenhar retânguloArredondado( 230, 150, 100, 40, 15 ) .

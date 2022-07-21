@@ -4,3 +4,44 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+trocar cor do preenchimento para laranja .
+
+/*
+ * Desenhando um círculo com centro em 110, 60 e raio 20.
+ */
+desenhar círculo( 110, 60, 20 ) .
+
+/*
+ * Desenhando uma elipse com centro em 230, 60, eixo maior de 100
+ * eixo menor de 40 e sem preenchimento
+ */
+desenhar elipse( 230, 60, 100, 40 ) sem preenchimento .
+
+/*
+ * Desenhando um arco aberto com centro 80, 140, eixo maior de 40,
+ * eixo menor de 40, ângulo inicial em 0 grau, ângulo final
+ * em 270 graus e sem contorno
+ */ 
+desenhar arco( 80, 140, 40, 40, 0, 270 ) sem contorno .
+
+/*
+ * Desenhando um arco aberto com centro 140, 140, eixo maior de 40,
+ * eixo menor de 40, ângulo inicial em 0 grau e ângulo final
+ * em 120 graus
+ */ 
+desenhar arco( 140, 140, 40, 40, 0, 120, ABERTO ) .
+
+/*
+ * Desenhando um arco fechado com uma corda com centro 210, 140,
+ * eixo maior de 60, eixo menor de 40, ângulo inicial em 0 grau
+ * e ângulo final em 150 graus
+ */ 
+desenhar arco( 210, 140, 60, 40, 0, 150, CORDA ) .
+
+/*
+ * Desenhando um arco fechado em formato de pizza com centro 290, 140,
+ * eixo maior de 60, eixo menor de 40, ângulo inicial em 0 grau
+ * e ângulo final em 210 graus
+ */
+desenhar arco( 290, 140, 60, 40, 0, 210, PIZZA ) .
