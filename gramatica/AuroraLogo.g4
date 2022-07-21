@@ -182,7 +182,7 @@ configuracaoCor : ( cor | expr | corEx=( PRETO
 cor          : CHEX | criarCor 
              ;
 
-criarCor     : FC_RGB  '(' expr ',' expr ',' expr ( ',' expr )? ')'
+criarCor     : FC_CRI  '(' expr ',' expr ',' expr ( ',' expr )? ')'
              ;
 
 girar        : GIR ( EM expr ( GRA | RAD ) )?
@@ -539,7 +539,7 @@ F_VABS : 'valorAbsoluto'                ;
 
 
 // funções para criar cores
-FC_RGB  : 'criarCorRGB'              ;
+FC_CRI : 'criarCor'                  ;
 
 
 // funções geométricas

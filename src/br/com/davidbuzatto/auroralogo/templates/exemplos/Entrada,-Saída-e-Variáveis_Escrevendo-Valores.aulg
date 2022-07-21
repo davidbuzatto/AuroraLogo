@@ -4,3 +4,59 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * Há algumas formas direcionar dados para leitura do usuário.
+ * A primeira é instruir a tartaruga a escrever algo na área de desenho.
+ */
+
+vá para 100, 100 .
+escrever "olá mundo!" .   // a tartaruga escreverá a string (texto) na área
+vá para 200, 0 .          // de desenho
+
+/*
+ * A segunda forma é enviar os dados à area de texto de saída, mostrada
+ * abaixo da área de código fonte.
+ */
+
+escrever "olá mundo na saída!" na saída .
+
+/*
+ * Perceba que, caso você mande escrever novamente na saída, a próxima 
+ * operação acontecerá "na frente" da anterior, pois não foi pulada nenhuma
+ * linha.
+ */
+
+escrever "mais texto..." na saída .
+
+/* 
+ * Há basicamente duas formas de pular linhas para que as saídas não fiquem
+ * juntas. A saída anterior já veio sem pulo, então a próxima ainda virá
+ * na mesma linha, mas as outras serão separadas.
+ */
+
+escrever "um pouco mais de texto..." na saída pulando linha .
+
+escrever "agora sim, na próxima linha..." na saída pulando linha .
+
+/*
+ * A outra forma de pular linha é usar o caractere "\n" (nova linha)
+ * explicitamente.
+ */
+
+escrever "mais uma linha\n" na saída .
+escrever "e mais uma linha de novo!\n" na saída .
+
+/*
+ * Por fim, podemos direcionar dados para um diálogo de saída, pulando ou
+ * não linhas.
+ */
+
+escrever "olá mundo!!!" no diálogo .
+escrever "olá mundo de novo!!!" no diálogo pulando linha.
+
+/*
+ * Agora você já conhece o básico de como direcionar texto para a saída
+ * mas na maioria das vezes só isso não é tão útil. No nosso próximo tutorial
+ * aprenderemos a lidar com variáveis e seus tipos.
+ */

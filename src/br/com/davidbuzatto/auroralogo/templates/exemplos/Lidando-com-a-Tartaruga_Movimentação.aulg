@@ -5,13 +5,6 @@
  * Data: <DATA>
  */
  
-/**
- * Lidando com a Tartaruga: movimentação.
- *
- * Autor: Prof. Dr. David Buzatto
- * Data: 20/07/2022
- */
- 
 /*
  * A tartaruga é capaz de se mover em quatro direções:
  * para cima, para baixo, para esquerda e para direita.

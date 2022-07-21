@@ -107,6 +107,20 @@ trocar cor do pincel para #009966 .
 vá para direita em 100 . 
 
 /*
+ * Há ainda uma outra forma de se criar cores na linguagem AuroraLogo que é
+ * utilizar a função "criarCor( r, g, b, [a] )". Essa função possui três 
+ * parâmetros obrigatórios e um opcional, todos podendo variar de 0 (inclusive)
+ * e 255 (inclusive). O primeiro parâmetro representa a cor vermelho (r-red), o
+ * segundo a cor verde (g-green) e o terceiro a cor azul (b-blue). O quarto
+ * parâmetro, opcional, é o canal alpha, ja mencionado anteriormente. No exemplo
+ * abaixo é criada uma cor com 255 no canal vermelho, 153 no verde e 255 no
+ * azul, resultando em um tom de rosa.
+ */
+
+trocar cor do pincel para criarCor( 255, 153, 255 ) .
+vá para baixo em 100 . 
+
+/*
  * Além da troca da cor do fundo e do pincel, podemos também trocar a cor
  * do preenchimento das formas geométricas que a tartaruga é capaz de desenhar.
  * Não veremos nesse momento todas as formas possíveis, mas apenas o quadrado

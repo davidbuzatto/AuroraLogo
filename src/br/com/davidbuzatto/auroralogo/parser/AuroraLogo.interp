@@ -154,7 +154,7 @@ null
 'tangenteHiperb\u00F3lica'
 'teto'
 'valorAbsoluto'
-'criarCorRGB'
+'criarCor'
 'arco'
 'curvaC\u00FAbica'
 'c\u00EDrculo'
@@ -382,7 +382,7 @@ F_TANG
 F_TANH
 F_TETO
 F_VABS
-FC_RGB
+FC_CRI
 FG_ARC
 FG_CCU
 FG_CIC
