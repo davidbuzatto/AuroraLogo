@@ -1,0 +1,90 @@
+/**
+ * Operações Aritméticas e Operadores de Atribuição.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+/*
+ * Comumente precisamos realizar operações aritméticas para obtermos
+ * valores. Para isso, usados os operadores aritméticos. Na linguagem 
+ * AuroraLogo praticamente todos os tipos podem ser operados, mas os 
+ * mais comuns são os tipos INTEIRO e DECIMAL.
+ */
+
+vNúmero1 = 11 .
+vNúmero2 = 5 .
+
+vSoma = vNúmero1 + vNúmero2 .
+// ou vSoma = vNúmero1 mais vNúmero2 .
+vSubtração = vNúmero1 - vNúmero2 .
+// ou vSubtração = vNúmero1 menos vNúmero2 .
+vMutiplicação = vNúmero1 * vNúmero2 .
+// ou vMutiplicação = vNúmero1 vezes vNúmero2 .
+vDivisão = vNúmero1 / vNúmero2 .
+// ou vDivisão = vNúmero1 dividido por vNúmero2 .
+vResto = vNúmero1 % vNúmero2 .
+// ou vResto = vNúmero1 resto vNúmero2 .
+
+escrever vNúmero1 + " + " + vNúmero2 + " = " + vSoma na saída pulando linha.
+escrever vNúmero1 + " - " + vNúmero2 + " = " + vSubtração na saída pulando linha.
+escrever vNúmero1 + " * " + vNúmero2 + " = " + vMutiplicação na saída pulando linha.
+escrever vNúmero1 + " / " + vNúmero2 + " = " + vDivisão na saída pulando linha.
+escrever vNúmero1 + " % " + vNúmero2 + " = " + vResto + "\n\n"
+         na saída pulando linha.
+
+/*
+ * Note que os resultados obtidos são sempre inteiros, pois dois valores
+ * inteiros foram processados. Se um dos operandos for decimal, o resultado
+ * será decimal.
+ */
+
+vNúmero1 = 11.0 .
+vNúmero2 = 5.0 .
+
+vSoma = vNúmero1 + vNúmero2 .
+vSubtração = vNúmero1 - vNúmero2 .
+vMutiplicação = vNúmero1 * vNúmero2 .
+vDivisão = vNúmero1 / vNúmero2 .
+vResto = vNúmero1 % vNúmero2 .
+
+escrever vNúmero1 + " + " + vNúmero2 + " = " + vSoma na saída pulando linha.
+escrever vNúmero1 + " - " + vNúmero2 + " = " + vSubtração na saída pulando linha.
+escrever vNúmero1 + " * " + vNúmero2 + " = " + vMutiplicação na saída pulando linha.
+escrever vNúmero1 + " / " + vNúmero2 + " = " + vDivisão na saída pulando linha.
+escrever vNúmero1 + " % " + vNúmero2 + " = " + vResto + "\n\n"
+         na saída pulando linha.
+
+/*
+ * A linguagem AuroraLogo também suporta uma série de operadores de atribuição
+ * compostos.
+ */
+
+vValor = 7 .
+vBase = 0 .
+
+escrever vBase na saída pulando linha .  // imprime zero
+vBase += vValor .                        // soma vValor em vBase
+// ou vBase +<- vValor .
+escrever vBase na saída pulando linha .  // imprime sete
+vBase -= vValor .                        // subtrai vValor de vBase
+// ou vBase -<- vValor .
+escrever vBase na saída pulando linha .  // imprime zero
+
+vBase = 10 .
+// ou vBase <- 10 .
+
+vBase *= vValor .                        // multiplica vBase por vValor
+// ou vBase *<- vValor .
+escrever vBase na saída pulando linha .  // imprime 70
+vBase /= vValor .                        // divide vBase por vValor
+// ou vBase /<- vValor .
+escrever vBase na saída pulando linha .  // imprime dez
+vBase %= vValor .                        // calcula o resto da divisão de vBase
+// ou vBase %<- vValor .                 // por vValor e armazena em vBase
+escrever vBase na saída pulando linha .  // imprime 3
+
+/*
+ * Agora que já sabemos como operar valores, vamos aprender
+ * como ler valores do usuário.
+ */

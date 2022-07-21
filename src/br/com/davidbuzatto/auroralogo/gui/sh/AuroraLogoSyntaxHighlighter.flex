@@ -522,6 +522,30 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "ch\u00E3o" | 
 "ch\u00E3o( " | 
 "ch\u00E3o() " | 
+"converterEmBooleano " | 
+"converterEmBooleano" | 
+"converterEmBooleano( " | 
+"converterEmBooleano() " | 
+"converterEmCaractere " | 
+"converterEmCaractere" | 
+"converterEmCaractere( " | 
+"converterEmCaractere() " | 
+"converterEmCor " | 
+"converterEmCor" | 
+"converterEmCor( " | 
+"converterEmCor() " | 
+"converterEmDecimal " | 
+"converterEmDecimal" | 
+"converterEmDecimal( " | 
+"converterEmDecimal() " | 
+"converterEmInteiro " | 
+"converterEmInteiro" | 
+"converterEmInteiro( " | 
+"converterEmInteiro() " | 
+"converterEmString " | 
+"converterEmString" | 
+"converterEmString( " | 
+"converterEmString() " | 
 "cosseno " | 
 "cosseno" | 
 "cosseno( " | 

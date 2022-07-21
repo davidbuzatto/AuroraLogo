@@ -280,6 +280,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+	@Override public void enterFatorFuncaoConversao(AuroraLogoParser.FatorFuncaoConversaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFatorFuncaoConversao(AuroraLogoParser.FatorFuncaoConversaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
 	@Override public void enterFatorConsultarTartaruga(AuroraLogoParser.FatorConsultarTartarugaContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -599,6 +611,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCor(AuroraLogoParser.CorContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCorExtenso(AuroraLogoParser.CorExtensoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCorExtenso(AuroraLogoParser.CorExtensoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -1487,6 +1511,18 @@ public class AuroraLogoBaseListener implements AuroraLogoListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitCriarArranjoAssociativo(AuroraLogoParser.CriarArranjoAssociativoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFuncaoConversao(AuroraLogoParser.FuncaoConversaoContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFuncaoConversao(AuroraLogoParser.FuncaoConversaoContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

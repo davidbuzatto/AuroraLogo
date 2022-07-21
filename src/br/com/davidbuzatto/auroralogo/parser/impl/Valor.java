@@ -267,9 +267,9 @@ public abstract class Valor<Tipo> implements Serializable {
         } else if ( isBooleano() ) {
             return (Boolean) valor;
         } else if ( isString() ) {
-            return valor.toString().length() > 0;
+            return valor.toString().equals( "VERDADEIRO" );
         } else if ( isCor() ) {
-            return false;
+            return ( (Color) valor ).equals( Color.BLUE );
         } else if ( isArranjo() ) {
             return false;
         } else if ( isArranjoAssociativo() ) {

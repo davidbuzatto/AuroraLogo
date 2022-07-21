@@ -128,7 +128,13 @@ public class VariavelDepurador {
             if ( sv.contains( "\\n" ) || sv.contains( "\n" ) ) {
 
                 sg = nome + ":";
+                
+                larg = fm.stringWidth( sg );
+                if ( largMax < larg ) {
+                    largMax = larg;
+                }   
                 saida.add( sg );
+                
                 String[] ssv = null;
 
                 if ( sv.contains( "\\n" ) ) {

@@ -3,11 +3,10 @@ Comece-aqui.aulg
 Lidando-com-a-Tartaruga_Movimentação.aulg
 Lidando-com-a-Tartaruga_Opções-do-Pincel.aulg
 Entrada,-Saída-e-Variáveis_Escrevendo-Valores.aulg
-//Entrada,-Saída-e-Variáveis_Declaração-de-Variáveis.aulg
-//Entrada,-Saída-e-Variáveis_Operações-Aritméticas.aulg
+Entrada,-Saída-e-Variáveis_Declaração-de-Variáveis.aulg
+Entrada,-Saída-e-Variáveis_Operações-Aritméticas-e-Operadores-de-Atribuição.aulg
 //Entrada,-Saída-e-Variáveis_Lendo-Valores.aulg
 //Entrada,-Saída-e-Variáveis_Formatando-Texto.aulg
-//Entrada,-Saída-e-Variáveis_Tipos.aulg
 //Desenhando_Segmentos,-Quadrados-e-Retângulos.aulg
 //Desenhando_Círculos,-Elipses-e-Arcos.aulg
 //Desenhando_Polígonos,-Polígonos-Regulares-e-Estrelas.aulg

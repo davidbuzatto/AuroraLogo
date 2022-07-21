@@ -94,6 +94,7 @@ fator    : ( NAO | NAOT ) fator                                                 
          | ( VER | FAL )                                                          # fatorBool
          | cor                                                                    # fatorCor
          | funcaoMatematica                                                       # fatorFuncaoMatematica
+         | funcaoConversao                                                        # fatorFuncaoConversao
          | consultarTartaruga                                                     # fatorConsultarTartaruga
          | consultarString                                                        # fatorConsultarString
          | formatarTexto                                                          # fatorFormatarTexto
@@ -166,20 +167,14 @@ trocarCor    : TROC COR DO PINC PARA configuracaoCor  # trocarCorPincel
              | TROC COR DO FUN  PARA configuracaoCor  # trocarCorFundo
              ;
 
-configuracaoCor : ( cor | expr | corEx=( PRETO
-                                       | AZUL
-                                       | CIANO
-                                       | CINZA
-                                       | VERDE
-                                       | MAGENTA
-                                       | LARANJA
-                                       | ROSA 
-                                       | VERMELHO
-                                       | BRANCO
-                                       | AMARELO ) ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
+configuracaoCor : ( cor | expr ) ( ( expr ( VEZ | VEZS ) )? ( CLARO | ESCURO ) )?
                 ;
 
-cor          : CHEX | criarCor 
+cor          : CHEX | criarCor | corExtenso
+             ;
+
+corExtenso   : PRETO   | AZUL | CIANO    | CINZA  | VERDE   | MAGENTA
+             | LARANJA | ROSA | VERMELHO | BRANCO | AMARELO
              ;
 
 criarCor     : FC_CRI  '(' expr ',' expr ',' expr ( ',' expr )? ')'
@@ -316,7 +311,7 @@ instCaminho         : MOV ATE expr ',' expr                                     
 consultarTartaruga  : TART DOT ( PX | PY | PA | PG | PES | PCP | PCPP | PCF | PCPR | PD ) '(' ')'
                     ;
 
-consultarString     : processaId DOT ( COMP '(' ')' | CARC '(' ')' ( '[' exprIndice ']' )? | SUBS '(' expr ( ',' expr )? ')' )
+consultarString     : processaId DOT ( COMP '(' ')' | TIPO '(' ')' | CARC '(' ')' ( '[' exprIndice ']' )? | SUBS '(' expr ( ',' expr )? ')' )
                     ;
 
 formatarTexto       : FORM '(' STRING ( ',' expr )* ')'
@@ -324,6 +319,9 @@ formatarTexto       : FORM '(' STRING ( ',' expr )* ')'
 
 criarArranjos       : ( CRA  | CRR  ) ( '[' expr ']' )+  # criarArranjo
                     | ( CRAA | CRRA )   '{' '}'          # criarArranjoAssociativo
+                    ;
+
+funcaoConversao     : ( FCO_INT | FCO_DEC | FCO_CHR | FCO_BOL | FCO_STR | FCO_COR ) '(' expr ')'
                     ;
 
 chamadaFuncao       : IDF '(' ( expr ( ',' expr )* )? ')'
@@ -539,8 +537,16 @@ F_VABS : 'valorAbsoluto'                ;
 
 
 // funções para criar cores
-FC_CRI : 'criarCor'                  ;
+FC_CRI : 'criarCor' ;
 
+
+// funções para conversão de tipos
+FCO_INT : 'converterEmInteiro'   ;
+FCO_DEC : 'converterEmDecimal'   ;
+FCO_CHR : 'converterEmCaractere' ;
+FCO_BOL : 'converterEmBooleano'  ;
+FCO_STR : 'converterEmString'    ;
+FCO_COR : 'converterEmCor'       ;
 
 // funções geométricas
 FG_ARC : 'arco'                      ;
@@ -572,20 +578,20 @@ AT_R : '%<-' ;
 
 
 // operadores aritméticos
-ADI  : '+'            ;
-ADIA : 'mais'         ;
+ADI  : '+'                ;
+ADIA : 'mais'             ;
 
-SUB  : '-'            ;
-SUBA : 'menos'        ;
+SUB  : '-'                ;
+SUBA : 'menos'            ;
 
-MUL  : '*'            ;
-//MULA : 'vezes'      ;
+MUL  : '*'                ;
+//MULA : 'multiplicado por' ;
 
-DIV  : '/'            ;
-DIVA : 'dividido por' ;
+DIV  : '/'                ;
+DIVA : 'dividido por'     ;
 
-MOD  : '%'            ;
-MODA : 'resto'        ;
+MOD  : '%'                ;
+MODA : 'resto'            ;
 
 
 // operadores relacionais

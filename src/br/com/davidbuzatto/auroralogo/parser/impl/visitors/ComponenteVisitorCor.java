@@ -77,9 +77,43 @@ public class ComponenteVisitorCor {
             return novaCor( Utils.decodificarCor( ctx.CHEX().getText() ) );
         } else if ( ctx.criarCor() != null ) {
             return visitor.visit( ctx.criarCor() );
+        } else if ( ctx.corExtenso() != null ) {
+            return visitor.visit( ctx.corExtenso() );
         }
         
         return novaCor( Color.BLACK );
+        
+    }
+    
+    public Valor visitCorExtenso( AuroraLogoParser.CorExtensoContext ctx ) {
+        
+        Color cor = Color.BLACK;
+        
+        if ( ctx.PRETO() != null ) {
+            cor = Color.decode( "#000000" );
+        } else if ( ctx.AZUL() != null ) {
+            cor = Color.decode( "#0000ff" );
+        } else if ( ctx.CIANO() != null ) {
+            cor = Color.decode( "#00ffff" );
+        } else if ( ctx.CINZA() != null ) {
+            cor = Color.decode( "#808080" );
+        } else if ( ctx.VERDE() != null ) {
+            cor = Color.decode( "#00ff00" );
+        } else if ( ctx.MAGENTA() != null ) {
+            cor = Color.decode( "#ff00ff" );
+        } else if ( ctx.LARANJA() != null ) {
+            cor = Color.decode( "#fc8f00" );
+        } else if ( ctx.ROSA() != null ) {
+            cor = Color.decode( "#fc005c" );
+        } else if ( ctx.VERMELHO() != null ) {
+            cor = Color.decode( "#ff0000" );
+        } else if ( ctx.BRANCO() != null ) {
+            cor = Color.decode( "#ffffff" );
+        } else if ( ctx.AMARELO() != null ) {
+            cor = Color.decode( "#ffff00" );
+        }
+        
+        return novaCor( cor );
         
     }
     
@@ -96,6 +130,7 @@ public class ComponenteVisitorCor {
             configuracaoCor = ( (AuroraLogoParser.TrocarCorFundoContext) ctx ).configuracaoCor();
         }
         
+        // CHEX, criarCor e corExtenso
         if ( configuracaoCor.cor() != null ) {
             
             Valor c = visitor.visit( configuracaoCor.cor() );
@@ -107,46 +142,6 @@ public class ComponenteVisitorCor {
             
             if ( c.isCor() ) {
                 cor = c.valorCor();
-            }
-            
-        }
-        
-        if ( configuracaoCor.corEx != null ) {
-            
-            switch ( configuracaoCor.corEx.getType() ) {
-                case AuroraLogoParser.PRETO:
-                    cor = Color.decode( "#000000" );
-                    break;
-                case AuroraLogoParser.AZUL:
-                    cor = Color.decode( "#0000ff" );
-                    break;
-                case AuroraLogoParser.CIANO:
-                    cor = Color.decode( "#00ffff" );
-                    break;
-                case AuroraLogoParser.CINZA:
-                    cor = Color.decode( "#808080" );
-                    break;
-                case AuroraLogoParser.VERDE:
-                    cor = Color.decode( "#00ff00" );
-                    break;
-                case AuroraLogoParser.MAGENTA:
-                    cor = Color.decode( "#ff00ff" );
-                    break;
-                case AuroraLogoParser.LARANJA:
-                    cor = Color.decode( "#fc8f00" );
-                    break;
-                case AuroraLogoParser.ROSA:
-                    cor = Color.decode( "#fc005c" );
-                    break;
-                case AuroraLogoParser.VERMELHO:
-                    cor = Color.decode( "#ff0000" );
-                    break;
-                case AuroraLogoParser.BRANCO:
-                    cor = Color.decode( "#ffffff" );
-                    break;
-                case AuroraLogoParser.AMARELO:
-                    cor = Color.decode( "#ffff00" );
-                    break;
             }
             
         }

@@ -1,5 +1,6 @@
 vS = "abc" .
 escrever vS na saída pulando linha .
+escrever vS.tipo() na saída pulando linha .
 escrever vS.comprimento() na saída pulando linha .
 escrever vS.caracteres() na saída pulando linha .
 escrever vS.caracteres()[1] na saída pulando linha .

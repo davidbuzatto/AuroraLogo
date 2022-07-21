@@ -124,6 +124,11 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     public Valor visitCor( AuroraLogoParser.CorContext ctx ) {
         return cvCor.visitCor( ctx );
     }
+    
+    @Override
+    public Valor visitCorExtenso( AuroraLogoParser.CorExtensoContext ctx ) {
+        return cvCor.visitCorExtenso( ctx );
+    }
 
     @Override
     public Valor visitCriarCor( AuroraLogoParser.CriarCorContext ctx ) {
@@ -338,6 +343,11 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     @Override
     public Valor visitFatorConsultarString( AuroraLogoParser.FatorConsultarStringContext ctx ) {
         return cvFatores.visitFatorConsultarString( ctx );
+    }
+
+    @Override
+    public Valor visitFatorFuncaoConversao( AuroraLogoParser.FatorFuncaoConversaoContext ctx ) {
+        return cvFatores.visitFatorFuncaoConversao( ctx );
     }
     
     @Override

@@ -18,10 +18,11 @@ package br.com.davidbuzatto.auroralogo.parser.impl.visitors;
 
 import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
-import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser.ExprContext;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
+import br.com.davidbuzatto.auroralogo.parser.impl.valores.ValorInteiro;
+import br.com.davidbuzatto.auroralogo.parser.impl.valores.ValorNulo;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
 import java.awt.Color;
@@ -85,7 +86,9 @@ public class ComponenteVisitorFatores {
         
         if ( v.isString() ) {
             if ( ctx.COMP() != null ) {
-                return novoInteiro( v.valorString().length() );
+                v = novoInteiro( v.valorString().length() );
+            } else if ( ctx.TIPO() != null ) {
+                v = novaString( v.getTipo() );
             }
         } else if ( v.isArranjo() ) {
             
@@ -114,7 +117,7 @@ public class ComponenteVisitorFatores {
                 v = novoArranjo( chaves );
                 
             } else if ( ctx.TIPO() != null ) {
-                v = novaString( v.getTipo().toString() );
+                v = novaString( v.getTipo() );
             }
             
         } else {
@@ -123,7 +126,7 @@ public class ComponenteVisitorFatores {
             } else if ( ctx.CHAV() != null ) {
                 v = novoZeroInteiro();
             } else if ( ctx.TIPO() != null ) {
-                v = novaString( v.getTipo().toString() );
+                v = novaString( v.getTipo() );
             }
         }
         
@@ -138,13 +141,15 @@ public class ComponenteVisitorFatores {
         
         if ( v.isString() ) {
             if ( ctx.COMP() != null ) {
-                return novoInteiro( v.valorString().length() );
+                v = novoInteiro( v.valorString().length() );
+            } else if ( ctx.TIPO() != null ) {
+                v = novaString( v.getTipo() );
             }
         } else if ( v.isArranjo() ) {
             
             List<Integer> indices = new ArrayList<>();
             
-            for ( ExprContext e : ctx.expr() ) {
+            for ( AuroraLogoParser.ExprContext e : ctx.expr() ) {
                 Valor vIndice = visitor.visit( e );
                 indices.add( vIndice.valorInteiro() );
             }
@@ -175,7 +180,7 @@ public class ComponenteVisitorFatores {
                     v = novoZeroInteiro();
                 }
             } else if ( ctx.TIPO() != null ) {
-                v = novaString( novoValor( valorP ).getTipo().toString() );
+                v = novaString( novoValor( valorP ).getTipo() );
             } else {
                 v = novoValor( valorP );
             }
@@ -229,7 +234,7 @@ public class ComponenteVisitorFatores {
                     }
                     
                 } else if ( ctx.TIPO() != null ) {
-                    v = novaString( novoValor( valorP ).getTipo().toString() );
+                    v = novaString( novoValor( valorP ).getTipo() );
                 } else {
                     v = novoValor( valorP );
                 }
@@ -251,7 +256,9 @@ public class ComponenteVisitorFatores {
         
         if ( v.isString() ) {
             if ( ctx.COMP() != null ) {
-                return novoInteiro( v.valorString().length() );
+                v = novoInteiro( v.valorString().length() );
+            } else if ( ctx.TIPO() != null ) {
+                v = novaString( v.getTipo() );
             }
         } else if ( v.isArranjoAssociativo() ) {
             
@@ -428,6 +435,8 @@ public class ComponenteVisitorFatores {
             
             if ( ctxc.COMP() != null ) {
                 return novoInteiro( string.valorString().length() );
+            } if ( ctxc.TIPO() != null ) {
+                return novaString( string.getTipo() );
             } else if ( ctxc.CARC() != null ) {
                 
                 char[] chars = string.valorString().toCharArray();
@@ -489,6 +498,29 @@ public class ComponenteVisitorFatores {
         }
         
         return novaString( "" );
+        
+    }
+    
+    public Valor visitFatorFuncaoConversao( AuroraLogoParser.FatorFuncaoConversaoContext ctx ) {
+        
+        AuroraLogoParser.FuncaoConversaoContext fctx = ctx.funcaoConversao();
+        Valor v = visitor.visit( fctx.expr() );
+        
+        if ( fctx.FCO_INT() != null ) {
+            return novoInteiro( v.valorInteiro() );
+        } else if ( fctx.FCO_DEC() != null ) {
+            return novoDecimal( v.valorDecimal() );
+        } else if ( fctx.FCO_CHR() != null ) {
+            return novoCaractere( v.valorCaractere() );
+        } else if ( fctx.FCO_BOL() != null ) {
+            return novoBooleano( v.valorBooleano() );
+        } else if ( fctx.FCO_STR() != null ) {
+            return novaString( v.valorString() );
+        } else if ( fctx.FCO_COR() != null ) {
+            return novaCor( v.valorCor() );
+        }
+        
+        return novoNulo();
         
     }
     
