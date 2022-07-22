@@ -4,3 +4,32 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * A linguagem AuroraLogo possui três tipos de operadores lógicos,
+ * usados como conectivos para expressões relacionais. Cada um dos operadores
+ * lógicos, assim como os relacionais, possuem duas representações, sendo uma
+ * igual ao padrão das linguagens de programação derivadas da linguagem C
+ * e outra em formato de linguagem natural.
+ */
+
+vA = 1 .
+vB = 2 .
+
+// operador lógico E (&&)
+escrever "vA é menor que vB e par? " + ( vA < vB && vA % 2 == 0 ) na saída pulando linha .
+escrever "vB é maior que vA e par? " + ( vB > vA && vB % 2 == 0 ) na saída pulando linha .
+
+escrever "vA é menor que vB e par? " + ( vA < vB E vA % 2 == 0 ) na saída pulando linha .
+escrever "vB é maior que vA e par? " + ( vB > vA E vB % 2 == 0 ) na saída pulando linha .
+
+// operador lógico OU (||)
+escrever "vA é menor que vB ou par? " + ( vA < vB || vA % 2 == 0 ) na saída pulando linha .
+escrever "vB é maior que vA ou par? " + ( vB > vA || vB % 2 == 0 ) na saída pulando linha .
+
+escrever "vA é menor que vB ou par? " + ( vA < vB OU vA % 2 == 0 ) na saída pulando linha .
+escrever "vB é maior que vA ou par? " + ( vB > vA OU vB % 2 == 0 ) na saída pulando linha .
+
+// operador lógico NÃO (!)
+escrever "vA não é menor que vB e não é par? " + !( vA < vB && vA % 2 == 0 ) na saída pulando linha .
+escrever "vA não é menor que vB e não é par? " + NÃO( vA < vB && vA % 2 == 0 ) na saída pulando linha .

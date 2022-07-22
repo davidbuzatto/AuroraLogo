@@ -4,3 +4,35 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * A estrutura condicional usando...escolha permite que, ao analisar um valor
+ * possa se fazer escolhas de acordo com uma lista de possibilidades de valores
+ * que podem ser iguais ao valor analisado.
+ */
+
+vA = 1 .
+
+usando vA {
+    
+    escolha 1:
+        escrever "o valor analisado é igual a 1" na saída pulando linha .
+        parar .
+        
+    escolha 2:
+        escrever "o valor analisado é igual a 2." na saída pulando linha .
+        parar .
+        
+    escolha 3:
+        escrever "o valor analisado é igual a 3." na saída pulando linha .
+        parar .
+        
+    escolha 4:
+        escrever "o valor analisado é igual a 4." na saída pulando linha .
+        parar .
+    
+    padrão:
+        escrever "o valor analisado não é igual a 1, 2, 3 ou 4." na saída pulando linha .
+        parar .
+        
+}

@@ -4,3 +4,36 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * A linguagem AuroraLogo possui seis tipos de operadores relacionais,
+ * cada um com duas representações, sendo uma igual ao padrão das linguagens de
+ * programação derivadas da linguagem C e outra em formato de linguagem natural.
+ */
+
+vA = 1 .
+vB = 2 .
+
+// operadores de igualdade
+escrever "vA é igual a vB? " + ( vA == vB ) na saída pulando linha .
+escrever "vA é igual a vB? " + ( vA é igual a vB ) na saída pulando linha .
+
+// operadores de desigualdade (diferença)
+escrever "vA é diferente de vB? " + ( vA != vB ) na saída pulando linha .
+escrever "vA é diferente de vB? " + ( vA é diferente de vB ) na saída pulando linha .
+
+// operadores menor que
+escrever "vA é menor que vB? " + ( vA < vB ) na saída pulando linha .
+escrever "vA é menor que vB? " + ( vA é menor que vB ) na saída pulando linha .
+
+// operadores menor ou igual a
+escrever "vA é menor ou igual a vB? " + ( vA <= vB ) na saída pulando linha .
+escrever "vA é menor ou igual a vB? " + ( vA é menor ou igual a vB ) na saída pulando linha .
+
+// operadores maior que
+escrever "vA é maior que vB? " + ( vA > vB ) na saída pulando linha .
+escrever "vA é maior que vB? " + ( vA é maior que vB ) na saída pulando linha .
+
+// operadores maior ou igual a
+escrever "vA é maior ou igual a vB? " + ( vA >= vB ) na saída pulando linha .
+escrever "vA é maior ou igual a vB? " + ( vA é maior ou igual a vB ) na saída pulando linha .

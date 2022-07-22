@@ -5,9 +5,17 @@
  * Data: <DATA>
  */
 
+/*
+ * Função: logarítmo( logaritimando )
+ * Calcula o logaritmo natural (base ℇ) do logaritmando
+ */
 vA = logarítmo( 10 ) .
 escrever "logarítmo( 10 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: logarítmo( logaritmando, base )
+ * Calcula o logarítmo de um logaritmando em uma base especificada.
+ */
 vA = logarítmo( 1024, 2 ) .
 escrever "logarítmo( 1024, 2 ) = " + vA na saída pulando linha .
 

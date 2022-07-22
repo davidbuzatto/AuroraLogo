@@ -5,34 +5,78 @@
  * Data: <DATA>
  */
 
+/*
+ * Função: hipotenusa( lado1, lado2 )
+ * Calcula o valor da hipotenusa formada pelos lados 1 e 2 de um triângulo
+ * retângulo.
+ */
 vA = hipotenusa( 3, 4 ) .
 escrever "hipotenusa( 3, 4 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: seno( ângulo )
+ * Calcula o seno de um ângulo expresso em graus.
+ */
 vA = seno( 45 ) .
 escrever "seno( 45 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: cosseno( ângulo )
+ * Calcula o cosseno de um ângulo expresso em graus.
+ */
 vA = cosseno( 45 ) .
 escrever "cosseno( 45 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: tangente( ângulo )
+ * Calcula a tangente de um ângulo expresso em graus.
+ */
 vA = tangente( 45 ) .
 escrever "tangente( 45 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: arcoSeno( seno )
+ * Calcula o ângulo em graus do seno passado como parâmetro.
+ */
 vA = arcoSeno( 0.707 ) .
 escrever "arcoSeno( 0.707 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: arcoCosseno( cosseno )
+ * Calcula o ângulo em graus do cosseno passado como parâmetro.
+ */
 vA = arcoCosseno( 0.707 ) .
 escrever "arcoCosseno( 0.707 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: arcoTangente( ângulo )
+ * Calcula o ângulo em graus da tangente passado como parâmetro.
+ */
 vA = arcoTangente( 1 ) .
 escrever "arcoTangente( 1 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: senoHiperbólico( valor )
+ * Calcula o seno hiperbólico de um valor.
+ */
 vA = senoHiperbólico( 1 ) .
 escrever "senoHiperbólico( 1 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: cossenoHiperbólico( valor )
+ * Calcula o cosseno hiperbólico de um valor.
+ */
 vA = cossenoHiperbólico( 1 ) .
 escrever "cossenoHiperbólico( 1 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: tangenteHiperbólico( valor )
+ * Calcula a tangente hiperbólica de um valor.
+ */
 vA = tangenteHiperbólica( 1 ) .
 escrever "tangenteHiperbólica( 1 ) = " + vA na saída pulando linha .
 
-PI
+/*
+ * Contante π (pi).
+ */
+escrever PI na saída pulando linha .

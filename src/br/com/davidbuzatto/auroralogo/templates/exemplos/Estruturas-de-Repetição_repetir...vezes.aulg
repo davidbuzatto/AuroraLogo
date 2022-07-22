@@ -5,4 +5,31 @@
  * Data: <DATA>
  */
 
-// falar do passo
+/*
+ * A linguagem de programação AuroraLogo possui algumas estrutuas de repetição,
+ * sendo que estas permitem que a partir de algum critério, um bloco de código
+ * seja executado repetidas vezes.
+ */
+
+/*
+ * A estrutura de repetição repetir...vezes permite que possamos associar
+ * um bloco de código à uma quantidade fixa, ou pelo menos pré-determinada
+ * de repetições.
+ */
+
+// repete o bloco de código associado 10 vezes
+repetir 10 vezes {
+    
+    // engrossa o pincel em um pixel a cada repetição (iteração)
+    engrossar pincel .
+    
+    /* 
+     * Anda 10 pixels para direita e 10 para cima na área de desenho
+     * baseado no passo (iteração) que se está no momento.
+     * a palavra chave "passo" é usada dentro das estrutuas de repetição
+     * para obtermos a iteração atual. nesse caso, como são 10 repetições, 
+     * passo variará de 1 a 10.
+     */
+    vá para 10 * passo, 10 * passo .
+    
+}

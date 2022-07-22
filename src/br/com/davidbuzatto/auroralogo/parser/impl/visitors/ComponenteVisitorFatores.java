@@ -21,8 +21,6 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
-import br.com.davidbuzatto.auroralogo.parser.impl.valores.ValorInteiro;
-import br.com.davidbuzatto.auroralogo.parser.impl.valores.ValorNulo;
 import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.mapeamentoModular;
 import java.awt.Color;

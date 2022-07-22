@@ -5,11 +5,25 @@
  * Data: <DATA>
  */
 
+/*
+ * Função: cartesianoParaPolar( variaçãoY, variaçãoX )
+ * Converte uma coordenada cartesiana indicada pela variação em y e 
+ * variação em x em uma coordenada polar, ou seja, o ângulo formado
+ * entre a hipotenusa cateto adjacente do triângulo retângulo.
+ */
 vA = cartesianoParaPolar( 100, 100 ) .
 escrever "cartesianoParaPolar( 100, 100 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: grausParaRadianos( graus )
+ * Converte um valor expresso em graus para um valor expresso em radianos.
+ */
 vA = grausParaRadianos( 180 ) .
 escrever "grausParaRadianos( 180 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: radianosParaGraus( radianos )
+ * Converte um valor expresso em radianos para um valor expresso em graus.
+ */
 vA = radianosParaGraus( PI ) .
 escrever "radianosParaGraus( PI ) = " + vA na saída pulando linha .

@@ -48,9 +48,9 @@ public class AuroraLogoCompletionProvider extends DefaultCompletionProvider {
         addCompletion( new ShorthandCompletion( this, "função seno(a)", "seno( ângulo )", "calcula o seno de um ângulo expresso em graus" ) );
         addCompletion( new ShorthandCompletion( this, "função cosseno(a)", "cosseno( ângulo )", "calcula o cosseno de um ângulo expresso em graus" ) );
         addCompletion( new ShorthandCompletion( this, "função tangente(a)", "tangente( ângulo )", "calcula a tangente de um ângulo expresso em graus" ) );
-        addCompletion( new ShorthandCompletion( this, "função arcoSeno(s)", "arcoSeno( seno )", "calcula o ângulo em graus cujo seno é igual ao valor" ) );
-        addCompletion( new ShorthandCompletion( this, "função arcoCosseno(c)", "arcoCosseno( cosseno )", "calcula o ângulo em graus cujo cosseno é igual ao valor" ) );
-        addCompletion( new ShorthandCompletion( this, "função arcoTangente(t)", "arcoTangente( tangente )", "calcula o ângulo em graus cuja tangente é igual ao valor" ) );
+        addCompletion( new ShorthandCompletion( this, "função arcoSeno(s)", "arcoSeno( seno )", "calcula o ângulo em graus do seno passado como parâmetro" ) );
+        addCompletion( new ShorthandCompletion( this, "função arcoCosseno(c)", "arcoCosseno( cosseno )", "calcula o ângulo em graus do cosseno passado como parâmetro" ) );
+        addCompletion( new ShorthandCompletion( this, "função arcoTangente(t)", "arcoTangente( tangente )", "calcula o ângulo em graus da tangente passada como parâmetro" ) );
         addCompletion( new ShorthandCompletion( this, "função cartesianoParaPolar(vY, vX)", "cartesianoParaPolar( variacaoY, variacaoX )", "calcula o ângulo em graus formado pela hipotenusa" ) );
         addCompletion( new ShorthandCompletion( this, "função senoHiperbólico(v)", "senoHiperbólico( valor )", "calcula o seno hiperbólico de um valor" ) );
         addCompletion( new ShorthandCompletion( this, "função cossenoHiperbólico(v)", "cossenoHiperbólico( valor )", "calcula o cosseno hiperbólico de um valor" ) );
@@ -88,7 +88,14 @@ public class AuroraLogoCompletionProvider extends DefaultCompletionProvider {
         addCompletion( new ShorthandCompletion( this, "tartaruga x", "tartaruga.x()", "posição atual da tartaruga no eixo x" ) );
         addCompletion( new ShorthandCompletion( this, "tartaruga y", "tartaruga.y()", "posição atual da tartaruga no eixo y" ) );
         addCompletion( new ShorthandCompletion( this, "tartaruga ângulo", "tartaruga.ângulo()", "ângulo atual da tartaruga em graus" ) );
-        
+        addCompletion( new ShorthandCompletion( this, "tartaruga grossura", "tartaruga.grossuraDoPincel()", "a grossura atual do pincel" ) );
+        addCompletion( new ShorthandCompletion( this, "tartaruga estilo", "tartaruga.estiloDoPincel()", "o estilo atual do pincel" ) );
+        addCompletion( new ShorthandCompletion( this, "tartaruga cor do pincel", "tartaruga.corDoPincel()", "a cor atual do pincel" ) );
+        addCompletion( new ShorthandCompletion( this, "tartaruga cor do preenchimento", "tartaruga.corDoPreenchimento()", "a cor atual do preenchimento" ) );
+        addCompletion( new ShorthandCompletion( this, "tartaruga cor do fundo", "tartaruga.corDoFundo()", "a cor atual do fundo" ) );
+        addCompletion( new ShorthandCompletion( this, "tartaruga cor da tartaruga", "tartaruga.corPrópria()", "a cor atual da tartaruga" ) );
+        addCompletion( new ShorthandCompletion( this, "tartaruga está desenhando?", "tartaruga.estáDesenhando()", "se a tartaruga está desenhando atualmente" ) );
+
         addCompletion( new ShorthandCompletion( this, "pincel (abaixar)", "abaixar pincel .", "abaixa o pincel de pintura" ) );
         addCompletion( new ShorthandCompletion( this, "pincel (levantar)", "levantar pincel .", "levanta o pincel de pintura" ) );
         addCompletion( new ShorthandCompletion( this, "limpar", "limpar .", "limpa toda a área de desenho e reposiciona a tartaruga" ) );
@@ -106,17 +113,21 @@ public class AuroraLogoCompletionProvider extends DefaultCompletionProvider {
         addCompletion( new ShorthandCompletion( this, "engrossar pincel em", "engrossar pincel em valor .", "engrossa o pincel em uma quantidade especificada" ) );
         addCompletion( new ShorthandCompletion( this, "desengrossar pincel", "desengrossar pincel .", "desengrossa o pincel em 1 pixel" ) );
         addCompletion( new ShorthandCompletion( this, "desengrossar pincel em", "desengrossar pincel em valor .", "desengrossa o pincel em uma quantidade especificada" ) );
-        addCompletion( new ShorthandCompletion( this, "alterar grossura", "alterar grossura para valor .", "altera a grossura do pincel para uma quantidade especificada" ) );
+        addCompletion( new ShorthandCompletion( this, "trocar grossura", "trocar grossura do pincel para valor .", "troca a grossura do pincel para uma quantidade especificada" ) );
         
         addCompletion( new ShorthandCompletion( this, "trocar cor do pincel", "trocar cor do pincel para #000000 .", "troca a cor do pincel de pintura (contorno e texto)" ) );
         addCompletion( new ShorthandCompletion( this, "trocar cor do preenchimento", "trocar cor do preenchimento para #000000 .", "troca a cor de preenchimento das formas geométricas" ) );
         addCompletion( new ShorthandCompletion( this, "trocar cor do fundo", "trocar cor do fundo para #000000 .", "troca a cor de fundo do cenário da tartaruga" ) );
+        addCompletion( new ShorthandCompletion( this, "trocar estilo do pincel", "trocar estilo do pincel para contínuo .", "troca o estilo do pincel parfa contínuo" ) );
+        addCompletion( new ShorthandCompletion( this, "trocar estilo do pincel", "trocar estilo do pincel para tracejado .", "troca o estilo do pincel parfa tracejado" ) );
+        addCompletion( new ShorthandCompletion( this, "trocar estilo do pincel", "trocar estilo do pincel para pontilhado .", "troca o estilo do pincel parfa pontilhado" ) );
         
         addCompletion( new ShorthandCompletion( this, "parar", "parar .", "" ) );
         addCompletion( new ShorthandCompletion( this, "continuar", "continuar .", "" ) );
         addCompletion( new ShorthandCompletion( this, "retornar", "retornar expressão .", "" ) );
         
         addCompletion( new ShorthandCompletion( this, ".comprimento()", ".comprimento()", "retorna o comprimento de strings e arranjos (arrays)" ) );
+        addCompletion( new ShorthandCompletion( this, ".tipo()", ".tipo()", "retorna o tipo do valor de uma variável como String" ) );
         addCompletion( new ShorthandCompletion( this, ".chaves()", ".chaves()", "retorna um arranjo (array) que contém as chaves de um arranjo (array) associativo" ) );
         addCompletion( new ShorthandCompletion( this, ".caracteres()", ".caracteres()", "retorna um arranjo (array) que contém os caracteres de uma string" ) );
         addCompletion( new ShorthandCompletion( this, ".substring(ini)", ".substring( inicio )", "recorta uma string a partir do índice fornecido (inclusive)" ) );
@@ -155,6 +166,15 @@ public class AuroraLogoCompletionProvider extends DefaultCompletionProvider {
         
         addCompletion( new ShorthandCompletion( this, "#000000", "000000", "insere uma cor" ) );
         addCompletion( new ShorthandCompletion( this, "#00000000", "00000000", "insere uma cor com transparência" ) );
+        addCompletion( new ShorthandCompletion( this, "criar cor", "criarCor( r, g, b, [a] ) .", "cria uma nova cor usando valores entre 0 a 255 para os canais vermelho, verde, azul e alpha (opcional)" ) );
+        
+        addCompletion( new ShorthandCompletion( this, "converter inteiro", "converterEmInteiro( valor ) .", "converte um valor para um valor do tipo inteiro" ) );
+        addCompletion( new ShorthandCompletion( this, "converter decimal", "converterEmDecimal( valor ) .", "converte um valor para um valor do tipo decimal" ) );
+        addCompletion( new ShorthandCompletion( this, "converter caractere", "converterEmCaractere( valor ) .", "converte um valor para um valor do tipo caractere" ) );
+        addCompletion( new ShorthandCompletion( this, "converter booleano", "converterEmBooleano( valor ) .", "converte um valor para um valor do tipo booleano" ) );
+        addCompletion( new ShorthandCompletion( this, "converter string", "converterEmString( valor ) .", "converte um valor para um valor do tipo string" ) );
+        addCompletion( new ShorthandCompletion( this, "converter cor", "converterEmCor( valor ) .", "converte um valor para um valor do tipo cor" ) );
+        
         
         addCompletion( new ShorthandCompletion( this, "é ==", "é igual a", "é igual a" ) );
         addCompletion( new ShorthandCompletion( this, "é !=", "é diferente de", "é diferente de" ) );

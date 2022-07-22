@@ -4,3 +4,112 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * A estrutura de repetição mais versátil da linguagem AuroraLogo é a 
+ * enquanto...repetir que permite que forneçamos uma condição para que ela
+ * execute, ou seja, enquanto essa condição for verdadeira, o bloco associado
+ * continuará a ser executado. O interpretador da linguagem monitora as
+ * execuções e a cada mil iterações pede ao usuário a confirmação para continuar
+ * executando, pois pode se que na verdade houve um erro de lógica que gerou um
+ * loop/laço infinito.
+ */
+
+vI = 0 .
+
+// repetição baseada no valor de vI com incremento
+// explícito no corpo da estrutura.
+enquanto vI < 10 repetir {
+    escrever vI na saída pulando linha .
+    vI += 1 .
+}
+
+escrever "\n\n" na saída .
+
+vI = 0 .
+
+// ou
+enquanto vI < 10 repetir {
+    escrever vI na saída pulando linha .
+    incrementar( vI ) .
+}
+
+escrever "\n\n" na saída .
+
+vI = 0 .
+
+// repetição baseada no valor de vI com incremento
+// explícito na definição da estrutura.
+enquanto vI < 10 repetir incrementando vI {
+    escrever vI na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+vI = 0 .
+enquanto vI < 10 repetir incrementando vI em 2 {
+    escrever vI na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+vI = 10 .
+enquanto vI >= 0 repetir decrementando vI {
+    escrever vI na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+vI = 10 .
+enquanto vI >= 0 repetir decrementando vI em 2 {
+    escrever vI na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+vI = 1 .
+enquanto vI < 10 repetir somando vI com 3 {
+    escrever vI na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+vI = 10 .
+enquanto vI >= 0 repetir subtraindo 3 de vI {
+    escrever vI na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+vI = 1 .
+enquanto vI < 10 repetir multiplicando vI por 2 {
+    escrever vI na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+vI = 10 .
+enquanto vI > 0 repetir dividindo vI por 2 {
+    escrever vI na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+/*
+ * Caso não forneçamos a condição, podemos parar a repetição por dentro.
+ * No exemplo abaixo temos um loop infinido que é parado dentro de um se.
+ */
+vI = 0 .
+repetir {
+    escrever vI na saída pulando linha .
+    incrementar( vI ) .
+    se vI é maior que 10 então {
+        parar .
+    }
+}
+
+/*
+ * A instrução "parar" no contexto das estruturas de repetição fará
+ * a estruta mais perto ser interrompida. A instrução "continuar" faz
+ * com que a estrutura mais próxima pule para a próxima iteração.
+ */

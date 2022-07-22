@@ -1,67 +1,9 @@
 /*
- * Todo nome/identificador de variável na linguagem AuroraLogo precisa
- * orbrigatoriamente iniciar com a letra "v" minúscula, sendo seguida de 
- * uma letra maiúscula, acentuada ou unão, ou um símbolo _ ou $ e o restante
- * do nome pode conter letras maiúsculas, minúsculas, símbolos _ ou $ e dígitos
- * de 0 a 9. A tipagem das variáveis é dinâmica, ou seja, o tipo de cada uma
- * delas é dado pelo conteúdo que elas contém. As variáveis precisam ser
- * declaradas e inicializadas.
+ * Para realizarmos a leitura de dados da entrada usamos a instrução
+ * ler e passamos uma variável a ela.
  */
 
-vValor = 1 .                              // variável vValor
-escrever vValor na saída pulando linha .  // escrevendo o valor da variável
-                                          // vValor na saída.
+ler vLeitura .
 
-/*
- * Identificadores válidos:
- */
-
-vX = 1 .
-v_ = 1 .
-v_Teste = 1 .
-v$ = 1 .
-v$teste = 1 .
-vÁ = 1 .
-vÂnguloMaior = 1 .
-vNúmero1 = 1 .
-vNúmero2 = 1 .
-
-/*
- * As letras acentuadas permitidas são as usadas no português brasileiro,
- * incluindo a cedilha.
- */
-
-/*
- * Na linguagem AuroraLogo existem 8 tipos: INTEIRO, DECIMAL, CARACTERE, 
- * BOOLEANO, STRING, COR, ARRANJO (array) E ARRANJO_ASSOCIATIVO. Abaixo
- * você pode conferir a declaração de uma variável com a atribuição de um
- * valor de cada tipo. Não confunda o identificador da variável com
- * o tipo do valor que ela armazena!
- */
-
-vInteiro = 1 .                // uma variável com um valor do tipo inteiro
-vDecimal = 5.5 .              // uma variável com um valor do tipo decimal
-vCaractere = 'a' .            // uma variável com um valor do tipo caractere
-vBooleano = VERDADEIRO .      // uma variável com um valor do tipo booleano
-vString = "uma string" .      // uma variável com um valor do tipo string
-vCor = #ff0000 .              // uma variável com um valor do tipo cor
-vArranjo = criarArranjo[10] . // uma variável com um valor do tipo arranjo
-vArranjoAssociativo = criarArranjoAssociativo{} . // uma variável com um valor 
-                                                  // do tipo arranjo associativo
-
-escrever "vInteiro - Tipo: " + vInteiro.tipo() + ", Valor: " + vInteiro
+escrever "vLeitura - Tipo: " + vLeitura.tipo() + ", Valor: " + vLeitura
         na saída pulando linha .
-escrever "vDecimal - Tipo: " + vDecimal.tipo() + ", Valor: " + vDecimal
-        na saída pulando linha .
-escrever "vCaractere - Tipo: " + vCaractere.tipo() + ", Valor: " + vCaractere
-        na saída pulando linha .
-escrever "vBooleano - Tipo: " + vBooleano.tipo() + ", Valor: " + vBooleano
-        na saída pulando linha .
-escrever "vString - Tipo: " + vString.tipo() + ", Valor: " + vString
-        na saída pulando linha .
-escrever "vCor - Tipo: " + vCor.tipo() + ", Valor: " + vCor
-        na saída pulando linha .
-escrever "vArranjo - Tipo: " + vArranjo.tipo() + ", Valor: " + vArranjo
-        na saída pulando linha .
-escrever "vArranjoAssociativo - Tipo: " + vArranjoAssociativo.tipo() + 
-        ", Valor: " + vArranjoAssociativo na saída pulando linha .

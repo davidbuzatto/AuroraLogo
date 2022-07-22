@@ -135,7 +135,9 @@ public class ComponenteVisitorEntradaSaida {
 
                 if ( !ok ) {
                     
-                    switch ( v ) {
+                    String vB = v.toUpperCase();
+                    
+                    switch ( vB ) {
                         case "VERDADEIRO":
                             valor = novoVerdadeiro();
                             break;
@@ -144,7 +146,11 @@ public class ComponenteVisitorEntradaSaida {
                             break;
                         default:
                             if ( v.startsWith( "#" ) ) {
-                                valor = novaCor( Utils.decodificarCor( v ) );
+                                try {
+                                    valor = novaCor( Utils.decodificarCor( v ) );
+                                } catch ( NumberFormatException exc ) {
+                                    valor = novaString( v );
+                                }
                                 break;
                             } else if ( v.length() == 3 && v.startsWith( "'" ) && v.endsWith( "'" ) ) {
                                 valor = novoCaractere( v.charAt( 1 ) );
@@ -183,11 +189,11 @@ public class ComponenteVisitorEntradaSaida {
             } else if ( v.isCaractere() ) {
                 valores.add( v.valorCaractere() );
             } else if ( v.isBooleano() ) {
-                valores.add( v.valorBooleano() );
+                valores.add( v.toString() );
             } else if ( v.isString() ) {
                 valores.add( v.valorString() );
             } else {
-                valores.add( String.valueOf( v.getValor() ) );
+                valores.add( String.valueOf( v ) );
             }
         }
         

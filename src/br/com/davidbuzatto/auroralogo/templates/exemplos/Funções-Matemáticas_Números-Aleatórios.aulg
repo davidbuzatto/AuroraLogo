@@ -6,19 +6,50 @@
  * Data: <DATA>
  */
 
-definirSementeAleatória( 1 ) .
-
+/*
+ * Função: númeroAleatório()
+ * Calcula um número aleatório maior ou igual a zero e menor que um.
+ */
 vA = númeroAleatório() .
 escrever "númeroAleatório() = " + vA na saída pulando linha .
 
+/*
+ * Função: númeroAleatório( limite )
+ * Calcula um número aleatório maior ou igual a zero e menor que o limite.
+ */
 vA = númeroAleatório( 5 ) .
 escrever "númeroAleatório( 5 ) = " + vA na saída pulando linha .
 
 vA = númeroAleatório( 5.0 ) .
 escrever "númeroAleatório( 5.0 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: númeroAleatório( inicio, limite )
+ * Calcula um número aleatório maior ou igual ao valor inicial e menor que o limite.
+ */
 vA = númeroAleatório( 4, 10 ) .
 escrever "númeroAleatório( 4, 10 ) = " + vA na saída pulando linha .
 
 vA = númeroAleatório( 4, 10.0 ) .
 escrever "númeroAleatório( 4, 10.0 ) = " + vA na saída pulando linha .
+
+/*
+ * Função: definirSementeAleatória( semente )
+ * Define a semente aleatória do gerador de números aleatórios, ou seja,
+ * quando usada com um valor constante, todos os números aleatórios gerados
+ * seguirão a mesma ordem.
+ */
+definirSementeAleatória( 1 ) .
+
+/* 
+ * Como a semente foi definida com um valor fixo (1), os valores gerados
+ * a seguir sempre serão os mesmos: 7, 8, 5 e 7.
+ */
+vA = númeroAleatório( 4, 10 ) .
+escrever "númeroAleatório( 4, 10 ) = " + vA na saída pulando linha .
+vA = númeroAleatório( 4, 10 ) .
+escrever "númeroAleatório( 4, 10 ) = " + vA na saída pulando linha .
+vA = númeroAleatório( 4, 10 ) .
+escrever "númeroAleatório( 4, 10 ) = " + vA na saída pulando linha .
+vA = númeroAleatório( 4, 10 ) .
+escrever "númeroAleatório( 4, 10 ) = " + vA na saída pulando linha .

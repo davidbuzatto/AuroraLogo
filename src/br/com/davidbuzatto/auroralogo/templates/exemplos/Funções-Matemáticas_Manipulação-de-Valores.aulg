@@ -5,6 +5,10 @@
  * Data: <DATA>
  */
 
+/*
+ * Função: valorAbsoluto( valor )
+ * Calcula e retorna o valor absoluto do valor passado como parâmetro.
+ */
 vA = valorAbsoluto( -4 ) .
 escrever "valorAbsoluto( -4 ) = " + vA na saída pulando linha .
 
@@ -18,12 +22,26 @@ vA = valorAbsoluto( 4.5 ) .
 escrever "valorAbsoluto( 4.5 ) = " + vA na saída pulando linha .
 
 
+/*
+ * Função: chão( valor )
+ * Calcula o chão (menor inteiro mais próximo) do valor passado como parâmetro.
+ */
 vA = chão( 10.1 ) .
 escrever "chão( 10.1 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: teto( valor )
+ * Calcula o teto (maior inteiro mais próximo) do valor passado como parâmetro.
+ */
 vA = teto( 10.1 ) .
 escrever "teto( 10.1 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: arredondar( valor, [casas decimais] )
+ * Arredonda um valor removendo sua parte decimal ou, caso a quantidade de
+ * casas decimais seja fornecida, o valor é arredondado até a quantidade
+ * de casas especificada.
+ */
 vA = arredondar( 2.55 ) .
 escrever "arredondar( 2.55 ) = " + vA na saída pulando linha .
 
@@ -36,7 +54,10 @@ escrever "arredondar( 2.7465, 2 ) = " + vA na saída pulando linha .
 vA = arredondar( 2.7465, 3 ) .
 escrever "arredondar( 2.7465, 3 ) = " + vA na saída pulando linha .
 
-
+/*
+ * Função: mínimo( valor1, valor2 )
+ * Retorna o menor valor entre dois valores passados como parâmetro.
+ */
 vA = mínimo( 10, 4 ) .
 escrever "mínimo( 10, 4 ) = " + vA na saída pulando linha .
 
@@ -46,6 +67,10 @@ escrever "mínimo( 10, 4.0 ) = " + vA na saída pulando linha .
 vA = mínimo( 10.0, 4 ) .
 escrever "mínimo( 10.0, 4 ) = " + vA na saída pulando linha .
 
+/*
+ * Função: máximo( valor1, valor2 )
+ * Retorna o maior valor entre dois valores passados como parâmetro.
+ */
 vA = máximo( 10, 4 ) .
 escrever "máximo( 10, 4 ) = " + vA na saída pulando linha .
 

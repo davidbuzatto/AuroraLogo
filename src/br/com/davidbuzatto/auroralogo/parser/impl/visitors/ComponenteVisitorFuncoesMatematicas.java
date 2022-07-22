@@ -62,13 +62,9 @@ public class ComponenteVisitorFuncoesMatematicas {
         Valor v = visitor.visit( ctx.expr() );
         
         if ( v.isInteiro() ) {
-            if ( v.isPositivo() ) {
-                return novoDecimal( Math.sqrt( v.valorInteiro() ) );
-            }
+            return novoDecimal( Math.sqrt( v.valorInteiro() ) );
         } else if ( v.isDecimal() ) {
-            if ( v.isPositivo() ) {
-                return novoDecimal( Math.sqrt( v.valorDecimal() ) );
-            }
+            return novoDecimal( Math.sqrt( v.valorDecimal() ) );
         }
        
         return novoZeroDecimal();

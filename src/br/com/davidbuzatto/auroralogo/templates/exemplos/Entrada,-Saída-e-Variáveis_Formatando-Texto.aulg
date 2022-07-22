@@ -4,3 +4,28 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * Para permitir que o programador tenha mais liberdade na criação de 
+ * texto formatado, a linguagem AuroraLogo possui uma função chamada
+ * formatarTexto() que possibilita tal ação. Essa função tem execução
+ * análoga à função printf da linguagem de programação C ou ao método
+ * System.out.printf da linguagem de programação Java.
+ */
+
+vNome = "Prof. David" .
+vIdade = 37 .
+vAltura = 1.82 .
+vCorPreferida = #0099cc .
+
+escrever formatarTexto( "O %s, no ano de 2022, tem %d anos.", vNome, vIdade ) na saída pulando linha .
+escrever formatarTexto( "Ele mede %.2fm e sua cor preferida é %s.", vAltura, vCorPreferida ) na saída pulando linha .
+
+/*
+ * Os especificadores de formato permitidos são os mesmos da linguagem de
+ * programação Java, sendo que os principais são:
+ *  %d: para inteiros
+ *  %f: para decimais
+ *  %c: para caracteres
+ *  %s: para strings
+ */

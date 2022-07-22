@@ -548,6 +548,7 @@ FCO_BOL : 'converterEmBooleano'  ;
 FCO_STR : 'converterEmString'    ;
 FCO_COR : 'converterEmCor'       ;
 
+
 // funções geométricas
 FG_ARC : 'arco'                      ;
 FG_CCU : 'curvaC\u00FAbica'          ;

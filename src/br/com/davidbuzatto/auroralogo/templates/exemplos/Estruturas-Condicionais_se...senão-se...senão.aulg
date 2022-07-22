@@ -4,3 +4,39 @@
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * A estrutura condicional se...senão se...senão é utilizada para testar
+ * uma ou mais condições e, caso uma delas seja verdadeira, executar o bloco
+ * de código associado à mesma.
+ */
+
+vA = 1 .
+vB = 2 .
+
+// se
+se vA < vB então {
+    escrever "vA é menor que vB." na saída pulando linha .
+}
+
+// se...senão
+se vA % 2 == 0 então {
+    escrever "vA é par." na saída pulando linha .
+} senão {
+    escrever "vA é ímpar." na saída pulando linha .
+}
+
+// se...senão se...senão
+se vA % 2 == 0 então {
+    escrever "vA é par." na saída pulando linha .
+} senão se vB % 2 == 0 então {
+    escrever "vB é par." na saída pulando linha .
+} senão {
+    escrever "vA e vB são ímpares." na saída pulando linha .
+}
+
+/*
+ * As condiciões são construídas usando dois tipos de operadores:
+ * operadores relacionais e operadores lógicos. Nos próximos exemplos
+ * veremos todos esses operadores.
+ */
