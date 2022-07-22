@@ -18,10 +18,7 @@ package br.com.davidbuzatto.auroralogo.parser.impl;
 
 import br.com.davidbuzatto.auroralogo.gui.sh.ErroEmLinhaParser;
 import java.awt.Color;
-import java.util.Collections;
-import java.util.List;
 import org.antlr.v4.runtime.BaseErrorListener;
-import org.antlr.v4.runtime.Parser;
 import org.antlr.v4.runtime.RecognitionException;
 import org.antlr.v4.runtime.Recognizer;
 
@@ -49,11 +46,9 @@ public class AuroraLogoErrorListener extends BaseErrorListener {
             String msg,
             RecognitionException e ) {
 
-        List<String> stack = ( ( Parser ) recognizer ).getRuleInvocationStack();
-        Collections.reverse( stack );
-
         erroLinhaParser.adicionarErro(
                 offendingSymbol,
+                msg,
                 line - 1,
                 charPositionInLine,
                 1,

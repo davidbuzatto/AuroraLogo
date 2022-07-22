@@ -16,8 +16,8 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
-import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.gui.sh.ErroEmLinhaParser;
+import br.com.davidbuzatto.auroralogo.gui.tartaruga.Tartaruga;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoLexer;
 import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
@@ -129,11 +129,11 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
     
-    public static final String VERSAO = "v0.99.\u03b2";
+    public static final String VERSAO = "v1.00";
     //public static final String VERSAO = "vx.xx.\u03b1";   // alfa
     //public static final String VERSAO = "vx.xx.\u03b2";   // beta
     
-    private static final boolean PRODUCAO = false;
+    public static final boolean PRODUCAO = false;
     private static final boolean DEBUG_PARSER = false;
     
     private Image iconeJanela;
@@ -163,7 +163,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     private BarraDeFerramentaSubstituir barraSubstituir;
     private CollapsibleSectionPanel csp;
     
-    private ErroEmLinhaParser erroLinhaParser;
+    private ErroEmLinhaParser erroEmLinhaParser;
     
     /**
      * Creates new form JanelaPrincipal
@@ -1994,8 +1994,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         atmf.putMapping( "text/AuroraLogo", "br.com.davidbuzatto.auroralogo.gui.sh.AuroraLogoSyntaxHighlighter" );
         textAreaCodigo.setSyntaxEditingStyle( "text/AuroraLogo" );
         
-        erroLinhaParser = new ErroEmLinhaParser( textAreaCodigo, textPaneSaida, tartaruga );
-        textAreaCodigo.addParser( erroLinhaParser );
+        erroEmLinhaParser = new ErroEmLinhaParser( textAreaCodigo, textPaneSaida, tartaruga );
+        textAreaCodigo.addParser( erroEmLinhaParser );
         
         errorStrip = new ErrorStrip( textAreaCodigo );
         errorStrip.setLevelThreshold( ParserNotice.Level.ERROR );
@@ -2112,7 +2112,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         try {
 
             String codigo = textAreaCodigo.getText().trim();
-            AuroraLogoErrorListener errorListenerParser = new AuroraLogoErrorListener( erroLinhaParser );
+            AuroraLogoErrorListener errorListenerParser = new AuroraLogoErrorListener( erroEmLinhaParser );
 
             textPaneSaida.setText( "" );
             
@@ -2123,24 +2123,26 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 AuroraLogoLexer lexer = new AuroraLogoLexer(
                         CharStreams.fromString( textAreaCodigo.getText() ) );
                 CommonTokenStream tokens = new CommonTokenStream( lexer );
+                lexer.removeErrorListeners();
+                lexer.addErrorListener( errorListenerParser );
                 
                 AuroraLogoParser parser = new AuroraLogoParser( tokens );
                 parser.removeErrorListeners();
                 parser.addErrorListener( errorListenerParser );
                 
-                erroLinhaParser.limparErros();
+                erroEmLinhaParser.limparErros();
                 
                 try {
                     
                     ParseTree tree = parser.prog();
-                    erroLinhaParser.processarErros();
-                    textAreaCodigo.forceReparsing( erroLinhaParser );
+                    erroEmLinhaParser.processarErros();
+                    textAreaCodigo.forceReparsing( erroEmLinhaParser );
 
                     if ( !errorListenerParser.houveErro() ) {
                         AuroraLogoDesenhistaVisitor visitor = new AuroraLogoDesenhistaVisitor( tartaruga, this, textPaneSaida );
                         visitor.visit( tree );
                     } else {
-                        System.out.println( "ERRO!" );
+                        //System.err.println( "ERRO!" );
                     }
 
                     if ( DEBUG_PARSER ) {
@@ -2426,12 +2428,12 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                     "Deseja mesmo sair?", "Sair",
                     JOptionPane.YES_NO_OPTION,
                     JOptionPane.QUESTION_MESSAGE ) == JOptionPane.YES_OPTION ) {
-                textAreaCodigo.removeParser( erroLinhaParser );
+                textAreaCodigo.removeParser( erroEmLinhaParser );
                 System.exit( 0 );
             }
 
         } else {
-            textAreaCodigo.removeParser( erroLinhaParser );
+            textAreaCodigo.removeParser( erroEmLinhaParser );
             System.exit( 0 );
         }
 
@@ -2453,6 +2455,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/templates/testes/"
                         + teste + ".aulg" ), StandardCharsets.UTF_8 ) ) {
             carregar( s, inicio );
+        } catch ( Exception exc ) {
+            //exc.printStackTrace();
         }
 
     }
@@ -2763,7 +2767,15 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         EventQueue.invokeLater( new Runnable() {
             public void run() {
 
-                prepararPreferences( false );
+                boolean reset = false;
+                
+                if ( args.length != 0 ) {
+                    if ( args[0].equals( "-reset" ) ) {
+                        reset = true;
+                    }
+                }
+                
+                prepararPreferences( reset );
                 JanelaPrincipal janela = new JanelaPrincipal();
 
                 switch ( getPref( PREF_TEMA ) ) {

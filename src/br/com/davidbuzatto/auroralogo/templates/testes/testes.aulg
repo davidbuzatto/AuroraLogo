@@ -1,9 +1,1 @@
-/*
- * Para realizarmos a leitura de dados da entrada usamos a instrução
- * ler e passamos uma variável a ela.
- */
-
-ler vLeitura .
-
-escrever "vLeitura - Tipo: " + vLeitura.tipo() + ", Valor: " + vLeitura
-        na saída pulando linha .
+ou escrever "ma" na saída .

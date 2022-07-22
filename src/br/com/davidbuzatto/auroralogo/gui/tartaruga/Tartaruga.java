@@ -16,6 +16,7 @@
  */
 package br.com.davidbuzatto.auroralogo.gui.tartaruga;
 
+import br.com.davidbuzatto.auroralogo.gui.JanelaPrincipal;
 import br.com.davidbuzatto.auroralogo.gui.PainelDesenho;
 import  br.com.davidbuzatto.auroralogo.parser.impl.Valor;
 import static br.com.davidbuzatto.auroralogo.parser.impl.ValorUtils.*;
@@ -828,6 +829,11 @@ public class Tartaruga {
         
         if ( depuradorAtivo ) {
             desenharDepurador( g2d );
+        }
+        
+        if ( !JanelaPrincipal.PRODUCAO ) {
+            g2d.setColor( Color.RED );
+            g2d.drawString( "DESENVOLVIMENTO", painelDesenho.getWidth() - 210, 23 );
         }
         
         g2d.dispose();

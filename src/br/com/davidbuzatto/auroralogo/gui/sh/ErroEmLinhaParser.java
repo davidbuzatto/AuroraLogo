@@ -37,29 +37,12 @@ import org.fife.ui.rsyntaxtextarea.parser.ParserNotice;
 
 /**
  * Analisador sintático específico do componente RSyntaxTextArea desenvolvido
- * para notificar o componente sobre erros gerados pelo analisador sintático da
- * linguagem de programação AuroraLogo gerado usando ANTLR4.
+ * para notificar o componente sobre erros gerados pelos analisadores léxico e
+ * sintático da linguagem de programação AuroraLogo gerados usando o ANTLR4.
  * 
  * @author Prof. Dr. David Buzatto
  */
 public class ErroEmLinhaParser extends AbstractParser {
-
-    private static class Erro {
-        Object offendingSymbol;
-        int linha;
-        int inicio;
-        int comprimento;
-        Color cor;
-
-        public Erro( Object offendingSymbol, int linha, int inicio, int comprimento, Color cor ) {
-            this.offendingSymbol = offendingSymbol;
-            this.linha = linha;
-            this.inicio = inicio;
-            this.comprimento = comprimento;
-            this.cor = cor;
-        }
-        
-    }
     
     private RSyntaxTextArea textAreaCodigo;
     private JTextPane textPaneSaida;
@@ -75,20 +58,21 @@ public class ErroEmLinhaParser extends AbstractParser {
         erros = new ArrayList<>();
     }
     
-    public void adicionarErro( Object offendingSymbol, int linha, int inicio, int comprimento, Color cor ) {
+    public void adicionarErro( Object offendingSymbol, String mensagem, int linha, int inicio, int comprimento, Color cor ) {
         
         Erro erro;
             
         if ( mapaErros.containsKey( linha ) ) {
             erro = mapaErros.get( linha );
             erro = new Erro( 
-                    erro.offendingSymbol, 
-                    erro.linha, 
-                    erro.inicio, 
-                    inicio - erro.inicio, 
+                    erro.getOffendingSymbol(), 
+                    erro.getMensagem(),
+                    erro.getLinha(), 
+                    erro.getInicio(), 
+                    inicio - erro.getInicio(), 
                     cor );
         } else {
-            erro = new Erro( offendingSymbol, linha, inicio, comprimento, cor );
+            erro = new Erro( offendingSymbol, mensagem, linha, inicio, comprimento, cor );
         }
         
         mapaErros.put( linha, erro );
@@ -101,10 +85,10 @@ public class ErroEmLinhaParser extends AbstractParser {
             
             Erro erro = e.getValue();
             
-            int linha = erro.linha;
-            int inicio = erro.inicio;
+            int linha = erro.getLinha();
+            int inicio = erro.getInicio();
             int ajuste = 0;
-            int comprimento = erro.comprimento;
+            int comprimento = erro.getComprimento();
             
             try {
                 
@@ -117,47 +101,42 @@ public class ErroEmLinhaParser extends AbstractParser {
                 exc.printStackTrace();
             }
             
-            String erroRazao = String.format( "erro em linha %d, coluna %d", linha + 1, inicio - ajuste );
-            if ( erro.offendingSymbol != null && erro.offendingSymbol instanceof Token ) {
-                Token t = (Token) erro.offendingSymbol;
-                erroRazao += ":\n    não entendi o que você quiz dizer com \"" + t.getText() + "\" :(";
+            String erroRazao = String.format( "em linha %d, coluna %d", linha + 1, inicio - ajuste );
+            String erroMsg = "";
+            
+            Color cor = Color.RED;
+            
+            if ( erro.getOffendingSymbol() != null && erro.getOffendingSymbol() instanceof Token ) {
+                Token t = (Token) erro.getOffendingSymbol();
+                erroMsg = t.getText();
+                erroRazao = "erro sintático " + erroRazao;
+            } else {
+                erroMsg = erro.getMensagem();
+                erroMsg = erroMsg.substring( erroMsg.indexOf( ":" ) + 1 ).trim().replace( "'", "" );
+                erroRazao = "erro léxico " + erroRazao;
+                cor = Color.decode( "#8e00a1" );
             }
             
+            erroRazao += ":\n    não entendi o que você quiz dizer com \"" + erroMsg + "\" :(";
+            
             DefaultParserNotice dpn = new DefaultParserNotice( this, erroRazao, linha + 1, inicio, comprimento );
-            dpn.setColor( erro.cor );
+            dpn.setColor( erro.getCor() );
             dpn.setLevel( ParserNotice.Level.ERROR );
             dpn.setShowInEditor( true );
             dpn.setToolTipText( erroRazao );
             
             String[] linhas = erroRazao.split( ":\n    " );
-            String linha1 = null;
-            String linha2 = null;
             
-            if ( linhas.length == 1 ) {
-                linha1 = linhas[0];
-            } else {
-                linha1 = linhas[0];
-                linha2 = linhas[1];
-            }
-            
-            if ( linha1 != null && linha2 == null ) {
-                Utils.inserirTextoFormatado( 
-                        textPaneSaida, 
-                        linha1 + "a.\n\n", 
-                        true,
-                        Color.RED );
-            } else {
-                Utils.inserirTextoFormatado( 
-                        textPaneSaida, 
-                        linha1 + ":\n    ", 
-                        true,
-                        Color.RED );
-                Utils.inserirMensagemEmitente( 
-                        textPaneSaida, 
-                        "tartaruga", 
-                        linha2 + "\n\n", 
-                        tartaruga.getCor() );
-            }
+            Utils.inserirTextoFormatado( 
+                    textPaneSaida, 
+                    linhas[0] + ":\n    ", 
+                    true,
+                    cor );
+            Utils.inserirMensagemEmitente( 
+                    textPaneSaida, 
+                    "tartaruga", 
+                    linhas[1] + "\n\n", 
+                    tartaruga.getCor() );
             
             erros.add( dpn );
             

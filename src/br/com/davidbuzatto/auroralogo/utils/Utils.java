@@ -765,7 +765,7 @@ public class Utils {
             
         } catch ( Exception exc ) {
             menuTestes.setVisible( false );
-            exc.printStackTrace();
+            //exc.printStackTrace();
         }
         
     }

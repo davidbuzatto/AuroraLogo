@@ -1,4 +1,4 @@
-Comece-aqui.aulg
+Comece-aqui!.aulg
 Lidando-com-a-Tartaruga_Movimentação.aulg
 Lidando-com-a-Tartaruga_Opções-do-Pincel.aulg
 Entrada,-Saída-e-Variáveis_Escrevendo-Valores.aulg

@@ -1,9 +1,7 @@
 Implementação:
-    - Conferir mecanismo de broadcast de erros. Erros léxicos parecem não estar sendo propagados.
-    - Conferir System.out.println( "ERRO!" ).
+    - Versão 1.0 completa.
 
 Trabalhos Futuros:
     - Melhoria das mensagens de erro com consulta por similaridade;
-    - Melhorar tratamento de erros;
     - Montar testes de unidade para todas as operações;
     - Associar execução do código ao editor.

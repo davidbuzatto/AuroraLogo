@@ -1,6 +1,96 @@
 /**
- * Funções Definidas pelo Usuáro.
+ * Funções Definidas pelo Usuário.
  *
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
+
+/*
+ * A linguagem AuroraLogo permite a definição de funções, inclusive funções
+ * recursivas. As definições das funções precisam vir antes de qualquer
+ * instrução do programa e podem ser definidas quantas funções forem
+ * necessárias.
+ */
+
+/*
+ * Definição da função fEscreverOláMundo. Os identificadores das funções seguem
+ * as mesmas regras dos identificadores das variáveis, com a diferença que
+ * devem iniciar com a letra "f" minúscula.
+ * 
+ * Algumas linguagens de programação diferenciam funções de procedimentos,
+ * sendo que as primeiras obrigatoriamente devem retornar um valor, enquanto
+ * os procedimentos não. Na linguagem AuroraLogo toda função retorna um valor,
+ * mesmo que implicitamente. Caso o retorno de valor não seja especificado,
+ * a função retornará NULO.
+ */
+função fEscreverOláMundo() {
+    escrever "olá mundo!" na saída pulando linha .
+}
+
+/*
+ * Definição da função fSomar que possui dois parâmetros: pNúmero1 e pNúmero2.
+ * Assim como os identificadores das variáveis e das funções, os parâmetros
+ * possuem uma regra para nomenclatura. A regra é idência aos dois tipos 
+ * anteriores, com a diferença que devem começar com a letra "p" minúscula.
+ */
+função fSomar( pNúmero1, pNúmero2 ) {
+    retornar pNúmero1 + pNúmero2 .
+}
+
+/*
+ * É permitido também, como já informado, definir funções recursivas.
+ */
+função fFatorial( pNúmero ) {
+    se pNúmero == 0 OU pNúmero == 1 então {
+        retornar 1 .
+    } senão {
+        retornar pNúmero * fFatorial( pNúmero - 1 ) .
+    }
+}
+
+/*
+ * Recursão indireta também é permitida.
+ */
+função fA( pValor ) {
+    se pValor == 0 então {
+        retornar 0 .
+    } senão {
+        retornar fB( pValor + 1 ) .
+    }
+}
+
+função fB( pValor ) {
+    se pValor == 10 então {
+        retornar 0 .
+    } senão {
+        retornar fA( pValor - 2 ) .
+    }
+}
+
+// invocação da função fEscreverOláMundo().
+fEscreverOláMundo() .
+
+// invocação da função fEscreverOláMundo() escrevendo seu retorno.
+escrever fEscreverOláMundo() na saída pulando linha .
+
+// invocação da função fSomar passando dois valores inteiros como argumentos
+escrever fSomar( 5, 6 ) na saída pulando linha .
+
+/* 
+ * Mesmo que a invocação da função seja errada, por exemplo, faltando
+ * argumentos, o interpretador resolverá o problema silenciosamente,
+ * atribuindo zero ao parâmetro faltante.
+ */
+escrever fSomar( 5 ) na saída pulando linha .
+
+/* 
+ * Também não haverá problema se a função for invocada com mais argumentos
+ * do que é esperado.
+ */
+escrever fSomar( 7, 9, 15 ) na saída pulando linha .
+
+// invocação da função recursiva fFatorial.
+escrever fFatorial( 5 ) na saída pulando linha .
+
+// invocação da função fA que possui recursão indireta.
+escrever fA( 5 ) na saída pulando linha .
