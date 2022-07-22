@@ -8,7 +8,7 @@ Essa linguagem tem como fonte de inspiração a linguagem Logo e foi nomeada ass
 
 Este é um projeto desenvolvido na IDE NetBeans 14 e é auto-contido.
 
-## Instação
+## Instalação
 
 As releases podem ser encontradas à direita. É necessário no mínimo o JDK 11.
 
