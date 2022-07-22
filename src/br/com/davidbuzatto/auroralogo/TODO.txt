@@ -1,6 +1,5 @@
 Implementação:
-    - Pincel pontilhado e tracejado .
-    - Implementar exemplos;
+    - Conferir mecanismo de broadcast de erros. Erros léxicos parecem não estar sendo propagados.
     - Conferir System.out.println( "ERRO!" ).
 
 Trabalhos Futuros:

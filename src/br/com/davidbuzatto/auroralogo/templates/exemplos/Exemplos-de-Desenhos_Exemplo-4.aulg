@@ -1,3 +1,13 @@
+/**
+ * O código abaixo realiza uma representação gráfica da série de Fibonacci.
+ *
+ * Clique no botão "Executar" acima para ver o resultado.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+// versão iterativa
 função fFib( pTermo ) {
     vA = 1 .
     vB = 1 .
@@ -10,6 +20,7 @@ função fFib( pTermo ) {
     retornar vA .
 }
 
+// versão recursiva
 função fFibR( pTermo ) {
     se pTermo é igual a 0 OU pTermo é igual a 1 então {
         vR = 1 .

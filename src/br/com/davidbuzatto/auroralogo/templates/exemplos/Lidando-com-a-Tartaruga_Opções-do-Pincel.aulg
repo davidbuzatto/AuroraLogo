@@ -57,10 +57,10 @@ vá para 200, 100 .
 
 /* 
  * Na linguagem de programação AuroraLogo as cores são consideradas como tipos
- * (falaremos disso mais tarde) e existem onze constantes que representam as
- * onze cores mais comuns, sendo elas: preto, azul (usadas acima), ciano, 
- * cinza, verde, magenta, laranja, rosa, vermelho, branco e amarelo, mas isso
- * não nos restringe obrigatoriamente a poder usar apenas essas onze cores.
+ * (falaremos disso mais tarde) e existem doze constantes que representam as
+ * doze cores mais comuns, sendo elas: preto, azul (usadas acima), ciano, 
+ * cinza, verde, magenta, laranja, rosa, vermelho, branco, amarelo e roxo, mas
+ * isso não nos restringe obrigatoriamente a poder usar apenas essas doze cores.
  * 
  * Para continuarmos, volte a comentar as linhas 49 e 50 para termos o fundo
  * em branco novamente. Vamos agora trocar a cor do pincel, usando uma cor

@@ -1,0 +1,41 @@
+/**
+ * O código abaixo plota as funções seno e cosseno.
+ *
+ * Clique no botão "Executar" acima para ver o resultado.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+engrossar pincel em 2 .
+
+trocar cor do pincel para #ff0000 .
+levantar pincel .
+vá para 0, -20 .
+abaixar pincel .
+escrever "função seno." .
+levantar pincel .
+vá para 0, 0 .
+abaixar pincel .
+
+vAngulo = 0 .
+enquanto vAngulo < 1000 repetir incrementando vAngulo {
+    vS = seno( vAngulo ) * 100 .
+    vá para vAngulo, vS .
+}
+
+trocar cor do pincel para #0000ff .
+levantar pincel .
+vá para 0, 110 .
+abaixar pincel .
+escrever "função cosseno." .
+levantar pincel .
+vá para 0, 100 .
+abaixar pincel .
+
+vAngulo = 0 .
+trocar cor do pincel para #0000ff .
+enquanto vAngulo < 1000 repetir incrementando vAngulo {
+    vS = cosseno( vAngulo ) * 100 .
+    vá para vAngulo, vS .
+}

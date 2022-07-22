@@ -2479,7 +2479,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     private void carregar( Scanner s, boolean inicio ) {
 
-        StringBuilder sb = sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append( s.nextLine() );
         while ( s.hasNextLine() ) {
             sb.append( "\n" ).append( s.nextLine() );

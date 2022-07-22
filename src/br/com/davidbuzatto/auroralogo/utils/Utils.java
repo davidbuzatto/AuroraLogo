@@ -238,6 +238,49 @@ public class Utils {
         
     }
     
+    public static void inserirMensagem( JTextPane textPane, String mensagem, Color corTexto ) {
+        
+        mensagem = mensagem.replace( "\\n", "\n" );
+        
+        if ( corTexto == null ) {
+            
+            int c = 0;
+            
+            Color[] cores = {
+                new Color( 151, 53, 152 ),
+                new Color( 0, 102, 203 ),
+                new Color( 24, 210, 233 ),
+                new Color( 104, 203, 60 ),
+                new Color( 244, 244, 0 ),
+                new Color( 249, 149, 38 ),
+                new Color( 245, 18, 9 )
+            };
+
+            for ( char ch : mensagem.toCharArray() ) {
+                
+                Utils.inserirTextoFormatado( 
+                        textPane, 
+                        ch + "", 
+                        true,
+                        gerarComponenteGradiente( cores[c], Color.BLACK, .2 ) );
+                
+                c++;
+                c %= cores.length;
+                
+            }
+            
+        } else {
+
+            Utils.inserirTextoFormatado( 
+                    textPane, 
+                    mensagem, 
+                    true,
+                    gerarComponenteGradiente( corTexto, Color.BLACK, .5 ) );
+        
+        }
+        
+    }
+    
     public static void inserirCorCodigo( RSyntaxTextArea textAreaCodigo, Color cor ) {
         
         try {

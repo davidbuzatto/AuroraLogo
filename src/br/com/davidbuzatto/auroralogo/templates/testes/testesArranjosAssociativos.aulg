@@ -13,10 +13,10 @@ vC = vD.chaves() .
 
 vI = 0 .
 enquanto vI < vC.comprimento() repetir incrementando vI {
-	escrever vC[vI] + ": " + vD{vC[vI]} na saída pulando linha .
-	escrever vC[vI] + ": " + vD{vC[vI]}.comprimento() na saída pulando linha .
-	escrever vC[vI] + ": " + vD{vC[vI]}.chaves() na saída pulando linha .
-	escrever vC[vI] + ": " + vD{vC[vI]}.tipo() na saída pulando linha .
+    escrever vC[vI] + ": " + vD{vC[vI]} na saída pulando linha .
+    escrever vC[vI] + ": " + vD{vC[vI]}.comprimento() na saída pulando linha .
+    escrever vC[vI] + ": " + vD{vC[vI]}.chaves() na saída pulando linha .
+    escrever vC[vI] + ": " + vD{vC[vI]}.tipo() na saída pulando linha .
 }
 
 escrever vD.tipo() na saída pulando linha .

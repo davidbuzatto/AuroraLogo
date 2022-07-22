@@ -1,0 +1,59 @@
+/**
+ * Operações das Strings.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+/*
+ * Valores do tipo String possuem diversas operações que podem ser
+ * feitas.
+ */
+vString = "esse é um texto!" .
+
+escrever vString + "\n" na saída pulando linha .
+
+// obtenção do tipo (já vimos)
+escrever vString.tipo() + "\n" na saída pulando linha .
+
+// obtenção do comprimento, igual aos arranjos.
+escrever vString.comprimento() + "\n" na saída pulando linha .
+
+// obtenção de um array com os caracteres da String
+escrever vString.caracteres() + "\n" na saída pulando linha .
+
+// obtendo o caractere na posição 1
+escrever vString.caracteres()[1] + "\n" na saída pulando linha .
+
+// percorrendo caractere por caractere
+para cada vC em vString.caracteres() repetir {
+    escrever vC + " " na saída.
+}
+
+escrever "\n\n" na saída .
+
+/*
+ * A operação "substring" recorta uma string. Pode-se usar de duas formas.
+ */
+
+/*
+ * vString.substring( início ): Recorta a string iniciando na posição início,
+ * incluindo o caractere nessa posição e vai até o final. Aceita índices
+ * negativos e com mapeamento modular, assim como o acesso à posições dos
+ * arrays.
+ */
+escrever vString.substring( 0 ) + "\n" na saída pulando linha .
+escrever vString.substring( 1 ) + "\n" na saída pulando linha .
+escrever vString.substring( 2 ) + "\n" na saída pulando linha .
+escrever vString.substring( -2 ) + "\n" na saída pulando linha .
+
+/*
+ * vString.substring( início, fim ): Recorta a string iniciando na posição
+ * início, incluindo o caractere nessa posição e vai até a posição fim, 
+ * não incluindo o caractere dessa posição. Aceita índices negativos e com
+ * mapeamento modular, assim como o acesso à posições dos arrays.
+ */
+escrever "\"" + vString.substring( 0, 0 ) + "\"\n" na saída pulando linha .
+escrever "\"" + vString.substring( 0, 1 ) + "\"\n" na saída pulando linha .
+escrever "\"" + vString.substring( 0, 2 ) + "\"\n" na saída pulando linha .
+escrever "\"" + vString.substring( 5, 10 ) + "\"" na saída pulando linha .

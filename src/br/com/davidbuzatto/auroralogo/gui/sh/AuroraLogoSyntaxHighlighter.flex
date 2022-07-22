@@ -420,6 +420,8 @@ URL						= (((https?|f(tp|ile))"://"|"www.")({URLCharacters}{URLEndCharacter})?)
 "retornar" | 
 "rosa " | 
 "rosa" | 
+"roxo " | 
+"roxo" | 
 "sa\u00EDda " | 
 "sa\u00EDda" | 
 "se " | 

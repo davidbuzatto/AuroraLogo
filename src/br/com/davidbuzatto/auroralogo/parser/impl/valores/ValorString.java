@@ -39,7 +39,7 @@ public class ValorString extends Valor<String> implements Serializable {
     
     @Override
     public String toString() {
-        return valor;
+        return valor.replace( "\\\"", "\"" );
     }
     
     @Override

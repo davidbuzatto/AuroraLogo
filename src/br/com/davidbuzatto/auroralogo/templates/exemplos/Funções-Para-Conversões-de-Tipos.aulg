@@ -1,30 +1,61 @@
 /**
- * Lendo valores da entrada.
+ * Funções para Conversões de Tipos.
  *
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
  */
 
 /*
- * Para realizarmos a leitura de dados da entrada usamos a instrução
- * ler e passamos uma variável a ela.
+ * Comumente também podemos precisar converter um valor de um tipo em outro.
+ * Para isso, a linguagem AuroraLogo fornece algumas funções de conversão.
  */
 
-ler vLeitura .
+vA = criarArranjo[6] .
+vA[0] = 1 .
+vA[1] = 10.5 .
+vA[2] = 'a' .
+vA[3] = VERDADEIRO .
+vA[4] = "25.75" .
+vA[5] = #0099cc .
 
-escrever "vLeitura - Tipo: " + vLeitura.tipo() + ", Valor: " + vLeitura
-        na saída pulando linha .
+escrever "*** Conversão em INTEIRO ***" na saída pulando linha .
+para cada vValor em vA repetir {
+    escrever vValor + ", Tipo: " + vValor.tipo() na saída pulando linha .
+    escrever "Convertendo em INTEIRO: " na saída .
+    escrever converterEmInteiro( vValor ) + "\n" na saída pulando linha .
+}
 
-/*
- * A linguagem AuroraLogo sempre tentará converter o valor que foi entrado
- * em um tipo correspondente.
- */
+escrever "\n*** Conversão em DECIMAL ***" na saída pulando linha .
+para cada vValor em vA repetir {
+    escrever vValor + ", Tipo: " + vValor.tipo() na saída pulando linha .
+    escrever "Convertendo em DECIMAL: " na saída .
+    escrever converterEmDecimal( vValor ) + "\n" na saída pulando linha .
+}
 
-/*
- * Podemos também trocar a mensagem padrão mostrada no diálogo de leitura.
- */
+escrever "\n*** Conversão em CARACTERE ***" na saída pulando linha .
+para cada vValor em vA repetir {
+    escrever vValor + ", Tipo: " + vValor.tipo() na saída pulando linha .
+    escrever "Convertendo em CARACTERE: " na saída .
+    escrever converterEmCaractere( vValor ) + "\n" na saída pulando linha .
+}
 
-ler vLeitura usando a mensagem "Entre com um valor inteiro:" .
+escrever "\n*** Conversão em BOOLEANO ***" na saída pulando linha .
+para cada vValor em vA repetir {
+    escrever vValor + ", Tipo: " + vValor.tipo() na saída pulando linha .
+    escrever "Convertendo em BOOLEANO: " na saída .
+    escrever converterEmBooleano( vValor ) + "\n" na saída pulando linha .
+}
 
-escrever "vLeitura - Tipo: " + vLeitura.tipo() + ", Valor: " + vLeitura
-        na saída pulando linha .
+escrever "\n*** Conversão em STRING ***" na saída pulando linha .
+para cada vValor em vA repetir {
+    escrever vValor + ", Tipo: " + vValor.tipo() na saída pulando linha .
+    escrever "Convertendo em STRING: " na saída .
+    escrever converterEmString( vValor ) + "\n" na saída pulando linha .
+}
+
+escrever "\n*** Conversão em COR ***" na saída pulando linha .
+para cada vValor em vA repetir {
+    escrever vValor + ", Tipo: " + vValor.tipo() na saída pulando linha .
+    escrever "Convertendo em COR: " na saída .
+    escrever converterEmCor( vValor ) + "\n" na saída pulando linha .
+}

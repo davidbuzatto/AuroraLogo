@@ -2,28 +2,28 @@ vC1 = #34cdeb .
 vC2 = #eb347a .
 
 repetir 5 vezes {
-	vR = passo .
-	usando vR {
-		escolha 1:
-			vN = vC1 + vC2 .
-			parar.
-		escolha 2:
-			vN = vC1 - vC2 .
-			parar.
-		escolha 3:
-			vN = vC1 * vC2 .
-			parar.
-		escolha 4:
-			vN = vC1 / vC2 .
-			parar.
-	    escolha 5:
-	    	vN = vC1 % vC2 .
-			parar.
-	}
-	trocar cor do preenchimento para vC1 .
-	desenhar quadrado( 300, 600 - passo * 100, 100 ) .
-	trocar cor do preenchimento para vN .
-	desenhar quadrado( 400, 600 - passo * 100, 100 ) .
-	trocar cor do preenchimento para vC2 .
-	desenhar quadrado( 500, 600 - passo * 100, 100 ) .
+    vR = passo .
+    usando vR {
+        escolha 1:
+            vN = vC1 + vC2 .
+            parar.
+        escolha 2:
+            vN = vC1 - vC2 .
+            parar.
+        escolha 3:
+            vN = vC1 * vC2 .
+            parar.
+        escolha 4:
+            vN = vC1 / vC2 .
+            parar.
+        escolha 5:
+            vN = vC1 % vC2 .
+            parar.
+    }
+    trocar cor do preenchimento para vC1 .
+    desenhar quadrado( 300, 600 - passo * 100, 100 ) .
+    trocar cor do preenchimento para vN .
+    desenhar quadrado( 400, 600 - passo * 100, 100 ) .
+    trocar cor do preenchimento para vC2 .
+    desenhar quadrado( 500, 600 - passo * 100, 100 ) .
 }

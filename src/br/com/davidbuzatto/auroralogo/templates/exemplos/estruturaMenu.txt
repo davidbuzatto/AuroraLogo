@@ -1,5 +1,4 @@
 Comece-aqui.aulg
-//Veja-o-que-pode-ser-feito.aulg
 Lidando-com-a-Tartaruga_Movimentação.aulg
 Lidando-com-a-Tartaruga_Opções-do-Pincel.aulg
 Entrada,-Saída-e-Variáveis_Escrevendo-Valores.aulg
@@ -25,9 +24,12 @@ Estruturas-Condicionais_Operadores-Lógicos.aulg
 Estruturas-Condicionais_usando...escolha.aulg
 Estruturas-de-Repetição_repetir...vezes.aulg
 Estruturas-de-Repetição_enquanto...repetir.aulg
-//Arranjos_Arranjos-(arrays).aulg
-//Arranjos_Arranjos-Associativos-(arrays-associativos).aulg
-//Arranjos_Funções-de-Strings.aulg
-//Arranjos_Estrutura-de-Repetição-para...cada.aulg
-//Funções-Definidas-Pelo-Usuário.aulg
-//Funções-Para-Conversões-de-Tipos.aulg
+Arranjos_Arranjos-(arrays)-e-Estrutura-de-Repetição-para...cada.aulg
+Arranjos_Arranjos-Associativos-(arrays-associativos).aulg
+Operações-das-Strings.aulg
+Funções-Definidas-pelo-Usuário.aulg
+Funções-para-Conversões-de-Tipos.aulg
+Exemplos-de-Desenhos_Exemplo-1.aulg
+Exemplos-de-Desenhos_Exemplo-2.aulg
+Exemplos-de-Desenhos_Exemplo-3.aulg
+Exemplos-de-Desenhos_Exemplo-4.aulg

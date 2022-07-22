@@ -69,18 +69,19 @@ public class ComponenteVisitorEntradaSaida {
         } else if ( v.isCor() ) {
             textoSaida = String.valueOf( v );
         } else if ( v.isArranjo() || v.isArranjoAssociativo() ) {
-            textoSaida = "\n" + Utils.toStringGeral( v.getValor() );
+            textoSaida = Utils.toStringGeral( v.getValor() );
+            //textoSaida = "\n" + Utils.toStringGeral( v.getValor() );
         } else {
             textoSaida = String.valueOf( v );
         }
-        
         
         if ( ctx.PUL() != null ) {
             textoSaida += "\n";
         }
         
         if ( ctx.NA() != null ) {
-            Utils.inserirMensagemEmitente( textPaneSaida, "tartaruga escreveu", textoSaida, tartaruga.getCor() );
+            Utils.inserirMensagem( textPaneSaida, textoSaida, tartaruga.getCor() );
+            //Utils.inserirMensagemEmitente( textPaneSaida, "tartaruga escreveu", textoSaida, tartaruga.getCor() );
         } else if ( ctx.NO() != null ) {
             
             JTextPane tp = new JTextPane();
@@ -90,7 +91,8 @@ public class ComponenteVisitorEntradaSaida {
             tp.setBorder( new LineBorder( Utils.gerarComponenteGradiente( tartaruga.getCor(), Color.BLACK, 0.5 ) ) );
             tp.setFont( textPaneSaida.getFont() );
             
-            Utils.inserirMensagemEmitente( tp, "tartaruga escreveu", textoSaida, tartaruga.getCor() );
+            Utils.inserirMensagem( tp, textoSaida, tartaruga.getCor() );
+            //Utils.inserirMensagemEmitente( tp, "tartaruga escreveu", textoSaida, tartaruga.getCor() );
             JOptionPane.showMessageDialog( janelaPrincipal, tp, "Mensagem", JOptionPane.PLAIN_MESSAGE );
             
         } else {

@@ -8,7 +8,7 @@ vB["c"] = "789" .
 
 vI = 0 .
 enquanto vI < vA.comprimento() repetir incrementando vI {
-	vA[vI] = vI * 2 .
+    vA[vI] = vI * 2 .
 }
 
 para cada vV em vA repetir {

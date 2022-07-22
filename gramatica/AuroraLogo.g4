@@ -174,7 +174,7 @@ cor          : CHEX | criarCor | corExtenso
              ;
 
 corExtenso   : PRETO   | AZUL | CIANO    | CINZA  | VERDE   | MAGENTA
-             | LARANJA | ROSA | VERMELHO | BRANCO | AMARELO
+             | LARANJA | ROSA | VERMELHO | BRANCO | AMARELO | ROXO
              ;
 
 criarCor     : FC_CRI  '(' expr ',' expr ',' expr ( ',' expr )? ')'
@@ -481,6 +481,7 @@ ROSA     : 'rosa'     ;
 VERMELHO : 'vermelho' ;
 BRANCO   : 'branco'   ;
 AMARELO  : 'amarelo'  ;
+ROXO     : 'roxo'     ;
 ESCURO   : 'escuro'   ;
 CLARO    : 'claro'    ;
 

@@ -111,6 +111,8 @@ public class ComponenteVisitorCor {
             cor = Color.decode( "#ffffff" );
         } else if ( ctx.AMARELO() != null ) {
             cor = Color.decode( "#ffff00" );
+        } else if ( ctx.ROXO() != null ) {
+            cor = Color.decode( "#7b03fc" );
         }
         
         return novaCor( cor );

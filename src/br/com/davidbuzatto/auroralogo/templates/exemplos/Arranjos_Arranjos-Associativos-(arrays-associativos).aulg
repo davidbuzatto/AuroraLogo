@@ -5,6 +5,79 @@
  * Data: <DATA>
  */
 
-//.chaves()
-// comprimento
-//sintaxe do ponto
+/*
+ * Os arranjos associativos, também chamados de arrays associativos, tabelas
+ * símbolos, tabelas de dispersão, tabelas hash, tabelas de escrutínio são
+ * capazes de associar chaves com valores. Na linguagem AuroraLogo nós os
+ * criamos usando a instrução criarArranjoAssociativo{}
+ */
+
+vA = criarArranjoAssociativo{} .
+
+escrever vA na saída pulando linha .
+
+/*
+ * Para inserirmos valores no nosso arranjo/array associativo, usados a 
+ * seguinte sintaxe:
+ */
+vA{"um"} = 1 .       // associamos a chave "um" com o valor inteiro 1
+vA{"dois"} = 2 .     // associamos a chave "dois" com o valor inteiro 2
+vA{"três"} = 3 .     // associamos a chave "três" com o valor inteiro 3
+vA{"quatro"} = 4 .   // associamos a chave "quatro" com o valor inteiro 4
+
+/*
+ * Há também a possibilidade de usar o operador [] para associar valores à
+ * chaves ou lê-los, mas a sintaxe apresentada anteriormente deve ser preferida.
+ */
+vA["cinco"] = 5 .    // associamos a chave "cinco" com o valor inteiro 5
+
+escrever vA na saída pulando linha .
+
+/*
+ * Assim como nos arrays, podemos acessar o comprimento dos arrays associativos,
+ * mas nesse caso, o comprimento é a quantidade de elementos inseridos.
+ */
+escrever vA.comprimento() na saída pulando linha .
+
+/*
+ * Nos arrays associativos a ideia de posição de um elemento não "existe", pois
+ * cada elemento está associado à uma chave. Para podermos acessar então cada
+ * um dos valores, precisamos saber quais são as chaves. Para isso, usamos a 
+ * propriedade .chaves(). Essa propriedade retorna um novo array com todas as
+ * chaves do arranjo associativo, na ordem em que foram sendo criadas.
+ */
+para cada vC em vA.chaves() repetir {
+    escrever formatarTexto( "vA{\"%s\"} = %d", vC, vA{vC} ) na saída pulando linha .
+}
+
+/*
+ * Também podemos acessar cada um dos valores do array associativo usando
+ * o que podemos chamar de sintaxe do ponto, bastando preceder o nome
+ * da chave por um "a".
+ */
+escrever vA.aum na saída pulando linha .
+
+/*
+ * Vamos a um exemplo um pouco maior para você entender
+ */
+vD = criarArranjoAssociativo{} .
+vD{"nome"} = "David" .
+vD{"sobrenome"} = "Buzatto" .
+
+vA = criarArranjoAssociativo{} .
+vA{"nome"} = "Aurora" .
+vA{"sobrenome"} = "Buzatto" .
+
+vD{"filha"} = vA .
+
+para cada vChave em vD.chaves() repetir {
+    escrever vChave + ": " + vD{vChave} na saída pulando linha .
+}
+
+escrever vD.anome na saída pulando linha .
+escrever vD.asobrenome na saída pulando linha .
+escrever vA.anome na saída pulando linha .
+escrever vA.asobrenome na saída pulando linha .
+escrever vD.afilha na saída pulando linha .
+escrever vD.afilha.anome na saída pulando linha .
+escrever vD.afilha.asobrenome na saída pulando linha .

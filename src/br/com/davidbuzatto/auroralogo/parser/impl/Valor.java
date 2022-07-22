@@ -281,6 +281,9 @@ public abstract class Valor<Tipo> implements Serializable {
     }
     
     public String valorString() {
+        if ( valor instanceof Color ) {
+            return Utils.colorParaHexa( (Color) valor );
+        }
         return valor.toString();
     }
     
@@ -425,8 +428,7 @@ public abstract class Valor<Tipo> implements Serializable {
         if ( valor.isArranjo() || valor.isArranjoAssociativo() ) {
             dir = Utils.toStringGeral( valor );
         }
-        
-        
+                
         return novaString( esq + dir );
         
     }

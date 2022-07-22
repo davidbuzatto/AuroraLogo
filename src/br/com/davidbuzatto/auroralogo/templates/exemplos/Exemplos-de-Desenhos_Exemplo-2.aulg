@@ -1,9 +1,8 @@
 /**
- * Você está preparado para ter um gostinho do que a
- * linguagem de programação AuroraLogo vai lhe oferecer?
+ * O código abaixo exemplifica diversas funcionalidades da 
+ * linguagem AuroraLogo, com foco nas instruções de desenho.
  *
- * Clique no botão "Executar" acima para ver o resultado
- * do código abaixo.
+ * Clique no botão "Executar" acima para ver o resultado.
  *
  * Autor: Prof. Dr. David Buzatto
  * Data: <DATA>
@@ -281,15 +280,3 @@ repetir vP vezes {
 abaixar pincel .
 trocar cor do preenchimento para amarelo .
 desenhar círculo( tartaruga.x(), tartaruga.y(), 40 ).
-    
-escrever "Sexto termo da série de Fibonacci: " + fFibonacci( 5 ) na saída pulando linha .
-vA = 10 .
-
-escrever vA * 10 no diálogo .
-
-ler vA usando a mensagem "Entre com um número:" .
-se vA % 2 é igual a 0 então {
-    escrever formatarTexto( "O número %d é par!", vA ) no diálogo .
-} senão {
-    escrever formatarTexto( "O número %d é ímpar!", vA ) no diálogo .
-}

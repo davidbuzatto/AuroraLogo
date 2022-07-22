@@ -1,0 +1,119 @@
+/**
+ * Arranjos ou Arrays.
+ *
+ * Autor: Prof. Dr. David Buzatto
+ * Data: <DATA>
+ */
+
+/*
+ * A linguagem de programação AuroraLogo suporta, além das variáveis, mais
+ * dois tipos de estruturas de dados importantíssimas. Essas estruturas são
+ * os arranjos e os arranjos associativos. No Brasil há o costume de chamar
+ * a primeira dessas estrutruras de "vetor", nomenclatura que infelizmente
+ * não traduz exatamente o que ela é. O termo em inglês para arranjos é 
+ * "array" e, na AuroraLogo, podemos usar esse termo também como sinônimo.
+ * 
+ * Vamos ver como funcionam os arranjos.
+ */
+
+/*
+ * Diferentemente dos outros tipos de dados da linguagem AuroraLogo, os arranjos
+ * precisam ser criados usando-se uma instrução específica.
+ */
+
+/*
+ * A instrução criarArranjo[quantidade] cria um novo arranjo com uma quantidade
+ * de elementos especificada. A posição de tais elementos varia de zero
+ * até o comprimento do arranjo - 1. Por exemplo, se temos um arranjo de 5
+ * elementos, o primeiro elemento está na posição 0 e o último na posição 4.
+ */
+vA = criarArranjo[5] .
+escrever vA na saída pulando linha .
+
+escrever "\n\n" na saída .
+
+/*
+ * Por padrão, todo arranjo é criado com todas as posições contendo o valor
+ * inteiro zero, mas podemos atribuir a cada posição o valor que quisermos.
+ */
+vA[0] = 10 .   // atribuindo o valor 10 à posição 0 do arranjo vA
+vA[1] = 20 .   // atribuindo o valor 20 à posição 1 do arranjo vA
+vA[2] = 30 .   // atribuindo o valor 30 à posição 2 do arranjo vA
+vA[3] = 40 .   // atribuindo o valor 40 à posição 3 do arranjo vA
+vA[4] = 50 .   // atribuindo o valor 50 à posição 4 do arranjo vA
+
+/*
+ * Qualquer valor inteiro pode ser usado no operador [] para acessar uma
+ * posição do arranjo. O "normal" são as posições de 0 a comprimento-1, mas
+ * se valores diferentes disso forem usados o interpretador irá usar o que
+ * é chamado de mapeamento modular para endereçar corretamente a posição, 
+ * inclusive valores negativos.
+ */
+escrever vA[0] na saída pulando linha .   // posição 0
+escrever vA[4] na saída pulando linha .   // posição 4
+escrever vA[-1] na saída pulando linha .  // posição -1, indica a posição final
+escrever vA[-2] na saída pulando linha .  // posição -2, indica a penúltima posição
+escrever vA[50] na saída pulando linha .  // posição 50 indica a posição 0, pois
+                                          // o resto da divisão de 50 pelo 
+                                          // comprimento do array (5) é 0
+
+escrever "\n\n" na saída .
+
+/*
+ * Para percorremos o array posição a posição podemos acessar o comprimento
+ * do array para nos auxiliar.
+ */
+vI = 0 .
+enquanto vI < vA.comprimento() repetir incrementando vI {
+    escrever formatarTexto( "vA[%d] = %d", vI, vA[vI] ) na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+/*
+ * Além disso, se quisermos percorrer o array e não estivermos interessados
+ * na posição de cada elemento, mas sim só nos valores, podemos usar uma
+ * outra estrutura de repetição da linguagem AuroraLogo chamada de para...cada.
+ */
+para cada vE em vA repetir {
+    escrever vE na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+/*
+ * Ou seja, para cada elemento do array vA armazenado em vE repita o bloco
+ * de código. A instrução acima é análoga à abaixo.
+ */
+vI = 0 .
+enquanto vI < vA.comprimento() repetir incrementando vI {
+    vE = vA[vI] .
+    escrever vE na saída pulando linha .
+}
+
+escrever "\n\n" na saída .
+
+/*
+ * Por fim, também é possível criar arrays de mais de uma dimensão.
+ * Por exemplo:
+ */
+vM = criarArranjo[3][3] .  // um arranjo de 3 posições, cada uma com um arranjo
+                           // de 3 posições.
+vM[0][0] = 1 .
+vM[0][1] = 1 .
+vM[0][2] = 1 .
+vM[1][0] = 2 .
+vM[1][1] = 2 .
+vM[1][2] = 2 .
+vM[2][0] = 3 .
+vM[2][1] = 3 .
+vM[2][2] = 3 .
+
+vI = 0 .
+enquanto vI < vM.comprimento() repetir incrementando vI {
+    vJ = 0 .
+    enquanto vJ < vM[vI].comprimento() repetir incrementando vJ {
+        escrever formatarTexto( "%d ", vM[vI][vJ] ) na saída .
+    }
+    escrever "\n" na saída .
+}

@@ -5,13 +5,13 @@ usando vI {
     escolha 0:
         escrever "zero" na saída pulando linha .
         se ( 1 == 1 ) então {
-        	escrever "parando do if..." na saída pulando linha .
-        	parar .
+            escrever "parando do if..." na saída pulando linha .
+            parar .
         } senão se 2 == 2 então {
-        	se 1 == 1 então {
-        		escrever "parando do if mais adentro..." na saída pulando linha .
-        		parar .
-        	}
+            se 1 == 1 então {
+                escrever "parando do if mais adentro..." na saída pulando linha .
+                parar .
+            }
         }
     escolha 1:
         escrever "um" na saída pulando linha .

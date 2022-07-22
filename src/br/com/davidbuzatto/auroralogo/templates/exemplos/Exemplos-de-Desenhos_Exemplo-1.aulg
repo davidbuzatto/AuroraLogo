@@ -1,8 +1,11 @@
 /**
- * Exemplo de código fonte da linguagem AuroraLogo.
+ * O código abaixo exemplifica diversas funcionalidades da 
+ * linguagem AuroraLogo, com foco nas instruções de desenho.
+ *
+ * Clique no botão "Executar" acima para ver o resultado.
  *
  * Autor: Prof. Dr. David Buzatto
- * Data: 10/07/2022
+ * Data: <DATA>
  */
 
 // limpa a tela, reposiciona a tartaruga

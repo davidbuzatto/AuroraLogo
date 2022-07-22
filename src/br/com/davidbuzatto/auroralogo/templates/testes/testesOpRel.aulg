@@ -33,7 +33,7 @@ vA = "aurora" .
 vB = "aurora" .
 
 se vA é maior ou igual a vB então {
-	escrever "x" na saída .
+    escrever "x" na saída .
 } senão {
-	escrever "y" na saída .
+    escrever "y" na saída .
 }
