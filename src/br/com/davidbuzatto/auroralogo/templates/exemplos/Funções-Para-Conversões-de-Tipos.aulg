@@ -18,7 +18,7 @@ vA[3] = VERDADEIRO .
 vA[4] = "25.75" .
 vA[5] = #0099cc .
 
-escrever "*** Conversão em INTEIRO ***" na saída pulando linha .
+escrever "*** Conversão em INTEIRO ***" na saída pulando linha . 
 para cada vValor em vA repetir {
     escrever vValor + ", Tipo: " + vValor.tipo() na saída pulando linha .
     escrever "Convertendo em INTEIRO: " na saída .

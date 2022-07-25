@@ -10,7 +10,7 @@ Este é um projeto desenvolvido na IDE NetBeans 14 e é auto-contido.
 
 ## Instalação
 
-As releases podem ser encontradas à direita. É necessário no mínimo o JDK 11.
+As releases podem ser encontradas à direita.
 
 ## Desenvolvedor
 

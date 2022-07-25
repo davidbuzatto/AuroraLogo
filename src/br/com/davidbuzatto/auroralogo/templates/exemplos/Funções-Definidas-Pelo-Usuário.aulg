@@ -15,7 +15,7 @@
 /*
  * Definição da função fEscreverOláMundo. Os identificadores das funções seguem
  * as mesmas regras dos identificadores das variáveis, com a diferença que
- * devem iniciar com a letra "f" minúscula.
+ * devem iniciar com a letra "f" minúscula. 
  * 
  * Algumas linguagens de programação diferenciam funções de procedimentos,
  * sendo que as primeiras obrigatoriamente devem retornar um valor, enquanto
