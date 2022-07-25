@@ -16,7 +16,7 @@ vá para 200, 0 .          // de desenho
 
 /*
  * A segunda forma é enviar os dados à area de texto de saída, mostrada
- * abaixo da área de código fonte.
+ * abaixo da área de código-fonte.
  */
 
 escrever "olá mundo na saída!" na saída .

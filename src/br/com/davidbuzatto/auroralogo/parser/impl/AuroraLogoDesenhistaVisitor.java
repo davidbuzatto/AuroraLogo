@@ -39,7 +39,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
  * Implementação do padrão de projeto Visitor para a AST resultante da análise
- * do código fonte da lingugaem AuroraLogo. É nessa classe que todas as ações
+ * do código-fonte da lingugaem AuroraLogo. É nessa classe que todas as ações
  * relativas a cada tipo de construção são tomadas.
  * 
  * @author Prof. Dr. David Buzatto

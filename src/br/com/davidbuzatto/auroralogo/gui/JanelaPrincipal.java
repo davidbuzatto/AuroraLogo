@@ -168,7 +168,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     /**
      * Creates new form JanelaPrincipal
      */
-    public JanelaPrincipal() {
+    public JanelaPrincipal( File arquivoInicial ) {
         
         try {
             iconeJanela = ImageIO.read( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/gui/icones/iconeTartaruga.png" ) );
@@ -191,7 +191,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         painelDesenho.setJanelaPrincipal( this );
         atualizarLabelZoom();
         
-        configurarTextAreaCodigo();
+        configurarTextAreaCodigo( arquivoInicial );
         configurarDialogosDeBusca();
         
         atualizarBotoesDesfazerRefazer( textAreaCodigo );
@@ -373,7 +373,6 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
         itemSalvarSaidaComo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/br/com/davidbuzatto/auroralogo/gui/icones/disk_multiple.png"))); // NOI18N
         itemSalvarSaidaComo.setText("Salvar Como");
-        itemSalvarSaidaComo.setActionCommand("Salvar Como");
         itemSalvarSaidaComo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 itemSalvarSaidaComoActionPerformed(evt);
@@ -749,7 +748,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         painelSplitCodigoSaida.setDividerLocation(570);
         painelSplitCodigoSaida.setOrientation(javax.swing.JSplitPane.VERTICAL_SPLIT);
 
-        paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código Fonte"));
+        paineCodigoFonte.setBorder(javax.swing.BorderFactory.createTitledBorder("Código-Fonte"));
 
         painelTextAreaCodigo.setLayout(new java.awt.BorderLayout());
 
@@ -1873,7 +1872,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
 
-    private void configurarTextAreaCodigo() {
+    private void configurarTextAreaCodigo( File arquivoInicial ) {
 
         textAreaCodigo = new RSyntaxTextArea();
 
@@ -2028,7 +2027,31 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
         });
         
         if ( PRODUCAO ) {
-            carregarTemplate( "novoArquivo", true );
+            
+            if ( arquivoInicial != null ) {
+                
+                try {
+                    Scanner s = new Scanner( arquivoInicial );
+                    StringBuilder sb = new StringBuilder();
+                    boolean primeiro = true;
+                    while ( s.hasNextLine() ) {
+                        if ( !primeiro ) {
+                            sb.append( "\n" );
+                        }
+                        sb.append( s.nextLine() );
+                        primeiro = false;
+                    }
+                    textAreaCodigo.setText( sb.toString() );
+                    textAreaCodigo.setCaretPosition( 0 );
+                    arquivoAtual = arquivoInicial;
+                    arquivoSalvo = true;
+                    montarTitulo();
+                } catch ( FileNotFoundException exc ) {
+                }
+                
+            } else {
+                carregarTemplate( "novoArquivo", true );
+            }
         } else {
             carregarTesteAulg( Utils.getPref( Utils.PREF_ULTIMO_TESTE ), true );
         }
@@ -2768,15 +2791,21 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             public void run() {
 
                 boolean reset = false;
+                File arquivoInicial = null;
                 
                 if ( args.length != 0 ) {
                     if ( args[0].equals( "-reset" ) ) {
                         reset = true;
+                    } else {
+                        arquivoInicial = new File( args[0] );
+                        if ( !arquivoInicial.exists() ) {
+                            arquivoInicial = null;
+                        }
                     }
                 }
                 
                 prepararPreferences( reset );
-                JanelaPrincipal janela = new JanelaPrincipal();
+                JanelaPrincipal janela = new JanelaPrincipal( arquivoInicial );
 
                 switch ( getPref( PREF_TEMA ) ) {
                     case "claro":

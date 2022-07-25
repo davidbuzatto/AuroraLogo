@@ -94,7 +94,7 @@ vá para baixo em 100 .
  * codificação hexadecimal, assim como nomeá-las uma a uma. Sendo assim, 
  * podemos invocar um diálogo de seleção de cores para nos ajudar quando
  * queremos escolher alguma cor. Para isso, use o atalho Ctrl+U ou clique
- * com o botão direito do mouse aqui na área de código fonte e escolha a opção
+ * com o botão direito do mouse aqui na área de código-fonte e escolha a opção
  * "Inserir Cor". Ao fazer isso, você poderá escolher uma cor, inclusive em 
  * vários espaços de cor disponíveis, e o ambiente da AuroraLogo vai, depois
  * que você clicar em OK no diálogo de cor, inserir o código hexadecimal

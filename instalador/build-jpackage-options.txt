@@ -1,0 +1,14 @@
+--input ../dist/
+--name AuroraLogo
+--main-jar AuroraLogo.jar
+--app-version 1.00
+--vendor 'Prof. Dr. David Buzatto'
+--description 'AuroraLogo é uma linguagem de programação pedagógica desenvolvida pelo Professor Dr. David Buzatto.'
+--icon tartaruga.ico
+--file-associations file-associations.properties
+--license-file ../dist/LICENSE.MD
+--win-dir-chooser
+--win-menu-group 'AuroraLogo'
+--win-per-user-install
+--win-shortcut
+--java-options -splash:app/splash.png
