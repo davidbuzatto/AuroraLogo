@@ -129,7 +129,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
 
     }
     
-    public static final String VERSAO = "v1.00";
+    public static final String VERSAO = "v1.01";
     //public static final String VERSAO = "vx.xx.\u03b1";   // alfa
     //public static final String VERSAO = "vx.xx.\u03b2";   // beta
     

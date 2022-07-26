@@ -52,7 +52,7 @@ public class AuroraLogoErrorListener extends BaseErrorListener {
                 line - 1,
                 charPositionInLine,
                 1,
-                Color.RED );
+                ErroEmLinhaParser.COR_ERRO_SINTATICO );
 
         houveErro = true;
 

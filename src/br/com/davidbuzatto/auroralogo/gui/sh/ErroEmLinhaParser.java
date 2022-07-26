@@ -44,6 +44,9 @@ import org.fife.ui.rsyntaxtextarea.parser.ParserNotice;
  */
 public class ErroEmLinhaParser extends AbstractParser {
     
+    public static final Color COR_ERRO_LEXICO = Color.decode( "#8e00a1" );
+    public static final Color COR_ERRO_SINTATICO = Color.RED;
+    
     private RSyntaxTextArea textAreaCodigo;
     private JTextPane textPaneSaida;
     private Tartaruga tartaruga;
@@ -104,7 +107,7 @@ public class ErroEmLinhaParser extends AbstractParser {
             String erroRazao = String.format( "em linha %d, coluna %d", linha + 1, inicio - ajuste );
             String erroMsg = "";
             
-            Color cor = Color.RED;
+            Color cor = erro.getCor();
             
             if ( erro.getOffendingSymbol() != null && erro.getOffendingSymbol() instanceof Token ) {
                 Token t = (Token) erro.getOffendingSymbol();
@@ -114,13 +117,13 @@ public class ErroEmLinhaParser extends AbstractParser {
                 erroMsg = erro.getMensagem();
                 erroMsg = erroMsg.substring( erroMsg.indexOf( ":" ) + 1 ).trim().replace( "'", "" );
                 erroRazao = "erro léxico " + erroRazao;
-                cor = Color.decode( "#8e00a1" );
+                cor = COR_ERRO_LEXICO;
             }
             
             erroRazao += ":\n    não entendi o que você quiz dizer com \"" + erroMsg + "\" :(";
             
             DefaultParserNotice dpn = new DefaultParserNotice( this, erroRazao, linha + 1, inicio, comprimento );
-            dpn.setColor( erro.getCor() );
+            dpn.setColor( cor );
             dpn.setLevel( ParserNotice.Level.ERROR );
             dpn.setShowInEditor( true );
             dpn.setToolTipText( erroRazao );
