@@ -23,8 +23,7 @@ import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
@@ -70,7 +69,9 @@ public class DialogoSobre extends javax.swing.JDialog {
         });
         
         if ( textoSobre == null ) {
-            Scanner s = new Scanner( getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/ajuda/textoSobre.txt" ) );
+            Scanner s = new Scanner( 
+                    getClass().getResourceAsStream( "/br/com/davidbuzatto/auroralogo/ajuda/textoSobre.txt" ),
+                    StandardCharsets.UTF_8 );
             String texto = "";
             while ( s.hasNextLine() ) {
                 texto += s.nextLine() + "<br/>";

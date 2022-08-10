@@ -23,7 +23,6 @@ import br.com.davidbuzatto.auroralogo.parser.AuroraLogoParser;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoDesenhistaVisitor;
 import br.com.davidbuzatto.auroralogo.parser.impl.AuroraLogoErrorListener;
 import br.com.davidbuzatto.auroralogo.parser.impl.visitors.ComponenteVisitorFuncoes;
-import br.com.davidbuzatto.auroralogo.utils.Utils;
 import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import com.formdev.flatlaf.FlatDarculaLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
@@ -229,10 +228,10 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
             }
         } );
         
-        Utils.criarItensMenuExemplos( this, menuExemplos );
+        criarItensMenuExemplos( this, menuExemplos );
         
         if ( !PRODUCAO ) {
-            Utils.criarItensMenuTestes( this, menuTestes );
+            criarItensMenuTestes( this, menuTestes );
         } else {
             menuTestes.setVisible( false );
         }
@@ -2074,7 +2073,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                 carregarTemplate( "novoArquivo", true );
             }
         } else {
-            carregarTesteAulg( Utils.getPref( Utils.PREF_ULTIMO_TESTE ), true );
+            carregarTesteAulg( getPref( PREF_ULTIMO_TESTE ), true );
         }
 
     }
@@ -2197,8 +2196,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                     
                     tartaruga.limpar();
                     
-                    Color corFundo = Utils.gerarComponenteGradiente( Color.RED, Color.WHITE, 0.9 );
-                    Color corTexto = Utils.gerarComponenteGradiente( Color.RED, Color.BLACK, 0.5 );
+                    Color corFundo = gerarComponenteGradiente( Color.RED, Color.WHITE, 0.9 );
+                    Color corTexto = gerarComponenteGradiente( Color.RED, Color.BLACK, 0.5 );
 
                     JTextPane tp = new JTextPane();
                     tp.setFont( new Font( "Consolas", 0, 13 ) );
@@ -2207,7 +2206,7 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
                     tp.setBorder( new LineBorder( corTexto ) );
                     tp.setFont( textPaneSaida.getFont() );
 
-                    Utils.inserirMensagemEmitente( 
+                    inserirMensagemEmitente( 
                             tp, "tartaruga escreveu", 
                                       "Eu provavelmente entrei em recursão\n"
                                     + "infinita, pois detectei um estouro (overflow) na pilha\n" 
@@ -2749,8 +2748,8 @@ public class JanelaPrincipal extends javax.swing.JFrame implements SearchListene
     }
     
     private void configurarCorJTextPaneSaida() {
-        textPaneSaida.setBackground( Utils.gerarComponenteGradiente( tartaruga.getCor(), Color.WHITE, 0.9 ) );
-        textPaneSaida.setBorder( new LineBorder( Utils.gerarComponenteGradiente( tartaruga.getCor(), Color.BLACK, 0.5 ) ) );
+        textPaneSaida.setBackground( gerarComponenteGradiente( tartaruga.getCor(), Color.WHITE, 0.9 ) );
+        textPaneSaida.setBorder( new LineBorder( gerarComponenteGradiente( tartaruga.getCor(), Color.BLACK, 0.5 ) ) );
     }
     
     @Override

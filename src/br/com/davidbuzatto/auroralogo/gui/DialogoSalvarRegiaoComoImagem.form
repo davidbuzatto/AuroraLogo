@@ -47,7 +47,7 @@
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="lblMaxX" alignment="1" pref="61" max="32767" attributes="0"/>
+                          <Component id="lblMaxX" alignment="1" max="32767" attributes="0"/>
                           <Component id="lblMaxY" alignment="1" max="32767" attributes="0"/>
                           <Component id="lblMaxLargura" max="32767" attributes="0"/>
                           <Component id="lblMaxAltura" alignment="1" max="32767" attributes="0"/>

@@ -16,17 +16,18 @@
  */
 package br.com.davidbuzatto.auroralogo.gui;
 
-import br.com.davidbuzatto.auroralogo.utils.Utils;
-import static br.com.davidbuzatto.auroralogo.utils.Utils.PREF_CAMINHO_ABRIR_SALVAR;
-import static br.com.davidbuzatto.auroralogo.utils.Utils.getPref;
-import static br.com.davidbuzatto.auroralogo.utils.Utils.setPref;
+import static br.com.davidbuzatto.auroralogo.utils.Utils.*;
 import java.awt.Graphics2D;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
+import javax.swing.AbstractAction;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.KeyStroke;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -44,9 +45,20 @@ public class DialogoSalvarRegiaoComoImagem extends javax.swing.JDialog {
      * Creates new form DialogoSalvarRegiaoComoImagem
      */
     public DialogoSalvarRegiaoComoImagem( java.awt.Frame parent, boolean modal, PainelDesenho painelDesenho ) {
+        
         super( parent, modal );
         initComponents();
+        
         this.painelDesenho = painelDesenho;
+        
+        getRootPane().getInputMap().put( KeyStroke.getKeyStroke( KeyEvent.VK_ESCAPE, 0 ), "cancelar" );
+        getRootPane().getActionMap().put( "cancelar", new AbstractAction() {
+            @Override
+            public void actionPerformed( ActionEvent e ) {
+                dispose();
+            }
+        });
+        
     }
 
     /**
@@ -243,10 +255,10 @@ public class DialogoSalvarRegiaoComoImagem extends javax.swing.JDialog {
                     altura = painelDesenho.getHeight() - y;
                 }
                 
-                Utils.setIntPref( Utils.PREF_SALVAR_REGIAO_IMAGEM_X, x );
-                Utils.setIntPref( Utils.PREF_SALVAR_REGIAO_IMAGEM_Y, y );
-                Utils.setIntPref( Utils.PREF_SALVAR_REGIAO_IMAGEM_LARGURA, largura );
-                Utils.setIntPref( Utils.PREF_SALVAR_REGIAO_IMAGEM_ALTURA, altura );
+                setIntPref( PREF_SALVAR_REGIAO_IMAGEM_X, x );
+                setIntPref( PREF_SALVAR_REGIAO_IMAGEM_Y, y );
+                setIntPref( PREF_SALVAR_REGIAO_IMAGEM_LARGURA, largura );
+                setIntPref( PREF_SALVAR_REGIAO_IMAGEM_ALTURA, altura );
                 
                 BufferedImage img = new BufferedImage( painelDesenho.getWidth(), painelDesenho.getHeight(), BufferedImage.TYPE_INT_ARGB );
                 painelDesenho.desenhar( (Graphics2D) img.createGraphics() );
@@ -286,15 +298,17 @@ public class DialogoSalvarRegiaoComoImagem extends javax.swing.JDialog {
         lblMaxLargura.setText( "1 a " + maxLargura );
         lblMaxAltura.setText( "1 a " + maxAltura );
         
-        SpinnerModel modelX = new SpinnerNumberModel( Utils.getIntPref( Utils.PREF_SALVAR_REGIAO_IMAGEM_X ), 0, maxX, 1 );
-        SpinnerModel modelY = new SpinnerNumberModel( Utils.getIntPref( Utils.PREF_SALVAR_REGIAO_IMAGEM_Y ), 0, maxY, 1 );
-        SpinnerModel modelLargura = new SpinnerNumberModel( Utils.getIntPref( Utils.PREF_SALVAR_REGIAO_IMAGEM_LARGURA ), 0, maxLargura, 1 );
-        SpinnerModel modelAltura = new SpinnerNumberModel( Utils.getIntPref( Utils.PREF_SALVAR_REGIAO_IMAGEM_ALTURA ), 0, maxAltura, 1 );
+        SpinnerModel modelX = new SpinnerNumberModel( getIntPref( PREF_SALVAR_REGIAO_IMAGEM_X ), 0, maxX, 1 );
+        SpinnerModel modelY = new SpinnerNumberModel( getIntPref( PREF_SALVAR_REGIAO_IMAGEM_Y ), 0, maxY, 1 );
+        SpinnerModel modelLargura = new SpinnerNumberModel( getIntPref( PREF_SALVAR_REGIAO_IMAGEM_LARGURA ), 0, maxLargura, 1 );
+        SpinnerModel modelAltura = new SpinnerNumberModel( getIntPref( PREF_SALVAR_REGIAO_IMAGEM_ALTURA ), 0, maxAltura, 1 );
         
         spiX.setModel( modelX );
         spiY.setModel( modelY );
         spiLargura.setModel( modelLargura );
         spiAltura.setModel( modelAltura );
+        
+        getRootPane().setDefaultButton( btnSalvar );
         
     }
 
