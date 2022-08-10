@@ -83,6 +83,11 @@ public class Utils {
     public static final String PREF_COR_TARTARUGA = "COR_TARTARUGA";
     public static final String PREF_ULTIMO_TESTE = "PREF_ULTIMO_TESTE";
     
+    public static final String PREF_SALVAR_REGIAO_IMAGEM_X = "PREF_SALVAR_REGIAO_IMAGEM_X";
+    public static final String PREF_SALVAR_REGIAO_IMAGEM_Y = "PREF_SALVAR_REGIAO_IMAGEM_Y";
+    public static final String PREF_SALVAR_REGIAO_IMAGEM_LARGURA = "PREF_SALVAR_REGIAO_IMAGEM_LARGURA";
+    public static final String PREF_SALVAR_REGIAO_IMAGEM_ALTURA = "PREF_SALVAR_REGIAO_IMAGEM_ALTURA";
+    
     public static void mostrarDadosAnalise( 
             CommonTokenStream tokens, 
             Parser parser, 
@@ -932,6 +937,10 @@ public class Utils {
             PREFS.remove( PREF_JANELA_PRINCIPAL_MAXIMIZADA );
             PREFS.remove( PREF_COR_TARTARUGA );
             PREFS.remove( PREF_ULTIMO_TESTE );
+            PREFS.remove( PREF_SALVAR_REGIAO_IMAGEM_X );
+            PREFS.remove( PREF_SALVAR_REGIAO_IMAGEM_Y );
+            PREFS.remove( PREF_SALVAR_REGIAO_IMAGEM_LARGURA );
+            PREFS.remove( PREF_SALVAR_REGIAO_IMAGEM_ALTURA );
         }
         
         PREFS.put( PREF_CAMINHO_ABRIR_SALVAR, PREFS.get( PREF_CAMINHO_ABRIR_SALVAR, new File( "" ).getAbsolutePath() ) );
@@ -944,6 +953,10 @@ public class Utils {
         PREFS.putBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, PREFS.getBoolean( PREF_JANELA_PRINCIPAL_MAXIMIZADA, false ) );
         PREFS.putInt( PREF_COR_TARTARUGA, PREFS.getInt( PREF_COR_TARTARUGA, Integer.MAX_VALUE ) );
         PREFS.put( PREF_ULTIMO_TESTE, PREFS.get( PREF_ULTIMO_TESTE, "testes" ) );
+        PREFS.putInt( PREF_SALVAR_REGIAO_IMAGEM_X, PREFS.getInt( PREF_SALVAR_REGIAO_IMAGEM_X, 0 ) );
+        PREFS.putInt( PREF_SALVAR_REGIAO_IMAGEM_Y, PREFS.getInt( PREF_SALVAR_REGIAO_IMAGEM_Y, 0 ) );
+        PREFS.putInt( PREF_SALVAR_REGIAO_IMAGEM_LARGURA, PREFS.getInt( PREF_SALVAR_REGIAO_IMAGEM_LARGURA, 1 ) );
+        PREFS.putInt( PREF_SALVAR_REGIAO_IMAGEM_ALTURA, PREFS.getInt( PREF_SALVAR_REGIAO_IMAGEM_ALTURA, 1 ) );
         
     }
     
