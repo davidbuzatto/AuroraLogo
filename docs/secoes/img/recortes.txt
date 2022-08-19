@@ -1,0 +1,5 @@
+notebook:
+        x: 575
+        y: 275
+  largura: 241
+   altura: 241

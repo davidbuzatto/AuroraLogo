@@ -1,9 +1,10 @@
 /**
  * Seja bem-vindo! A ideia desse conjunto de exemplos é tentar
  * lhe auxiliar no entendimento de como a linguagem AuroraLogo
- * funciona, vem como seus principais comandos. O funcionamento
+ * funciona, bem como seus principais comandos. O funcionamento
  * da interface gráfica do ambiente de programação pode ser
  * visto no vídeo disponibilizado no endereço:
+ * https://youtu.be/_72eHn1f3og
  *
  * Este texto que você está lendo está escrito dentro do que
  * chamamos de "comentário de documentação". Esses comentários
@@ -19,15 +20,15 @@
  * aprendam a como programar.
  *
  * Do ponto de vista técnico, a linguagem AuroraLogo é uma
- * linguagem de programação interpretada de tipagem dinâmica e
- * fraca que pertence ao paradigma de programação chamado
- * "estruturado", onde as funções são tidas como os blocos
- * fundamentais para a construção dos programas. O inter pretador
+ * linguagem de programação interpretada, de tipagem dinâmica e
+ * fraca, que "pertence" ao paradigma de programação chamado
+ * Estruturado, onde as funções são tidas como os blocos
+ * fundamentais para a construção dos programas. O interpretador
  * da linguagem acusará erros léxicos e sintáticos durante o
- * processo de interpretação. Problemas semânticos são resolvidos
- * automaticamente pelo interpretador, realizando conversões
- * de tipos implícitas. Iremos ver esses detalhes nos exemplos
- * posteriores.
+ * processo de interpretação. Muitos dos erros semânticos são
+ * resolvidos automaticamente pelo interpretador, realizando
+ * conversões de tipos implícitas. Iremos ver esses detalhes
+ * nos exemplos posteriores.
  *
  * Espero que sua jornada pelo aprendizado da linguagem de
  * programação AuroraLogo seja prazeroso e enriquecedor. Essa
