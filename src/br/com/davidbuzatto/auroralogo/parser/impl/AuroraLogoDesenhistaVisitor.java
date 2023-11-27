@@ -250,7 +250,7 @@ public class AuroraLogoDesenhistaVisitor extends AuroraLogoBaseVisitor<Valor> {
     }
 
     
-    // espressão, relação e termo
+    // expressão, relação e termo
     
     @Override
     public Valor visitExpr( AuroraLogoParser.ExprContext ctx ) {
