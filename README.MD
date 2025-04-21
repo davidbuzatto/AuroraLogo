@@ -6,7 +6,7 @@ Essa linguagem tem como fonte de inspiração a linguagem Logo e foi nomeada ass
 
 ## Desenvolvimento
 
-Este é um projeto desenvolvido na IDE NetBeans 14 e é auto-contido.
+Este é um projeto desenvolvido na IDE NetBeans e é auto-contido.
 
 ## Instalação
 
